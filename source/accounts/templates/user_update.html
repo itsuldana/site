@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-5 card text-bg-light form-margins">
+                <h3>Редактировать профиль</h3>
+                <form method="post">
+                    {% include 'partial/user_add_update_form.html' with button_text='Редактировать' %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
