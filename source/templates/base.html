@@ -8,21 +8,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-   <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Boston LMS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Lessons</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Practice</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Resources</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="#">Plans</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a class="btn btn-custom mx-2" href="#">Help</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary mx-2" href="#">Account</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="btn btn-custom mx-2" href="#">Sign up</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary mx-2" href="#">Log in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-{% block content %}
-{% endblock %}
+    <div class="container py-5">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-        crossorigin="anonymous"></script>
+    <footer class="footer py-4">
+        <div class="container d-flex justify-content-between">
+            <div class="w-50">
+                <h5 class="text-white">About</h5>
+                <p class="text-light">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
 
+            <div class="w-25">
+                <h5 class="text-white">Menu</h5>
+                <ul class="list-unstyled">
+                    <li><a class="text-light" href="#">About</a></li>
+                    <li><a class="text-light" href="#">Contact</a></li>
+                    <li><a class="text-light" href="#">Privacy policy</a></li>
+                    <li><a class="text-light" href="#">Terms of use</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kaXgBmXaX1d5X7UJsh8yH12n1g7h6QzM9BQ7nE0h5mHk5fFnbseNIeho0egPeINk"
+            crossorigin="anonymous"></script>
 </body>
 </html>
