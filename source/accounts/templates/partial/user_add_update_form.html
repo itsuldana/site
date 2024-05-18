@@ -1,0 +1,15 @@
+{% csrf_token %}
+{% load django_bootstrap5 %}
+{% bootstrap_form form %}
+
+
+<div class="form_row">
+    <div class="row d-flex justify-content-between">
+        <div class="col-5">
+            {% bootstrap_button button_type="submit" button_class='btn btn-primary green' content=button_text %}
+        </div>
+        <div class="col-4">
+            <a href="{% url 'index' %}" class="btn btn-danger button-back">Отмена</a>
+        </div>
+    </div>
+</div>

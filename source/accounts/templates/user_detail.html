@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row d-flex justify-content-between">
+            <div class="col-5 card text-bg-light form-margins">
+                <h3>Личный кабинет</h3>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Nickname:</td>
+                        <td>{{ user_obj.username }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Email:</td>
+                        <td>{{ user_obj.email }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Имя:</td>
+                        <td>{{ user_obj.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Фамилия:</td>
+                        <td>{{ user_obj.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Вход:</td>
+                        <td>{{ user_obj.last_login }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td></td>
+                        <td>
+                            <a href="{% url 'user_update' user_obj.id %}"
+                               class="btn btn-primary green user-edit-button">
+                                Редактировать
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

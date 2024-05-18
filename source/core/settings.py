@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     'webapp',
+    'accounts',
 ]
 
 
@@ -141,8 +142,9 @@ LOGIN_URL = 'login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Default settings
 BOOTSTRAP5 = {
