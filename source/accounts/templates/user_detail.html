@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Личный кабинет{% endblock %}
 
@@ -35,12 +36,55 @@
                         <td>{{ user_obj.last_login }}</td>
                     </tr>
                     <tr>
+                        <th scope="row">6</th>
+                        <td>Аватарка:</td>
+                        <td>
+                            {% if user_obj.avatar %}
+                                <img src="{{ user_obj.avatar.url }}" alt="User Avatar"
+                                     style="max-width: 200px; max-height: 200px;">
+                            {% else %}
+                                <img src="{% static 'img/avatar.jpg' %}" alt="User Avatar"
+                                     style="max-width: 200px; max-height: 200px;">
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">#</th>
                         <td></td>
                         <td>
                             <a href="{% url 'user_update' user_obj.id %}"
                                class="btn btn-primary green user-edit-button">
                                 Редактировать
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td></td>
+                        <td>
+                            <a href="{% url 'change_email' user_obj.id %}"
+                               class="btn btn-primary green user-edit-button">
+                                Сменить почту
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td></td>
+                        <td>
+                            <a href="{% url 'change_password' user_obj.id %}"
+                               class="btn btn-primary green user-edit-button">
+                                Сменить пароль
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#</th>
+                        <td></td>
+                        <td>
+                            <a href="{% url 'logout' %}"
+                               class="btn btn-primary green user-edit-button">
+                                Выйти из аккаунта
                             </a>
                         </td>
                     </tr>

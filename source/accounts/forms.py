@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class LoginForm(forms.Form):
@@ -42,4 +43,38 @@ class CustomUserCreationForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'avatar')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            if self.cleaned_data.get('avatar'):
+                self.crop_avatar(user)
+        return user
+
+    def crop_avatar(self, user):
+        from PIL import Image
+        img = Image.open(user.avatar.path)
+        width, height = img.size
+        min_side = min(width, height)
+        left = (width - min_side) / 2
+        top = (height - min_side) / 2
+        right = (width + min_side) / 2
+        bottom = (height + min_side) / 2
+        cropped_img = img.crop((left, top, right, bottom))
+        cropped_img.save(user.avatar.path)
+
+
+class EmailChangeForm(forms.Form):
+    new_email = forms.EmailField(label='New Email', required=True)
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label='Current Password', widget=forms.PasswordInput)
+    new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput)
+    new_password2 = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput)
+
+    class Meta:
+        model = get_user_model()
+        fields = ['old_password', 'new_password1', 'new_password2']
