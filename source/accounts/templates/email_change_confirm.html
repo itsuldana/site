@@ -1,0 +1,5 @@
+{% autoescape off %}
+    Hello {{ user.username }},
+    Please click on the link below to confirm your new email address:
+    http://{{ domain }}{% url 'confirm_email_change' uidb64=uid token=token new_email_encoded=new_email %}
+{% endautoescape %}
