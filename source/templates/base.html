@@ -37,8 +37,8 @@
                         <li class="nav-item"><a class="btn btn-custom mx-2" href="#">Help</a></li>
                         <li class="nav-item"><a class="btn btn-secondary mx-2" href="#">Account</a></li>
                     {% else %}
-                        <li class="nav-item"><a class="btn btn-custom mx-2" href="#">Sign up</a></li>
-                        <li class="nav-item"><a class="btn btn-secondary mx-2" href="#">Log in</a></li>
+                        <li class="nav-item"><a class="btn btn-custom mx-2" href="{% url 'register' %}">Sign up</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary mx-2" href="{% url 'login' %}">Log in</a></li>
                     {% endif %}
                 </ul>
             </div>
