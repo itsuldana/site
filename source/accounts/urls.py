@@ -2,10 +2,13 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from accounts.views import (
     RegisterView, LoginView, logout_view, activate, UserDetailView, UserUpdateView, UserEmailChangeView,
-    confirm_email_change, CustomPasswordChangeView,
+    confirm_email_change, CustomPasswordChangeView, set_language,
 )
 
 urlpatterns = [
+    # change language url
+    path('set_language/', set_language, name='set_language'),
+
     # auth and registration urls
     path('login/', LoginView.as_view(), name='login'),
     path('register/', RegisterView.as_view(), name='register'),
