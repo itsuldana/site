@@ -1,10 +1,14 @@
 body {
-    background-color: #F8F9FA;
-    color: #333C4E;
+    background-color: #FFFFFF;
+    color: #0A3161;
 }
 
-.navbar, .footer {
-    background-color: #343A40;
+.navbar {
+    background-color: #0A3161;
+}
+
+.footer {
+    background-color: #D52B1E;
 }
 
 .navbar-brand, .nav-link, .footer a {
@@ -12,28 +16,61 @@ body {
 }
 
 .nav-link:hover, .footer a:hover {
-    color: #FFC107;
+    color: #FFD700;
 }
 
-.btn-custom {
-    background-color: #FFC107;
-    color: #343A40;
-}
-
-.btn-custom:hover, .btn-custom:focus, .btn-custom:active {
-    background-color: #343A40;
-    color: #FFC107;
-    border: 1px solid #FFC107;
-}
-
-.btn-secondary {
-    background-color: #6C757D;
+.btn-primary {
+    background-color: #0A3161;
     color: #FFFFFF;
+    border: 1px solid #0A3161;
 }
 
-.btn-secondary:hover {
-    background-color: #5A6268;
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #083D77;
     color: #FFFFFF;
+    border-color: #083D77;
+}
+
+.btn-primary:active {
+    background-color: #072B52;
+    color: #FFFFFF;
+    border-color: #072B52;
+}
+
+.btn-danger {
+    background-color: #D52B1E;
+    color: #FFFFFF;
+    border: 1px solid #D52B1E;
+}
+
+.btn-danger:hover, .btn-danger:focus {
+    background-color: #A71B0C;
+    color: #FFFFFF;
+    border-color: #A71B0C;
+}
+
+.btn-danger:active {
+    background-color: #721817;
+    color: #FFFFFF;
+    border-color: #721817;
+}
+
+.btn-warning {
+    background-color: #FFD700;
+    color: #0A3161;
+    border: 1px solid #FFD700;
+}
+
+.btn-warning:hover, .btn-warning:focus {
+    background-color: #B8860B;
+    color: #FFFFFF;
+    border-color: #B8860B;
+}
+
+.btn-warning:active {
+    background-color: #0A3161;
+    color: #FFD700;
+    border-color: #0A3161;
 }
 
 .navbar-nav .nav-item .btn {
@@ -44,4 +81,31 @@ body {
     .navbar-nav .nav-item .btn {
         margin-bottom: 0;
     }
+}
+
+.bg-dark-blue {
+    background-color: #0A3161;
+}
+
+.form-margins {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.text-bg-light {
+    background-color: #F8F9FA;
+    color: #0A3161;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+.card-header, .card-footer {
+    background-color: #0A3161;
+    color: #FFFFFF;
+}
+
+.card-footer {
+    font-size: 0.9rem;
 }
