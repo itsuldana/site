@@ -2,20 +2,35 @@
 
 {% load django_bootstrap5 %}
 
+{% block title %}Log in{% endblock %}
+
+{% block navbar %}{% endblock %}
+
 {% block content %}
-    <div class="container main-container">
+    <div class="container main-container py-5">
         <div class="row d-flex justify-content-center">
-            <div class="col-5 card text-bg-light form-margins">
-                <h3>Войдите в аккаунт</h3>
-                <form method="post">
-                    {% csrf_token %}
-                    {% bootstrap_form form %}
-                    <div class="form_row">
-                        {% bootstrap_button button_type="submit" button_class='btn btn-primary green' content='Войти' %}
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-dark-blue text-white text-center py-3">
+                        <h3>Log in to your account</h3>
                     </div>
-                </form>
-                <a href="{% url 'password_reset' %}" class="btn btn-danger">Forgot your password?</a>
+                    <div class="card-body p-4 bg-light">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <div class="d-grid gap-2">
+                                {% bootstrap_button button_type="submit" button_class='btn btn-primary btn-lg' content='Log in' %}
+                            </div>
+                        </form>
+                        <div class="mt-3 d-flex justify-content-between">
+                            <a href="{% url 'password_reset' %}" class="text-primary">Forgot your password?</a>
+                            <a href="{% url 'register' %}" class="text-primary">Create an account</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block footer %}{% endblock %}

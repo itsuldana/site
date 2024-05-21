@@ -1,97 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Личный кабинет{% endblock %}
+{% block title %}Profile{% endblock %}
 
 {% block content %}
-    <div class="container main-container">
-        <div class="row d-flex justify-content-between">
-            <div class="col-5 card text-bg-light form-margins">
-                <h3>Личный кабинет</h3>
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Nickname:</td>
-                        <td>{{ user_obj.username }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Email:</td>
-                        <td>{{ user_obj.email }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Имя:</td>
-                        <td>{{ user_obj.first_name }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Фамилия:</td>
-                        <td>{{ user_obj.last_name }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Вход:</td>
-                        <td>{{ user_obj.last_login }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>Аватарка:</td>
-                        <td>
-                            {% if user_obj.avatar %}
-                                <img src="{{ user_obj.avatar.url }}" alt="User Avatar"
-                                     style="max-width: 200px; max-height: 200px;">
-                            {% else %}
-                                <img src="{% static 'img/avatar.jpg' %}" alt="User Avatar"
-                                     style="max-width: 200px; max-height: 200px;">
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">#</th>
-                        <td></td>
-                        <td>
-                            <a href="{% url 'user_update' user_obj.id %}"
-                               class="btn btn-primary green user-edit-button">
-                                Редактировать
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">#</th>
-                        <td></td>
-                        <td>
-                            <a href="{% url 'change_email' user_obj.id %}"
-                               class="btn btn-primary green user-edit-button">
-                                Сменить почту
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">#</th>
-                        <td></td>
-                        <td>
-                            <a href="{% url 'change_password' user_obj.id %}"
-                               class="btn btn-primary green user-edit-button">
-                                Сменить пароль
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">#</th>
-                        <td></td>
-                        <td>
-                            <a href="{% url 'logout' %}"
-                               class="btn btn-primary green user-edit-button">
-                                Выйти из аккаунта
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+<div class="container main-container py-5">
+    <div class="row gutters-sm">
+        <!-- Left Column -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 d-flex justify-content-center align-items-center">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    {% if user_obj.avatar %}
+                        <img src="{{ user_obj.avatar.url }}" alt="User Avatar" class="rounded img-thumbnail mb-3" style="width: 250px; height: 250px;">
+                    {% else %}
+                        <img src="{% static 'img/avatar.jpg' %}" alt="User Avatar" class="rounded img-thumbnail mb-3" style="width: 250px; height: 250px;">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-8">
+            <div class="card mb-3 h-100">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Nickname</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ user_obj.username }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ user_obj.email }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">First Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ user_obj.first_name }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Last Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ user_obj.last_name }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Last Login</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ user_obj.last_login }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">Edit Profile</a>
+                            <a href="{% url 'change_email' user_obj.id %}" class="btn btn-primary mb-2 me-2">Change Email</a>
+                            <a href="{% url 'change_password' user_obj.id %}" class="btn btn-primary mb-2 me-2">Change Password</a>
+                            <a href="{% url 'logout' %}" class="btn btn-danger mb-2">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-dark-blue text-white text-center py-3">
+                    <p class="mb-0">Thank you for being a part of our community!</p>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+</div>
 {% endblock %}
+
+{% block footer %}{% endblock %}

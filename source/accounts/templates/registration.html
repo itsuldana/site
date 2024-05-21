@@ -1,16 +1,29 @@
 {% extends 'base.html' %}
 
-{% block title %}Регистрация{% endblock %}
+{% load django_bootstrap5 %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block navbar %}{% endblock %}
 
 {% block content %}
-    <div class="container main-container">
+    <div class="container main-container py-5">
         <div class="row d-flex justify-content-center">
-            <div class="col-5 card text-bg-light form-margins">
-                <h3>Регистрация</h3>
-                <form method="post">
-                    {% include 'partial/user_add_update_form.html' with button_text='Регистрация' %}
-                </form>
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-dark-blue text-white text-center py-3">
+                        <h3>Sign Up</h3>
+                    </div>
+                    <div class="card-body p-4 bg-light">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% include 'partial/user_add_update_form.html' with button_text='Sign Up' %}
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block footer %}{% endblock %}

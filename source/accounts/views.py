@@ -8,8 +8,6 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.conf import settings
-from django.utils.translation import activate as activate_translation
 from django.views.generic import CreateView, TemplateView, DetailView, UpdateView, FormView
 
 from accounts.forms import (
@@ -151,11 +149,3 @@ class CustomPasswordChangeView(PasswordChangeView):
 
     def get_success_url(self):
         return reverse_lazy('user_detail', kwargs={'pk': self.request.user.pk})
-
-
-def set_language(request):
-    lang_code = request.GET.get('language', 'en')
-    activate_translation(lang_code)
-    response = redirect(request.META.get('HTTP_REFERER', '/'))
-    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
-    return response
