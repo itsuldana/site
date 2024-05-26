@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-21 01:19+0500\n"
+"POT-Creation-Date: 2024-05-23 02:25+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,26 +28,26 @@ msgstr ""
 msgid "Russian"
 msgstr ""
 
-#: templates/base.html:31
+#: templates/base.html:29
 msgid "Dashboard"
 msgstr "Планировщик"
 
-#: templates/base.html:32
+#: templates/base.html:30
 msgid "Lessons"
 msgstr "Уроки"
 
-#: templates/base.html:33
+#: templates/base.html:31
 msgid "Practice"
 msgstr "Практикум"
 
-#: templates/base.html:34
+#: templates/base.html:32
 msgid "Resources"
 msgstr "Ресурсы"
 
-#: templates/base.html:44
+#: templates/base.html:39
 msgid "Sign up"
 msgstr "Зарегистрироваться"
 
-#: templates/base.html:45
+#: templates/base.html:42
 msgid "Log in"
 msgstr "Войти"
