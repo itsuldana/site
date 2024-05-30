@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ course.title }}</h2>
+    <p>{{ course.description }}</p>
+    <p>Price: {{ course.price }}</p>
+    <p>Created at: {{ course.created_at }}</p>
+    <p>Updated at: {{ course.updated_at }}</p>
+    {% if course.image %}
+        <img src="{{ course.image.url }}" alt="{{ course.title }}">
+    {% endif %}
+{% endblock %}

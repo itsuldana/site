@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Our Courses</h1>
+                    <p class="lead text-muted">Explore our diverse range of courses designed to help you succeed.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                    {% for course in courses %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="{{ course.image.url }}" class="bd-placeholder-img card-img-top" width="100%"
+                                     height="225">
+                                <div class="card-body">
+                                    <p class="card-text">{{ course.title }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{% url 'course_detail' course.pk %}"
+                                               class="btn btn-sm btn-outline-secondary">View</a>
+                                            <a href="{% url 'course_edit' course.pk %}"
+                                               class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        </div>
+                                        <small class="text-muted">{{ course.price }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="row">
+                    {% if is_paginated %}
+                        {% include 'partial/pagination.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

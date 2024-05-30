@@ -1,14 +1,17 @@
 from django.urls import path
 
-from webapp.views import IndexView, CoursesView, CourseView
+from webapp.views.course import CourseCreateView, CourseDetailView, CourseUpdateView, CourseListView, IndexView, CoursesView, CourseView
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    # index url
+    path('', CourseListView.as_view(), name='course_list'),
+
     path('courses', CoursesView.as_view(), name='courses'),
     path('course', CourseView.as_view(), name='course'),
-    # path('photos/', IndexView.as_view(), name='photo_list'),
-    # path('photos/create', PhotoCreateView.as_view(), name='photo_create'),
-    # path('photos/<int:pk>/detail', PhotoDetailView.as_view(), name='photo_detail'),
-    # path('photos/<int:pk>/update', PhotoUpdateView.as_view(), name='photo_update'),
-    # path('photos/<int:pk>/delete', PhotoDeleteView.as_view(), name='photo_delete'),
+
+    # urls для курсов
+    path('courses/create/', CourseCreateView.as_view(), name='course_create'),
+    path('courses/<int:pk>/detail/', CourseDetailView.as_view(), name='course_detail'),
+    path('courses/<int:pk>/edit/', CourseUpdateView.as_view(), name='course_edit'),
+    path('courses/', CourseListView.as_view(), name='course_list'),
 ]
