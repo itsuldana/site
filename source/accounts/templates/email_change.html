@@ -1,10 +1,32 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}Change Email{% endblock %}
+
+{% block navbar %}{% endblock %}
 
 {% block content %}
-    <h2>Change Email</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Change Email</button>
-    </form>
+    <div class="container main-container py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-dark-blue text-white text-center py-3">
+                        <h3>Change Email</h3>
+                    </div>
+                    <div class="card-body p-4 bg-light">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <div class="d-grid gap-2">
+                                {% bootstrap_button button_type="submit" button_class='btn btn-primary btn-lg' content='Change Email' %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+{% block footer %}{% endblock %}

@@ -8,7 +8,7 @@ body {
 }
 
 .footer {
-    background-color: #D52B1E;
+    background-color: #6C757D;
 }
 
 .navbar-brand, .nav-link, .footer a {
@@ -73,6 +73,24 @@ body {
     border-color: #0A3161;
 }
 
+.btn-secondary {
+    background-color: #6C757D;
+    color: #FFFFFF;
+    border: 1px solid #6C757D;
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+    background-color: #5A6268;
+    color: #FFFFFF;
+    border-color: #5A6268;
+}
+
+.btn-secondary:active {
+    background-color: #4E555B;
+    color: #FFFFFF;
+    border-color: #4E555B;
+}
+
 .navbar-nav .nav-item .btn {
     margin-bottom: 10px;
 }
@@ -99,6 +117,15 @@ body {
 
 .card {
     border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+}
+
+.course-card {
+    transition: transform 0.2s;
+}
+
+.course-card:hover {
+    transform: scale(1.02);
 }
 
 .card-header, .card-footer {
@@ -108,4 +135,39 @@ body {
 
 .card-footer {
     font-size: 0.9rem;
+}
+
+.language-dropdown .nav-link {
+    color: #000 !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+}
+
+.language-dropdown .dropdown-menu {
+    background-color: #f8f9fa !important;
+    border: 1px solid #ced4da !important;
+}
+
+.language-dropdown .dropdown-item {
+    color: #000 !important;
+}
+
+.language-dropdown .dropdown-item:hover {
+    background-color: #e2e6ea !important;
+}
+
+.list-group-item {
+    background-color: #F8F9FA;
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    border-radius: 0.25rem;
+}
+
+.list-group-item:hover {
+    background-color: #e9ecef;
+}
+
+h1, h2, h5 {
+    color: #0A3161;
 }

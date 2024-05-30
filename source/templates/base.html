@@ -28,6 +28,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     {% if request.user.is_authenticated %}
+<<<<<<< Updated upstream
                         <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Dashboard" %}</a>
                         </li>
                         <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Lessons" %}</a>
@@ -39,6 +40,19 @@
                         <li class="nav-item"><a class="btn btn-warning fw-bold mx-2 my-2" href="#">Help</a></li>
                         <li class="nav-item"><a class="btn btn-danger fw-bold mx-2 my-2"
                                                 href="{% url 'user_detail' user.pk %}">Account</a></li>
+=======
+                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Dashboard" %}</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Lessons" %}</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Practice" %}</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Resources" %}</a></li>
+                        <li class="nav-item"><a class="btn btn-warning fw-bold mx-2 my-2" href="#">Help</a></li>
+                        {% url 'user_detail' request.user.pk as profile_url %}
+                        {% if request.path == profile_url %}
+                            <li class="nav-item"><a class="btn btn-danger fw-bold mx-2 my-2" href="{% url 'logout' %}">Log Out</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="btn btn-danger fw-bold mx-2 my-2" href="{% url 'user_detail' request.user.pk %}">Account</a></li>
+                        {% endif %}
+>>>>>>> Stashed changes
                     {% else %}
                         <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">Plans</a></li>
                         <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">Blog</a></li>
@@ -51,6 +65,20 @@
                                href="{% url 'login' %}">{% trans "Log in" %}</a>
                         </li>
                     {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% if LANGUAGE_CODE == 'en' %}
+                                EN
+                            {% else %}
+                                RU
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item" href="{% url 'set_language' %}?language=en">EN</a></li>
+                            <li><a class="dropdown-item" href="{% url 'set_language' %}?language=ru">RU</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         {% endblock %}
@@ -60,10 +88,13 @@
 <div class="container py-5">
     {% block content %}
     {% endblock %}
+<<<<<<< Updated upstream
     <div>
         <a href="{% url 'set_language' %}?language=en">English</a> |
         <a href="{% url 'set_language' %}?language=ru">Русский</a>
     </div>
+=======
+>>>>>>> Stashed changes
 </div>
 
 {% block footer %}
