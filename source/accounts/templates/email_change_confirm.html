@@ -1,5 +1,28 @@
-{% autoescape off %}
-    Hello {{ user.username }},
-    Please click on the link below to confirm your new email address:
-    http://{{ domain }}{% url 'confirm_email_change' uidb64=uid token=token new_email_encoded=new_email %}
-{% endautoescape %}
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}Confirm Email Change{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+    <div class="container main-container py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-dark-blue text-white text-center py-3">
+                        <h3>Confirm Email Change</h3>
+                    </div>
+                    <div class="card-body p-4 bg-light">
+                        <p>Hello {{ user.username }},</p>
+                        <p>Please click on the link below to confirm your new email address:</p>
+                        <p><a href="http://{{ domain }}{% url 'confirm_email_change' uidb64=uid token=token new_email_encoded=new_email %}" class="btn btn-primary btn-lg">Confirm Email</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

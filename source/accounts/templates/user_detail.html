@@ -10,11 +10,13 @@
         <div class="col-md-4 mb-3">
             <div class="card h-100 d-flex justify-content-center align-items-center">
                 <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                    {% if user_obj.avatar %}
-                        <img src="{{ user_obj.avatar.url }}" alt="User Avatar" class="rounded img-thumbnail mb-3" style="width: 250px; height: 250px;">
-                    {% else %}
-                        <img src="{% static 'img/avatar.jpg' %}" alt="User Avatar" class="rounded img-thumbnail mb-3" style="width: 250px; height: 250px;">
-                    {% endif %}
+                    <div class="w-100 h-100">
+                        {% if user_obj.avatar %}
+                            <img src="{{ user_obj.avatar.url }}" alt="User Avatar" class="rounded img-thumbnail mb-3 w-100 h-100 object-fit-cover">
+                        {% else %}
+                            <img src="{% static 'img/avatar.jpg' %}" alt="User Avatar" class="rounded img-thumbnail mb-3 w-100 h-100 object-fit-cover">
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +75,7 @@
                             <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">Edit Profile</a>
                             <a href="{% url 'change_email' user_obj.id %}" class="btn btn-primary mb-2 me-2">Change Email</a>
                             <a href="{% url 'change_password' user_obj.id %}" class="btn btn-primary mb-2 me-2">Change Password</a>
-                            <a href="{% url 'logout' %}" class="btn btn-danger mb-2">Log Out</a>
+                            <!-- <a href="{% url 'logout' %}" class="btn btn-danger mb-2">Log Out</a> -->
                         </div>
                     </div>
                 </div>

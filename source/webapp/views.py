@@ -6,3 +6,9 @@ from django.views.generic import TemplateView
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+class CoursesView(TemplateView):
+    template_name = 'courses.html'
+
+class CourseView(TemplateView):
+    template_name = 'course.html'
