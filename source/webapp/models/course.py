@@ -31,6 +31,11 @@ class Course(models.Model):
         blank=True,
         verbose_name="Image"
     )
+    tag = models.ManyToManyField(
+        to='webapp.Tag',
+        related_name='tags',
+        blank=True
+    )
     is_deleted = models.BooleanField(
         verbose_name='Удалено',
         null=False,

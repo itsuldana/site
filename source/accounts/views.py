@@ -10,11 +10,12 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.conf import settings
 from django.utils.translation import activate as activate_translation
-from django.views.generic import CreateView, TemplateView, DetailView, UpdateView, FormView
+from django.views.generic import CreateView, TemplateView, DetailView, UpdateView, FormView, ListView
 
 from accounts.forms import (
     CustomUserCreationForm, LoginForm, UserForm, EmailChangeForm, CustomPasswordChangeForm,
 )
+from webapp.models import Course, Module, Lesson
 
 
 class LoginView(TemplateView):
@@ -159,3 +160,41 @@ def set_language(request):
     response = redirect(request.META.get('HTTP_REFERER', '/'))
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
     return response
+
+
+class ManageCoursesView(ListView):
+    template_name = 'manage/manage_courses.html'
+
+    context_object_name = 'courses'
+    model = Course
+    ordering = ['-created_at']
+
+
+class ManageModulesView(ListView):
+    template_name = 'manage/manage_modules.html'
+
+    model = Module
+    context_object_name = 'modules'
+
+    def get_queryset(self):
+        return Module.objects.filter(course_id=self.kwargs['pk']).order_by('position')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['course'] = Course.objects.get(id=self.kwargs['pk'])
+        return context
+
+
+class ManageLessonsView(ListView):
+    template_name = 'manage/manage_lessons.html'
+
+    model = Lesson
+    context_object_name = 'lessons'
+
+    def get_queryset(self):
+        return Lesson.objects.filter(module_id=self.kwargs['pk']).order_by('id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['module'] = Module.objects.get(id=self.kwargs['pk'])
+        return context

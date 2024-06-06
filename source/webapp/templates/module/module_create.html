@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Создание модуля{% endblock %}
+
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-5 card text-bg-light form-margins">
+                <h3>Создание модуля</h3>
+                <form action="" method="post" >
+                    {% include 'partial/add_update_form.html' with button_text='Создать' %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

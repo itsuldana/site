@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Lessons{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Manage Lessons for {{ module.title }}</h2>
+        </div>
+        {% if lessons %}
+            {% for lesson in lessons %}
+                <div class="col-2">
+                    <p>{{ lesson.title }}</p>
+                </div>
+                <div class="col-4">
+                    <a href="{% url 'lesson_edit' lesson.pk %}" class="btn btn-warning">Edit Lesson</a>
+                </div>
+                <div class="col-4">
+                    <a href="{% url 'lesson_detail' lesson.pk %}" class="btn btn-warning">View Lesson</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<a href="{% url 'lesson_create' module.pk  %}" class="btn btn-warning">Create Lesson</a>
+
+{% endblock %}

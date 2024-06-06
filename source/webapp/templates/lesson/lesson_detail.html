@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ object.title }}</h2>
+    <div>
+        {{ object.content|safe }}
+    </div>
+    <div>
+        <a href="{{ object.video_url }}" target="_blank">Watch Video</a>
+    </div>
+{% endblock %}

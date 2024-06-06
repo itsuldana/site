@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление с подтверждением{% endblock %}
+
+{% block content %}
+    <div class="container main-container">
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Вы точно хотите удалить урок?
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <h5>{{ lesson.title }}</h5>
+                <p>{{ lesson.content|safe }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1 button-margin">
+{#                TODO url manage lessons#}
+                <form action="{% url 'lesson_delete' lesson.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class='btn btn-danger'>Удалить</button>
+                </form>
+            </div>
+            <div class="col-1">
+                <a href="{% url 'TODO' %}" class='btn btn-success'>Отмена</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

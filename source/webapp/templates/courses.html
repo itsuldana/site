@@ -6,175 +6,74 @@
 {% block title %}Courses{% endblock %}
 
 {% block content %}
-<main class="container-fluid py-5">
-    <div class="row">
-        <!-- Sidebar Filters -->
-        <div class="col-md-3">
-            <h5>Filters</h5>
-            <form>
-                <div class="mb-3">
-                    <h6>Topic</h6>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="topic1">
-                        <label class="form-check-label" for="topic1">Business</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="topic2">
-                        <label class="form-check-label" for="topic2">Computer Science</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="topic3">
-                        <label class="form-check-label" for="topic3">Data Science</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="topic4">
-                        <label class="form-check-label" for="topic4">Information Technology</label>
-                    </div>
-                    <a href="#">Show more</a>
-                </div>
-
-                <div class="mb-3">
-                    <h6>Language</h6>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="language1">
-                        <label class="form-check-label" for="language1">English</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="language2">
-                        <label class="form-check-label" for="language2">French</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="language3">
-                        <label class="form-check-label" for="language3">Spanish</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="language4">
-                        <label class="form-check-label" for="language4">Portuguese (Brazil)</label>
-                    </div>
-                    <a href="#">Show more</a>
-                </div>
-
-                <div class="mb-3">
-                    <h6>Learning Product</h6>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="product1">
-                        <label class="form-check-label" for="product1">Guided Projects</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="product2">
-                        <label class="form-check-label" for="product2">Courses</label>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <!-- Courses List -->
-        <div class="col-md-9">
-            <div class="album py-5 bg-light">
-                <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        <div class="col">
-                            <div class="card course-card shadow-sm">
-                                <img src="https://via.placeholder.com/150" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="Course Image">
-                                <div class="card-body">
-                                    <p class="card-text">Course description goes here. This is a brief overview of the course content and objectives.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
+    <main class="container-fluid py-5">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-md-3">
+                <h5>Filters</h5>
+                <form id="filter-form">
+                    <div class="mb-3">
+                        <h6>Tags</h6>
+                        {% if tags %}
+                            {% for tag in tags %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="tags" value="{{ tag.name }}"
+                                           id="tag{{ tag.id }}"
+                                           {% if tag.name in selected_tags %}checked{% endif %}>
+                                    <label class="form-check-label" for="tag{{ tag.id }}">{{ tag.name }}</label>
                                 </div>
-                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>Tags were not found</p>
+                        {% endif %}
+                        <button type="button" id="reset-filters" class="btn btn-secondary mt-3">Reset Filters</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Courses List -->
+            <div class="col-md-9">
+                <div class="album py-5 bg-light">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                            {% if courses %}
+                                {% for course in courses %}
+                                    <div class="col">
+                                        <div class="card course-card shadow-sm">
+                                            <img src="{{ course.image.url }}" class="bd-placeholder-img card-img-top"
+                                                 width="100%" height="225" alt="Course Image">
+                                            <div class="card-body">
+                                                <p class="card-text">{{ course.title }}</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="btn-group">
+                                                        <a href="{% url 'course_detail' course.pk %}"
+                                                           class="btn btn-sm btn-outline-secondary">View</a>
+                                                        <a href="{% url 'course_edit' course.pk %}"
+                                                           class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                    </div>
+                                                    <small class="text-muted">{{ course.price }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <h2>No courses!</h2>
+                            {% endif %}
                         </div>
-
-                        <div class="col">
-                            <div class="card course-card shadow-sm">
-                                <img src="https://purr.objects-us-east-1.dream.io/i/img_20170919_162251.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
-                                <div class="card-body">
-                                    <p class="card-text">Course description goes here. This is a brief overview of the course content and objectives.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card course-card shadow-sm">
-                                <img src="https://purr.objects-us-east-1.dream.io/i/img_20170919_162251.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
-                                <div class="card-body">
-                                    <p class="card-text">Course description goes here. This is a brief overview of the course content and objectives.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card course-card shadow-sm">
-                                <img src="https://purr.objects-us-east-1.dream.io/i/img_20170919_162251.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
-                                <div class="card-body">
-                                    <p class="card-text">Course description goes here. This is a brief overview of the course content and objectives.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card course-card shadow-sm">
-                                <img src="https://purr.objects-us-east-1.dream.io/i/img_20170919_162251.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
-                                <div class="card-body">
-                                    <p class="card-text">Course description goes here. This is a brief overview of the course content and objectives.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card course-card shadow-sm">
-                                <img src="https://purr.objects-us-east-1.dream.io/i/img_20170919_162251.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
-                                <div class="card-body">
-                                    <p class="card-text">Course description goes here. This is a brief overview of the course content and objectives.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                        </div>
-                                        <small class="text-muted">9 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                     
-
-                        <!-- Other course cards... -->
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+        <div class="row">
+            {% if is_paginated %}
+                {% include 'partial/pagination.html' %}
+            {% endif %}
+        </div>
+    </main>
+
+    <script src="{% static 'js/tags_filter.js' %}"></script>
+
 {% endblock %}
+
+

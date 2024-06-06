@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Courses{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Manage Courses</h2>
+        </div>
+        {% if courses %}
+            {% for course in courses %}
+                <div class="col-2">
+                    <p>{{ course.title }}</p>
+                </div>
+                <div class="col-4">
+                    <p> {{ course.description }}</p>
+                </div>
+                <div class="col-2">
+                    <p> {{ course.price }}</p>
+                </div>
+                <div class="col-4">
+                    <a href="{% url 'course_edit' course.pk %}" class="btn btn-warning">Edit Course</a>
+                    <a href="{% url 'manage_modules' course.pk %}" class="btn btn-secondary">Manage Course</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<a href="{% url 'course_create' %}" class="btn btn-warning">Создать курс</a>
+
+{% endblock %}
