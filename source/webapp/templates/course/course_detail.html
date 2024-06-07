@@ -31,25 +31,28 @@
             <hr class="bg-secondary">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="fw-bold mb-4">Section 1. Introduction</h2>
-                    <div class="list-group">
-                        <div class="list-group-item bg-light text-dark">
-                            <h5 class="mb-1">01. Welcome to the Course</h5>
-                            <p class="mb-1">An introduction to the course structure and objectives. Learn what to expect
-                                and how to get the most out of this course.</p>
-                            <small>5m 12s</small>
-                        </div>
-                        <div class="list-group-item bg-light text-dark">
-                            <h5 class="mb-1">02. Basic Grammar Rules</h5>
-                            <p class="mb-1">A review of basic English grammar rules that form the foundation of the
-                                language. Topics include sentence structure, verb conjugations, and more.</p>
-                            <small>8m 45s</small>
-                        </div>
-                        <!-- More lessons... -->
-                    </div>
+                    {% if modules %}
+                        {% for module in modules %}
+                            <h2 class="fw-bold mb-4">Module {{ module.position }}. {{ module.title }}</h2>
+                            {% if module.lessons.all %}
+                                <div class="list-group">
+                                    {% for lesson in module.lessons.all %}
+                                        <div class="list-group-item bg-light text-dark">
+                                            <h5 class="mb-1">{{ forloop.counter }}. {{ lesson.title }}</h5>
+                                            <p class="mb-1">{{ lesson.small_description }}</p>
+                                            <small>5m 12s</small>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p>No lessons available.</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No modules available.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </main>
 {% endblock %}
-

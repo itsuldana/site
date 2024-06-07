@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
-from ..models import Course, Tag
+from ..models import Course, Tag, Module
 
 
 class CourseListView(ListView):
@@ -46,6 +46,7 @@ class CourseDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["modules"] = Module.objects.all().filter(course=self.object)
         context['tags'] = self.object.tag.all()
         return context
 

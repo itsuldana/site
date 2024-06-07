@@ -2,6 +2,10 @@
 
 {% block title %}Редактирование урока{% endblock %}
 
+{% block header %}
+    {{ form.media }} # Required for styling/js to make ckeditor5 work
+{% endblock %}
+
 {% block content %}
     <div class="container main-container">
         <div class="row d-flex justify-content-center">

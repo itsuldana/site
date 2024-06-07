@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ object.title }}</h2>
+    <h2>{{ lesson.title }}</h2>
     <div>
-        {{ object.content|safe }}
+        {{ lesson.content|safe }}
     </div>
     <div>
-        <a href="{{ object.video_url }}" target="_blank">Watch Video</a>
+    <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/{{ lesson.video_url }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
     </div>
 {% endblock %}
