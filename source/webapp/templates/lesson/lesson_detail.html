@@ -1,18 +1,39 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
+    <style>
+        .plyr {
+            max-width: 500px; /* Максимальная ширина видео */
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <h2>{{ lesson.title }}</h2>
     <div>
         {{ lesson.content|safe }}
     </div>
     <div>
-    <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/{{ lesson.video_url }}"
-            frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
+        {% if lesson.video_url %}
+            <div>
+                <h3>Video</h3>
+                <div class="plyr__video-embed" id="player">
+                    <iframe src="{{ lesson.video_url }}" allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>
+            </div>
+        {% endif %}
+
+        <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const player = new Plyr('#player', {
+                    controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+                    settings: ['captions', 'quality', 'speed', 'loop'],
+                    quality: { default: 1080, options: [4320, 2880, 1440, 1080, 720, 480, 360, 240] },
+                    speed: { selected: 1, options: [0.5, 1, 1.5, 2] }
+                });
+            });
+        </script>
     </div>
 {% endblock %}
