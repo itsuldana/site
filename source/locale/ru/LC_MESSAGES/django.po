@@ -22,7 +22,7 @@ msgstr ""
 
 #: core/settings.py:117
 msgid "English"
-msgstr ""
+msgstr "Английский"
 
 #: core/settings.py:118
 msgid "Russian"

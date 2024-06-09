@@ -1,5 +1,5 @@
 from django import forms
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
+# from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from .models import Course, Module
 from .models.lessons import Lesson
@@ -18,7 +18,11 @@ class CourseModuleForm(forms.ModelForm):
 
 
 class LessonForm(forms.ModelForm):
-    content = forms.CharField(label="Content", widget=CKEditorUploadingWidget())
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # it is required to set it False,
+        # otherwise it will throw error in console
+        self.fields["content"].required = False
 
     class Meta:
         model = Lesson
