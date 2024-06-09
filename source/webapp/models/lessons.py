@@ -1,6 +1,6 @@
-from ckeditor.fields import RichTextField
+# from ckeditor.fields import RichTextField
 from django.db import models
-
+from django_ckeditor_5.fields import CKEditor5Field
 
 from webapp.models import Module
 
@@ -24,8 +24,9 @@ class Lesson(models.Model):
         blank=False,
         verbose_name="Краткое описание"
     )
-    content = RichTextField(
+    content = CKEditor5Field(
         'Content',
+        config_name='extends'
     )
     video_url = models.URLField(
         max_length=1000,
