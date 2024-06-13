@@ -2,15 +2,21 @@
 
 {% block title %}Создание курса{% endblock %}
 
-
 {% block content %}
-    <div class="container main-container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-5 card text-bg-light form-margins">
-                <h3>Создание курса</h3>
-                <form action="{% url 'course_create' %}" method="post" enctype="multipart/form-data">
-                    {% include 'partial/add_update_form.html' with button_text='Создать' %}
-                </form>
+    <div class="container main-container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm form-margins">
+                    <div class="card-header text-center bg-dark-blue text-white">
+                        <h3>Создание курса</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'course_create' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% include 'partial/add_update_form.html' with button_text='Создать' %}
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
