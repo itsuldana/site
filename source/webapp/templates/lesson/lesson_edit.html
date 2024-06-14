@@ -3,17 +3,24 @@
 {% block title %}Редактирование урока{% endblock %}
 
 {% block header %}
-    {{ form.media }} # Required for styling/js to make ckeditor5 work
+    {{ form.media }} <!-- Required for styling/js to make ckeditor5 work -->
 {% endblock %}
 
 {% block content %}
-    <div class="container main-container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-7 card text-bg-light form-margins">
-                <h3>Редактирование урока</h3>
-                <form method="post">
-                    {% include 'partial/add_update_form.html' with button_text='Редактировать' %}
-                </form>
+    <div class="container main-container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm form-margins">
+                    <div class="card-header text-center bg-dark-blue text-white">
+                        <h3>Редактирование урока</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% include 'partial/add_update_form.html' with button_text='Редактировать' %}
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
