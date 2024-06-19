@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Manage Modules{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Manage Modules" %}{% endblock %}
 
 {% block content %}
 <div class="container py-5">
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2>Manage Modules for {{ course.title }}</h2>
+                <h2>{% trans "Manage Modules for" %} {{ course.title }}</h2>
                 <div>
                     <a href="{% url 'module_create' course.pk %}" class="btn btn-success">
-                        <i class="bi bi-plus-lg"></i> Add New Module
+                        <i class="bi bi-plus-lg"></i> {% trans "Add New Module" %}
                     </a>
                 </div>
             </div>
@@ -19,9 +20,9 @@
                 <table class="table table-striped table-hover align-middle">
                     <thead class="bg-dark-blue text-white">
                         <tr>
-                            <th scope="col">Position</th>
-                            <th scope="col">Title</th>
-                            <th scope="col" class="text-center">Actions</th>
+                            <th scope="col">{% trans "Position" %}</th>
+                            <th scope="col">{% trans "Title" %}</th>
+                            <th scope="col" class="text-center">{% trans "Actions" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +38,7 @@
                                     <i class="bi bi-trash"></i>
                                 </a>
                                 <a href="{% url 'manage_lessons' module.pk %}" class="btn btn-secondary btn-sm">
-                                    <i class="bi bi-gear"></i> Manage
+                                    <i class="bi bi-gear"></i> {% trans "Manage" %}
                                 </a>
                             </td>
                         </tr>
@@ -58,7 +59,7 @@
                 </nav>
             </div>
             {% else %}
-            <p>No modules available.</p>
+            <p>{% trans "No modules available." %}</p>
             {% endif %}
         </div>
     </div>
