@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-23 02:25+0500\n"
+"POT-Creation-Date: 2024-06-19 15:33+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,34 +20,301 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: core/settings.py:117
-msgid "English"
-msgstr "Английский"
+#: accounts/templates/login.html:6 accounts/templates/login.html:23
+#: templates/base.html:71
+msgid "Log in"
+msgstr "Войти"
 
-#: core/settings.py:118
-msgid "Russian"
-msgstr ""
+#: accounts/templates/login.html:16
+msgid "Log in to your account"
+msgstr "Войдите в свой аккаунт"
 
-#: templates/base.html:29
-msgid "Dashboard"
-msgstr "Планировщик"
+#: accounts/templates/login.html:28
+msgid "Forgot your password?"
+msgstr "Забыли пароль?"
 
-#: templates/base.html:30
-msgid "Lessons"
-msgstr "Уроки"
+#: accounts/templates/login.html:29
+msgid "Create an account"
+msgstr "Создать аккаунт"
 
-#: templates/base.html:31
-msgid "Practice"
-msgstr "Практикум"
+#: accounts/templates/manage/manage_courses.html:4
+#: accounts/templates/manage/manage_courses.html:11
+msgid "Manage Courses"
+msgstr "Управление курсами"
 
-#: templates/base.html:32
-msgid "Resources"
-msgstr "Ресурсы"
+#: accounts/templates/manage/manage_courses.html:14
+msgid "Delete"
+msgstr "Удалить"
 
-#: templates/base.html:39
+#: accounts/templates/manage/manage_courses.html:17
+msgid "Add New Course"
+msgstr "Добавить новый курс"
+
+#: accounts/templates/manage/manage_courses.html:29
+#: accounts/templates/manage/manage_lessons.html:23
+#: accounts/templates/manage/manage_modules.html:24
+msgid "Title"
+msgstr "Название"
+
+#: accounts/templates/manage/manage_courses.html:30
+msgid "Description"
+msgstr "Описание"
+
+#: accounts/templates/manage/manage_courses.html:31
+msgid "Price"
+msgstr "Цена"
+
+#: accounts/templates/manage/manage_courses.html:32
+#: accounts/templates/manage/manage_lessons.html:24
+#: accounts/templates/manage/manage_modules.html:25
+msgid "Actions"
+msgstr "Действия"
+
+#: accounts/templates/manage/manage_courses.html:52
+#: accounts/templates/manage/manage_modules.html:41 templates/base.html:46
+msgid "Manage"
+msgstr "Управление"
+
+#: accounts/templates/manage/manage_courses.html:73
+msgid "No courses available."
+msgstr "Курсы отсутствуют."
+
+#: accounts/templates/manage/manage_lessons.html:4
+msgid "Manage Lessons"
+msgstr "Управление уроками"
+
+#: accounts/templates/manage/manage_lessons.html:11
+msgid "Manage Lessons for"
+msgstr "Управление уроками для"
+
+#: accounts/templates/manage/manage_lessons.html:14
+msgid "Add New Lesson"
+msgstr "Добавить новый урок"
+
+#: accounts/templates/manage/manage_lessons.html:60
+msgid "No lessons available."
+msgstr "Уроки отсутствуют."
+
+#: accounts/templates/manage/manage_modules.html:4
+msgid "Manage Modules"
+msgstr "Управление модулями"
+
+#: accounts/templates/manage/manage_modules.html:11
+msgid "Manage Modules for"
+msgstr "Управление модулями для"
+
+#: accounts/templates/manage/manage_modules.html:14
+msgid "Add New Module"
+msgstr "Добавить новый модуль"
+
+#: accounts/templates/manage/manage_modules.html:23
+msgid "Position"
+msgstr "Позиция"
+
+#: accounts/templates/manage/manage_modules.html:62
+msgid "No modules available."
+msgstr "Модули отсутствуют."
+
+#: accounts/templates/password_change.html:6
+#: accounts/templates/password_change.html:10
+msgid "Change Password"
+msgstr "Сменить пароль"
+
+#: accounts/templates/password_reset/password_reset.html:6
+#: accounts/templates/password_reset/password_reset_confirm.html:6
+msgid "Reset Password"
+msgstr "Сбросить пароль"
+
+#: accounts/templates/password_reset/password_reset.html:16
+#: accounts/templates/password_reset/password_reset_confirm.html:16
+msgid "Reset your password"
+msgstr "Сбросьте ваш пароль"
+
+#: accounts/templates/password_reset/password_reset.html:23
+#: accounts/templates/password_reset/password_reset_confirm.html:23
+msgid "Reset password"
+msgstr "Сбросить пароль"
+
+#: accounts/templates/password_reset/password_reset.html:25
+#: accounts/templates/password_reset/password_reset_confirm.html:25
+msgid "Cancel"
+msgstr "Отмена"
+
+#: accounts/templates/password_reset/password_reset_complete.html:6
+#: accounts/templates/password_reset/password_reset_complete.html:16
+msgid "Password Reset Complete"
+msgstr "Сброс пароля завершён"
+
+#: accounts/templates/password_reset/password_reset_complete.html:19
+msgid "Your password has been set. You can now"
+msgstr "Ваш пароль установлен. Теперь вы можете"
+
+#: accounts/templates/password_reset/password_reset_complete.html:19
+msgid "log in"
+msgstr "войти"
+
+#: accounts/templates/password_reset/password_reset_done.html:6
+#: accounts/templates/password_reset/password_reset_done.html:16
+msgid "Password Reset Sent"
+msgstr "Сброс пароля отправлен"
+
+#: accounts/templates/password_reset/password_reset_done.html:19
+msgid "We have sent you an email with instructions to reset your password."
+msgstr "Мы отправили вам письмо с инструкциями по сбросу пароля."
+
+#: accounts/templates/password_reset/password_reset_done.html:20
+msgid "Return to Login"
+msgstr "Вернуться к входу"
+
+#: accounts/templates/registration.html:6
+#: accounts/templates/registration.html:16
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+#: accounts/templates/registration.html:21 templates/base.html:67
 msgid "Sign up"
 msgstr "Зарегистрироваться"
 
-#: templates/base.html:42
-msgid "Log in"
-msgstr "Войти"
+#: core/settings.py:113
+msgid "English"
+msgstr "Английский"
+
+#: core/settings.py:114
+msgid "Russian"
+msgstr "Русский"
+
+#: templates/base.html:34
+msgid "Dashboard"
+msgstr "Планировщик"
+
+#: templates/base.html:37
+msgid "Lessons"
+msgstr "Уроки"
+
+#: templates/base.html:40
+msgid "Practice"
+msgstr "Практикум"
+
+#: templates/base.html:43
+msgid "Resources"
+msgstr "Ресурсы"
+
+#: templates/base.html:49
+msgid "Help"
+msgstr "Помощь"
+
+#: templates/base.html:54
+msgid "Log Out"
+msgstr "Выйти"
+
+#: templates/base.html:59
+msgid "Account"
+msgstr "Аккаунт"
+
+#: templates/base.html:63
+msgid "Plans"
+msgstr "Планы"
+
+#: templates/base.html:64
+msgid "Blog"
+msgstr "Блог"
+
+#: templates/base.html:104 templates/base.html:111
+msgid "About"
+msgstr "О нас"
+
+#: templates/base.html:105
+msgid ""
+"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+"Lorem Ipsum has been the industry's standard dummy text ever since the "
+"1500s, when an unknown printer took a galley of type and scrambled it to "
+"make a type specimen book."
+msgstr ""
+"Lorem Ipsum - это текст-рыба, используемый в печати и вэб-дизайне. Lorem Ipsum "
+"является стандартной 'рыбой' для текстов на латинице с начала XVI века."
+
+#: templates/base.html:109
+msgid "Menu"
+msgstr "Меню"
+
+#: templates/base.html:112
+msgid "Contact"
+msgstr "Контакты"
+
+#: templates/base.html:113
+msgid "Privacy policy"
+msgstr "Политика конфиденциальности"
+
+#: templates/base.html:114
+msgid "Terms of use"
+msgstr "Условия использования"
+
+#: webapp/templates/course/course_create.html:4
+#: webapp/templates/course/course_create.html:12
+msgid "Course Creation"
+msgstr "Создание курса"
+
+#: webapp/templates/course/course_create.html:17
+#: webapp/templates/lesson/lesson_create.html:21
+#: webapp/templates/module/module_create.html:17
+msgid "Create"
+msgstr "Создать"
+
+#: webapp/templates/course/course_edit.html:4
+#: webapp/templates/course/course_edit.html:12
+msgid "Course Editing"
+msgstr "Редактирование курса"
+
+#: webapp/templates/course/course_edit.html:17 webapp/templates/courses.html:53
+#: webapp/templates/lesson/lesson_edit.html:21
+#: webapp/templates/module/module_edit.html:17
+msgid "Edit"
+msgstr "Редактировать"
+
+#: webapp/templates/courses.html:7
+msgid "Courses"
+msgstr "Курсы"
+
+#: webapp/templates/courses.html:14
+msgid "Filters"
+msgstr "Фильтры"
+
+#: webapp/templates/courses.html:17
+msgid "Tags"
+msgstr "Теги"
+
+#: webapp/templates/courses.html:28
+msgid "Tags were not found"
+msgstr "Теги не найдены"
+
+#: webapp/templates/courses.html:30
+msgid "Reset Filters"
+msgstr "Сбросить фильтры"
+
+#: webapp/templates/courses.html:51
+msgid "View"
+msgstr "Просмотр"
+
+#: webapp/templates/courses.html:62
+msgid "No courses!"
+msgstr "Курсы отсутствуют!"
+
+#: webapp/templates/lesson/lesson_create.html:4
+#: webapp/templates/lesson/lesson_create.html:16
+msgid "Lesson Creation"
+msgstr "Создание урока"
+
+#: webapp/templates/lesson/lesson_edit.html:4
+#: webapp/templates/lesson/lesson_edit.html:16
+msgid "Lesson Editing"
+msgstr "Редактирование урока"
+
+#: webapp/templates/module/module_create.html:4
+#: webapp/templates/module/module_create.html:12
+msgid "Module Creation"
+msgstr "Создание модуля"
+
+#: webapp/templates/module/module_edit.html:4
+#: webapp/templates/module/module_edit.html:12
+msgid "Module Editing"
+msgstr "Редактирование модуля"

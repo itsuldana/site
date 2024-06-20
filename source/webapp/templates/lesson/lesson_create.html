@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}Создание урока{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Lesson Creation" %}{% endblock %}
 
 {% block header %}
     {{ form.media }} 
@@ -12,12 +13,13 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm form-margins">
                     <div class="card-header text-center bg-dark-blue text-white">
-                        <h3>Создание урока</h3>
+                        <h3>{% trans "Lesson Creation" %}</h3>
                     </div>
                     <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            {% include 'partial/add_update_form.html' with button_text='Создать' %}
+                            {% trans "Create" as create %}
+                            {% include 'partial/add_update_form.html' with button_text=create %}
                         </form>
                     </div>
                 </div>

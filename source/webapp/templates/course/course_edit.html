@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}Редактирование проекта{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Course Editing" %}{% endblock %}
 
 {% block content %}
     <div class="container main-container py-5">
@@ -8,12 +9,13 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm form-margins">
                     <div class="card-header text-center bg-dark-blue text-white">
-                        <h3>Редактирование проекта</h3>
+                        <h3>{% trans "Course Editing" %}</h3>
                     </div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            {% include 'partial/add_update_form.html' with button_text='Редактировать' %}
+                            {% trans "Edit" as edit %}
+                            {% include 'partial/add_update_form.html' with button_text=edit %}
                         </form>
                     </div>
                 </div>

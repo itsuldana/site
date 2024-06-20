@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load django_bootstrap5 %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}{% trans "Log in" %}{% endblock %}
 
 {% block navbar %}{% endblock %}
 
@@ -12,19 +13,20 @@
             <div class="col-md-6 col-lg-5">
                 <div class="card border-0 shadow-lg">
                     <div class="card-header bg-dark-blue text-white text-center py-3">
-                        <h3>Log in to your account</h3>
+                        <h3>{% trans "Log in to your account" %}</h3>
                     </div>
                     <div class="card-body p-4 bg-light">
                         <form method="post">
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             <div class="d-grid gap-2">
-                                {% bootstrap_button button_type="submit" button_class='btn btn-primary btn-lg' content='Log in' %}
+                                {% trans "Log in" as log_in %}
+                                {% bootstrap_button button_type="submit" button_class='btn btn-primary btn-lg' content=log_in %}
                             </div>
                         </form>
                         <div class="mt-3 d-flex justify-content-between">
-                            <a href="{% url 'password_reset' %}" class="text-primary">Forgot your password?</a>
-                            <a href="{% url 'register' %}" class="text-primary">Create an account</a>
+                            <a href="{% url 'password_reset' %}" class="text-primary">{% trans "Forgot your password?" %}</a>
+                            <a href="{% url 'register' %}" class="text-primary">{% trans "Create an account" %}</a>
                         </div>
                     </div>
                 </div>

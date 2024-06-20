@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}Создание модуля{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Module Creation" %}{% endblock %}
 
 {% block content %}
     <div class="container main-container py-5">
@@ -8,12 +9,13 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-sm form-margins">
                     <div class="card-header text-center bg-dark-blue text-white">
-                        <h3>Создание модуля</h3>
+                        <h3>{% trans "Module Creation" %}</h3>
                     </div>
                     <div class="card-body">
                         <form action="" method="post">
                             {% csrf_token %}
-                            {% include 'partial/add_update_form.html' with button_text='Создать' %}
+                            {% trans "Create" as create %}
+                            {% include 'partial/add_update_form.html' with button_text=create %}
                         </form>
                     </div>
                 </div>

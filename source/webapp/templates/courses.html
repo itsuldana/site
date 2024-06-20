@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load static %}
 {% load django_bootstrap5 %}
 
-{% block title %}Courses{% endblock %}
+{% block title %}{% trans "Courses" %}{% endblock %}
 
 {% block content %}
     <main class="container py-5">
         <div class="row justify-content-center">
             <!-- Sidebar Filters -->
             <div class="col-md-3 mb-4">
-                <h5>Filters</h5>
+                <h5>{% trans "Filters" %}</h5>
                 <form id="filter-form">
                     <div class="mb-3">
-                        <h6>Tags</h6>
+                        <h6>{% trans "Tags" %}</h6>
                         {% if tags %}
                             {% for tag in tags %}
                                 <div class="form-check">
@@ -24,9 +25,9 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <p>Tags were not found</p>
+                            <p>{% trans "Tags were not found" %}</p>
                         {% endif %}
-                        <button type="button" id="reset-filters" class="btn btn-secondary mt-3">Reset Filters</button>
+                        <button type="button" id="reset-filters" class="btn btn-secondary mt-3">{% trans "Reset Filters" %}</button>
                     </div>
                 </form>
             </div>
@@ -47,9 +48,9 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="btn-group">
                                                         <a href="{% url 'course_detail' course.pk %}"
-                                                           class="btn btn-sm btn-outline-secondary">View</a>
+                                                           class="btn btn-sm btn-outline-secondary">{% trans "View" %}</a>
                                                         <a href="{% url 'course_edit' course.pk %}"
-                                                           class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                           class="btn btn-sm btn-outline-secondary">{% trans "Edit" %}</a>
                                                     </div>
                                                     <small class="text-muted">{{ course.price }}</small>
                                                 </div>
@@ -58,7 +59,7 @@
                                     </div>
                                 {% endfor %}
                             {% else %}
-                                <h2>No courses!</h2>
+                                <h2>{% trans "No courses!" %}</h2>
                             {% endif %}
                         </div>
                     </div>
