@@ -19,14 +19,13 @@
         </div>
         <div class="row">
             <div class="col-1 button-margin">
-{#                TODO url manage lessons#}
                 <form action="{% url 'lesson_delete' lesson.pk %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class='btn btn-danger'>Удалить</button>
                 </form>
             </div>
             <div class="col-1">
-                <a href="{% url 'TODO' %}" class='btn btn-success'>Отмена</a>
+                <a href="{% url 'manage_lessons' module.pk %}" class='btn btn-success'>Отмена</a>
             </div>
         </div>
     </div>

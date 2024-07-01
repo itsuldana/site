@@ -64,7 +64,7 @@
 {% block content %}
     <div class="container mt-5 content-wrapper">
         <h2 class="mb-4 course-title">{{ lesson.title }}</h2>
-        
+
         <!-- Video Section -->
         <div class="mb-5">
             {% if lesson.video_url %}
@@ -73,7 +73,7 @@
                 </div>
             {% endif %}
         </div>
-        
+
         <!-- Tabs for Course Description and Transcript -->
         <ul class="nav nav-tabs justify-content-start" id="courseTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -84,16 +84,17 @@
             </li>
         </ul>
         <div class="tab-content mt-4" id="courseTabContent">
-            <div class="tab-pane fade show active course-description" id="course" role="tabpanel" aria-labelledby="course-tab">
-                <p class="course-info"><strong>IELTS Preparation Course</strong></p>
-                <p class="course-info"><strong>Global Education Services</strong></p>
-                <p class="course-info">⭐ 4.8 (42,546 reviews) | Enrolled Students: 120,000</p>
-                <p class="course-info">Comprehensive IELTS Preparation — Professional Certification</p>
-                <p class="course-info">Start your journey towards IELTS success with this comprehensive preparation course. Taught by experienced instructors, this course covers all four sections of the IELTS exam: Listening, Reading, Writing, and Speaking. You will get tips and strategies to enhance your performance and achieve your desired band score. This course is suitable for learners at all levels, offering personalized feedback and practice tests to ensure you are ready for the exam.</p>
-            </div>
-            <div class="tab-pane fade course-transcript" id="transcript" role="tabpanel" aria-labelledby="transcript-tab">
-                <p>Transcript of the video will be available here.</p>
-            </div>
+{#            <div class="tab-pane fade show active course-description" id="course" role="tabpanel" aria-labelledby="course-tab">#}
+{#                <p class="course-info"><strong>IELTS Preparation Course</strong></p>#}
+{#                <p class="course-info"><strong>Global Education Services</strong></p>#}
+{#                <p class="course-info">⭐ 4.8 (42,546 reviews) | Enrolled Students: 120,000</p>#}
+{#                <p class="course-info">Comprehensive IELTS Preparation — Professional Certification</p>#}
+{#                <p class="course-info">Start your journey towards IELTS success with this comprehensive preparation course. Taught by experienced instructors, this course covers all four sections of the IELTS exam: Listening, Reading, Writing, and Speaking. You will get tips and strategies to enhance your performance and achieve your desired band score. This course is suitable for learners at all levels, offering personalized feedback and practice tests to ensure you are ready for the exam.</p>#}
+{#            </div>#}
+{#            <div class="tab-pane fade course-transcript" id="transcript" role="tabpanel" aria-labelledby="transcript-tab">#}
+{#                <p>Transcript of the video will be available here.</p>#}
+{#            </div>#}
+            {{ lesson.content|safe }}
         </div>
     </div>
 

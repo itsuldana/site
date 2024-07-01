@@ -28,3 +28,6 @@ class ModuleUpdateView(UpdateView):
     form_class = CourseModuleForm
     template_name = 'module/module_edit.html'
     success_url = reverse_lazy('manage_modules')
+
+    def get_success_url(self):
+        return reverse_lazy('manage_modules', kwargs={'pk': self.object.course_id})
