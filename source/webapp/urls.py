@@ -2,6 +2,7 @@ from django.urls import path
 from webapp.views.course import CourseCreateView, CourseDetailView, CourseUpdateView, CourseListView, CoursesView
 from webapp.views.lessons import LessonCreateView, LessonUpdateView, LessonDeleteView, LessonDetailView
 from webapp.views.module import ModuleCreateView, ModuleUpdateView
+from webapp.views.purchase import purchase_course, purchase_success, purchase_failure
 
 urlpatterns = [
     # index url
@@ -24,4 +25,9 @@ urlpatterns = [
     path('lessons/<int:pk>/edit/', LessonUpdateView.as_view(), name='lesson_edit'),
     path('lessons/<int:pk>/', LessonDetailView.as_view(), name='lesson_detail'),
     path('lessons/<int:pk>/delete/', LessonDeleteView.as_view(), name='lesson_delete'),
+
+    #urls для оплаты
+    path('purchase/<int:course_id>/', purchase_course, name='purchase_course'),
+    path('purchase/success/', purchase_success, name='purchase_success'),
+    path('purchase/failure/', purchase_failure, name='purchase_failure'),
 ]

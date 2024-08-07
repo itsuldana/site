@@ -77,14 +77,25 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'defaultdb',
+#         'USER': 'doadmin',
+#         'PASSWORD': 'AVNS_3ii1Vy6NAc-bynqJxxe',
+#         'HOST': 'lms-db-do-user-13656028-0.c.db.ondigitalocean.com',
+#         'PORT': '25060',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'defaultdb',
-        'USER': 'doadmin',
-        'PASSWORD': 'AVNS_3ii1Vy6NAc-bynqJxxe',
-        'HOST': 'lms-db-do-user-13656028-0.c.db.ondigitalocean.com',
-        'PORT': '25060',
+        'NAME': 'lms',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -321,6 +332,8 @@ CKEDITOR_5_CONFIGS = {
         },
     },
 }
+
+IOKA_SECRET_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJleHAiOjE4MzY2NDM3NDQsImlhdCI6MTcxNjQ0ODg5MCwiYXpwIjoiZGFzaGJvYXJkIiwiaXNzIjoiZ2FybWl1cyIsInN1YiI6InVzcl9VVE5EWFoyQkhOIiwiYXVkIjpbImFjY291bnQiLCJvcmdhbml6YXRpb24iLCJnYXJtaXVzIiwidHJhbnNmZXIiLCJyZXBvcnRzIiwiY3VzdG9tZXIiLCJtYXN0ZXJwYXNzIiwicGF5b3V0cyIsImNvcmUiXSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsid2FsbGV0cy5ldmVudHM6cmVhZCIsInRyYW5zZmVyczpyZWFkIiwicmVzb3VyY2VzOnJlYWQiLCJ3aXRoZHJhd2FsczpyZWFkIiwid2FsbGV0cy53ZWJob29rczp3cml0ZSIsIndhbGxldHMud2ViaG9va3M6cmVtb3ZlIiwid2FsbGV0cy53ZWJob29rczpyZWFkIiwid2FsbGV0czp3cml0ZSIsIndhbGxldHM6cmVtb3ZlIiwid2FsbGV0czpyZWFkIiwid2FsbGV0cy53Mnc6d3JpdGUiLCJ3YWxsZXRzLncydzpyZWFkIiwid2FsbGV0cy5hY2NvdW50OnJlYWQiLCJhY2NvdW50czp3cml0ZSIsImFjY291bnRzOnJlYWQiLCJ3YWxsZXRzLnRyYW5zYWN0aW9uczp3cml0ZSIsIndhbGxldHMudHJhbnNhY3Rpb25zOnJlbW92ZSIsIndhbGxldHMudHJhbnNhY3Rpb25zOnJlYWQiLCJkZXBvc2l0czp3cml0ZSIsImRlcG9zaXRzOnJlYWQiXX0sIm9yZ2FuaXphdGlvbiI6eyJyb2xlcyI6WyJvcmdhbml6YXRpb25zOndyaXRlIiwib3JnYW5pemF0aW9uczpyZW1vdmUiLCJvcmdhbml6YXRpb25zOnJlYWQiXX0sImdhcm1pdXMiOnsicm9sZXMiOlsic2hvcHMuc3ViOndyaXRlIl19LCJ0cmFuc2ZlciI6eyJyb2xlcyI6WyJ0cmFuc2Zlci1vcmRlcnM6d3JpdGUiLCJ0cmFuc2Zlci1vcmRlcnM6cmVhZCIsImNvcnAtY2FyZHM6d3JpdGUiLCJjb3JwLWNhcmRzOnJlYWQiXX0sInJlcG9ydHMiOnsicm9sZXMiOlsicmVwb3J0czpyZWFkIiwicmVwb3J0cy5wYXlvdXRzOndyaXRlIiwicmVwb3J0cy5wYXlvdXRzOnJlYWQiXX0sImN1c3RvbWVyIjp7InJvbGVzIjpbImN1c3RvbWVyczp3cml0ZSIsImN1c3RvbWVyczpyZWFkIiwiY3VzdG9tZXJzLiouY2FyZHM6d3JpdGUiLCJjdXN0b21lcnMuKi5jYXJkczpyZWFkIl19LCJtYXN0ZXJwYXNzIjp7InJvbGVzIjpbIm1hc3RlcnBhc3Muc2Vzc2lvbnM6d3JpdGUiLCJtYXN0ZXJwYXNzLnNlc3Npb25zOnJlYWQiLCJtYXN0ZXJwYXNzLnBob25lczp3cml0ZSIsIm1hc3RlcnBhc3MuY2FyZHM6d3JpdGUiLCJtYXN0ZXJwYXNzLmNhcmRzOnJlbW92ZSIsIm1hc3RlcnBhc3MuY2FyZHM6cmVhZCJdfSwicGF5b3V0cyI6eyJyb2xlcyI6WyJyZWNlaXZlcnM6d3JpdGUiLCJyZWNlaXZlcnM6cmVhZCIsInBheW91dC1vcmRlcnM6d3JpdGUiLCJwYXlvdXQtb3JkZXJzOnJlYWQiLCJwYXlvdXQtd2ViaG9va3M6d3JpdGUiLCJwYXlvdXQtd2ViaG9va3M6cmVhZCJdfSwiY29yZSI6eyJyb2xlcyI6WyJyZWZ1bmRzOndyaXRlIiwicmVmdW5kczpyZWFkIiwiY2hlY2tzOndyaXRlIiwiY2hlY2tzOnJlYWQiLCJzcGxpdHM6d3JpdGUiLCJzcGxpdHM6cmVhZCIsInBheW1lbnQtbGlua3M6Y3JlYXRlIiwicGF5bWVudC1saW5rczpyZWFkIiwicGF5bWVudHM6cmVhZCIsImFuYWx5dGljczpyZWFkIiwib3JkZXJzOmNhbmNlbCIsIm9yZGVyczpjcmVhdGUiLCJvcmRlcnM6cmVmdW5kIiwib3JkZXJzOmNhcHR1cmUiLCJvcmRlcnM6cmVhZCIsInN1YnNjcmlwdGlvbnM6d3JpdGUiLCJzdWJzY3JpcHRpb25zOnJlYWQiLCJ3ZWJob29rczp3cml0ZSIsIndlYmhvb2tzOnJlYWQiXX19LCJ1c2VyIjp7ImlkIjoidXNyX1VUTkRYWjJCSE4iLCJkaXNwbGF5X25hbWUiOiJBbGliZWsgLSIsInVzZXJuYW1lIjoiYWxpYmVrYmFrZGF1bGV0QGdtYWlsLmNvbSIsImZpcnN0X25hbWUiOiJBbGliZWsiLCJpc19zdXBlcnVzZXIiOmZhbHNlLCJsYXN0X25hbWUiOiItIiwiZW1haWwiOiJhbGliZWtiYWtkYXVsZXRAZ21haWwuY29tIiwic3RhdHVzIjoiQUNUSVZFIn0sInNob3AiOnsiaWQiOiJzaHBfUEtFS1pKVVZIRiIsIm93bmVyX2lkIjoidXNyX1VUTkRYWjJCSE4iLCJpc19kZWFsZXIiOmZhbHNlLCJiaW4iOiIxMTExMTExMTExMTEiLCJkaXNwbGF5X25hbWUiOiJCb3N0b24gU2Nob29sIiwic3RhdHVzIjoiQUNDRVBURUQiLCJzdWIiOltdfSwibG9jYWxlIjoicnUifQ.ED57l82g1R7GNsQQ4YPJOcUzadp_vO6KrFrmWvUaGO1FEjF9NSm1uxdAAt4qnjx-GYSm5GJBaPGmb5lO7dp20XwkCk5JUYZQHFl6iaADtgvhlN1Smf5nzo4WqxCntjbbx1j8BVJPlzkpagiDBjXQjv9Wj0jY4tiOj5E81tTZS5xWLnO-ZAZV0emP5wplB2k9FpKFsylGOduQLNMDWTRNK9nwIZq3GGnGWA1y8-3MT-RPWtXZ1hXWUzWjQR2YKE5bpwy3RLXtkWOHwQGgUz89FwOKysHMsTvjaTEGHPyM57yoHU5tcsHEPZUcq5_MEXP0obcm4K1ihME7nhY3azmNKg'
 
 # Default settings
 BOOTSTRAP5 = {

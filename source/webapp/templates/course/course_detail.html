@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}English Course Details{% endblock %}
 
@@ -10,7 +11,7 @@
                     <h1 class="fw-bold">{{ course.title }}</h1>
                     <p class="lead">{{ course.description }}</p>
                     <div class="d-flex align-items-center mb-3">
-                        <button class="btn btn-primary me-2">Start Learning</button>
+                        <a href="{% url 'purchase_course' course.id %}" class="btn btn-primary me-2">{% trans 'Buy' %}</a>
                         <button class="btn btn-outline-secondary">Add to Watchlist</button>
                     </div>
                     <div class="d-flex flex-wrap mb-3">
