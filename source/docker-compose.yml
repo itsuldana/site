@@ -1,0 +1,38 @@
+version: '3.8'
+
+networks:
+  dev:
+
+services:
+#  db:
+#    image: postgres:13
+#    container_name: postgres
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    environment:
+#      POSTGRES_DB: lms
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#    networks:
+#      - dev
+#    ports:
+#      - "5432:5432"
+
+  web:
+    build: .
+    command: /bin/bash -c "python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:9000"
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "9000:9000"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/lms
+    depends_on:
+      - db
+    networks:
+      - dev
+
+volumes:
+  postgres_data:
