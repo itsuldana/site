@@ -27,6 +27,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 25px 15px;
+
 }
 
 .logo img {
@@ -232,9 +234,6 @@ body {
     margin-right: 10px;
 }
 
-.container {
-    padding: 50px 15px;
-}
 
 .image-container {
     border-right: 2px solid #B42318;
