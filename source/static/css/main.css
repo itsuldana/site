@@ -8,9 +8,12 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.text-color {
+    color: #293056;
+}
+
 .header {
     background-color: rgba(0, 26, 44, 0.1); /* Прозрачный фон (0.8 — уровень прозрачности) */
-    padding: 20px 0;
     color: white;
     position: absolute; /* Фиксируем хэдер */
     top: 0; /* Прикрепляем к верху */
@@ -206,4 +209,66 @@ body {
     background-color: #FF0000 !important;
     border-color: #FF0000 !important;
     font-size: 36px !important;
+}
+
+/*Польза*/
+
+.highlight {
+    color: #d31f36;
+}
+
+.benefit-title {
+    font-weight: bold;
+    color: #1f1f60;
+}
+
+.divider {
+    border-bottom: 2px solid #d31f36;
+    margin: 10px 0;
+}
+
+.benefits .icon {
+    color: #1f1f60;
+    margin-right: 10px;
+}
+
+.container {
+    padding: 50px 15px;
+}
+
+.image-container {
+    border-right: 2px solid #B42318;
+}
+
+.image-container img {
+    max-width: 90%;
+}
+
+.benefits li {
+    margin-bottom: 20px;
+}
+
+.text-size-60 {
+    font-size: 60px;
+}
+
+.text-size-36 {
+    font-size: 36px;
+}
+
+.text-size-24 {
+    font-size: 24px;
+}
+
+.icon-location {
+    align-items: baseline;
+}
+
+.icon-font {
+    font-size: 30px;
+}
+
+.divider {
+    border-bottom: 2px solid #B42318;
+    margin: 25px 0;
 }
