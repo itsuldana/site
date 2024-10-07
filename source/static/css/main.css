@@ -84,7 +84,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Черный полупрозрачный слой */
+    background-image: linear-gradient(#293056B2, #293056B2); /* Черный полупрозрачный слой */
     z-index: 1; /* Этот слой будет над фоновым изображением, но под текстом */
 }
 
@@ -94,9 +94,32 @@ body {
 
 }
 
+.first-slide-btn {
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05); /* полупрозрачный фон */
+    backdrop-filter: blur(24px); /* степень размытия */
+    border: 1px solid rgba(255, 255, 255, 1); /* добавление границы (опционально) */
+    color: white; /* цвет текста */
+    font-size: 28px;
+    padding: 6px 12px 6px 12px; /* внутренние отступы */
+    text-decoration: none; /* убрать подчеркивание */
+    transition: background 0.3s; /* анимация фона при наведении */
+}
+
 .second-slide {
     background: url('../img/main_page/img_6.png') no-repeat center center;
     background-size: cover;
+
+}
+
+.second-slide-btn {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 1); /* добавление границы (опционально) */
+    color: white; /* цвет текста */
+    background: rgba(255, 0, 0, 1);
+    text-decoration: none; /* убрать подчеркивание */
+    font-size: 28px;
+    padding: 6px 12px 6px 12px; /* внутренние отступы */
 
 }
 
@@ -104,6 +127,16 @@ body {
     background: url('../img/main_page/img_5.png') no-repeat center center;
     background-size: cover;
 
+}
+
+.thirty-slide-btn {
+    border-radius: 12px;
+    color: rgba(180, 35, 24, 1); /* цвет текста */
+    border: 2px solid rgba(180, 35, 24, 1);
+    background: rgba(255, 255, 255, 1);
+    text-decoration: none; /* убрать подчеркивание */
+    font-size: 28px;
+    padding: 6px 12px 6px 12px; /* внутренние отступы */
 }
 
 /* Стили для контейнера пагинации */
@@ -141,10 +174,6 @@ body {
     margin-bottom: 20px;
 }
 
-.slide-content p {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
 
 .cta-btn {
     padding: 15px 30px;
@@ -251,9 +280,11 @@ body {
 .text-size-60 {
     font-size: 60px;
 }
-.text-size-48{
+
+.text-size-48 {
     font-size: 48px;
 }
+
 .text-size-36 {
     font-size: 36px;
 }
@@ -304,16 +335,12 @@ body {
 
 .certificate {
     border-radius: 10px;
-    padding: 30px;
-    gap: 40px;
     background-image: linear-gradient(#293056, #3169B2);
     color: white;
 }
 
 .certificate-academ {
     border-radius: 10px;
-    padding: 30px;
-    gap: 40px;
     background-image: linear-gradient(#E22020, #B42318);
     color: white;
 
