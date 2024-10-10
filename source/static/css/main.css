@@ -188,6 +188,7 @@ body {
     position: absolute;
     width: 100%;
     text-align: center;
+
 }
 
 /* Стили для точек пагинации */
@@ -483,5 +484,54 @@ footer {
     }
     .menu-list{
         display: block;
+    }
+}
+@media (max-width: 541px){
+    .slide-content{
+        top:15%;
+        margin-top: 2rem;
+        text-align: start;
+        padding: 25px;
+    }
+    .slide-content h1{
+        font-size: 30px;
+    }
+    .text-size-24{
+        font-size: 16px;
+    }
+    .swiper-container{
+        height: 700px !important;
+    }
+    .swiper-pagination{
+        bottom: 35% !important;
+    }
+    .sign-up-button{
+        text-align: center;
+    }
+    .courses-padding{
+        padding-top: 1rem;
+    }
+    .text-size-60{
+        font-size: 30px;
+    }
+    .text-size-36{
+        font-size: 16px;
+    }
+    .course-text{
+        font-size: 16px;
+    }
+    .consult-take{
+        font-size: 24px !important;
+    }
+    .consult{
+        text-align: start;
+    }
+    .image-container{
+        display: none;
+    }
+
+    .sm-border{
+        border-bottom: 2px solid #B42318;
+        padding-bottom: 20px;
     }
 }
