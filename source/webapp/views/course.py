@@ -5,7 +5,7 @@ from ..models import Course, Tag, Module
 
 
 class CourseListView(ListView):
-    template_name = 'course/course_list.html'
+    template_name = 'main.html'
 
     context_object_name = 'courses'
     model = Course
