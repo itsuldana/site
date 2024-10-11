@@ -480,6 +480,14 @@ footer {
     height: 400px;
     width: 100%;
 }
+.logo-padding{
+    padding-top: 3rem ;
+    padding-bottom: 3rem ;
+}
+.footer-icons{
+    font-size: 24px;
+}
+
 
 .contact-info {
     display: flex;
@@ -629,5 +637,25 @@ footer {
     }
     .time-lessons{
         display: block;
+    }
+    footer{
+        height: auto;
+    }
+    .contact-info{
+        display: block;
+    }
+    .logo-padding{
+        padding-top: 3rem ;
+        padding-bottom: 0.5rem ;
+        padding-left: 30px !important;
+    }
+    .footer-text{
+        padding: 0 30px !important;
+    }
+    .footer-contacts{
+        padding: 0 30px !important;
+    }
+    .footer-icons{
+        font-size: 40px;
     }
 }
