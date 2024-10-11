@@ -12,10 +12,11 @@ body {
     color: #293056;
 }
 
-.courses-padding{
+.courses-padding {
     padding-top: 6rem;
 }
-.margin-blocks{
+
+.margin-blocks {
     margin-top: 6rem;
 }
 
@@ -27,6 +28,7 @@ body {
     width: 100%; /* Хэдер будет занимать всю ширину */
     z-index: 1000; /* Устанавливаем высокий z-index, чтобы хэдер был поверх другого контента */
 }
+
 .navbar-light .navbar-nav .nav-link {
     color: white !important;
 }
@@ -41,7 +43,8 @@ body {
     background-size: 100%;
     background-image: url('../icons/burger.png') !important;
 }
-.navbar-light .navbar-toggler-icon-phone{
+
+.navbar-light .navbar-toggler-icon-phone {
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
@@ -67,7 +70,8 @@ body {
 .logo img {
     height: 50px; /* Изменить по необходимости */
 }
-.header__burger-btn{
+
+.header__burger-btn {
     position: relative;
     border: none;
     background-image: linear-gradient(#293056B2, #293056B2);
@@ -90,9 +94,11 @@ body {
     text-decoration: none;
     font-size: 16px;
 }
-.contacts{
+
+.contacts {
     list-style: none;
 }
+
 .contacts a {
     color: white;
     text-decoration: none;
@@ -375,11 +381,13 @@ body {
     color: white;
     height: 100%;
 }
-.certificate li{
+
+.certificate li {
     font-size: 24px;
     font-weight: 600;
 }
-.certificate p{
+
+.certificate p {
     font-size: 20px;
 }
 
@@ -389,11 +397,13 @@ body {
     color: white;
     height: 100%;
 }
-.certificate-academ li{
+
+.certificate-academ li {
     font-size: 24px;
     font-weight: 600;
 }
-.certificate-academ p{
+
+.certificate-academ p {
     font-size: 20px;
 }
 
@@ -407,8 +417,13 @@ body {
     justify-content: center;
     align-items: center;
     display: flex;
+    word-wrap: break-word; /* Автоматический перенос длинных слов */
+    overflow-wrap: break-word; /* Для совместимости с разными браузерами */
+    text-align: center; /* Выравнивание текста по центру */
+    white-space: normal;
 }
-.table-headers p{
+
+.table-headers p {
     font-weight: 500;
 }
 
@@ -465,73 +480,182 @@ footer {
     height: 400px;
     width: 100%;
 }
+.logo-padding{
+    padding-top: 3rem ;
+    padding-bottom: 3rem ;
+}
+.footer-icons{
+    font-size: 24px;
+}
 
-.contact-info{
+
+.contact-info {
     display: flex;
     justify-content: space-between;
 }
+.time-lessons{
+    display: none;
+}
 
-@media (max-width:800px){
-    .header__burger-btn{
+@media (max-width: 800px) {
+    .header__burger-btn {
         display: block;
     }
-    .nav{
+
+    .nav {
         position: absolute;
         left: 0;
         top: 0;
         background-color: black;
         padding: 100px 20px 20px 20px;
     }
-    .menu-list{
+
+    .menu-list {
         display: block;
     }
 }
-@media (max-width: 541px){
-    .slide-content{
-        top:15%;
+
+@media (max-width: 541px) {
+    .slide-content {
+        top: 15%;
         margin-top: 2rem;
         text-align: start;
         padding: 25px;
     }
-    .slide-content h1{
+
+    .slide-content h1 {
         font-size: 30px;
     }
-    .text-size-24{
+
+    .text-size-24 {
         font-size: 16px;
     }
-    .swiper-container{
+
+    .swiper-container {
         height: 700px !important;
     }
-    .swiper-pagination{
+
+    .swiper-pagination {
         bottom: 35% !important;
     }
-    .sign-up-button{
+
+    .sign-up-button {
         text-align: center;
     }
-    .courses-padding{
+
+    .courses-padding {
         padding-top: 1rem;
     }
-    .text-size-60{
+
+    .text-size-60 {
         font-size: 30px;
     }
-    .text-size-36{
+
+    .text-size-36 {
         font-size: 16px;
     }
-    .course-text{
+
+    .course-text {
         font-size: 16px;
     }
-    .consult-take{
+
+    .consult-take {
         font-size: 24px !important;
     }
-    .consult{
+
+    .consult {
         text-align: start;
+        padding: 0px 30px !important;
     }
-    .image-container{
+
+    .image-container {
         display: none;
     }
 
-    .sm-border{
+    .sm-border {
         border-bottom: 2px solid #B42318;
         padding-bottom: 20px;
+    }
+
+    .image-title {
+        font-size: 28px;
+        left: 70%;
+    }
+
+    .text-size-48 {
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .certificate li {
+        font-size: 16px;
+    }
+
+    .certificate p {
+        font-size: 16px;
+    }
+
+    .certificate-academ li {
+        font-size: 16px;
+    }
+
+    .certificate-academ p {
+        font-size: 16px;
+    }
+
+    .margin-blocks {
+        margin-top: 2rem;
+    }
+
+    .consult-header {
+        font-size: 30px;
+    }
+
+    .consult-text {
+        font-size: 16px;
+    }
+
+    .table-column {
+        font-size: 16px;
+    }
+
+    .table-headers {
+        font-size: 16px;
+    }
+
+    .price {
+        flex-basis: 23%;
+    }
+    .duration{
+        flex-basis: 20%;
+    }
+    .subject{
+        flex-basis: 45%;
+    }
+    .duration-lessons{
+        display: none;
+    }
+    .time-lessons{
+        display: block;
+    }
+    footer{
+        height: auto;
+    }
+    .contact-info{
+        display: block;
+    }
+    .logo-padding{
+        padding-top: 3rem ;
+        padding-bottom: 0.5rem ;
+        padding-left: 30px !important;
+    }
+    .footer-text{
+        padding: 0 30px !important;
+    }
+    .footer-contacts{
+        padding: 0 30px !important;
+    }
+    .footer-icons{
+        font-size: 40px;
     }
 }
