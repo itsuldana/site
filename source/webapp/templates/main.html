@@ -23,6 +23,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
+    <style>
+        .content-wrapper {
+            max-width: 880px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .plyr {
+            height: 550px;
+        }
+
+        .plyr__video-wrapper {
+            background: #000;
+        {#background: var(--plyr-video-background, var(--plyr-video-background, #000));#} margin: 0;
+            overflow: hidden;
+            position: static;
+            width: 100%;
+        }
+
+
+    </style>
     <title>Document</title>
 </head>
 <body>
@@ -456,7 +478,78 @@
         ОТЗЫВЫ ОТ УЧЕНИКОВ
     </h2>
 
+    <div class="row mb-5 g-3">
+        <div class="col-4">
+            <div class="plyr__video-embed" id="player1">
+                <iframe src="https://www.youtube.com/embed/GQGX0_EHGHc?si=Y3TKTWg8z-AjC4ds"
+                        allowfullscreen allowtransparency allow="autoplay"></iframe>
+            </div>
+
+        </div>
+
+        <div class="col-4">
+            <div class="plyr__video-embed" id="player2">
+                <iframe src="https://www.youtube.com/embed/ULQap4SGX6E?si=saqeHjSavv9NwSvX"
+                        allowfullscreen allowtransparency allow="autoplay"></iframe>
+            </div>
+
+        </div>
+
+        <div class="col-4">
+            <div class="plyr__video-embed" id="player3">
+                <iframe src="https://www.youtube.com/embed/LIWQtvimSsI?si=9VWosYkIIMH7VO_z"
+                        allowfullscreen allowtransparency allow="autoplay"></iframe>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="plyr__video-embed" id="player4">
+                <iframe src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"
+                        allowfullscreen allowtransparency allow="autoplay"></iframe>
+            </div>
+        </div>
+    </div>
 </div>
+
+{#<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">#}
+{#    <div class="carousel-inner">#}
+{#        <div class="carousel-item active">#}
+{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/ULQap4SGX6E?si=saqeHjSavv9NwSvX"#}
+{#                    title="YouTube video player" frameborder="0"#}
+{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
+{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
+{#        </div>#}
+{#        <div class="carousel-item">#}
+{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/GQGX0_EHGHc?si=Y3TKTWg8z-AjC4ds"#}
+{#                    title="YouTube video player" frameborder="0"#}
+{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
+{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
+{##}
+{#        </div>#}
+{#        <div class="carousel-item">#}
+{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/LIWQtvimSsI?si=9VWosYkIIMH7VO_z"#}
+{#                    title="YouTube video player" frameborder="0"#}
+{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
+{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
+{#        </div>#}
+{#        <div class="carousel-item">#}
+{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"#}
+{#                    title="YouTube video player" frameborder="0"#}
+{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
+{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{#    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">#}
+{#        <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
+{#        <span class="visually-hidden">Предыдущий</span>#}
+{#    </button>#}
+{#    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">#}
+{#        <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
+{#        <span class="visually-hidden">Следующий</span>#}
+{#    </button>#}
+{#</div>#}
+
 
 <section class="py-5">
     <div class="container">
@@ -641,6 +734,17 @@
             clickable: true,
         },
         navigation: false,
+    });
+</script>
+
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(container => new Plyr(container));
+
+
     });
 </script>
 
