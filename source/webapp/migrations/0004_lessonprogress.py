@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='LessonProgress',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('not_seen', 'Не просмотрено'), ('in_progress', 'В процессе'), ('done', 'Закончен')], default='not_seen', max_length=50, verbose_name='Статус')),
+                ('status', models.CharField(choices=[('in_progress', 'В процессе'), ('done', 'Закончен')], default='in_progress', max_length=50, verbose_name='Статус')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
                 ('finished_at', models.DateTimeField(blank=True, null=True, verbose_name='Дата завершения')),
                 ('lesson', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lesson_progress', to='webapp.lesson', verbose_name='Урок')),
