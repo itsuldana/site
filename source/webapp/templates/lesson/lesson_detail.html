@@ -7,28 +7,33 @@
             background-color: #FFFFFF;
             color: #0A3161;
         }
+
         .plyr {
-            max-width: 880px; /* Maximum width of the video */
+            width: 880px; /* Maximum width of the video */
         }
+
         .content-wrapper {
-            max-width: 880px;
             margin: 0 auto;
             text-align: left;
         }
+
         .course-description p, .course-transcript p {
             font-size: 1.1rem;
             line-height: 1.6;
             color: #0A3161;
         }
+
         .course-title {
             font-size: 2rem;
             font-weight: bold;
             color: #0A3161;
         }
+
         .course-info {
             font-size: 1rem;
             color: #555;
         }
+
         .nav-tabs {
             border-bottom: 2px solid #ddd;
             font-weight: bold;
@@ -36,6 +41,7 @@
             overflow: hidden;
             background-color: #f8f9fa;
         }
+
         .nav-tabs .nav-link {
             font-size: 1rem;
             color: #0A3161;
@@ -46,12 +52,14 @@
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             padding: 10px 15px;
         }
+
         .nav-tabs .nav-link.active {
             color: #FFFFFF;
             background-color: #0A3161;
             border-color: #0A3161 #0A3161 #f8f9fa;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .nav-tabs .nav-link:hover {
             color: #FFFFFF;
             background-color: #083D77;
@@ -64,36 +72,53 @@
 {% block content %}
     <div class="container mt-5 content-wrapper">
         <h2 class="mb-4 course-title">{{ lesson.title }}</h2>
+        <div class="d-flex gap-3 mb-5">
 
-        <!-- Video Section -->
-        <div class="mb-5">
-            {% if lesson.video_url %}
-                <div class="plyr__video-embed" id="player">
-                    <iframe src="{{ lesson.video_url }}" allowfullscreen allowtransparency allow="autoplay"></iframe>
+            <div class="d-flex ">
+                {% if lesson.video_url %}
+                    <div class="plyr__video-embed" id="player">
+                        <iframe src="{{ lesson.video_url }}" allowfullscreen allowtransparency
+                                allow="autoplay"></iframe>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-between align-items-start mb-5">
+                <div class="d-flex flex-column gap-s">
+                    <p>Status</p>
+                    <button id="finish-button" class="btn btn-primary">Завершить урок</button>
+
                 </div>
-            {% endif %}
+
+            </div>
+
         </div>
+        <!-- Video Section -->
+
 
         <!-- Tabs for Course Description and Transcript -->
         <ul class="nav nav-tabs justify-content-start" id="courseTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="course-tab" data-bs-toggle="tab" data-bs-target="#course" type="button" role="tab" aria-controls="course" aria-selected="true">This course</button>
+                <button class="nav-link active" id="course-tab" data-bs-toggle="tab" data-bs-target="#course"
+                        type="button" role="tab" aria-controls="course" aria-selected="true">This course
+                </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="transcript-tab" data-bs-toggle="tab" data-bs-target="#transcript" type="button" role="tab" aria-controls="transcript" aria-selected="false">Video text</button>
+                <button class="nav-link" id="transcript-tab" data-bs-toggle="tab" data-bs-target="#transcript"
+                        type="button" role="tab" aria-controls="transcript" aria-selected="false">Video text
+                </button>
             </li>
         </ul>
         <div class="tab-content mt-4" id="courseTabContent">
-{#            <div class="tab-pane fade show active course-description" id="course" role="tabpanel" aria-labelledby="course-tab">#}
-{#                <p class="course-info"><strong>IELTS Preparation Course</strong></p>#}
-{#                <p class="course-info"><strong>Global Education Services</strong></p>#}
-{#                <p class="course-info">⭐ 4.8 (42,546 reviews) | Enrolled Students: 120,000</p>#}
-{#                <p class="course-info">Comprehensive IELTS Preparation — Professional Certification</p>#}
-{#                <p class="course-info">Start your journey towards IELTS success with this comprehensive preparation course. Taught by experienced instructors, this course covers all four sections of the IELTS exam: Listening, Reading, Writing, and Speaking. You will get tips and strategies to enhance your performance and achieve your desired band score. This course is suitable for learners at all levels, offering personalized feedback and practice tests to ensure you are ready for the exam.</p>#}
-{#            </div>#}
-{#            <div class="tab-pane fade course-transcript" id="transcript" role="tabpanel" aria-labelledby="transcript-tab">#}
-{#                <p>Transcript of the video will be available here.</p>#}
-{#            </div>#}
+            {#            <div class="tab-pane fade show active course-description" id="course" role="tabpanel" aria-labelledby="course-tab">#}
+            {#                <p class="course-info"><strong>IELTS Preparation Course</strong></p>#}
+            {#                <p class="course-info"><strong>Global Education Services</strong></p>#}
+            {#                <p class="course-info">⭐ 4.8 (42,546 reviews) | Enrolled Students: 120,000</p>#}
+            {#                <p class="course-info">Comprehensive IELTS Preparation — Professional Certification</p>#}
+            {#                <p class="course-info">Start your journey towards IELTS success with this comprehensive preparation course. Taught by experienced instructors, this course covers all four sections of the IELTS exam: Listening, Reading, Writing, and Speaking. You will get tips and strategies to enhance your performance and achieve your desired band score. This course is suitable for learners at all levels, offering personalized feedback and practice tests to ensure you are ready for the exam.</p>#}
+            {#            </div>#}
+            {#            <div class="tab-pane fade course-transcript" id="transcript" role="tabpanel" aria-labelledby="transcript-tab">#}
+            {#                <p>Transcript of the video will be available here.</p>#}
+            {#            </div>#}
             {{ lesson.content|safe }}
         </div>
     </div>
@@ -105,9 +130,53 @@
             const player = new Plyr('#player', {
                 controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
                 settings: ['captions', 'quality', 'speed', 'loop'],
-                quality: { default: 1080, options: [4320, 2880, 1440, 1080, 720, 480, 360, 240] },
-                speed: { selected: 1, options: [0.5, 1, 1.5, 2] }
+                quality: {default: 1080, options: [4320, 2880, 1440, 1080, 720, 480, 360, 240]},
+                speed: {selected: 1, options: [0.5, 1, 1.5, 2]}
             });
+            player.on('play', () => {
+                const lessonId = '{{ lesson.id }}'
+                fetch('/api/v1/lesson-progress/create/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        lesson: lessonId,
+                        status: 'in_progress'
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.id) {
+                            console.log('Прогресс успешно создан:', data);
+                        } else {
+                            console.error('Ошибка создания прогресса:', data);
+                        }
+                    }).catch(error => console.error('Ошибка:', error))
+            })
         });
+    </script>
+    <script>
+        document.getElementById('finish-button').addEventListener('click', () => {
+            const lessonId = '{{ lesson.id }}';
+            fetch(`/api/v1/lesson-progress/${lessonId}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // CSRF-токен
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Ошибка:', data.error);
+                    } else {
+                        console.log('Статус обновлен:', data);
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
+        });
+
     </script>
 {% endblock %}

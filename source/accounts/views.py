@@ -15,7 +15,7 @@ from django.views.generic import CreateView, TemplateView, DetailView, UpdateVie
 from accounts.forms import (
     CustomUserCreationForm, LoginForm, UserForm, EmailChangeForm, CustomPasswordChangeForm,
 )
-from webapp.models import Course, Module, Lesson
+from webapp.models import Course, Module, Lesson, LessonProgress
 
 
 class LoginView(TemplateView):
@@ -196,5 +196,19 @@ class ManageLessonsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['module'] = Module.objects.get(id=self.kwargs['pk'])
+        module = Module.objects.get(id=self.kwargs['pk'])
+        user = self.request.user
+
+        lessons = context['lessons']
+
+        lessons_with_progress = []
+
+        for lesson in lessons:
+            lesson_progress = LessonProgress.objects.filter(lesson=lesson, user=user).first()
+            lessons_with_progress.append({
+                'lesson': lesson,
+                'progress': lesson_progress.status if lesson_progress else ''
+            })
+        context['module'] = module
+        context['lessons_with_progress'] = lessons_with_progress
         return context

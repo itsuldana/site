@@ -39,6 +39,9 @@ INSTALLED_APPS = [
 
     'django_bootstrap5',
     'django_ckeditor_5',
+    'rest_framework',
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
 
     'webapp',
     'accounts',
@@ -403,4 +406,14 @@ BOOTSTRAP5 = {
     'field_renderers': {
         'default': 'django_bootstrap5.renderers.FieldRenderer',
     },
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'LMS API',
+    'DESCRIPTION': 'LMS Project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }

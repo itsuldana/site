@@ -17,10 +17,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from api.v1 import urls as api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('webapp.urls')),
+    path(f"api/v1/", include((api_urls, "api-v1"), namespace="api-v1")),
+    path('api/schema/', SpectacularAPIView.as_view(api_version='api-v1'), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='docs'),
     path('auth/', include('accounts.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
