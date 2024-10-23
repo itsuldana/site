@@ -42,9 +42,11 @@
                         <li class="nav-item">
                             <a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Resources" %}</a>
                         </li>
+                        {%if request.user.is_superuser%}
                         <li class="nav-item">
                             <a class="nav-link fw-bold mx-2 my-2" href="{% url 'manage_courses' %}">{% trans "Manage" %}</a>
                         </li>
+                        {%endif%}
                         <li class="nav-item">
                             <a class="btn btn-warning fw-bold mx-2 my-2" href="#">{% trans "Help" %}</a>
                         </li>

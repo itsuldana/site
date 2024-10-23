@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
@@ -5,7 +6,9 @@ from webapp.forms import CourseModuleForm
 from webapp.models import Module, Course
 
 
-class ModuleCreateView(CreateView):
+
+
+class ModuleCreateView(UserPassesTestMixin, CreateView):
     model = Module
     form_class = CourseModuleForm
     template_name = 'module/module_create.html'
@@ -22,8 +25,11 @@ class ModuleCreateView(CreateView):
         self.object.save()
         return super().form_valid(form)
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class ModuleUpdateView(UpdateView):
+
+class ModuleUpdateView(UserPassesTestMixin, UpdateView):
     model = Module
     form_class = CourseModuleForm
     template_name = 'module/module_edit.html'
@@ -31,3 +37,6 @@ class ModuleUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('manage_modules', kwargs={'pk': self.object.course_id})
+
+    def test_func(self):
+        return self.request.user.is_superuser

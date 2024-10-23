@@ -173,6 +173,7 @@
                         console.error('Ошибка:', data.error);
                     } else {
                         console.log('Статус обновлен:', data);
+                        window.location.href = '{% url 'course_detail' pk=lesson.module.course.id%}'
                     }
                 })
                 .catch(error => console.error('Ошибка:', error));
