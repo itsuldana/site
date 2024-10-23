@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
-from ..models import Course, Tag, Module
+from ..models import Course, Tag, Module, LessonProgress
 
 
 class CourseListView(ListView):
@@ -18,15 +19,21 @@ class CourseListView(ListView):
         queryset = super().get_queryset().exclude(is_deleted=True)
         return queryset
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class CourseCreateView(CreateView):
+
+class CourseCreateView(UserPassesTestMixin, CreateView):
     model = Course
     form_class = CourseForm
     template_name = 'course/course_create.html'
     success_url = reverse_lazy('course_list')
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class CourseUpdateView(UpdateView):
+
+class CourseUpdateView(UserPassesTestMixin, UpdateView):
     model = Course
     form_class = CourseForm
     template_name = 'course/course_edit.html'
@@ -39,6 +46,9 @@ class CourseUpdateView(UpdateView):
         self.object.save()
         return super().form_valid(form)
 
+    def test_func(self):
+        return self.request.user.is_superuser
+
 
 class CourseDetailView(DetailView):
     model = Course
@@ -48,6 +58,8 @@ class CourseDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["modules"] = Module.objects.all().filter(course=self.object)
         context['tags'] = self.object.tag.all()
+        user = self.request.user
+        context['lesson_progress'] = LessonProgress.objects.filter(user=user)
         return context
 
 
@@ -73,4 +85,3 @@ class CoursesView(ListView):
         context['tags'] = Tag.objects.all()
         context['selected_tags'] = self.request.GET.getlist('tags')
         return context
-

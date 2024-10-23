@@ -28,8 +28,11 @@
                                         <div class="btn-group">
                                             <a href="{% url 'course_detail' course.pk %}"
                                                class="btn btn-sm btn-outline-secondary">View</a>
-                                            <a href="{% url 'course_edit' course.pk %}"
-                                               class="btn btn-sm btn-outline-secondary">Edit</a>
+                                            {% if request.user.is_superuser %}
+                                                <a href="{% url 'course_edit' course.pk %}"
+                                                   class="btn btn-sm btn-outline-secondary">Edit</a>
+                                            {% endif %}
+
                                         </div>
                                         <small class="text-muted">{{ course.price }}</small>
                                     </div>

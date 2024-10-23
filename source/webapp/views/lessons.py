@@ -1,4 +1,5 @@
 # webapp/views.py
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
@@ -7,7 +8,7 @@ from ..forms import LessonForm
 from ..models import Lesson, Module
 
 
-class LessonCreateView(CreateView):
+class LessonCreateView(UserPassesTestMixin, CreateView):
     model = Lesson
     form_class = LessonForm
     template_name = 'lesson/lesson_create.html'
@@ -19,6 +20,9 @@ class LessonCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('manage_lessons', kwargs={'pk': self.object.module_id})
 
+    def test_func(self):
+        return self.request.user.is_superuser
+
 
 class LessonDetailView(DetailView):
     model = Lesson
@@ -26,7 +30,7 @@ class LessonDetailView(DetailView):
     context_object_name = "lesson"
 
 
-class LessonUpdateView(UpdateView):
+class LessonUpdateView(UserPassesTestMixin, UpdateView):
     model = Lesson
     form_class = LessonForm
     template_name = 'lesson/lesson_edit.html'
@@ -34,8 +38,11 @@ class LessonUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('manage_lessons', kwargs={'pk': self.object.module_id})
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class LessonDeleteView(DeleteView):
+
+class LessonDeleteView(UserPassesTestMixin, DeleteView):
     model = Lesson
     template_name = 'lesson/lesson_confirm_delete.html'
 
@@ -47,3 +54,6 @@ class LessonDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('manage_modules', kwargs={'pk': self.object.module_id})
+
+    def test_func(self):
+        return self.request.user.is_superuser

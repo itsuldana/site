@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load i18n %}
-
 {% block title %}English Course Details{% endblock %}
 
 {% block content %}
@@ -11,7 +10,8 @@
                     <h1 class="fw-bold">{{ course.title }}</h1>
                     <p class="lead">{{ course.description }}</p>
                     <div class="d-flex align-items-center mb-3">
-                        <a href="{% url 'purchase_course' course.id %}" class="btn btn-primary me-2">{% trans 'Buy' %}</a>
+                        <a href="{% url 'purchase_course' course.id %}"
+                           class="btn btn-primary me-2">{% trans 'Buy' %}</a>
                         <button class="btn btn-outline-secondary">Add to Watchlist</button>
                     </div>
                     <div class="d-flex flex-wrap mb-3">
@@ -39,7 +39,20 @@
                                 <div class="list-group">
                                     {% for lesson in module.lessons.all %}
                                         <div class="list-group-item bg-light text-dark">
-                                            <h5 class="mb-1">{{ forloop.counter }}. {{ lesson.title }}</h5>
+                                            <a class="text-decoration-none" href="{% url 'lesson_detail' pk=lesson.id %}">
+                                                <h5 class="mb-1">
+                                                        {% for progress in lesson_progress %}
+                                                            {% if progress.lesson == lesson %}
+                                                                {% if progress.status == 'done' %}
+                                                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                                                {% elif progress.status == 'in_progress' %}
+                                                                    <i class="bi bi-hourglass-split text-warning"></i>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                    {{ forloop.counter }}. {{ lesson.title }}</h5>
+                                            </a>
                                             <p class="mb-1">{{ lesson.small_description }}</p>
                                             <small>5m 12s</small>
                                         </div>

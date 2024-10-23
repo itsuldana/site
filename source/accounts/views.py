@@ -16,6 +16,7 @@ from accounts.forms import (
     CustomUserCreationForm, LoginForm, UserForm, EmailChangeForm, CustomPasswordChangeForm,
 )
 from webapp.models import Course, Module, Lesson, LessonProgress
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 
 class LoginView(TemplateView):
@@ -91,13 +92,13 @@ def logout_view(request):
     return redirect('index')
 
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
     template_name = 'user_detail.html'
     model = get_user_model()
     context_object_name = 'user_obj'
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'user_update.html'
     model = get_user_model()
     form_class = UserForm
@@ -106,7 +107,7 @@ class UserUpdateView(UpdateView):
         return reverse('user_detail', kwargs={'pk': self.object.pk})
 
 
-class UserEmailChangeView(FormView):
+class UserEmailChangeView(LoginRequiredMixin, FormView):
     template_name = 'email_change.html'
     form_class = EmailChangeForm
 
@@ -145,7 +146,7 @@ def confirm_email_change(request, uidb64, token, new_email_encoded):
         return render(request, 'activation_invalid.html')
 
 
-class CustomPasswordChangeView(PasswordChangeView):
+class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     form_class = CustomPasswordChangeForm
     template_name = 'password_change.html'
     success_url = reverse_lazy('user_detail')
@@ -162,15 +163,18 @@ def set_language(request):
     return response
 
 
-class ManageCoursesView(ListView):
+class ManageCoursesView(UserPassesTestMixin, ListView):
     template_name = 'manage/manage_courses.html'
 
     context_object_name = 'courses'
     model = Course
     ordering = ['-created_at']
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class ManageModulesView(ListView):
+
+class ManageModulesView(UserPassesTestMixin,ListView):
     template_name = 'manage/manage_modules.html'
 
     model = Module
@@ -184,8 +188,11 @@ class ManageModulesView(ListView):
         context['course'] = Course.objects.get(id=self.kwargs['pk'])
         return context
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class ManageLessonsView(ListView):
+
+class ManageLessonsView(UserPassesTestMixin, ListView):
     template_name = 'manage/manage_lessons.html'
 
     model = Lesson
@@ -212,3 +219,6 @@ class ManageLessonsView(ListView):
         context['module'] = module
         context['lessons_with_progress'] = lessons_with_progress
         return context
+
+    def test_func(self):
+        return self.request.user.is_superuser
