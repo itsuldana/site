@@ -4,6 +4,10 @@ from webapp.models import Course
 
 
 class Purchase(models.Model):
+    STATUS_CHOICE = [
+        ('PENDING', 'В ожидании'),
+        ('DONE', 'Оплачено')
+    ]
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -19,6 +23,7 @@ class Purchase(models.Model):
     )
     payment_status = models.CharField(
         max_length=20,
+        choices=STATUS_CHOICE,
         default='PENDING'
     )
 

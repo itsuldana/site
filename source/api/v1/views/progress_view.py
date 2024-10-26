@@ -3,7 +3,6 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from yaml import serialize
 
 from api.v1.serializers import ProgressCreateSerializer
 from api.v1.serializers.progress_serializer import ProgressSerializer
@@ -30,7 +29,7 @@ class ProgressApiView(APIView):
         serializer = ProgressCreateSerializer(data=data, context={'request': request})
         if serializer.is_valid():
             serializer.save(user=user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -54,3 +53,5 @@ class ProgressUpdateApiView(APIView):
 
         serializer = ProgressSerializer(progress)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
