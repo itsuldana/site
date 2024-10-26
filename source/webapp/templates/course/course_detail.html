@@ -10,7 +10,7 @@
                     <h1 class="fw-bold">{{ course.title }}</h1>
                     <p class="lead">{{ course.description }}</p>
                     <div class="d-flex align-items-center mb-3">
-                        <a href="{% url 'purchase_course' course.id %}"
+                        <a id="buy" href=""
                            class="btn btn-primary me-2">{% trans 'Buy' %}</a>
                         <button class="btn btn-outline-secondary">Add to Watchlist</button>
                     </div>
@@ -39,8 +39,10 @@
                                 <div class="list-group">
                                     {% for lesson in module.lessons.all %}
                                         <div class="list-group-item bg-light text-dark">
-                                            <a class="text-decoration-none" href="{% url 'lesson_detail' pk=lesson.id %}">
-                                                <h5 class="mb-1">
+                                            {% if is_paid %}
+                                                <a class="text-decoration-none"
+                                                   href="{% url 'lesson_detail' pk=lesson.id %}">
+                                                    <h5 class="mb-1">
                                                         {% for progress in lesson_progress %}
                                                             {% if progress.lesson == lesson %}
                                                                 {% if progress.status == 'done' %}
@@ -51,8 +53,11 @@
                                                             {% endif %}
                                                         {% endfor %}
 
-                                                    {{ forloop.counter }}. {{ lesson.title }}</h5>
-                                            </a>
+                                                        {{ forloop.counter }}. {{ lesson.title }}</h5>
+                                                </a>
+                                                {% else %}
+                                                <h5>{{ forloop.counter }}. {{ lesson.title }}</h5>
+                                            {% endif %}
                                             <p class="mb-1">{{ lesson.small_description }}</p>
                                             <small>5m 12s</small>
                                         </div>
@@ -69,4 +74,43 @@
             </div>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buyButton = document.getElementById('buy');
+
+            if (buyButton) {
+                buyButton.addEventListener('click', function (event) {
+                    event.preventDefault(); // предотвращает переход по ссылке
+                    const courseId = {{ course.id }};
+
+                    fetch("/api/v1/purchase/create/", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            course: courseId,
+                            payment_status: 'DONE'
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.payment_status == 'DONE') {
+                                window.location.href="{% url 'user_detail' pk=request.user.id %}"
+                            } else {
+                                console.log(data)
+                                alert('Failed to create purchase.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again later.');
+                        });
+                });
+            }
+        });
+
+
+    </script>
 {% endblock %}

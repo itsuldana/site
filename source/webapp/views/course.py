@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
-from ..models import Course, Tag, Module, LessonProgress
+from ..models import Course, Tag, Module, LessonProgress, Purchase
 
 
 class CourseListView(ListView):
@@ -60,6 +60,8 @@ class CourseDetailView(DetailView):
         context['tags'] = self.object.tag.all()
         user = self.request.user
         context['lesson_progress'] = LessonProgress.objects.filter(user=user)
+        is_paid = Purchase.objects.filter(user=user, course=self.object, payment_status='DONE').exists()
+        context['is_paid'] = is_paid
         return context
 
 

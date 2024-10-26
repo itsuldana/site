@@ -15,7 +15,7 @@ from django.views.generic import CreateView, TemplateView, DetailView, UpdateVie
 from accounts.forms import (
     CustomUserCreationForm, LoginForm, UserForm, EmailChangeForm, CustomPasswordChangeForm,
 )
-from webapp.models import Course, Module, Lesson, LessonProgress
+from webapp.models import Course, Module, Lesson, LessonProgress, Purchase
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 
@@ -97,6 +97,15 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     context_object_name = 'user_obj'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Получаем оплаченные курсы пользователя
+        context['paid_courses'] = Purchase.objects.filter(user=self.object, payment_status='DONE').select_related(
+            'course')
+
+        return context
+
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'user_update.html'
@@ -174,7 +183,7 @@ class ManageCoursesView(UserPassesTestMixin, ListView):
         return self.request.user.is_superuser
 
 
-class ManageModulesView(UserPassesTestMixin,ListView):
+class ManageModulesView(UserPassesTestMixin, ListView):
     template_name = 'manage/manage_modules.html'
 
     model = Module
