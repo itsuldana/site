@@ -37,6 +37,6 @@ urlpatterns = [
     path('test_main/', test_main_page, name='test_main_page'),
 
     #urls для тестов от модуля
-    path('test_module/<int:pk>/', views.TestModuleDetailView.as_view(), name='test_view'),
+    path('test_module/<int:module_id>/test/', views.TestModuleDetailView.as_view(), name='test_view'),
     path('test_module/<int:test_module_id>/submit/', views.TestSubmitView.as_view(), name='test_submit'),
 ]

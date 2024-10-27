@@ -51,9 +51,11 @@ class AnswerOption(models.Model):
         related_name='answer_options',
         verbose_name='Тест'
     )
-    answer_text = models.CharField(
-        max_length=255,
-        verbose_name="Текст ответа"
+    answer_text = CKEditor5Field(
+        'Ответ',
+        config_name='extends',
+        blank=False,
+        null=False
     )
     is_correct = models.BooleanField(
         default=False,

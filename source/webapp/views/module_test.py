@@ -9,26 +9,36 @@ class TestModuleDetailView(DetailView):
     template_name = 'module_test/test_view.html'
     context_object_name = 'test_module'
 
+
+    def get_object(self, queryset=None):
+        module_id = self.kwargs.get('module_id')
+        return get_object_or_404(TestModule, module_id=module_id)
+    
+
+    def get_queryset(self):
+        module_id = self.kwargs.get('module_id')  # Replace 'module_id' with the actual keyword argument in your URL pattern
+        return TestModule.objects.filter(module_id=module_id)
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tests'] = self.object.tests.all()
+        context['tests'] = self.object.tests.filter(test_module=self.object.id)
         
-        # Инициализируем форму
+        # Initialize the form
         form = forms.TestForm()
 
-        # Получаем все тесты и их варианты ответов
-        tests = self.object.tests.all()
+        # Get all tests and their answer options
+        tests = context['tests'][0].answer_options.all()
         options = []
 
         for test in tests:
-            for option in test.answer_options.all():
-                options.append((option.id, option.answer_text))
+            options.append((test.id, test.answer_text))
 
-        # Устанавливаем варианты для поля correct_answers
+        # Set choices for the correct_answers field
         form.fields['correct_answers'].choices = options
         context['form'] = form
-        return context
 
+        return context
 
 
 class TestSubmitView(FormView):
@@ -54,22 +64,22 @@ class TestSubmitView(FormView):
         test_module_id = self.kwargs['test_module_id']
         test_module = get_object_or_404(TestModule, id=test_module_id)
         tests = test_module.tests.all()
-    
+
         # Получаем список выбранных ответов
         selected_answers = form.cleaned_data['correct_answers']
         score = 0
-    
+
         # Подсчет правильных ответов
         for test in tests:
             correct_answers = set()  # Набор для хранения правильных ответов
             for option in test.answer_options.all():
                 if option.is_correct:
                     correct_answers.add(str(option.id))  # Добавляем правильный ответ
-    
+
             # Проверяем, совпадают ли выбранные ответы с правильными
             if correct_answers == set(selected_answers):
                 score += 1  # Увеличиваем счет, если все правильные ответы выбраны
-    
+
         # Возвращаем результат на страницу с результатами
         return render(self.request, self.template_name, {'score': score, 'total': len(tests)})
 
