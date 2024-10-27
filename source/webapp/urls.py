@@ -4,6 +4,9 @@ from webapp.views.lessons import LessonCreateView, LessonUpdateView, LessonDelet
 from webapp.views.module import ModuleCreateView, ModuleUpdateView
 from webapp.views.purchase import purchase_course, purchase_success, purchase_failure
 from webapp.views.main_test import test_main_page
+from webapp import views
+
+
 urlpatterns = [
     # index url
     path('', CourseListView.as_view(), name='index'),
@@ -31,5 +34,9 @@ urlpatterns = [
     path('purchase/success/', purchase_success, name='purchase_success'),
     path('purchase/failure/', purchase_failure, name='purchase_failure'),
 
-    path('test_main/', test_main_page, name='test_main_page')
+    path('test_main/', test_main_page, name='test_main_page'),
+
+    #urls для тестов от модуля
+    path('test_module/<int:pk>/', views.TestModuleDetailView.as_view(), name='test_view'),
+    path('test_module/<int:test_module_id>/submit/', views.TestSubmitView.as_view(), name='test_submit'),
 ]

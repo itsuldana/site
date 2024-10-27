@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ test_module.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ test_module.title }}</h1>
+    <p>{{ test_module.description }}</p>
+
+    <form method="POST" action="{% url 'test_submit' test_module.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Здесь отображаем форму -->
+        <button type="submit">Отправить ответы</button>
+    </form>
+{% endblock %}

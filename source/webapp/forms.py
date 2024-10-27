@@ -1,7 +1,7 @@
 from django import forms
 # from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import Course, Module
+from .models import Course, Module, Test, AnswerOption
 from .models.lessons import Lesson
 
 
@@ -28,3 +28,12 @@ class LessonForm(forms.ModelForm):
         model = Lesson
         fields = ['title', 'small_description','content', 'video_url']
 
+
+class TestForm(forms.Form):
+    correct_answers = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
+
+
+class AnswerOptionForm(forms.ModelForm):
+    class Meta:
+        model = AnswerOption
+        fields = ['answer_text', 'is_correct']
