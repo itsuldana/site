@@ -29,6 +29,30 @@ class LessonDetailView(DetailView):
     template_name = 'lesson/lesson_detail.html'
     context_object_name = "lesson"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Текущий урок
+        lesson = self.object
+
+        # Все уроки текущего модуля
+        module_lessons = lesson.module.lessons.order_by('id')
+        context['module_lessons'] = module_lessons
+
+        # Индекс текущего урока
+        lesson_index = list(module_lessons).index(lesson)
+
+        # Проверка, если следующий урок есть
+        if lesson_index + 1 < len(module_lessons):
+            context['next_lesson'] = module_lessons[lesson_index + 1]
+        else:
+            context['next_lesson'] = None  # Если текущий урок последний
+
+        # Указание текущего урока
+        context['current_lesson'] = lesson
+
+        return context
+
 
 class LessonUpdateView(UserPassesTestMixin, UpdateView):
     model = Lesson
