@@ -101,13 +101,13 @@
                                    href="{% url 'lesson_detail' next_lesson.id %}">
                                     <div class="row g-0">
                                         <div class="col-md-4">
-                                            <img src="..." class="img-fluid rounded-start" alt="Изображение урока">
+                                            <img src="{{ next_lesson.thumbnail_url  }}" class="img-fluid rounded-start" alt="Изображение урока">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
                                                 <h5>{{ next_lesson.title }}</h5>
 
-                                                <p class="card-text"><small class="text-muted">время урока:</small></p>
+                                                <p class="card-text"><small class="text-muted">время урока: {{ next_lesson.duration }}</small></p>
                                             </div>
                                         </div>
                                     </div>
@@ -125,12 +125,12 @@
                                href="{% url 'lesson_detail' l.id %}">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="..." class="img-fluid rounded-start" alt="Изображение урока">
+                                        <img src="{{ l.thumbnail_url  }}" class="img-fluid rounded-start" alt="Изображение урока">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
                                             <h5>{{ l.title }}</h5>
-                                            <p class="card-text"><small class="text-muted">время урока:</small></p>
+                                            <p id="video-duration" class="card-text"><small class="text-muted">{{ l.duration }}</small></p>
                                         </div>
                                     </div>
                                 </div>
@@ -138,6 +138,7 @@
 
                         </div>
                     {% endfor %}
+                  <div id="video-duration"></div>
 
 
                 </div>
@@ -234,4 +235,5 @@
         });
 
     </script>
+
 {% endblock %}
