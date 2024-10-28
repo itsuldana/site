@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.models import AnonymousUser
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
@@ -59,9 +60,15 @@ class CourseDetailView(DetailView):
         context["modules"] = Module.objects.all().filter(course=self.object)
         context['tags'] = self.object.tag.all()
         user = self.request.user
-        context['lesson_progress'] = LessonProgress.objects.filter(user=user)
-        is_paid = Purchase.objects.filter(user=user, course=self.object, payment_status='DONE').exists()
-        context['is_paid'] = is_paid
+        if isinstance(user, AnonymousUser):
+            # Пользователь не авторизован
+            context['lesson_progress'] = None
+            context['is_paid'] = False
+        else:
+            # Пользователь авторизован
+            context['lesson_progress'] = LessonProgress.objects.filter(user=user)
+            is_paid = Purchase.objects.filter(user=user, course=self.object, payment_status='DONE').exists()
+            context['is_paid'] = is_paid
         return context
 
 
