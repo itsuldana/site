@@ -59,7 +59,7 @@
                                                 <h5>{{ forloop.counter }}. {{ lesson.title }}</h5>
                                             {% endif %}
                                             <p class="mb-1">{{ lesson.small_description }}</p>
-                                            <small>5m 12s</small>
+                                            <small>{{ lesson.duration }}</small>
                                         </div>
                                     {% endfor %}
                                 </div>

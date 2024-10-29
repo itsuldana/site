@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
 
 from ..forms import LessonForm
-from ..models import Lesson, Module
+from ..models import Lesson, Module, LessonProgress
 
 
 class LessonCreateView(UserPassesTestMixin, CreateView):
@@ -32,27 +32,42 @@ class LessonDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Текущий урок
-        lesson = self.object
+        current_lesson = self.object
+        user = self.request.user
 
-        # Все уроки текущего модуля
-        module_lessons = lesson.module.lessons.order_by('id')
-        context['module_lessons'] = module_lessons
+        # Получаем прогресс всех уроков текущего модуля
+        module_lessons = current_lesson.module.lessons.all().order_by('id')
+        lesson_progress_map = {lp.lesson_id: lp.status for lp in
+                               LessonProgress.objects.filter(user=user, lesson__in=module_lessons)}
 
-        # Индекс текущего урока
-        lesson_index = list(module_lessons).index(lesson)
+        # Добавляем в контекст список уроков с их статусом
+        context['module_lessons'] = [
+            {'lesson': lesson, 'status': lesson_progress_map.get(lesson.id)}
+            for lesson in module_lessons
+        ]
 
-        # Проверка, если следующий урок есть
-        if lesson_index + 1 < len(module_lessons):
-            context['next_lesson'] = module_lessons[lesson_index + 1]
+        # Логика для следующего урока и модуля
+        next_lesson = module_lessons.filter(id__gt=current_lesson.id).first()
+        if not next_lesson:
+            next_module = Module.objects.filter(
+                course=current_lesson.module.course,
+                position__gt=current_lesson.module.position
+            ).order_by('id').first()
+            if next_module:
+                next_lesson = next_module.lessons.order_by('id').first()
+
+            # Если следующий урок найден, получаем его статус
+        if next_lesson:
+            next_lesson_status = LessonProgress.objects.filter(user=user, lesson=next_lesson).first()
+            context['next_lesson'] = {
+                'lesson': next_lesson,
+                'status': next_lesson_status.status if next_lesson_status else None
+            }
         else:
-            context['next_lesson'] = None  # Если текущий урок последний
+            context['next_lesson'] = None
 
-        # Указание текущего урока
-        context['current_lesson'] = lesson
-
+        context['current_lesson'] = current_lesson
         return context
-
 
 class LessonUpdateView(UserPassesTestMixin, UpdateView):
     model = Lesson
