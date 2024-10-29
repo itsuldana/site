@@ -6,6 +6,7 @@ import os
 class CustomUser(AbstractUser):
     email_confirmed = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    social_network_link = models.URLField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         try:

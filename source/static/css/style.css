@@ -171,26 +171,3 @@ body {
 h1, h2, h5 {
     color: #0A3161;
 }
-
-
-/*Следующий  урок*/
-.lesson-item {
-    min-height: 71px;
-    position: relative;
-    width: 100%;
-}
-
-.lesson-item > a {
-    -webkit-transition: all .1s ease-in;
-    -o-transition: all .1s ease-in;
-    transition: all .1s ease-in;
-    color: #3d3b3f;
-    background-color: #fff;
-    border-radius: 3px;
-    display: block;
-    min-height: 71px;
-    padding: 6px;
-    padding-top: 11px;
-    width: inherit;
-    text-decoration: none;
-}
