@@ -1,4 +1,6 @@
 from django import forms
+
+from accounts.models import CustomUser
 # from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from .models import Course, Module
@@ -23,8 +25,9 @@ class LessonForm(forms.ModelForm):
         # it is required to set it False,
         # otherwise it will throw error in console
         self.fields["content"].required = False
+        self.fields['creator'].queryset = CustomUser.objects.filter(is_superuser=True)
 
     class Meta:
         model = Lesson
-        fields = ['title', 'small_description','content', 'video_url']
+        fields = ['title', 'small_description','content', 'video_url', 'creator']
 
