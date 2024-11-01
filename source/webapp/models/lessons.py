@@ -52,8 +52,7 @@ class Lesson(models.Model):
         blank=True,
         verbose_name="URL превью"
     )
-    duration = models.CharField(
-        max_length=20,
+    duration = models.IntegerField(
         null=True,
         blank=True,
         verbose_name="Длительность видео"
@@ -69,10 +68,7 @@ class Lesson(models.Model):
         return self.title
 
     def fetch_youtube_data(self, api_key):
-        # Извлечение ID видео из URL
         video_id = self.video_url.split('v=')[-1]
-
-        # URL для запроса к YouTube API
         url = f'https://www.googleapis.com/youtube/v3/videos?id={video_id}&part=contentDetails,snippet&key={api_key}'
 
         response = requests.get(url)
@@ -80,13 +76,12 @@ class Lesson(models.Model):
             data = response.json()
             if data['items']:
                 video_info = data['items'][0]
-                # Сохраняем превью
                 self.thumbnail_url = video_info['snippet']['thumbnails']['high']['url']
-                # Форматируем длительность из ISO 8601 в формат "Часы Минуты Секунды"
+
                 iso_duration = video_info['contentDetails']['duration']
                 match = re.match(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', iso_duration)
-                hours, minutes, seconds = match.groups(default="0")
-                self.duration = f"{minutes}:{seconds}"
+                hours, minutes, seconds = map(lambda x: int(x) if x else 0, match.groups())
+                self.duration = hours * 3600 + minutes * 60 + seconds
 
                 self.save()
         else:
@@ -95,6 +90,10 @@ class Lesson(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.video_url and not self.thumbnail_url and not self.duration:
-            # Укажите ваш API ключ YouTube
-            YOUR_API_KEY = 'AIzaSyD4Y8Cg2fdGLUIlvteRxSvhRhRpS82R8h0'
-            self.fetch_youtube_data(YOUR_API_KEY)
+            API_KEY = 'AIzaSyD4Y8Cg2fdGLUIlvteRxSvhRhRpS82R8h0'
+            self.fetch_youtube_data(API_KEY)
+
+    def formatted_duration(self):
+        hours, remainder = divmod(self.duration, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return f"{hours}:{minutes}:{seconds}" if hours else f"{minutes}:{seconds}"

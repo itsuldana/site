@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import AnonymousUser
+from django.db.models import Count, Sum
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
@@ -57,18 +58,32 @@ class CourseDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["modules"] = Module.objects.all().filter(course=self.object)
-        context['tags'] = self.object.tag.all()
+
+        course = self.object
+        modules = Module.objects.filter(course=course).prefetch_related('lessons')
+        context["modules"] = modules
+        context['tags'] = course.tag.all()
+
+        lesson_stats = course.modules.aggregate(
+            total_lessons=Count('lessons'),
+            total_duration=Sum('lessons__duration')
+        )
+
+        context['total_lessons'] = lesson_stats['total_lessons'] or 0
+        total_duration = lesson_stats['total_duration'] or 0
+
+        hours, remainder = divmod(total_duration, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        context['total_duration'] = f"{minutes}m {seconds}s"
+
         user = self.request.user
         if isinstance(user, AnonymousUser):
-            # Пользователь не авторизован
             context['lesson_progress'] = None
             context['is_paid'] = False
         else:
-            # Пользователь авторизован
-            context['lesson_progress'] = LessonProgress.objects.filter(user=user)
-            is_paid = Purchase.objects.filter(user=user, course=self.object, payment_status='DONE').exists()
-            context['is_paid'] = is_paid
+            context['lesson_progress'] = LessonProgress.objects.filter(user=user, lesson__module__course=course)
+            context['is_paid'] = Purchase.objects.filter(user=user, course=course, payment_status='DONE').exists()
+
         return context
 
 
