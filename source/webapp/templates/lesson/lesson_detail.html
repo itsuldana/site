@@ -142,7 +142,7 @@
                                                 <div class="d-flex justify-content-between">
                                                     <p class="card-text">
                                                         <small
-                                                                class="text-muted"> {{ next_lesson.lesson.duration }}
+                                                                class="text-muted"> {{ next_lesson.lesson.formatted_duration }}
                                                         </small>
                                                     </p>
                                                     {% if next_lesson.status == 'in_progress' %}
@@ -179,7 +179,7 @@
                                             <h5>{{ item.lesson.title }}</h5>
                                             <div class="d-flex justify-content-between">
                                                 <p id="video-duration" class="card-text"><small
-                                                        class="text-muted">{{ item.lesson.duration }}</small></p>
+                                                        class="text-muted">{{ item.lesson.formatted_duration }}</small></p>
                                                 {% if item.status == "in_progress" %}
                                                     <i class="bi bi-hourglass-split text-warning"></i>
 
