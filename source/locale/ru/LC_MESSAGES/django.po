@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-19 15:33+0500\n"
+"POT-Creation-Date: 2024-11-02 20:33+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: accounts/templates/login.html:6 accounts/templates/login.html:23
-#: templates/base.html:71
+#: templates/base.html:73
 msgid "Log in"
 msgstr "Войти"
 
@@ -71,7 +71,7 @@ msgid "Actions"
 msgstr "Действия"
 
 #: accounts/templates/manage/manage_courses.html:52
-#: accounts/templates/manage/manage_modules.html:41 templates/base.html:46
+#: accounts/templates/manage/manage_modules.html:41 templates/base.html:47
 msgid "Manage"
 msgstr "Управление"
 
@@ -91,7 +91,7 @@ msgstr "Управление уроками для"
 msgid "Add New Lesson"
 msgstr "Добавить новый урок"
 
-#: accounts/templates/manage/manage_lessons.html:60
+#: accounts/templates/manage/manage_lessons.html:74
 msgid "No lessons available."
 msgstr "Уроки отсутствуют."
 
@@ -171,25 +171,30 @@ msgstr "Вернуться к входу"
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: accounts/templates/registration.html:21 templates/base.html:67
+#: accounts/templates/registration.html:21 templates/base.html:69
 msgid "Sign up"
 msgstr "Зарегистрироваться"
 
-#: core/settings.py:113
+#: core/settings.py:127
 msgid "English"
 msgstr "Английский"
 
-#: core/settings.py:114
+#: core/settings.py:128
 msgid "Russian"
 msgstr "Русский"
 
 #: templates/base.html:34
-msgid "Dashboard"
-msgstr "Планировщик"
+#, fuzzy
+#| msgid "Courses"
+msgid "All Courses"
+msgstr "Все Курсы"
 
-#: templates/base.html:37
-msgid "Lessons"
-msgstr "Уроки"
+#: templates/base.html:37 webapp/templates/course/course_paid_list.html:4
+#: webapp/templates/course/course_paid_list.html:11
+#, fuzzy
+#| msgid "Courses"
+msgid "Paid Courses"
+msgstr "Оплаченные Курсы"
 
 #: templates/base.html:40
 msgid "Practice"
@@ -199,53 +204,53 @@ msgstr "Практикум"
 msgid "Resources"
 msgstr "Ресурсы"
 
-#: templates/base.html:49
+#: templates/base.html:51
 msgid "Help"
 msgstr "Помощь"
 
-#: templates/base.html:54
+#: templates/base.html:56
 msgid "Log Out"
 msgstr "Выйти"
 
-#: templates/base.html:59
+#: templates/base.html:61
 msgid "Account"
 msgstr "Аккаунт"
 
-#: templates/base.html:63
+#: templates/base.html:65
 msgid "Plans"
 msgstr "Планы"
 
-#: templates/base.html:64
+#: templates/base.html:66
 msgid "Blog"
 msgstr "Блог"
 
-#: templates/base.html:104 templates/base.html:111
+#: templates/base.html:106 templates/base.html:113
 msgid "About"
 msgstr "О нас"
 
-#: templates/base.html:105
+#: templates/base.html:107
 msgid ""
 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
 "Lorem Ipsum has been the industry's standard dummy text ever since the "
 "1500s, when an unknown printer took a galley of type and scrambled it to "
 "make a type specimen book."
 msgstr ""
-"Lorem Ipsum - это текст-рыба, используемый в печати и вэб-дизайне. Lorem Ipsum "
-"является стандартной 'рыбой' для текстов на латинице с начала XVI века."
+"Lorem Ipsum - это текст-рыба, используемый в печати и вэб-дизайне. Lorem "
+"Ipsum является стандартной 'рыбой' для текстов на латинице с начала XVI века."
 
-#: templates/base.html:109
+#: templates/base.html:111
 msgid "Menu"
 msgstr "Меню"
 
-#: templates/base.html:112
+#: templates/base.html:114
 msgid "Contact"
 msgstr "Контакты"
 
-#: templates/base.html:113
+#: templates/base.html:115
 msgid "Privacy policy"
 msgstr "Политика конфиденциальности"
 
-#: templates/base.html:114
+#: templates/base.html:116
 msgid "Terms of use"
 msgstr "Условия использования"
 
@@ -260,6 +265,11 @@ msgstr "Создание курса"
 msgid "Create"
 msgstr "Создать"
 
+#: webapp/templates/course/course_detail.html:15
+#: webapp/templates/course/course_detail.html:18
+msgid "Buy"
+msgstr "Купить"
+
 #: webapp/templates/course/course_edit.html:4
 #: webapp/templates/course/course_edit.html:12
 msgid "Course Editing"
@@ -270,6 +280,32 @@ msgstr "Редактирование курса"
 #: webapp/templates/module/module_edit.html:17
 msgid "Edit"
 msgstr "Редактировать"
+
+#: webapp/templates/course/course_list.html:11
+#, fuzzy
+#| msgid "Courses"
+msgid "Our Courses"
+msgstr "Наши Курсы"
+
+#: webapp/templates/course/course_list.html:12
+msgid ""
+"Here, you’ll find our most popular and up-to-date courses. Explore new "
+"topics, develop in-demand skills, and work towards your goals! Choose a "
+"course that suits you and start learning today."
+msgstr "Здесь вы найдете наши самые популярные и актуальные курсы. Изучайте новые темы, осваивайте востребованные навыки и двигайтесь к своим целям! Выберите курс, который подходит вам, и начните обучение уже сегодня."
+
+#: webapp/templates/course/course_paid_list.html:13
+msgid ""
+"This is a list of your paid courses, available for you right now. Here, "
+"you’ll find all the courses to which you have full access and can start "
+"learning at any convenient time. Dive in and achieve success!"
+msgstr "Это список оплаченных курсов, которые доступны для вас прямо сейчас. Здесь вы найдете все курсы, к которым у вас уже есть полный доступ, и можете начать обучение в любое удобное время. Приступайте к занятиям и добивайтесь успехов!"
+
+#: webapp/templates/course/course_paid_list.html:56
+#, fuzzy
+#| msgid "No courses!"
+msgid "All courses"
+msgstr "Курсы отсутствуют!"
 
 #: webapp/templates/courses.html:7
 msgid "Courses"
@@ -318,3 +354,9 @@ msgstr "Создание модуля"
 #: webapp/templates/module/module_edit.html:12
 msgid "Module Editing"
 msgstr "Редактирование модуля"
+
+#~ msgid "Dashboard"
+#~ msgstr "Планировщик"
+
+#~ msgid "Lessons"
+#~ msgstr "Уроки"

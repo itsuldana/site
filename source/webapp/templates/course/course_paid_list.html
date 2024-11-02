@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Paid Courses" %}{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">{% trans "Paid Courses" %}</h1>
+                    <p class="lead text-muted">
+                        {% trans "This is a list of your paid courses, available for you right now. Here, you’ll find all the courses to which you have full access and can start learning at any convenient time. Dive in and achieve success!" %}
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    {% if courses %}
+                        {% for course in courses %}
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img src="{{ course.image.url }}" class="bd-placeholder-img card-img-top"
+                                         width="100%"
+                                         height="225">
+                                    <div class="card-body">
+                                        <p class="card-text">{{ course.title }}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a href="{% url 'course_detail' course.pk %}"
+                                                   class="btn btn-sm btn-outline-secondary">View</a>
+                                                {% if request.user.is_superuser %}
+                                                    <a href="{% url 'course_edit' course.pk %}"
+                                                       class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                {% endif %}
+
+                                            </div>
+                                            <small class="text-muted">{{ course.price }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="row">
+                            <div class="col-12">
+                                <p>
+                                    You don’t have any paid courses yet. Click the button below to explore our amazing
+                                    courses
+                                    and start learning new skills. Join us and unlock new opportunities!
+                                </p>
+                                <a href="{% url 'course_list' %}" class="btn btn-outline-secondary">
+                                    {% trans "All courses" %}
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    {% if is_paginated %}
+                        {% include 'partial/pagination.html' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -13,7 +13,8 @@
                         {% if request.user.is_authenticated %}
                             <a id="buy" href=""
                                class="btn btn-primary me-2">{% trans 'Buy' %}</a>
-                            <button class="btn btn-outline-secondary">Add to Watchlist</button>
+                            <a href="#" class="btn btn-secondary me-2">DashBoard</a>
+                            <a href="#" class="btn btn-outline-secondary">Course Tests</a>
                         {% else %}
                             <a href="{% url 'login' %}" class="btn btn-primary me-2">{% trans 'Buy' %}</a>
                             <a href="{% url 'login' %}" class="btn btn-outline-secondary">Add to Watchlist</a>
@@ -64,7 +65,7 @@
                                                 <h5>{{ forloop.counter }}. {{ lesson.title }}</h5>
                                             {% endif %}
                                             <p class="mb-1">{{ lesson.small_description }}</p>
-                                            <small>{{ lesson.formatted_duration }}</small>
+{#                                            <small>{{ lesson.formatted_duration }}</small>#}
                                         </div>
                                     {% endfor %}
                                 </div>
