@@ -31,16 +31,13 @@
                 <ul class="navbar-nav ms-auto">
                     {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Dashboard" %}</a>
+                            <a class="nav-link fw-bold mx-2 my-2" href="{% url 'course_list' %}">{% trans "All Courses" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Lessons" %}</a>
+                            <a class="nav-link fw-bold mx-2 my-2" href="{% url 'course_paid_list' %}">{% trans "Paid Courses" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Practice" %}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Resources" %}</a>
+                            <a class="nav-link fw-bold mx-2 my-2" href="{% url 'main_about_us' %}">{% trans "About Us" %}</a>
                         </li>
                         {%if request.user.is_superuser%}
                         <li class="nav-item">
@@ -62,8 +59,8 @@
                             </li>
                         {% endif %}
                     {% else %}
-                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Plans" %}</a></li>
-                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Blog" %}</a></li>
+{#                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Plans" %}</a></li>#}
+{#                        <li class="nav-item"><a class="nav-link fw-bold mx-2 my-2" href="#">{% trans "Blog" %}</a></li>#}
                         <li class="nav-item">
                             <a class="btn btn-warning fw-bold mx-2 my-2"
                                href="{% url 'register' %}">{% trans "Sign up" %}</a>

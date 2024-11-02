@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}Welcome{% endblock %}
 
@@ -7,8 +8,8 @@
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Our Courses</h1>
-                    <p class="lead text-muted">Explore our diverse range of courses designed to help you succeed.</p>
+                    <h1 class="fw-light">{% trans 'Our Courses' %}</h1>
+                    <p class="lead text-muted">{% trans 'Here, you’ll find our most popular and up-to-date courses. Explore new topics, develop in-demand skills, and work towards your goals! Choose a course that suits you and start learning today.' %}</p>
                 </div>
             </div>
         </section>

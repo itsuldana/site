@@ -24,6 +24,25 @@ class CourseListView(ListView):
     def test_func(self):
         return self.request.user.is_superuser
 
+class CoursePaidListView(ListView):
+    template_name = 'course/course_paid_list.html'
+
+    context_object_name = 'courses'
+    model = Course
+
+    paginate_by = 6
+    paginate_orphans = 1
+
+    def get_queryset(self):
+        paid_courses_ids = Purchase.objects.filter(
+            user=self.request.user,
+            payment_status='DONE'
+        ).order_by('-purchase_date').values_list('course_id', flat=True)
+
+        # Фильтруем только оплаченные курсы
+        queryset = Course.objects.filter(id__in=paid_courses_ids, is_deleted=False)
+        return queryset
+
 
 class CourseCreateView(UserPassesTestMixin, CreateView):
     model = Course

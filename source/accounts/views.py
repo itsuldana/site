@@ -100,10 +100,6 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Получаем оплаченные курсы пользователя
-        context['paid_courses'] = Purchase.objects.filter(user=self.object, payment_status='DONE').select_related(
-            'course')
-
         return context
 
 
