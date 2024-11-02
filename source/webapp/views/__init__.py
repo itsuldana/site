@@ -1,1 +1,4 @@
-from .module_test import TestModuleDetailView, TestSubmitView
+from .module_test import (
+    TestModulesList,
+    TestDetailView, TestSubmitView, StartTestView
+    )

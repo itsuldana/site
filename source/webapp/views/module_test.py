@@ -1,44 +1,42 @@
-from django.views.generic import DetailView, FormView
-from django.shortcuts import get_object_or_404, render
-from webapp.models import TestModule
+from django.core.cache import cache
+
+from django.views.generic import FormView
+from django.views import View
+from django.shortcuts import get_object_or_404, render, redirect
+from webapp.models import TestModule, Test
 from webapp import forms
 
 
-class TestModuleDetailView(DetailView):
+class TestModulesList(View):
     model = TestModule
+    template_name = 'module_test/models.html'
+
+    def get(self, request, *args, **kwargs):
+        cours_id = self.kwargs.get('cours')
+        test_modules = self.model.objects.filter(cours__id=cours_id)
+        print(f"{test_modules=}")
+        print(test_modules)
+
+        context = {'test_modules': test_modules}
+        return render(request, self.template_name, context)
+
+
+class StartTestView(View):
+    model = Test
+    def get(self, request, *args, **kwargs):
+        test_module_id = self.kwargs.get("module_id")
+        test_ids = Test.objects.get_all_tests(module_id=test_module_id)
+        test_id = test_ids.pop()
+        cache.set(request.user.id, test_ids, timeout=3000)
+        return redirect('test_detail', test_id=test_id.id)
+
+
+class TestDetailView(View):
+    model = Test
     template_name = 'module_test/test_view.html'
-    context_object_name = 'test_module'
-
-
-    def get_object(self, queryset=None):
-        module_id = self.kwargs.get('module_id')
-        return get_object_or_404(TestModule, module_id=module_id)
     
-
-    def get_queryset(self):
-        module_id = self.kwargs.get('module_id')  # Replace 'module_id' with the actual keyword argument in your URL pattern
-        return TestModule.objects.filter(module_id=module_id)
-
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tests'] = self.object.tests.filter(test_module=self.object.id)
-        
-        # Initialize the form
-        form = forms.TestForm()
-
-        # Get all tests and their answer options
-        tests = context['tests'][0].answer_options.all()
-        options = []
-
-        for test in tests:
-            options.append((test.id, test.answer_text))
-
-        # Set choices for the correct_answers field
-        form.fields['correct_answers'].choices = options
-        context['form'] = form
-
-        return context
+    def get(self, request, *args, **kwargs):
+        pass
 
 
 class TestSubmitView(FormView):

@@ -1,15 +1,46 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
-from .module import Module
+from .course import Course
+
+class Test_Manager(models.Manager):
+    def get_all_tests(self, module_id):
+        # Запрос на получение всех тестов для конкретного модуля
+        query = """
+            SELECT t.id
+            FROM webapp_test t
+            JOIN webapp_testmodule tm ON t.test_module_id_id = tm.id
+            WHERE tm.id = %s
+        """
+
+        return list(self.raw(query, [module_id]))
+    
+    
+    def get_all_tests_with_answers(self, module_id):
+        # Запрос на получение всех тестов и их вариантов ответов для конкретного модуля
+        query = """
+            SELECT t.id, t.question_text, ao.id AS answer_option_id, ao.answer_text
+            FROM webapp_test t
+            LEFT JOIN webapp_answeroption ao ON ao.test_id = t.id
+            JOIN webapp_testmodule tm ON t.test_module_id_id = tm.id
+            WHERE tm.id = %s
+        """
+        
+        return self.raw(query, [module_id])
 
 
-class TestModule(models.Model):
-    module = models.ForeignKey(
-        Module,
+class TestCaseDescriptions(models.Model):
+    сourse_id = models.ForeignKey(
+        Course,
         on_delete=models.CASCADE,
-        related_name='test_modules',
+        related_name='test_case_descriptions',
         verbose_name='Тестовый модуль'
+    )
+    title = models.CharField(
+        max_length=255,
+        blank=False,
+        verbose_name="Name",
+        default="Default Title"
     )
     description = CKEditor5Field(
         'Описание',
@@ -23,11 +54,46 @@ class TestModule(models.Model):
     )
 
     def __str__(self):
-        return f'TestModule for {self.module.title}'
+        return f'TestModule for {self.сourse_id.title}'
+    
+
+class TestModule(models.Model):
+    cours = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name='test_modules',
+        verbose_name='Тестовый модуль'
+    )
+    title = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False,
+        verbose_name="Name",
+        default="New titile"
+    )
+    description = CKEditor5Field(
+        'Описание',
+        config_name='extends',
+        blank=True,
+        null=True
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата создания"
+    )
+    position = models.PositiveIntegerField(default=1) 
+    time_limit = models.PositiveIntegerField(
+        default=30,  
+        verbose_name='Лимит времени (минуты)'
+    )
+    def __str__(self):
+        return f'{self.title} module for {self.cours.title}'
 
 
 class Test(models.Model):
-    test_module = models.ForeignKey(
+    objects = Test_Manager()
+
+    test_module_id = models.ForeignKey(
         TestModule,
         on_delete=models.CASCADE,
         related_name='tests',
@@ -45,7 +111,7 @@ class Test(models.Model):
 
 
 class AnswerOption(models.Model):
-    test = models.ForeignKey(
+    test_id = models.ForeignKey(
         Test,
         on_delete=models.CASCADE,
         related_name='answer_options',

@@ -37,6 +37,10 @@ urlpatterns = [
     path('test_main/', test_main_page, name='test_main_page'),
 
     #urls для тестов от модуля
-    path('test_module/<int:module_id>/test/', views.TestModuleDetailView.as_view(), name='test_view'),
+    # path('test_module/<int:module_id>/test/', views.TestModuleDetailView.as_view(), name='test_view'),
+    path('test_modules/<int:cours>/cours/', views.TestModulesList.as_view(), name='test_models'),
+    path('start-test/<int:module_id>/', views.StartTestView.as_view(), name='start_test'),
+    path('start-test/<int:module_id>/', views.StartTestView.as_view(), name='start_test'),
+    path('pricces-test/<int:test_id>/', views.TestDetailView.as_view(), name='test_detail'),
     path('test_module/<int:test_module_id>/submit/', views.TestSubmitView.as_view(), name='test_submit'),
 ]
