@@ -185,9 +185,3 @@ h1, h2, h5 {
 .lesson-image{
     height: 100%;
 }
-
-@media (max-width: 1100px){
-    .plyr{
-        width: 600px;
-    }
-}
