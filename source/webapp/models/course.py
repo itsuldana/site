@@ -36,10 +36,10 @@ class Course(models.Model):
         related_name='tags',
         blank=True
     )
-    is_deleted = models.BooleanField(
-        verbose_name='Удалено',
+    is_active = models.BooleanField(
+        verbose_name='Активен',
         null=False,
-        default=False
+        default=True
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -88,11 +88,6 @@ class Course(models.Model):
 
             img = img.crop((left, top, right, bottom))
             img.save(self.image.path)
-
-    def delete(self, using=None, keep_parents=False):
-        self.is_deleted = True
-        self.deleted_at = timezone.now()
-        self.save()
 
     def __str__(self):
         return f'{self.title} - {self.description}'
