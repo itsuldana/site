@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ test_module.title }}{% endblock %}
+{% load i18n %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}{% trans "Courses" %}{% endblock %}
 
 {% block content %}
+
     <h1>Результаты теста</h1>
-    <p>Вы ответили правильно на {{ score }} из {{ total }} вопросов.</p>
+
+    <div>
+        <p>Вы прошли {{ total_tests }} тестов.</p>
+        <p>Количество правильных ответов: {{ correct_answers }}</p>
+
+        {% if total_tests > 0 %}
+        {% else %}
+            <p>Вы еще не прошли ни одного теста.</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'test_history' module_id %}" class="btn btn-sm btn-outline-secondary">{% trans "result" %}</a>
+
 {% endblock %}
+

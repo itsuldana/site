@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    /* Overall Layout Styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Module Header */
+    .module-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .module-header h1 {
+        font-size: 2em;
+        color: #2c3e50;
+    }
+
+    .module-description {
+        background-color: #e3f2fd;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    /* Link to All Modules */
+    .all-modules-link {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        color: #1e88e5;
+        padding: 8px 16px;
+        border: 1px solid #1e88e5;
+        border-radius: 5px;
+        transition: all 0.3s;
+    }
+
+    .all-modules-link:hover {
+        background-color: #1e88e5;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <!-- Module Header Section -->
+    <div class="module-header">
+        <h1>{{ test_case_description.title }}</h1>
+        <div class="module-description">
+            {{ test_case_description.description|safe }}
+            <a href="{% url 'test_models' test_case_description.сourse_id %}" class="test-modules-link">Перейти к тестам</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,50 +1,11 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
+from django.conf import settings
+from django.contrib.postgres.fields import ArrayField 
+
 from .course import Course
-
-class Test_Manager(models.Manager):
-    def get_all_tests(self, module_id):
-        # Запрос на получение всех тестов для конкретного модуля
-        query = """
-            SELECT t.id
-            FROM webapp_test t
-            JOIN webapp_testmodule tm ON t.test_module_id = tm.id
-            WHERE tm.id = %s
-        """
-
-        return list(self.raw(query, [module_id]))
-    
-    
-    def get_test_with_answers(self, test_id) -> tuple:
-        # Запрос на получение вопроса и его вариантов ответов для конкретного теста
-        query = """
-            SELECT 
-                t.id,
-                t.question_text, 
-                ao.id AS answer_option_id, 
-                ao.answer_text, 
-                ao.is_correct
-            FROM webapp_test t
-            LEFT JOIN webapp_answeroption ao ON ao.test_id = t.id
-            WHERE t.id = %s
-        """
-        results = list(self.raw(query, [test_id]))
-
-        # Проверяем наличие результатов
-        if not results:
-            return None, []
-
-        # Извлекаем текст вопроса
-        question_text = results[0].question_text
-
-        # Извлекаем варианты ответов
-        answer_options = [
-            {"answer_option_id": result.answer_option_id, "answer_text": result.answer_text, "is_correct": result.is_correct}
-            for result in results if result.answer_option_id is not None
-        ]
-
-        return question_text, answer_options
+from .managers import Test_Manager
 
 
 class TestCaseDescriptions(models.Model):
@@ -72,7 +33,7 @@ class TestCaseDescriptions(models.Model):
     )
 
     def __str__(self):
-        return f'TestModule for {self.сourse_id.title}'
+        return f'TestModule for {self.title}'
     
 
 class TestModule(models.Model):
@@ -148,3 +109,57 @@ class AnswerOption(models.Model):
 
     def __str__(self):
         return f'Ответ: {self.answer_text} ({"Правильный" if self.is_correct else "Неправильный"})'
+    
+
+class TestHistory(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='test_histories', 
+        verbose_name='Пользователь'
+    )
+    test_module = models.ForeignKey(
+        TestModule,
+        on_delete=models.CASCADE,
+        related_name='history',
+        default=1
+    )
+    test = models.ForeignKey(
+        'webapp.Test', 
+        on_delete=models.CASCADE, 
+        related_name='test_histories', 
+        verbose_name='Тест'
+    )
+    
+    # Список ID правильных ответов
+    correct_answer_ids = ArrayField(models.IntegerField(), blank=True, verbose_name='ID правильных ответов')
+
+    # Список ID ответов, выбранных пользователем
+    user_answer_ids = ArrayField(models.IntegerField(), blank=True, verbose_name='ID ответов пользователя')
+
+    # Поле для хранения времени прохождения теста
+    completed_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата завершения')
+
+    def __str__(self):
+        return f'Тест {self.test.id} - Пользователь {self.user.username}'
+    
+    def create_history(self, user, test_id, correct_answer_ids, selected_option_id):
+        test_history = TestHistory.objects.filter(user=user, test_id=test_id)
+        if not test_history.exists():
+            TestHistory.objects.create(
+                user=user,
+                test_id=test_id,
+                correct_answer_ids=correct_answer_ids,
+                user_answer_ids=[int(i)for i in selected_option_id],
+            )
+        else:
+            test_history.update(
+                user=user,
+                test_id=test_id,
+                correct_answer_ids=correct_answer_ids,
+                user_answer_ids=[int(i) for i in selected_option_id],
+            )
+
+    class Meta:
+        verbose_name = 'История прохождения теста'
+        verbose_name_plural = 'Истории прохождения тестов'

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Дашборд пользователя {{ request.user.username }}</h1>
+
+    <canvas id="moduleChart" width="400" height="200"></canvas>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('moduleChart').getContext('2d');
+        
+        const labels = [{% for module in module_stats.keys %}'{{ module.name|escapejs }}',{% endfor %}];
+        const totalTests = [{% for module in module_stats.values %}{{ module.total_tests }},{% endfor %}];
+        const correctAnswers = [{% for module in module_stats.values %}{{ module.correct_answers }},{% endfor %}];
+
+        const moduleChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Всего тестов',
+                        data: totalTests,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    },
+                    {
+                        label: 'Правильные ответы',
+                        data: correctAnswers,
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Количество'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Модули'
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+</div>
+{% endblock %}

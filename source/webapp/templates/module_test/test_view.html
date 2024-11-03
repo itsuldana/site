@@ -1,18 +1,75 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<h1>Вопросы теста</h1>
-{{question}}
-{% for option in answer_options %}
-    <div>
-        <ul>
-            <li>Вариант ответа: {{ option.answer_option_id }} - {{ option.answer_text }}</li>
-        </ul>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <div id="timer" class="timer-display">00:00:00</div>
     </div>
-{% endfor %}
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Вопрос</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title text-center">{{ question.question_text|safe }}</h4>
+            <form method="post" action="{% url 'next_test' test_id=question.question_id %}" id="test-form">
+                {% csrf_token %}
+                
+                <div class="list-group my-4">
+                    {% for option in answer_options %}
+                        <label class="list-group-item d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input me-3" name="selected_options" value="{{ option.answer_option_id }}">
+                            {{ option.answer_text|safe }}
+                        </label>
+                    {% endfor %}
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Следующий вопрос</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+<style>
+    .timer-display {
+        font-size: 3rem; /* Увеличиваем размер шрифта */
+        color: #ff5722; /* Цвет текста */
+        font-weight: bold; /* Жирный шрифт */
+        background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
+        padding: 20px; /* Отступы вокруг текста */
+        border-radius: 10px; /* Скругление углов */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Тень для 3D-эффекта */
+        display: inline-block; /* Центрируем элемент */
+        margin: 0 auto; /* Выравнивание по центру */
+    }
+</style>
+<script>
+    let duration = {{ duration }};  // Длительность теста в секундах
+    let timer;
 
+    function startTimer() {
+        timer = setInterval(function () {
+            duration--;
+            let hours = Math.floor(duration / 3600);
+            let minutes = Math.floor((duration % 3600) / 60);
+            let seconds = duration % 60;
 
+            // Форматирование времени с ведущими нулями
+            document.getElementById("timer").textContent = 
+                (hours < 10 ? "0" : "") + hours + ":" + 
+                (minutes < 10 ? "0" : "") + minutes + ":" + 
+                (seconds < 10 ? "0" : "") + seconds;
+
+            if (duration <= 0) {
+                clearInterval(timer);
+                alert("Время вышло! Все дальнейшие попытки будут провалены.");
+                document.getElementById("test-form").submit(); // Отправка формы
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        startTimer();
+    };
+</script>
 {% endblock %}
-
-

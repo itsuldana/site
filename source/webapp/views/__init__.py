@@ -1,4 +1,6 @@
 from .module_test import (
-    TestModulesList,
-    TestDetailView, TestSubmitView, StartTestView
+    TestModulesList, TestDetailView,
+    StartTestView, NextTestView,
+    ResultView, TestModuleResultView, TestCaseDescriptionDetailView,
+    DashboardView
     )

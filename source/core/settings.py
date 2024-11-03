@@ -96,9 +96,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'lms',
-        'USER': 'lms_user',
-        'PASSWORD': 'lms_password',
-        'HOST': '185.22.67.9',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }

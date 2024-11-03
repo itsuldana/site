@@ -14,7 +14,7 @@
                             <a id="buy" href=""
                                class="btn btn-primary me-2">{% trans 'Buy' %}</a>
                             <a href="#" class="btn btn-secondary me-2">DashBoard</a>
-                            <a href="#" class="btn btn-outline-secondary">Course Tests</a>
+                            <a href="{% url 'test_case_description_detail' course_id=course.id %}" class="btn btn-outline-secondary">Course Tests</a>
                         {% else %}
                             <a href="{% url 'login' %}" class="btn btn-primary me-2">{% trans 'Buy' %}</a>
                             <a href="{% url 'login' %}" class="btn btn-outline-secondary">Add to Watchlist</a>
