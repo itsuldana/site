@@ -48,4 +48,6 @@ urlpatterns = [
     path('test-case-description/<int:course_id>/', views.TestCaseDescriptionDetailView.as_view(), name='test_case_description_detail'),
     path('test_modules/<int:cours>/cours/', views.TestModulesList.as_view(), name='test_models'),
     path('pricces-test/<int:test_id>/', views.TestDetailView.as_view(), name='test_detail'),
+
+    path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
 ]

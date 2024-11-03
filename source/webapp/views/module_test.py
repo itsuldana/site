@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from collections import defaultdict
 
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
@@ -37,10 +38,12 @@ class TestDetailView(View):
     def get(self, request, *args, **kwargs):
         test_id = self.kwargs.get("test_id")
         question, answer_options = self.model.objects.get_test_with_answers(test_id=test_id)
+        duration = cache.ttl(request.user.id)
 
         context = {
             "question": question,
             "answer_options": answer_options,
+            "duration": duration
             }
         return render(request, self.template_name, context)
 
@@ -52,7 +55,12 @@ class StartTestView(View):
         test_module_id = self.kwargs.get("module_id")
         test_ids = self.model.objects.get_all_tests(module_id=test_module_id)
         test_id = test_ids.pop()
-        cache.set(request.user.id, test_ids, timeout=3000)
+        test_module = models.TestModule.objects.get(id=test_module_id)
+        timeout = test_module.time_limit * 60
+        cache.set(request.user.id, test_ids, timeout=timeout)
+
+        if models.TestHistory.objects.filter(test_module=test_module, user=request.user).exists():
+            models.TestHistory.objects.filter(test_module=test_module, user=request.user).update(user_answer_ids=[])
         return redirect('test_detail', test_id=test_id.id)
 
 
@@ -62,7 +70,8 @@ class NextTestView(View):
     def get(self, request, *args, **kwargs):
         test_ids = cache.get(request.user.id)
         test_id = test_ids.pop()
-        cache.set(request.user.id, test_ids, timeout=3000)
+        timeout = cache.ttl(request.user.id)
+        cache.set(request.user.id, test_ids, timeout=timeout)
 
         if test_id:
             return redirect('test_detail', test_id=test_id.id)
@@ -146,3 +155,27 @@ class TestModuleResultView(View):
             'tests_data': tests_data,
         }
         return render(request, 'module_test/module_results.html', context)
+    
+
+class DashboardView(View):
+    template_name = 'module_test/dashboard.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        # Получаем все пройденные тесты данного пользователя
+        test_histories = models.TestHistory.objects.filter(user=user).select_related('test_module', 'test')
+        
+        # Группируем тесты по модулям и подсчитываем правильные ответы
+        module_stats = defaultdict(lambda: {'total_tests': 0, 'correct_answers': 0})
+
+        for history in test_histories:
+            module = history.test_module
+            module_stats[module]['total_tests'] += 1
+            # Сравниваем user_answer_ids с correct_answer_ids
+            correct_count = len(set(history.correct_answer_ids) & set(history.user_answer_ids))
+            module_stats[module]['correct_answers'] += correct_count
+
+        context = {
+            'module_stats': module_stats,
+        }
+        return render(request, self.template_name, context)

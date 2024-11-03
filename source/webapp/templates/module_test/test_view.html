@@ -2,13 +2,16 @@
 
 {% block content %}
 <div class="container mt-5">
+    <div class="text-center mb-4">
+        <div id="timer" class="timer-display">00:00:00</div>
+    </div>
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white text-center">
             <h2>Вопрос</h2>
         </div>
         <div class="card-body">
             <h4 class="card-title text-center">{{ question.question_text|safe }}</h4>
-            <form method="post" action="{% url 'next_test' test_id=question.question_id %}">
+            <form method="post" action="{% url 'next_test' test_id=question.question_id %}" id="test-form">
                 {% csrf_token %}
                 
                 <div class="list-group my-4">
@@ -27,4 +30,46 @@
         </div>
     </div>
 </div>
+<style>
+    .timer-display {
+        font-size: 3rem; /* Увеличиваем размер шрифта */
+        color: #ff5722; /* Цвет текста */
+        font-weight: bold; /* Жирный шрифт */
+        background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
+        padding: 20px; /* Отступы вокруг текста */
+        border-radius: 10px; /* Скругление углов */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Тень для 3D-эффекта */
+        display: inline-block; /* Центрируем элемент */
+        margin: 0 auto; /* Выравнивание по центру */
+    }
+</style>
+<script>
+    let duration = {{ duration }};  // Длительность теста в секундах
+    let timer;
+
+    function startTimer() {
+        timer = setInterval(function () {
+            duration--;
+            let hours = Math.floor(duration / 3600);
+            let minutes = Math.floor((duration % 3600) / 60);
+            let seconds = duration % 60;
+
+            // Форматирование времени с ведущими нулями
+            document.getElementById("timer").textContent = 
+                (hours < 10 ? "0" : "") + hours + ":" + 
+                (minutes < 10 ? "0" : "") + minutes + ":" + 
+                (seconds < 10 ? "0" : "") + seconds;
+
+            if (duration <= 0) {
+                clearInterval(timer);
+                alert("Время вышло! Все дальнейшие попытки будут провалены.");
+                document.getElementById("test-form").submit(); // Отправка формы
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        startTimer();
+    };
+</script>
 {% endblock %}
