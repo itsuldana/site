@@ -10,10 +10,6 @@ class Tag(models.Model):
         max_length=100,
         verbose_name="Название на русском"
     )
-    name_kz = models.CharField(
-        max_length=100,
-        verbose_name="Название на казахском"
-    )
     name_en = models.CharField(
         max_length=100,
         verbose_name="Название на английском"

@@ -13,12 +13,6 @@ class Post(models.Model):
         blank=False,
         verbose_name="Заголовок на русском"
     )
-    title_kz = models.CharField(
-        max_length=300,
-        null=False,
-        blank=False,
-        verbose_name="Заголовок на казахском"
-    )
     title_en = models.CharField(
         max_length=300,
         null=False,
@@ -31,12 +25,6 @@ class Post(models.Model):
         null=True,
         blank=True,
         verbose_name='Описание на русском'
-    )
-    description_kz = models.TextField(
-        max_length=350,
-        null=True,
-        blank=True,
-        verbose_name="Описание на казахском"
     )
     description_en = models.TextField(
         max_length=350,
@@ -66,10 +54,6 @@ class Post(models.Model):
         verbose_name='Контент на русском',
         config_name='extends'
     )
-    content_kz = CKEditor5Field(
-        verbose_name='Контент на казахском',
-        config_name='extends'
-    )
     content_en = CKEditor5Field(
         verbose_name='Контент на английском',
         config_name='extends'
@@ -79,12 +63,6 @@ class Post(models.Model):
         null=True,
         blank=True,
         verbose_name='Выводы на русском',
-        config_name='extends'
-    )
-    conclusion_kz = CKEditor5Field(
-        null=True,
-        blank=True,
-        verbose_name='Выводы на казахском',
         config_name='extends'
     )
     conclusion_en = CKEditor5Field(

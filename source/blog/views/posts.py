@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
 from django.utils.translation import get_language
+from django.utils import translation
 from django.db.models import Q
 from bs4 import BeautifulSoup
 import hashlib
@@ -30,7 +31,6 @@ class PostListView(ListView):
         if search_query:
             queryset = queryset.filter(
                 Q(title_ru__icontains=search_query) |
-                Q(title_kz__icontains=search_query) |
                 Q(title_en__icontains=search_query)
             )
 
@@ -54,6 +54,7 @@ class PostListView(ListView):
 
         context['page_obj'] = page_obj
         context['page_number'] = page_obj.number
+        context['current_lang'] = translation.get_language()
 
         return context
 
@@ -70,7 +71,7 @@ class PostListView(ListView):
             except EmptyPage:
                 page_obj = paginator.page(paginator.num_pages)
 
-            post_html = render_to_string('partial/post_cards.html', {'post': page_obj.object_list, 'current_lang': get_language()})
+            post_html = render_to_string('partial/post_cards.html', {'posts': page_obj.object_list, 'current_lang': get_language()})
             pagination_html = render_to_string('pagination.html', {'page_obj': page_obj, 'page_number': page_obj.number,
                                                                    'request': request})
 
@@ -101,9 +102,7 @@ class PostDetailView(DetailView):
         current_lang = get_language()
 
         # Получаем контент в зависимости от языка
-        if current_lang == "kz":
-            content = self.object.content_kz
-        elif current_lang == "eng":
+        if current_lang == "en":
             content = self.object.content_en
         else:
             content = self.object.content_ru
@@ -117,7 +116,9 @@ class PostDetailView(DetailView):
             is_active=True
         ).exclude(id=self.object.id).distinct().exclude(is_active=False).order_by('-created_at')[:10]
 
-        context['similar_news'] = similar_news
+        context['similar_posts'] = similar_news
+
+        context['current_lang'] = translation.get_language()
 
         return context
 

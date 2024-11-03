@@ -29,10 +29,9 @@
     <div class="bg-body-tertiary search-post">
         <div class="container">
             <div class="form-group">
-                <form id="searchFormNews" method="get" action="">
+                <form id="searchFormPosts" method="get" action="">
                     <div class="input-group">
-                        <i class="bi bi-search"></i>
-                        <input type="text" id="searchNews" name="search_query"
+                        <input type="text" id="searchPosts" name="search_query"
                                class="form-control regular text-md text-placeholder post-input"
                                placeholder="{% trans 'Search' %}"
                                value="{{ search_query }}">
@@ -53,9 +52,7 @@
                     <a href="javascript:void(0);"
                        class="tag-item semibold text-md text-quaternary-500 {% if not selected_tag %}selected{% endif %}"
                        data-tag="">
-                        {% if current_lang == "kz" %}
-                            Барлығы
-                        {% elif current_lang == "eng" %}
+                        {% if current_lang == "en" %}
                             All
                         {% else %}
                             Все
@@ -65,9 +62,7 @@
                         <a href="javascript:void(0);"
                            class="tag-item semibold text-md text-quaternary-500 {% if selected_tag == tag.slug %}selected{% endif %}"
                            data-tag="{{ tag.slug }}">
-                            {% if current_lang == "kz" and tag.name_kz %}
-                                {{ tag.name_kz }}
-                            {% elif current_lang == "eng" and tag.name_en %}
+                            {% if current_lang == "en" and tag.name_en %}
                                 {{ tag.name_en }}
                             {% else %}
                                 {{ tag.name_ru }}
@@ -80,9 +75,7 @@
                 <div class="tag-dropdown">
                     <select id="tag-select" class="tag-select">
                         <option value="" {% if not selected_tag %}selected{% endif %}>
-                            {% if current_lang == "kz" %}
-                                Барлығы
-                            {% elif current_lang == "eng" %}
+                            {% if current_lang == "en" %}
                                 All
                             {% else %}
                                 Все
@@ -90,9 +83,7 @@
                         </option>
                         {% for tag in tags %}
                             <option value="{{ tag.slug }}" {% if selected_tag == tag.slug %}selected{% endif %}>
-                                {% if current_lang == "kz" and tag.name_kz %}
-                                    {{ tag.name_kz }}
-                                {% elif current_lang == "eng" and tag.name_en %}
+                                {% if current_lang == "en" and tag.name_en %}
                                     {{ tag.name_en }}
                                 {% else %}
                                     {{ tag.name_ru }}
@@ -126,6 +117,6 @@
     </div>
 
     {# Скрипт для Ajax запросов для поиска и фильтров и плавных анимаций#}
-    <script src="{% static 'js/posts/ajax_search_and_filters.js' %}"></script>
+    <script src="{% static 'js/ajax_search_and_filters.js' %}"></script>
 
 {% endblock %}

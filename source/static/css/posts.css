@@ -10,6 +10,46 @@
     transition: opacity 1s ease;
 }
 
+.text-tertiary-600 {
+    color: #475467;
+}
+
+.text-primary-900 {
+    color: #101828;
+}
+
+.text-quaternary-500 {
+    color: #667085;
+}
+
+.text-brand-secondary {
+    color: #5CD5A0;
+}
+
+.br-utility-brand-200 {
+    background: #F4FFFA;
+}
+
+.bg-secondary {
+    background: #F9FAFB !important;
+}
+
+.regular {
+    font-weight: 400;
+}
+
+.medium {
+    font-weight: 500;
+}
+
+.semibold {
+    font-weight: 600;
+}
+
+.bold {
+    font-weight: 700;
+}
+
 .search-post {
     margin-top: -22px;
     padding-bottom: 96px;
