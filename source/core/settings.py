@@ -78,27 +78,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'defaultdb',
-#         'USER': 'doadmin',
-#         'PASSWORD': 'AVNS_3ii1Vy6NAc-bynqJxxe',
-#         'HOST': 'lms-db-do-user-13656028-0.c.db.ondigitalocean.com',
-#         'PORT': '25060',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'lms',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
+        'USER': 'lms_user',
+        'PASSWORD': 'lms_password',
+        'HOST': '185.22.67.9',
         'PORT': '5432',
     }
 }
