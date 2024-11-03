@@ -18,7 +18,7 @@ class CourseListView(ListView):
     paginate_orphans = 1
 
     def get_queryset(self):
-        queryset = super().get_queryset().exclude(is_deleted=True)
+        queryset = super().get_queryset().exclude(is_active=False)
         return queryset
 
     def test_func(self):

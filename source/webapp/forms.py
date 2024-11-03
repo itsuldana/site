@@ -10,7 +10,7 @@ from .models.lessons import Lesson
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['title', 'description', 'price', 'image', 'tag']
+        fields = ['title', 'description', 'price', 'image', 'tag', 'is_active']
 
 
 class CourseModuleForm(forms.ModelForm):
