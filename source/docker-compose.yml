@@ -18,6 +18,14 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    image: redis:alpine
+    container_name: redis
+    networks:
+      - dev
+    ports:
+      - "6379:6379" 
+      
   web:
     build: .
     command: /bin/bash -c "python manage.py makemigrations &&

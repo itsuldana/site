@@ -5,6 +5,8 @@ from webapp.views.course import (
 from webapp.views.lessons import LessonCreateView, LessonUpdateView, LessonDeleteView, LessonDetailView
 from webapp.views.module import ModuleCreateView, ModuleUpdateView
 from webapp.views.purchase import purchase_course, purchase_success, purchase_failure
+from webapp import views
+
 from webapp.views.main_about_us import MainView
 
 urlpatterns = [
@@ -36,4 +38,13 @@ urlpatterns = [
     path('purchase/<int:course_id>/', purchase_course, name='purchase_course'),
     path('purchase/success/', purchase_success, name='purchase_success'),
     path('purchase/failure/', purchase_failure, name='purchase_failure'),
+
+    #urls для тестов от модуля
+    # path('test_module/<int:module_id>/test/', views.TestModuleDetailView.as_view(), name='test_view'),
+    path('test_modules/<int:cours>/cours/', views.TestModulesList.as_view(), name='test_models'),
+    path('start-test/<int:module_id>/', views.StartTestView.as_view(), name='start_test'),
+    path('start-test/<int:module_id>/', views.StartTestView.as_view(), name='start_test'),
+    path('pricces-test/<int:test_id>/', views.TestDetailView.as_view(), name='test_detail'),
+    path('test_module/<int:test_module_id>/submit/', views.TestSubmitView.as_view(), name='test_submit'),
+
 ]
