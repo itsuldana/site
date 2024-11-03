@@ -40,7 +40,7 @@
                 <div class="col-12">
                     {% if modules %}
                         {% for module in modules %}
-                            <h2 class="fw-bold mb-4">Module {{ module.position }}. {{ module.title }}</h2>
+                            <h2 class="fw-bold mb-4">{{ module.position }}. {{ module.title }}</h2>
                             {% if module.lessons.all %}
                                 <div class="list-group">
                                     {% for lesson in module.lessons.all %}
