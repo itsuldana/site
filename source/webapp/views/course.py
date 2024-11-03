@@ -79,7 +79,7 @@ class CourseDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         course = self.object
-        modules = Module.objects.filter(course=course).prefetch_related('lessons')
+        modules = Module.objects.filter(course=course).filter(is_active=True).prefetch_related('lessons')
         context["modules"] = modules
         context['tags'] = course.tag.all()
 
