@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load format_date %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {# Блок с заголовчной информацией #}
+    <div class="container post-preview-block">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-7 post-preview-width">
+                <a class="text-md text-brand-secondary br-utility-brand-200 greeting-preview">
+                     <span class="medium greeting-preview-span">
+                         {% if current_lang == "en" and tags.0.name_en %}
+                             {{ tags.0.name_en }}
+                         {% else %}
+                             {{ tags.0.name_ru }}
+                         {% endif %}
+                     </span>
+                    <span class="medium greeting-preview-date">
+                        {{ post.created_at|date:"d.m.Y" }}
+                    </span>
+                </a>
+                <h1 class="semibold display-lg text-primary-900 post-preview-title">
+                    {% if current_lang == "en" and post.title_en %}
+                        {{ post.title_en }}
+                    {% else %}
+                        {{ post.title_ru }}
+                    {% endif %}
+                </h1>
+                <p class="regular text-xl text-tertiary-600 post-preview-description">
+                    {% if current_lang == "en" and post.description_en %}
+                        {{ post.description_en }}
+                    {% else %}
+                        {{ post.description_ru }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-9 post-preview-image-width">
+                <img id="postImage" class="img-fluid image-detail" src="{{ post.image.url }}" alt="post.title_ru">
+            </div>
+        </div>
+    </div>
+
+    {# Блок с контентом #}
+    <div class="container py-5 detail-post-content-margin">
+        <div class="row justify-content-center">
+            <div class="col-2 content-block-with-urls-width">
+                <ul class="anchor-links content-block-with-urls">
+                    {% for heading in headings %}
+                        <li class="heading-li">
+                            <a class="semibold text-md heading-link" href="#{{ heading.1 }}">{{ heading.0 }}</a>
+                        </li>
+                    {% endfor %}
+                    <li>
+                        <a href="#conclusions" class="semibold text-md heading-link">
+                            {% trans 'Сonclusions' %}
+                        </a>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="col-2 heading-links-icons">
+                        <a id="copy-link">
+                            <img class="mb-4" src="{% static '/icons/copy_link.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                    <div class="col-2 heading-links-icons">
+                        <a>
+                            <img class="mb-4" src="{% static '/icons/twitter_icon.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                    <div class="col-2 heading-links-icons">
+                        <a>
+                            <img class="mb-4" src="{% static '/icons/facebook_icon.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <a>
+                            <img class="mb-4" src="{% static '/icons/linkedin_icon.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-7 ckeditor-block">
+                {{ content|safe }}
+                <div class="conclusion-block bg-secondary">
+                    <h3 id="conclusions" class="semibold display-sm text-primary-900 conclusion-header">{% trans 'Conclusions' %}</h3>
+                    <div class="conclusion-text">
+                        {% if current_lang == "en" and post.conclusion_en %}
+                            {{ post.conclusion_en|safe }}
+                        {% else %}
+                            {{ post.conclusion_ru|safe }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Горизонтальная черта #}
+                <div class="full-width-line"></div>
+
+                {% for tag in tags %}
+                    <p class="card-tag content-block-tag" style="
+                            color: #{{ tag.text_color }};
+                            background: #{{ tag.background_color }};
+                            border-color: #{{ tag.border_color }};
+                            ">
+                        {% if current_lang == "en" and tag.name_en %}
+                            {{ tag.name_en }}
+                        {% else %}
+                            {{ tag.name_ru }}
+                        {% endif %}
+                    </p>
+                {% endfor %}
+                <a id="copy-link-2" class="btn btn-outline-secondary copy-link-button">
+                    <img src="{% static 'icons/copy-link-square.png' %}" alt="Copy link" class="copy-link-icon">
+                    <span class="copy-link-text white">{% trans 'Copy Link' %}</span>
+                </a>
+                <a id="copy-link-3" class="copy-link-icon-mobile">
+                    <img class="mb-4 under-content-icons under-content-left"
+                         src="{% static '/icons/copy_link.png' %}"
+                         alt="copy link">
+                </a>
+                <a>
+                    <img class="mb-4 under-content-icons" src="{% static '/icons/twitter_icon.png' %}"
+                         alt="iwitter link">
+                </a>
+                <a>
+                    <img class="mb-4 under-content-icons" src="{% static '/icons/facebook_icon.png' %}"
+                         alt="facebook link">
+                </a>
+                <a>
+                    <img class="mb-4 under-content-icons" src="{% static '/icons/linkedin_icon.png' %}"
+                         alt="linkedin link">
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    {# Блок с похожими новостями (Десктопная версия) #}
+    <div class="container similar-desktop">
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <p class="semibold text-md text-brand-secondary">
+                    {% trans 'Boston School Posts' %}
+                </p>
+                <h5 class="semibold display-md text-primary-900 similar-post-header">
+                    {% trans 'Similar Posts' %}
+                </h5>
+            </div>
+            <div class="col-2">
+                <a href="{% url 'post_list' %}" class="btn btn-success start-education-button text-md">
+                    {% trans 'View All Posts' %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Похожие новости со скороллом -->
+        <section class="similar-post-block similar-desktop">
+            {% for post in similar_posts %}
+                <div class="card similar-post-block-content card-border-top-radius">
+                    <a class="card-a" href="{% url 'post_detail' post.pk %}">
+                        <img src="{% if post.image_mobile %} {{ post.image_mobile.url }} {% else %} {{ post.image.url }} {% endif %}"
+                             alt="{{ post.title_ru }}" class="img-fluid card-border-top-radius similar-post-card-image">
+                        <div class="card-body">
+                            <p class="semibold text-sm text-brand-secondary similar-post-greeting">
+                                {{ post.created_at|format_date:current_lang }}
+                            </p>
+                            <h6 class="semibold display-xs text-primary-900">
+                                {% if current_lang == "kz" and post.title_kz %}
+                                    {{ post.title_kz }}
+                                {% elif current_lang == "en" and post.title_en %}
+                                    {{ post.title_en }}
+                                {% else %}
+                                    {{ post.title_ru }}
+                                {% endif %}
+                            </h6>
+                            <p class="regular text-md text-tertiary-600 similar-post-description">
+                                {% if current_lang == "kz" and post.description_kz %}
+                                    {{ post.description_kz }}
+                                {% elif current_lang == "en" and post.description_en %}
+                                    {{ post.description_en }}
+                                {% else %}
+                                    {{ post.description_ru|slice:":100" }}
+                                {% endif %}
+                            </p>
+                            {% for tag in post.tags.all %}
+                                <p class="card-tag content-block-tag similar-post-tag" style="
+                                        color: #{{ tag.text_color }};
+                                        background: #{{ tag.background_color }};
+                                        border-color: #{{ tag.border_color }};
+                                        ">
+                                    {% if current_lang == "kz" and tag.name_kz %}
+                                        {{ tag.name_kz }}
+                                    {% elif current_lang == "en" and tag.name_en %}
+                                        {{ tag.name_en }}
+                                    {% else %}
+                                        {{ tag.name_ru }}
+                                    {% endif %}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    {# Блок с похожими новостями (Мобильная версия) #}
+    <div class="container similar-mobile">
+
+        <p class="semibold text-sm text-brand-secondary">
+            {% trans 'Boston School Posts' %}
+        </p>
+        <h5 class="semibold display-sm text-primary-900 similar-post-header">
+            {% trans 'Similar Posts' %}
+        </h5>
+
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+                {% for post in similar_post %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="card card-border-top-radius">
+                            <a class="card-a" href="{% url 'post_detail' post.pk %}">
+                                <img src="{% if post.image_mobile %} {{ post.image_mobile.url }} {% else %} {{ post.image.url }} {% endif %}" alt="{{ post.title_ru }}"
+                                     class="img-fluid card-border-top-radius similar-post-card-image">
+                                <div class="card-body">
+                                    <p class="semibold text-sm text-brand-secondary similar-post-greeting">
+                                        {{ post.created_at|format_date:current_lang }}
+                                    </p>
+                                    <h6 class="semibold display-xs text-primary-900">
+                                        {% if current_lang == "en" and post.title_en %}
+                                            {{ post.title_en }}
+                                        {% else %}
+                                            {{ post.title_ru }}
+                                        {% endif %}
+                                    </h6>
+                                    <p class="regular text-md text-tertiary-600 similar-post-description">
+                                        {% if current_lang == "en" and post.description_en %}
+                                            {{ post.description_en }}
+                                        {% else %}
+                                            {{ post.description_ru|slice:":100" }}
+                                        {% endif %}
+                                    </p>
+                                    {% for tag in post.tags.all %}
+                                        <p class="card-tag content-block-tag similar-post-tag" style="
+                                                color: #{{ tag.text_color }};
+                                                background: #{{ tag.background_color }};
+                                                border-color: #{{ tag.border_color }};
+                                                ">
+                                            {% if current_lang == "en" and tag.name_en %}
+                                                {{ tag.name_en }}
+                                            {% else %}
+                                                {{ tag.name_ru }}
+                                            {% endif %}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <a class="prev-icon" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span aria-hidden="true">
+                <img src="{% static 'images/icons/slider_left.png' %}" alt="Иконка слайдера влево">
+            </span>
+            <span class="visually-hidden">Предыдущий</span>
+        </a>
+        <a class="next-icon" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span aria-hidden="true">
+                <img src="{% static 'images/icons/slider_right.png' %}" alt="Иконка слайдера вправо">
+            </span>
+            <span class="visually-hidden">Следующий</span>
+        </a>
+
+    </div>
+
+    <div class="container view-all-block">
+        <a href="{% url 'post_list' %}" class="btn btn-success start-education-button text-md">
+            {% trans 'View all Posts' %}
+        </a>
+    </div>
+
+    {# Скрипт для получения ссылки на новость по нажатию на иконку #}
+    <script>
+        function copyLink(event) {
+            event.preventDefault();
+            const pageUrl = window.location.href;
+            navigator.clipboard.writeText(pageUrl)
+                .then(() => {
+                    alert("Ссылка скопирована!");
+                })
+                .catch(err => {
+                    console.error('Ошибка копирования: ', err);
+                });
+        }
+
+        document.getElementById("copy-link").addEventListener("click", copyLink);
+        document.getElementById("copy-link-2").addEventListener("click", copyLink);
+        document.getElementById("copy-link-3").addEventListener("click", copyLink);
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Получаем все изображения внутри ckeditor-block
+            const images = document.querySelectorAll('.ckeditor-block img');
+
+            images.forEach(function (image) {
+                // Устанавливаем высоту изображения равной его ширине (делаем его квадратным)
+                image.style.height = image.clientWidth + 'px';
+            });
+        });
+    </script>
+
+    <script>
+        window.addEventListener('resize', function () {
+            var postImage = document.getElementById('postImage');
+            if (window.innerWidth <= 768) {
+                postImage.src = '{{ post.image_mobile.url }}';
+            } else {
+                postImage.src = '{{ post.image.url }}';
+            }
+            console.log(postImage.src)
+        });
+
+        window.addEventListener('load', function () {
+            var postImage = document.getElementById('postImage');
+            if (window.innerWidth <= 768) {
+                postImage.src = '{{ post.image_mobile.url }}';
+            } else {
+                postImage.src = '{{ post.image.url }}';
+            }
+        });
+    </script>
+
+{% endblock %}

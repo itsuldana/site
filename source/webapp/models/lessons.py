@@ -57,6 +57,11 @@ class Lesson(models.Model):
         blank=True,
         verbose_name="Длительность видео"
     )
+    is_active = models.BooleanField(
+        default=True,
+        null=False,
+        verbose_name="Активен"
+    )
     creator = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
@@ -94,6 +99,9 @@ class Lesson(models.Model):
             self.fetch_youtube_data(API_KEY)
 
     def formatted_duration(self):
-        hours, remainder = divmod(self.duration, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        return f"{hours}:{minutes}:{seconds}" if hours else f"{minutes}:{seconds}"
+        if self.duration:
+            hours, remainder = divmod(self.duration, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            return f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02}"
+        else:
+            return " "

@@ -75,19 +75,22 @@
         <h2 class="mb-4 course-title">{{ lesson.title }}</h2>
         <div class="d-flex gap-3 ">
 
-            <div class="d-flex flex-column">
-                {% if lesson.video_url %}
-                    <div class="plyr__video-embed" id="player">
-                        <iframe src="{{ lesson.video_url }}" allowfullscreen allowtransparency
-                                allow="autoplay"></iframe>
-                    </div>
-                {% endif %}
+            <div class="row flex-column">
+                <div class="">
+                    {% if lesson.video_url %}
+                        <div class="plyr__video-embed" id="player">
+                            <iframe src="{{ lesson.video_url }}" allowfullscreen allowtransparency
+                                    allow="autoplay"></iframe>
+                        </div>
+                    {% endif %}
 
-                <div class="mt-3">
+                </div>
+
+                <div class="">
                     <div>
                         {% if lesson.creator.social_network_link %}
                             <p>Lesson by<a class="text-decoration-none" href="{{ lesson.creator.social_network_link }}">
-                                 <strong>  {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>
+                                <strong>  {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>
                             </a></p>
                         {% else %}
                             <p>Lesson by
@@ -114,9 +117,8 @@
 
 
             </div>
-            <div class="d-flex  justify-content-between align-items-start mb-5">
+            <div class="d-flex justify-content-between align-items-start next-lessons-block mb-5">
                 <div class="d-flex flex-column gap-1">
-
                     <div class="d-flex flex-column gap-s">
                         <strong>Status</strong>
                         <button id="finish-button" class="btn btn-primary">Завершить урок</button>
@@ -133,12 +135,12 @@
                                     <div class="row g-0">
                                         <div class="col-md-4">
                                             <img src="{{ next_lesson.lesson.thumbnail_url }}"
-                                                 class="img-fluid rounded-start"
+                                                 class="lesson-image img-fluid rounded-start"
                                                  alt="Изображение урока">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5>{{ next_lesson.lesson.title }}</h5>
+                                                <h5 class="lesson-title">{{ next_lesson.lesson.title }}</h5>
                                                 <div class="d-flex justify-content-between">
                                                     <p class="card-text">
                                                         <small
@@ -171,15 +173,17 @@
                                href="{% url 'lesson_detail' item.lesson.id %}">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="{{ item.lesson.thumbnail_url }}" class="img-fluid rounded-start"
+                                        <img src="{{ item.lesson.thumbnail_url }}"
+                                             class="lesson-image img-fluid rounded-start"
                                              alt="Изображение урока">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5>{{ item.lesson.title }}</h5>
+                                            <h5 class="lesson-title">{{ item.lesson.title }}</h5>
                                             <div class="d-flex justify-content-between">
                                                 <p id="video-duration" class="card-text"><small
-                                                        class="text-muted">{{ item.lesson.formatted_duration }}</small></p>
+                                                        class="text-muted">{{ item.lesson.formatted_duration }}</small>
+                                                </p>
                                                 {% if item.status == "in_progress" %}
                                                     <i class="bi bi-hourglass-split text-warning"></i>
 
@@ -199,8 +203,6 @@
 
                         </div>
                     {% endfor %}
-                    <div id="video-duration"></div>
-
 
                 </div>
 

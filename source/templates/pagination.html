@@ -1,0 +1,51 @@
+<div class="pagination d-flex justify-content-between">
+    <div class="col-1 ed-prog-width">
+        <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}{% endif %}"
+           class="btn btn-outline-primary mobile-button-styles {% if not page_obj.has_previous %}disabled{% endif %}"
+           data-page="{% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}">
+            ← <span class="mobile-off">Назад </span>
+        </a>
+    </div>
+
+    <div class="col-4 mobile-off">
+        <div class="pages">
+            <!-- Вывод первой страницы, если текущая страница > 3 -->
+            {% if page_obj.number > 3 %}
+                <a href="?page=1" class="btn btn-light" data-page="1">1</a>
+                <span class="dots">...</span>
+            {% endif %}
+
+            <!-- Показ диапазона страниц, ограниченного -2 и +2 от текущей страницы -->
+            {% for num in page_obj.paginator.page_range %}
+                {% if num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                    {% if num == page_obj.number %}
+                        <span class="btn btn-primary">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}" class="btn btn-light" data-page="{{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            <!-- Показ последней страницы, если она не входит в диапазон -->
+            {% if page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                <span class="dots">...</span>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-light"
+                   data-page="{{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-4 desktop-off">
+        <p class="regular text-sm fg-secondary-700 mobile-page-text">
+            Страница {{ page_number }} из {{ page_obj.paginator.num_pages }}
+        </p>
+    </div>
+
+    <div class="col-1 ed-prog-width">
+        <a href="?page={% if page_obj.has_next %}{% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}{% endif %}"
+           class="btn btn-outline-primary {% if not page_obj.has_next %}disabled{% endif %}"
+           data-page="{% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}">
+            <span class="mobile-off">След </span> →
+        </a>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {# Блок с названием страницы #}
+    <div class="bg-body-tertiary">
+        <div class="container title-block ">
+            <div class="row">
+                <div class="col-12">
+                    <p class="regular text-xl text-tertiary-600 title-block-title" id="post-start">
+                        {% trans 'All Posts' %}
+                    </p>
+                    <h1 class="semibold display-lg text-primary-900 title-block-description" id="post-start-mobile">
+                        {% trans 'Posts' %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Поиск #}
+    <div class="bg-body-tertiary search-post">
+        <div class="container">
+            <div class="form-group">
+                <form id="searchFormPosts" method="get" action="">
+                    <div class="input-group">
+                        <input type="text" id="searchPosts" name="search_query"
+                               class="form-control regular text-md text-placeholder post-input"
+                               placeholder="{% trans 'Search' %}"
+                               value="{{ search_query }}">
+                        <button type="submit" class="btn btn-success post-search-button">
+                            {% trans 'Search' %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {# Блок с тегами #}
+    <div class="container tag-block">
+        <div class="row">
+            {% if tags %}
+                <div class="tag-list" id="tag-container">
+                    <a href="javascript:void(0);"
+                       class="tag-item semibold text-md text-quaternary-500 {% if not selected_tag %}selected{% endif %}"
+                       data-tag="">
+                        {% if current_lang == "en" %}
+                            All
+                        {% else %}
+                            Все
+                        {% endif %}
+                    </a>
+                    {% for tag in tags %}
+                        <a href="javascript:void(0);"
+                           class="tag-item semibold text-md text-quaternary-500 {% if selected_tag == tag.slug %}selected{% endif %}"
+                           data-tag="{{ tag.slug }}">
+                            {% if current_lang == "en" and tag.name_en %}
+                                {{ tag.name_en }}
+                            {% else %}
+                                {{ tag.name_ru }}
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+
+                <!-- Dropdown for mobile -->
+                <div class="tag-dropdown">
+                    <select id="tag-select" class="tag-select">
+                        <option value="" {% if not selected_tag %}selected{% endif %}>
+                            {% if current_lang == "en" %}
+                                All
+                            {% else %}
+                                Все
+                            {% endif %}
+                        </option>
+                        {% for tag in tags %}
+                            <option value="{{ tag.slug }}" {% if selected_tag == tag.slug %}selected{% endif %}>
+                                {% if current_lang == "en" and tag.name_en %}
+                                    {{ tag.name_en }}
+                                {% else %}
+                                    {{ tag.name_ru }}
+                                {% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {# Блок с карточками новостей #}
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 g-4" id="post-container" data-post-url="{% url 'post_list' %}">
+            {% if posts %}
+                {% include 'partial/post_cards.html' %}
+            {% endif %}
+        </div>
+
+        {# Горизонтальная черта #}
+        <div class="row">
+            <div class="full-width-line"></div>
+        </div>
+
+        <div class="row pagination-block" id="pagination-container">
+            {% if is_paginated %}
+                {% include 'pagination.html' %}
+            {% endif %}
+        </div>
+    </div>
+
+    {# Скрипт для Ajax запросов для поиска и фильтров и плавных анимаций#}
+    <script src="{% static 'js/ajax_search_and_filters.js' %}"></script>
+
+{% endblock %}

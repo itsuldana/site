@@ -40,7 +40,7 @@ class CoursePaidListView(ListView):
         ).order_by('-purchase_date').values_list('course_id', flat=True)
 
         # Фильтруем только оплаченные курсы
-        queryset = Course.objects.filter(id__in=paid_courses_ids, is_deleted=False)
+        queryset = Course.objects.filter(id__in=paid_courses_ids, is_active=True)
         return queryset
 
 
@@ -79,7 +79,7 @@ class CourseDetailView(DetailView):
         context = super().get_context_data(**kwargs)
 
         course = self.object
-        modules = Module.objects.filter(course=course).prefetch_related('lessons')
+        modules = Module.objects.filter(course=course).filter(is_active=True).prefetch_related('lessons')
         context["modules"] = modules
         context['tags'] = course.tag.all()
 

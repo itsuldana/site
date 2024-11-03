@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(api_version='api-v1'), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='docs'),
     path('auth/', include('accounts.urls')),
+    path('blog/', include('blog.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
