@@ -1,0 +1,566 @@
+/* CSS для плавного исчезновения */
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+/* CSS для плавного появления */
+.fade-in {
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.search-post {
+    margin-top: -22px;
+    padding-bottom: 96px;
+    margin-left: -16px;
+}
+
+.title-block {
+    padding: 96px 0 0 0;
+}
+
+.title-block-description {
+    margin-top: 10px;
+    padding-bottom: 22px;
+}
+
+.tag-block {
+    margin-top: 96px;
+    margin-bottom: 50px;
+}
+
+.tag-list {
+    display: flex;
+    flex-direction: row; /* Отображаем элементы в колонке */
+    gap: 10px; /* Отступ между элементами */
+}
+
+.tag-item {
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.selected {
+    background: #F9FAFB;
+    border-radius: 7px;
+    color: #344054;
+}
+
+.post-card-image {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.post-card {
+    border-radius: 10px !important;
+    border: 1px solid #E4E7EC;
+}
+
+.post-card-date {
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+.post-card-title {
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+.card-tag {
+    padding: 3px 15px;
+    display: inline-block;
+    border-radius: 50px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+    margin-right: 5px;
+}
+
+.card-text {
+    margin-top: 8px;
+}
+
+.tag-dropdown {
+    display: none;
+}
+
+.tag-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.tag-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.tag-select option {
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.tag-select option:hover {
+    background-color: #f8f9fa;
+}
+
+.greeting-preview {
+    border: 1px solid #E5FFF4;
+    border-radius: 50px 50px 50px 50px;
+    padding: 7px 7px;
+    text-decoration: none;
+}
+
+.greeting-preview-span {
+    background: #FFFFFF;
+    border: 1px solid #E5FFF4;
+    border-radius: 50px 50px 50px 50px;
+    padding: 3px 3px 3px 7px
+}
+
+.greeting-preview-date {
+    margin-left: 7px;
+}
+
+.post-preview-block {
+    margin-top: 70px;
+    margin-bottom: 45px;
+    text-align: center;
+}
+
+.post-preview-width {
+    max-width: 768px;
+}
+
+.post-preview-image-width {
+    width: 80%
+}
+
+.post-preview-title {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.post-preview-description {
+    margin-bottom: 64px;
+}
+
+.toc {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.toc-level-1 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.toc-level-2 {
+    padding-left: 15px;
+    margin-bottom: 5px;
+}
+
+.toc-level-3 {
+    padding-left: 30px;
+    margin-bottom: 3px;
+}
+
+.toc a {
+    text-decoration: none;
+    color: #333;
+}
+
+.toc a:hover {
+    text-decoration: underline;
+}
+
+.content-block-with-urls-width {
+    margin-right: 40px;
+    width: 18% !important;
+}
+
+.heading-links-icons {
+    margin-right: 10px;
+}
+
+.content-block-with-urls {
+    border-top: 1px solid #E4E7EC;
+    border-bottom: 1px solid #E4E7EC;
+    list-style: none;
+    padding: 30px 0;
+    margin-bottom: 30px;
+}
+
+.heading-link {
+    color: #475467;
+    text-decoration: none;
+}
+
+.heading-li {
+    margin-bottom: 10px;
+}
+
+.ckeditor-block {
+    overflow: hidden;
+}
+
+.ckeditor-block > p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #475467;
+}
+
+.ckeditor-block > h2, .ckeditor-block > h3 {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #101828;
+}
+
+.ckeditor-block > sub {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #475467;
+}
+
+.ckeditor-block img {
+    width: 100%; /* Картинка занимает всю ширину контейнера */
+    height: auto; /* Сохраняет пропорции картинки */
+    display: block;
+    object-fit: cover; /* Обрезает картинку по центру */
+    border-radius: 13px;
+}
+
+.conclusion-block {
+    margin-top: 40px;
+    padding: 33px;
+    border-radius: 13px;
+}
+
+.conclusion-header {
+    margin-bottom: 20px;
+}
+
+.conclusion-text > p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: #475467;
+}
+
+.full-width-line {
+    height: 1px;
+    background-color: #E4E7EC;
+    width: 100%;
+    margin-top: 48px;
+    margin-bottom: 10px;
+}
+
+.content-block-tag {
+    font-weight: 500;
+    font-size: 14px !important;
+    line-height: 20px !important;
+}
+
+.copy-link-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    border: #D0D5DD solid 1px;
+    color: #344054;
+    margin-left: 18px;
+}
+
+.copy-link-icon, .under-content-icons {
+    display: inline-block !important;
+    border-radius: 0 !important;
+}
+
+.copy-link-icon {
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 3px;
+}
+
+.under-content-icons {
+    height: 50px !important;
+    width: 50px !important;
+    margin-top: 26px;
+    margin-left: 6px;
+}
+
+.under-content-icons {
+    width: 40px;
+    height: 40px;
+}
+
+.start-education-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #76E6B6;
+    border: #73c3a3 solid 1px;
+    color: #FFFFFF;
+}
+
+.similar-post-header {
+    margin-top: 15px;
+    margin-bottom: 65px;
+}
+
+.similar-post-block {
+    display: flex;
+    background-color: #fff;
+    min-width: 100%;
+    min-height: 200px;
+    overflow-x: auto;
+}
+
+.similar-post-block::-webkit-scrollbar {
+    display: none;
+}
+
+.similar-post-block-content {
+    min-width: 400px !important;
+    margin-right: 25px;
+}
+
+.similar-post-greeting {
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+.similar-post-description {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card-border-top-radius {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.similar-post-card-image {
+    width: 100%;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.card-a {
+    text-decoration: none;
+}
+
+.similar-post-tag {
+    margin-top: 18px;
+    margin-bottom: -20px;
+}
+
+.copy-link-icon-mobile {
+    display: none;
+}
+
+.prev-icon, .next-icon {
+    margin-top: 37px;
+}
+
+.prev-icon {
+    margin-right: 15px;
+}
+
+.view-all-block {
+    margin-top: 40px;
+}
+
+.similar-mobile, .view-all-block {
+    display: none;
+}
+
+.pagination-block {
+    margin-top: 20px;
+}
+
+.card {
+    flex-direction: column; /* Чтобы элементы внутри карточки располагались вертикально */
+    height: 100%; /* Это позволит карточкам занимать равную высоту */
+}
+
+.card-body {
+    flex-grow: 1; /* Заставляет тело карточки занимать оставшееся пространство */
+}
+
+.input-group {
+    margin-top: 22px;
+}
+
+.image-detail {
+    width: 100%;
+}
+
+.form-control {
+    border-radius: 5px !important;
+    max-width: 375px;
+    height: 42px;
+}
+
+.post-search-button {
+    margin-left: 12px !important;
+    border-radius: 5px;
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+    color: white;
+    background-color: #76E6B6;
+    height: 42px;
+}
+
+@media only screen and (max-width: 768px) {
+    .search-post {
+        margin-top: 64px;
+        padding-bottom: 0;
+        margin-left: 0;
+        background-color: transparent !important;
+    }
+
+    .title-block-description {
+        font-size: 36px;
+        line-height: 44px;
+        padding-bottom: 0;
+    }
+
+    .title-block-title {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+    }
+
+    .tag-block {
+        margin-top: 45px;
+    }
+
+    .title-block {
+        padding: 64px 15px;
+    }
+
+    .tag-list {
+        display: none;
+    }
+
+    .tag-dropdown {
+        display: block;
+        margin-top: -30px;
+    }
+
+    .card-tag {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        margin-bottom: 20px;
+    }
+
+    .arrow-container, .content-block-with-urls-width, .copy-link-text, .copy-link-button, .similar-desktop {
+        display: none;
+    }
+
+    .post-preview-block {
+        text-align: left;
+        margin-top: 55px;
+    }
+
+    .greeting-preview {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 500;
+    }
+
+    .post-preview-title {
+        font-size: 36px;
+        line-height: 44px;
+        margin-top: 20px;
+    }
+
+    .post-preview-image-width {
+        width: 100%;
+    }
+
+    .post-preview-description {
+        margin-bottom: 54px;
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .ckeditor-block > p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .detail-post-content-margin {
+        margin-top: -35px;
+    }
+
+    .ckeditor-block > h2, .ckeditor-block > h3 {
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: -14px !important;
+    }
+
+    .conclusion-header {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .conclusion-block {
+        padding: 23px;
+    }
+
+    .full-width-line {
+        margin-top: 32px;
+        margin-bottom: 20px;
+    }
+
+    .copy-link-icon-mobile {
+        display: inline-block;
+    }
+
+    .under-content-icons {
+        margin-top: 10px;
+    }
+
+    .under-content-left {
+        margin-left: -2px;
+    }
+
+    .start-education-button {
+        width: 100%;
+    }
+
+    .similar-post-header {
+        margin-bottom: 45px;
+    }
+
+    .similar-mobile, .view-all-block {
+        display: block;
+    }
+}

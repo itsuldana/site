@@ -1,0 +1,49 @@
+{% load format_date %}
+
+{% for item in posts %}
+    <div class="col">
+        <div class="card news-card">
+            <img src="{% if item.image_list %}{{ item.image_list.url }}{% else %}{{ item.image.url }}{% endif %}"
+                 class="card-img-top news-card-image" alt="item.title_ru">
+            <div class="card-body">
+                <p class="semibold text-sm text-brand-secondary news-card-date">
+                    {{ item.created_at|format_date:current_lang }}
+                </p>
+                <a class="card-title semibold display-xs text-primary-900 news-card-title"
+                   href="{% url 'news_detail' item.pk %}">
+                    {% if current_lang == "kz" and item.title_kz %}
+                        {{ item.title_kz }}
+                    {% elif current_lang == "eng" and item.title_en %}
+                        {{ item.title_en }}
+                    {% else %}
+                        {{ item.title_ru }}
+                    {% endif %}
+                </a>
+                <p class="card-text regular text-md text-tertiary-600">
+                    {% if current_lang == "kz" and item.description_kz %}
+                        {% if item.description_kz %}{{ item.description_kz }}{% else %}{% endif %}
+                    {% elif current_lang == "eng" and item.description_en %}
+                        {% if item.description_en %}{{ item.description_en }}{% else %}{% endif %}
+                    {% else %}
+                        {% if item.description_ru %}{{ item.description_ru }}{% else %}{% endif %}
+                    {% endif %}
+                </p>
+                {% for tag in item.tags.all %}
+                    <p class="card-tag" style="
+                            color: #{{ tag.text_color }};
+                            background: #{{ tag.background_color }};
+                            border-color: #{{ tag.border_color }};
+                            ">
+                        {% if current_lang == "kz" and tag.name_kz %}
+                            {{ tag.name_kz }}
+                        {% elif current_lang == "eng" and tag.name_en %}
+                            {{ tag.name_en }}
+                        {% else %}
+                            {{ tag.name_ru }}
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endfor %}

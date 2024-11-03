@@ -1,0 +1,362 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans_tags %}
+{% load format_date %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {# Блок с заголовчной информацией #}
+    <div class="container news-preview-block">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-7 news-preview-width">
+                <a class="text-md text-brand-secondary br-utility-brand-200 greeting-preview">
+                     <span class="medium greeting-preview-span">
+                         {% if current_lang == "kz" and tags.0.name_kz %}
+                             {{ tags.0.name_kz }}
+                         {% elif current_lang == "eng" and tags.0.name_en %}
+                             {{ tags.0.name_en }}
+                         {% else %}
+                             {{ tags.0.name_ru }}
+                         {% endif %}
+                     </span>
+                    <span class="medium greeting-preview-date">
+                        {{ news.created_at|date:"d.m.Y" }}
+                    </span>
+                </a>
+                <h1 class="semibold display-lg text-primary-900 news-preview-title">
+                    {% if current_lang == "kz" and news.title_kz %}
+                        {{ news.title_kz }}
+                    {% elif current_lang == "eng" and news.title_en %}
+                        {{ news.title_en }}
+                    {% else %}
+                        {{ news.title_ru }}
+                    {% endif %}
+                </h1>
+                <p class="regular text-xl text-tertiary-600 news-preview-description">
+                    {% if current_lang == "kz" and news.description_kz %}
+                        {{ news.description_kz }}
+                    {% elif current_lang == "eng" and news.description_en %}
+                        {{ news.description_en }}
+                    {% else %}
+                        {{ news.description_ru }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-9 news-preview-image-width">
+                <img id="newsImage" class="img-fluid image-detail" src="{{ news.image.url }}" alt="news.title_ru">
+            </div>
+        </div>
+    </div>
+
+    {# Блок с контентом #}
+    <div class="container py-5 detail-news-content-margin">
+        <div class="row justify-content-center">
+            <div class="col-2 content-block-with-urls-width">
+                <ul class="anchor-links content-block-with-urls">
+                    {% for heading in headings %}
+                        <li class="heading-li">
+                            <a class="semibold text-md heading-link" href="#{{ heading.1 }}">{{ heading.0 }}</a>
+                        </li>
+                    {% endfor %}
+                    <li>
+                        <a href="#conclusions" class="semibold text-md heading-link">
+                            {% tr 'Выводы' 'сonclusions' %}
+                        </a>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="col-2 heading-links-icons">
+                        <a id="copy-link">
+                            <img class="mb-4" src="{% static 'images/icons/copy_link.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                    <div class="col-2 heading-links-icons">
+                        <a>
+                            <img class="mb-4" src="{% static 'images/icons/twitter_icon.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                    <div class="col-2 heading-links-icons">
+                        <a>
+                            <img class="mb-4" src="{% static 'images/icons/facebook_icon.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <a>
+                            <img class="mb-4" src="{% static 'images/icons/linkedin_icon.png' %}" alt="copy link">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-7 ckeditor-block">
+                {{ content|safe }}
+                <div class="conclusion-block bg-secondary">
+                    <h3 id="conclusions" class="semibold display-sm text-primary-900 conclusion-header">{% tr 'Выводы' 'сonclusions' %}</h3>
+                    <div class="conclusion-text">
+                        {% if current_lang == "kz" and news.conclusion_kz %}
+                            {{ news.conclusion_kz|safe }}
+                        {% elif current_lang == "eng" and news.conclusion_en %}
+                            {{ news.conclusion_en|safe }}
+                        {% else %}
+                            {{ news.conclusion_ru|safe }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# Горизонтальная черта #}
+                <div class="full-width-line"></div>
+
+                {% for tag in tags %}
+                    <p class="card-tag content-block-tag" style="
+                            color: #{{ tag.text_color }};
+                            background: #{{ tag.background_color }};
+                            border-color: #{{ tag.border_color }};
+                            ">
+                        {% if current_lang == "kz" and tag.name_kz %}
+                            {{ tag.name_kz }}
+                        {% elif current_lang == "eng" and tag.name_en %}
+                            {{ tag.name_en }}
+                        {% else %}
+                            {{ tag.name_ru }}
+                        {% endif %}
+                    </p>
+                {% endfor %}
+                <a id="copy-link-2" class="btn btn-primary copy-link-button">
+                    <img src="{% static 'images/icons/copy-link-square.png' %}" alt="Copy link" class="copy-link-icon">
+                    <span class="copy-link-text">{% tr 'Копировать ссылку' 'copy_link' %}</span>
+                </a>
+                <a id="copy-link-3" class="copy-link-icon-mobile">
+                    <img class="mb-4 under-content-icons under-content-left"
+                         src="{% static 'images/icons/copy_link.png' %}"
+                         alt="copy link">
+                </a>
+                <a>
+                    <img class="mb-4 under-content-icons" src="{% static 'images/icons/twitter_icon.png' %}"
+                         alt="iwitter link">
+                </a>
+                <a>
+                    <img class="mb-4 under-content-icons" src="{% static 'images/icons/facebook_icon.png' %}"
+                         alt="facebook link">
+                </a>
+                <a>
+                    <img class="mb-4 under-content-icons" src="{% static 'images/icons/linkedin_icon.png' %}"
+                         alt="linkedin link">
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    {# Блок с похожими новостями (Десктопная версия) #}
+    <div class="container similar-desktop">
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <p class="semibold text-md text-brand-secondary">
+                    {% tr 'Новости Energo University' 'news_energo_unversity' %}
+                </p>
+                <h5 class="semibold display-md text-primary-900 similar-news-header">
+                    {% tr 'Похожие новости' 'similar_news' %}
+                </h5>
+            </div>
+            <div class="col-2">
+                <a href="{% url 'news_list' %}" class="btn btn-success start-education-button text-md">
+                    {% tr 'Посмотреть все' 'view_all_news' %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Похожие новости со скороллом -->
+        <section class="similar-news-block similar-desktop">
+            {% for news in similar_news %}
+                <div class="card similar-news-block-content card-border-top-radius">
+                    <a class="card-a" href="{% url 'news_detail' news.pk %}">
+                        <img src="{% if news.image_mobile %} {{ news.image_mobile.url }} {% else %} {{ news.image.url }} {% endif %}"
+                             alt="{{ news.title_ru }}" class="img-fluid card-border-top-radius similar-news-card-image">
+                        <div class="card-body">
+                            <p class="semibold text-sm text-brand-secondary similar-news-greeting">
+                                {{ news.created_at|format_date:current_lang }}
+                            </p>
+                            <h6 class="semibold display-xs text-primary-900">
+                                {% if current_lang == "kz" and news.title_kz %}
+                                    {{ news.title_kz }}
+                                {% elif current_lang == "eng" and news.title_en %}
+                                    {{ news.title_en }}
+                                {% else %}
+                                    {{ news.title_ru }}
+                                {% endif %}
+                            </h6>
+                            <p class="regular text-md text-tertiary-600 similar-news-description">
+                                {% if current_lang == "kz" and news.description_kz %}
+                                    {{ news.description_kz }}
+                                {% elif current_lang == "eng" and news.description_en %}
+                                    {{ news.description_en }}
+                                {% else %}
+                                    {{ news.description_ru|slice:":100" }}
+                                {% endif %}
+                            </p>
+                            {% for tag in news.tags.all %}
+                                <p class="card-tag content-block-tag similar-news-tag" style="
+                                        color: #{{ tag.text_color }};
+                                        background: #{{ tag.background_color }};
+                                        border-color: #{{ tag.border_color }};
+                                        ">
+                                    {% if current_lang == "kz" and tag.name_kz %}
+                                        {{ tag.name_kz }}
+                                    {% elif current_lang == "eng" and tag.name_en %}
+                                        {{ tag.name_en }}
+                                    {% else %}
+                                        {{ tag.name_ru }}
+                                    {% endif %}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    {# Блок с похожими новостями (Мобильная версия) #}
+    <div class="container similar-mobile">
+
+        <p class="semibold text-sm text-brand-secondary">
+            {% tr 'Новости Energo University' 'news_energo_unversity' %}
+        </p>
+        <h5 class="semibold display-sm text-primary-900 similar-news-header">
+            {% tr 'Похожие новости' 'similar_news' %}
+        </h5>
+
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+                {% for news in similar_news %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="card card-border-top-radius">
+                            <a class="card-a" href="{% url 'news_detail' news.pk %}">
+                                <img src="{% if news.image_mobile %} {{ news.image_mobile.url }} {% else %} {{ news.image.url }} {% endif %}" alt="{{ news.title_ru }}"
+                                     class="img-fluid card-border-top-radius similar-news-card-image">
+                                <div class="card-body">
+                                    <p class="semibold text-sm text-brand-secondary similar-news-greeting">
+                                        {{ news.created_at|format_date:current_lang }}
+                                    </p>
+                                    <h6 class="semibold display-xs text-primary-900">
+                                        {% if current_lang == "kz" and news.title_kz %}
+                                            {{ news.title_kz }}
+                                        {% elif current_lang == "eng" and news.title_en %}
+                                            {{ news.title_en }}
+                                        {% else %}
+                                            {{ news.title_ru }}
+                                        {% endif %}
+                                    </h6>
+                                    <p class="regular text-md text-tertiary-600 similar-news-description">
+                                        {% if current_lang == "kz" and news.description_kz %}
+                                            {{ news.description_kz }}
+                                        {% elif current_lang == "eng" and news.description_en %}
+                                            {{ news.description_en }}
+                                        {% else %}
+                                            {{ news.description_ru|slice:":100" }}
+                                        {% endif %}
+                                    </p>
+                                    {% for tag in news.tags.all %}
+                                        <p class="card-tag content-block-tag similar-news-tag" style="
+                                                color: #{{ tag.text_color }};
+                                                background: #{{ tag.background_color }};
+                                                border-color: #{{ tag.border_color }};
+                                                ">
+                                            {% if current_lang == "kz" and tag.name_kz %}
+                                                {{ tag.name_kz }}
+                                            {% elif current_lang == "eng" and tag.name_en %}
+                                                {{ tag.name_en }}
+                                            {% else %}
+                                                {{ tag.name_ru }}
+                                            {% endif %}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <a class="prev-icon" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span aria-hidden="true">
+                <img src="{% static 'images/icons/slider_left.png' %}" alt="Иконка слайдера влево">
+            </span>
+            <span class="visually-hidden">Предыдущий</span>
+        </a>
+        <a class="next-icon" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span aria-hidden="true">
+                <img src="{% static 'images/icons/slider_right.png' %}" alt="Иконка слайдера вправо">
+            </span>
+            <span class="visually-hidden">Следующий</span>
+        </a>
+
+    </div>
+
+    <div class="container view-all-block">
+        <a href="{% url 'news_list' %}" class="btn btn-success start-education-button text-md">
+            {% tr 'Посмотреть все' 'view_all_news' %}
+        </a>
+    </div>
+
+    {# Скрипт для получения ссылки на новость по нажатию на иконку #}
+    <script>
+        function copyLink(event) {
+            event.preventDefault();
+            const pageUrl = window.location.href;
+            navigator.clipboard.writeText(pageUrl)
+                .then(() => {
+                    alert("Ссылка скопирована!");
+                })
+                .catch(err => {
+                    console.error('Ошибка копирования: ', err);
+                });
+        }
+
+        document.getElementById("copy-link").addEventListener("click", copyLink);
+        document.getElementById("copy-link-2").addEventListener("click", copyLink);
+        document.getElementById("copy-link-3").addEventListener("click", copyLink);
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Получаем все изображения внутри ckeditor-block
+            const images = document.querySelectorAll('.ckeditor-block img');
+
+            images.forEach(function (image) {
+                // Устанавливаем высоту изображения равной его ширине (делаем его квадратным)
+                image.style.height = image.clientWidth + 'px';
+            });
+        });
+    </script>
+
+    <script>
+        window.addEventListener('resize', function () {
+            var newsImage = document.getElementById('newsImage');
+            if (window.innerWidth <= 768) {
+                newsImage.src = '{{ news.image_mobile.url }}';
+            } else {
+                newsImage.src = '{{ news.image.url }}';
+            }
+            console.log(newsImage.src)
+        });
+
+        window.addEventListener('load', function () {
+            var newsImage = document.getElementById('newsImage');
+            if (window.innerWidth <= 768) {
+                newsImage.src = '{{ news.image_mobile.url }}';
+            } else {
+                newsImage.src = '{{ news.image.url }}';
+            }
+        });
+    </script>
+
+{% endblock %}
