@@ -36,7 +36,14 @@ class TestDetailView(View):
     template_name = 'module_test/test_view.html'
     
     def get(self, request, *args, **kwargs):
-        pass
+        test_id = self.kwargs.get("test_id")
+        question, answer_options = self.model.objects.get_test_with_answers(test_id=test_id)
+
+        context = {
+            "question": question,
+            "answer_options": answer_options,
+            }
+        return render(request, self.template_name, context)
 
 
 class TestSubmitView(FormView):

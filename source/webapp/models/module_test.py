@@ -9,28 +9,46 @@ class Test_Manager(models.Manager):
         query = """
             SELECT t.id
             FROM webapp_test t
-            JOIN webapp_testmodule tm ON t.test_module_id_id = tm.id
+            JOIN webapp_testmodule tm ON t.test_module_id = tm.id
             WHERE tm.id = %s
         """
 
         return list(self.raw(query, [module_id]))
     
     
-    def get_all_tests_with_answers(self, module_id):
-        # Запрос на получение всех тестов и их вариантов ответов для конкретного модуля
+    def get_test_with_answers(self, test_id) -> tuple:
+        # Запрос на получение вопроса и его вариантов ответов для конкретного теста
         query = """
-            SELECT t.id, t.question_text, ao.id AS answer_option_id, ao.answer_text
+            SELECT 
+                t.id,
+                t.question_text, 
+                ao.id AS answer_option_id, 
+                ao.answer_text, 
+                ao.is_correct
             FROM webapp_test t
             LEFT JOIN webapp_answeroption ao ON ao.test_id = t.id
-            JOIN webapp_testmodule tm ON t.test_module_id_id = tm.id
-            WHERE tm.id = %s
+            WHERE t.id = %s
         """
-        
-        return self.raw(query, [module_id])
+        results = list(self.raw(query, [test_id]))
+
+        # Проверяем наличие результатов
+        if not results:
+            return None, []
+
+        # Извлекаем текст вопроса
+        question_text = results[0].question_text
+
+        # Извлекаем варианты ответов
+        answer_options = [
+            {"answer_option_id": result.answer_option_id, "answer_text": result.answer_text, "is_correct": result.is_correct}
+            for result in results if result.answer_option_id is not None
+        ]
+
+        return question_text, answer_options
 
 
 class TestCaseDescriptions(models.Model):
-    сourse_id = models.ForeignKey(
+    сourse = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
         related_name='test_case_descriptions',
@@ -93,7 +111,7 @@ class TestModule(models.Model):
 class Test(models.Model):
     objects = Test_Manager()
 
-    test_module_id = models.ForeignKey(
+    test_module = models.ForeignKey(
         TestModule,
         on_delete=models.CASCADE,
         related_name='tests',
@@ -111,7 +129,7 @@ class Test(models.Model):
 
 
 class AnswerOption(models.Model):
-    test_id = models.ForeignKey(
+    test = models.ForeignKey(
         Test,
         on_delete=models.CASCADE,
         related_name='answer_options',

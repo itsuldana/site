@@ -2,24 +2,15 @@
 
 
 {% block content %}
-    {% for value in tests %}
-        <div>
-            {{value|safe}}
-        </div>
-        <form method="POST" action="{% url 'test_submit' test_module.id %}">
-            {% csrf_token %}
-
-            {% for value, display in form.fields.correct_answers.choices %}
-                <div>
-                    <input type="checkbox" name="correct_answers" value="{{ value }}">
-                    <label>
-                        {{ display|safe }}
-                    </label>
-                </div>
-            {% endfor %}
-            <button type="submit">Отправить ответы</button>
-        </form>
-    {% endfor %}
+<h1>Вопросы теста</h1>
+{{question}}
+{% for option in answer_options %}
+    <div>
+        <ul>
+            <li>Вариант ответа: {{ option.answer_option_id }} - {{ option.answer_text }}</li>
+        </ul>
+    </div>
+{% endfor %}
 
 
 {% endblock %}
