@@ -171,3 +171,17 @@ body {
 h1, h2, h5 {
     color: #0A3161;
 }
+
+.lesson-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничение в 2 строки */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3em; /* Высота для двух строк (примерно 1.5em на строку, в зависимости от шрифта) */
+    line-height: 1.5em; /* Устанавливает высоту строки */
+}
+
+.lesson-image{
+    height: 100%;
+}
