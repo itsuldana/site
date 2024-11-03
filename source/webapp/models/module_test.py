@@ -122,7 +122,6 @@ class TestHistory(models.Model):
         TestModule,
         on_delete=models.CASCADE,
         related_name='history',
-        default=1
     )
     test = models.ForeignKey(
         'webapp.Test', 
@@ -143,12 +142,13 @@ class TestHistory(models.Model):
     def __str__(self):
         return f'Тест {self.test.id} - Пользователь {self.user.username}'
     
-    def create_history(self, user, test_id, correct_answer_ids, selected_option_id):
+    def create_history(self, user, test_id, correct_answer_ids, selected_option_id, test_module):
         test_history = TestHistory.objects.filter(user=user, test_id=test_id)
         if not test_history.exists():
             TestHistory.objects.create(
                 user=user,
                 test_id=test_id,
+                test_module=test_module,
                 correct_answer_ids=correct_answer_ids,
                 user_answer_ids=[int(i)for i in selected_option_id],
             )

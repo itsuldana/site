@@ -6,20 +6,34 @@
 
 {% block title %}{% trans "Courses" %}{% endblock %}
 
+
+
 {% block content %}
 
-    <h1>Результаты теста</h1>
+<style>
+    .result-header {
+        margin-top: 60px;
+    }
+</style>
 
-    <div>
-        <p>Вы прошли {{ total_tests }} тестов.</p>
-        <p>Количество правильных ответов: {{ correct_answers }}</p>
+    <div class="container result-header">
+        <h1>Результаты теста</h1>
 
-        {% if total_tests > 0 %}
-        {% else %}
-            <p>Вы еще не прошли ни одного теста.</p>
-        {% endif %}
+        <div>
+            <p>Вы прошли {{ total_tests }} тестов.</p>
+            <p>Количество правильных ответов: {{ correct_answers }}</p>
+    
+            {% if total_tests > 0 %}
+            {% else %}
+                <p>Вы еще не прошли ни одного теста.</p>
+            {% endif %}
+        </div>
+        <a href="{% url 'test_history' module_id %}" class="btn btn-outline-secondary">Посмотреть результаты</a>
     </div>
-    <a href="{% url 'test_history' module_id %}" class="btn btn-sm btn-outline-secondary">{% trans "result" %}</a>
+
+    
+
+    
 
 {% endblock %}
 
