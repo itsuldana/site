@@ -2,55 +2,35 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1>Дашборд пользователя {{ request.user.username }}</h1>
+    <h1>Статистика тестов пользователя {{ request.user.username }}</h1>
 
-    <canvas id="moduleChart" width="400" height="200"></canvas>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('moduleChart').getContext('2d');
-        
-        const labels = [{% for module in module_stats.keys %}'{{ module.name|escapejs }}',{% endfor %}];
-        const totalTests = [{% for module in module_stats.values %}{{ module.total_tests }},{% endfor %}];
-        const correctAnswers = [{% for module in module_stats.values %}{{ module.correct_answers }},{% endfor %}];
+    <h2>Общая информация</h2>
+    <p>Всего тестов: {{ total_tests }}</p>
+    <p>Правильные ответы: {{ correct_answers_total }}</p>
+    <p>Неправильные ответы: {{ incorrect_answers_total }}</p>
 
-        const moduleChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Всего тестов',
-                        data: totalTests,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    },
-                    {
-                        label: 'Правильные ответы',
-                        data: correctAnswers,
-                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Количество'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Модули'
-                        }
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-            }
-        });
-    </script>
+    <h2>Статистика по модулям</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Модуль</th>
+                <th>Правильные ответы</th>
+                <th>Неправильные ответы</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for module_id, stats in module_stats.items %}
+            <tr>
+                <td>{{ stats.module_title }}</td>
+                <td>{{ stats.correct_answers }}</td>
+                <td>{{ stats.incorrect_answers }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">Нет данных о тестах.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

@@ -1,32 +1,52 @@
 {% extends 'base.html' %}
 
+<style>
+    .test-navbar {
+        background: #0A3161;
+    }
+
+    .text-white {
+        color: white;
+    }
+
+    .question-padding {
+        padding: 20px;
+    }
+</style>
+
 {% block content %}
 <div class="container mt-5">
     <div class="text-center mb-4">
         <div id="timer" class="timer-display">00:00:00</div>
     </div>
     <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white text-center">
-            <h2>Вопрос</h2>
+        <div class="card-header test-navbar text-white text-center">
+            <h2 class="text-white">Вопрос</h2>
         </div>
         <div class="card-body">
-            <h4 class="card-title text-center">{{ question.question_text|safe }}</h4>
-            <form method="post" action="{% url 'next_test' test_id=question.question_id %}" id="test-form">
-                {% csrf_token %}
-                
-                <div class="list-group my-4">
-                    {% for option in answer_options %}
-                        <label class="list-group-item d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input me-3" name="selected_options" value="{{ option.answer_option_id }}">
-                            {{ option.answer_text|safe }}
-                        </label>
-                    {% endfor %}
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="text-center question-padding">{{ question.question_text|safe }}</h4>
+                </div>
+                <div class="col-6">
+                    <form method="post" action="{% url 'next_test' test_id=question.question_id %}" id="test-form">
+                        {% csrf_token %}
+                        
+                        <div class="list-group my-4">
+                            {% for option in answer_options %}
+                                <label class="list-group-item d-flex align-items-center">
+                                    <input type="checkbox" class="form-check-input me-3" name="selected_options" value="{{ option.answer_option_id }}">
+                                    {{ option.answer_text|safe }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <div class="">
+                            <button type="submit" class="btn btn-primary">Следующий вопрос</button>
+                        </div>
+                    </form>   
                 </div>
                 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Следующий вопрос</button>
-                </div>
-            </form>            
+            </div>
         </div>
     </div>
 </div>

@@ -82,10 +82,11 @@ class NextTestView(View):
         test_id = self.kwargs.get('test_id')
         selected_option_id = request.POST.getlist('selected_options')
         correct_answer_ids = self.model.objects.get_correct_answer_ids(test_id=test_id)
-
+        test_module = models.Test.objects.get(id=test_id).test_module
         models.TestHistory().create_history(
             user=request.user,
             test_id=test_id,
+            test_module=test_module,
             correct_answer_ids=correct_answer_ids,
             selected_option_id=selected_option_id
         )
@@ -107,7 +108,6 @@ class ResultView(View):
         correct_answers = sum(
             1 for history in test_histories if set(history.correct_answer_ids) == set(history.user_answer_ids)
         )
-
         # Подготовка данных для отображения
         context = {
             "module_id": module.id,
@@ -162,20 +162,43 @@ class DashboardView(View):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        # Получаем все пройденные тесты данного пользователя
-        test_histories = models.TestHistory.objects.filter(user=user).select_related('test_module', 'test')
-        
-        # Группируем тесты по модулям и подсчитываем правильные ответы
-        module_stats = defaultdict(lambda: {'total_tests': 0, 'correct_answers': 0})
+        cours_id = self.kwargs.get('cours_id')
+        test_histories = models.TestHistory.objects.filter(user=user, test_module__cours_id=cours_id)
+
+        # Общее количество тестов и счетчики правильных/неправильных ответов
+        total_tests = test_histories.count()
+        correct_answers_total = 0
+        incorrect_answers_total = 0
+
+        # Статистика по модулям
+        module_stats = {}
 
         for history in test_histories:
-            module = history.test_module
-            module_stats[module]['total_tests'] += 1
-            # Сравниваем user_answer_ids с correct_answer_ids
-            correct_count = len(set(history.correct_answer_ids) & set(history.user_answer_ids))
-            module_stats[module]['correct_answers'] += correct_count
+            # Сравниваем правильные и пользовательские ответы
+            correct_answers = sum(1 for answer in history.user_answer_ids if answer in history.correct_answer_ids)
+            total_questions = len(history.user_answer_ids)  # Предполагаем, что все ответы были даны
+
+            # Обновляем общие счетчики
+            correct_answers_total += correct_answers
+            incorrect_answers_total += (total_questions - correct_answers)
+
+            # Обновляем статистику по модулям
+            module_id = history.test_module.id
+            if module_id not in module_stats:
+                module_stats[module_id] = {
+                    'module_title': history.test_module.title,
+                    'correct_answers': 0,
+                    'incorrect_answers': 0,
+                }
+
+            module_stats[module_id]['correct_answers'] += correct_answers
+            module_stats[module_id]['incorrect_answers'] += (total_questions - correct_answers)
 
         context = {
+            'total_tests': total_tests,
+            'correct_answers_total': correct_answers_total,
+            'incorrect_answers_total': incorrect_answers_total,
             'module_stats': module_stats,
         }
+
         return render(request, self.template_name, context)
