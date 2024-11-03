@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib import admin
 
-from .models import Lesson, TestModule, Module, AnswerOption, Test, TestCaseDescriptions, Course
+from .models import Lesson, TestModule, Module, AnswerOption, Test, TestCaseDescriptions, Course, TestHistory
 
 
 class AnswerOptionInline(admin.TabularInline):  # Можно использовать StackedInline для другого оформления
@@ -25,3 +25,5 @@ admin.site.register(Module)
 admin.site.register(Test, TestAdmin)
 admin.site.register(TestCaseDescriptions)
 admin.site.register(Course)
+admin.site.register(TestHistory)
+

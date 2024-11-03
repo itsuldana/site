@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<h1>Вопросы теста</h1>
-{{question}}
-{% for option in answer_options %}
-    <div>
-        <ul>
-            <li>Вариант ответа: {{ option.answer_option_id }} - {{ option.answer_text }}</li>
-        </ul>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Вопрос</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title text-center">{{ question.question_text|safe }}</h4>
+            <form method="post" action="{% url 'next_test' test_id=question.question_id%}">
+                {% csrf_token %}
+                
+                <div class="list-group my-4">
+                    {% for option in answer_options %}
+                        <label class="list-group-item d-flex align-items-center">
+                            <input type="radio" class="form-check-input me-3" name="selected_option" value="{{ option.answer_option_id }}" required>
+                            {{ option.answer_text|safe }}
+                        </label>
+                    {% endfor %}
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Следующий вопрос</button>
+                </div>
+            </form>
+        </div>
     </div>
-{% endfor %}
-
-
+</div>
 {% endblock %}
-
-
