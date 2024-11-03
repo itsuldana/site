@@ -1,7 +1,6 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
-from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField 
 
@@ -34,7 +33,7 @@ class TestCaseDescriptions(models.Model):
     )
 
     def __str__(self):
-        return f'TestModule for {self.сourse_id.title}'
+        return f'TestModule for {self.title}'
     
 
 class TestModule(models.Model):
@@ -151,14 +150,14 @@ class TestHistory(models.Model):
                 user=user,
                 test_id=test_id,
                 correct_answer_ids=correct_answer_ids,
-                user_answer_ids=[int(selected_option_id)],
+                user_answer_ids=[int(i)for i in selected_option_id],
             )
         else:
             test_history.update(
                 user=user,
                 test_id=test_id,
                 correct_answer_ids=correct_answer_ids,
-                user_answer_ids=[int(selected_option_id)],
+                user_answer_ids=[int(i) for i in selected_option_id],
             )
 
     class Meta:

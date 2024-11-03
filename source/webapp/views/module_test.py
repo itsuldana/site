@@ -1,11 +1,20 @@
 from django.core.cache import cache
 
-from django.views.generic import FormView
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib import messages
 from webapp import models
-from webapp import forms
+
+
+class TestCaseDescriptionDetailView(View):
+    def get(self, request, *args, **kwargs):
+        cours_id = self.kwargs.get('course_id')
+        # Get the TestCaseDescriptions instance based on course_id
+        test_case_description = get_object_or_404(models.TestCaseDescriptions, сourse_id=cours_id)
+        
+        context = {
+            "test_case_description": test_case_description
+        }
+        return render(request, "module_test/test_case_description_detail.html", context)
 
 
 class TestModulesList(View):
@@ -14,10 +23,9 @@ class TestModulesList(View):
 
     def get(self, request, *args, **kwargs):
         cours_id = self.kwargs.get('cours')
-        test_modules = self.model.objects.filter(cours__id=cours_id)
-        print(f"{test_modules=}")
-        print(test_modules)
-
+        # Sort test modules by position
+        test_modules = self.model.objects.filter(cours__id=cours_id).order_by('position')
+        
         context = {'test_modules': test_modules}
         return render(request, self.template_name, context)
 
@@ -63,9 +71,9 @@ class NextTestView(View):
     
     def post(self, request, *args, **kwargs):
         test_id = self.kwargs.get('test_id')
-        selected_option_id = request.POST.get('selected_option')
-
+        selected_option_id = request.POST.getlist('selected_options')
         correct_answer_ids = self.model.objects.get_correct_answer_ids(test_id=test_id)
+
         models.TestHistory().create_history(
             user=request.user,
             test_id=test_id,
@@ -93,6 +101,7 @@ class ResultView(View):
 
         # Подготовка данных для отображения
         context = {
+            "module_id": module.id,
             'total_tests': total_tests,
             'correct_answers': correct_answers,
         }
