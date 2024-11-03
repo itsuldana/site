@@ -16,7 +16,7 @@ class CourseForm(forms.ModelForm):
 class CourseModuleForm(forms.ModelForm):
     class Meta:
         model = Module
-        fields = ['title', 'description', 'position']
+        fields = ['title', 'description', 'position', 'is_active']
 
 
 class LessonForm(forms.ModelForm):
@@ -29,7 +29,7 @@ class LessonForm(forms.ModelForm):
 
     class Meta:
         model = Lesson
-        fields = ['title', 'small_description','content', 'video_url', 'creator']
+        fields = ['title', 'small_description','content', 'video_url', 'creator', 'is_active']
 
 
 class TestForm(forms.Form):

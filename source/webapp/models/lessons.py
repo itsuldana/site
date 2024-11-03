@@ -57,6 +57,11 @@ class Lesson(models.Model):
         blank=True,
         verbose_name="Длительность видео"
     )
+    is_active = models.BooleanField(
+        default=True,
+        null=False,
+        verbose_name="Активен"
+    )
     creator = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,

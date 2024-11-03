@@ -25,6 +25,11 @@ class Module(models.Model):
     position = models.PositiveIntegerField(
         verbose_name="Position"
     )
+    is_active = models.BooleanField(
+        default=True,
+        null=False,
+        verbose_name="Активен"
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Created at"
