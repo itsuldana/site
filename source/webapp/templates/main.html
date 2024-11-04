@@ -58,16 +58,21 @@
                     <img src="../../static/img/main_page/logo.png" alt="Логотип">
                 </a>
             </div>
+            <div class="d-flex justify-content-end">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown2"
-                    aria-controls="navbarNavDropdown2" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon-phone"></span>
-            </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon-burger"></span>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown2"
+                        aria-controls="navbarNavDropdown2" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon-phone"></span>
+                </button>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon-burger"></span>
-            </button>
+
+            </div>
 
 
             <div class="collapse navbar-collapse " id="navbarNavDropdown" style="justify-content: flex-end">
@@ -305,7 +310,7 @@
         </div>
 
         <!-- Блок текста -->
-        <div class="col-md-6 text-color ps-4">
+        <div class="col-12 col-md-6 text-color ps-4">
             <ul class="list-unstyled benefits">
                 <li class="mb-4">
                     <div class="d-flex align-items-baseline">
@@ -355,11 +360,9 @@
     </div>
     <div class="row g-4">
         <div class=" col-12 col-md-6 image-container-teacher  ">
-            <div>
-                <img src="../../static/img/blocks/img_1.png" alt="teacher" style="max-width: 100%">
+                <img class="teacher-image" src="../../static/img/blocks/img_1.png" alt="teacher" style="max-width: 100%">
                 <h2 class="image-title">Динара Еркенкызы</h2>
 
-            </div>
 
         </div>
         <div class="col-12 col-md-6 ">
@@ -479,7 +482,7 @@
     </h2>
 
     <div class="row mb-5 g-3">
-        <div class="col-4">
+        <div class="col-12 col-md-6 col-lg-3">
             <div class="plyr__video-embed" id="player1">
                 <iframe src="https://www.youtube.com/embed/GQGX0_EHGHc?si=Y3TKTWg8z-AjC4ds"
                         allowfullscreen allowtransparency allow="autoplay"></iframe>
@@ -487,7 +490,7 @@
 
         </div>
 
-        <div class="col-4">
+        <div class="col-12 col-md-6 col-lg-3">
             <div class="plyr__video-embed" id="player2">
                 <iframe src="https://www.youtube.com/embed/ULQap4SGX6E?si=saqeHjSavv9NwSvX"
                         allowfullscreen allowtransparency allow="autoplay"></iframe>
@@ -495,14 +498,14 @@
 
         </div>
 
-        <div class="col-4">
+        <div class="col-12 col-md-6 col-lg-3">
             <div class="plyr__video-embed" id="player3">
                 <iframe src="https://www.youtube.com/embed/LIWQtvimSsI?si=9VWosYkIIMH7VO_z"
                         allowfullscreen allowtransparency allow="autoplay"></iframe>
             </div>
         </div>
 
-        <div class="col-4">
+        <div class="col-12 col-md-6 col-lg-3">
             <div class="plyr__video-embed" id="player4">
                 <iframe src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"
                         allowfullscreen allowtransparency allow="autoplay"></iframe>
@@ -554,7 +557,7 @@
 <section class="py-5">
     <div class="container">
         <h2 class="text-size-60 my-5">СТОИМОСТЬ ЗАНЯТИЙ</h2>
-        <div class="row gx-4">
+        <div class="row gutter-x-course gx-4">
             <div class="col-md-6 col-6 col-sm-6 d-flex align-items-stretch">
                 <div class="table-headers p-3  w-100">
                     <p>Название предмета:</p>
