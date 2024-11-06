@@ -40,11 +40,14 @@ urlpatterns = [
     path('purchase/failure/', purchase_failure, name='purchase_failure'),
 
     #urls для тестов от модуля
-    # path('test_module/<int:module_id>/test/', views.TestModuleDetailView.as_view(), name='test_view'),
-    path('test_modules/<int:cours>/cours/', views.TestModulesList.as_view(), name='test_models'),
     path('start-test/<int:module_id>/', views.StartTestView.as_view(), name='start_test'),
-    path('start-test/<int:module_id>/', views.StartTestView.as_view(), name='start_test'),
-    path('pricces-test/<int:test_id>/', views.TestDetailView.as_view(), name='test_detail'),
-    path('test_module/<int:test_module_id>/submit/', views.TestSubmitView.as_view(), name='test_submit'),
+    path('next-test/<int:test_id>/', views.NextTestView.as_view(), name='next_test'),
+    path('result-test/<int:test_id>/', views.ResultView.as_view(), name='result'),
+    path('history-result-test/<int:module_id>/', views.TestModuleResultView.as_view(), name='test_history'),
 
+    path('test-case-description/<int:course_id>/', views.TestCaseDescriptionDetailView.as_view(), name='test_case_description_detail'),
+    path('test_modules/<int:cours>/cours/', views.TestModulesList.as_view(), name='test_models'),
+    path('pricces-test/<int:test_id>/', views.TestDetailView.as_view(), name='test_detail'),
+
+    path('dashboard/<int:cours_id>/', views.DashboardView.as_view(), name='dashboard'),
 ]

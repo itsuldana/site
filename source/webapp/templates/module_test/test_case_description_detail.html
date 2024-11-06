@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/tests.css' %}">
+{% endblock %}
+
+{% block content %}
+    
+
+    <div class="container">
+        <!-- Module Header Section -->
+        <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center">
+                <div class="col-8 card text-bg-light test-description-margins">
+                    <h3>{{ test_case_description.title }}</h3>
+                    <div class="module-description">
+                        {{ test_case_description.description|safe }}
+                        <a href="{% url 'test_models' test_case_description.сourse_id %}" class="btn btn-outline-primary">
+                            Перейти к тестам
+                        </a>
+                        <a href="{% url 'course_detail' test_case_description.сourse_id %}" 
+                           class="btn btn-outline-secondary back-button-margin">
+                           Назад к курсу
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
