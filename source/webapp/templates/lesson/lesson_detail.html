@@ -84,15 +84,36 @@
                         </div>
                     {% endif %}
                     <div>
-                        {% if lesson.creator.social_network_link %}
-                            <p>Lesson by<a class="text-decoration-none"
-                                           href="{{ lesson.creator.social_network_link }}">
-                                <strong>  {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>
-                            </a></p>
-                        {% else %}
-                            <p>Lesson by
-                                <strong> {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong></p>
-                        {% endif %}
+                        <div class="creator my-3">
+                            <div class="creator-info">
+                                <img class="avatar" src="{{ lesson.creator.avatar.url }}" alt="Avatar">
+                                <div class="d-flex flex-column">
+                                        <span class="lesson-by-size">Lesson by
+                                            {% if lesson.creator.social_network_link %}
+                                                <a href="{{ lesson.creator.social_network_link }}">
+                                                    <strong> {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>
+                                                </a>
+                                            {% else %}
+                                                <strong> {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>
+                                            {% endif %}
+                                        </span>
+
+                                    <span class="creator-role-size">Expert</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="lesson-by-size">
+                                    <strong>Lesson Feedback:</strong>
+                                    Did you like this lesson?
+                                </div>
+                                <div class="creator-role-size">
+                                    <button id="nice-feedback"> Yes, I liked It</button>
+                                    <button id="bad-feedback">No, I don't like it</button>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
 
                     <ul class="nav nav-tabs justify-content-start" id="courseTab" role="tablist">

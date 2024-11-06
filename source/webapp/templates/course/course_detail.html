@@ -11,7 +11,7 @@
                     <p class="lead">{{ course.description }}</p>
                     <div class="d-flex align-items-center mb-3">
                         {% if request.user.is_authenticated %}
-                            <a id="buy" href=""
+                            <a href="{% url 'purchase_course' course.id %}"
                                class="btn btn-primary me-2">{% trans 'Buy' %}</a>
                             <a href="#" class="btn btn-secondary me-2">DashBoard</a>
                             <a href="#" class="btn btn-outline-secondary">Course Tests</a>
@@ -81,45 +81,45 @@
         </div>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const buyButton = document.getElementById('buy');
-            const userId = {{ request.user.id}};
-            if (userId !== 'null') {
-                if (buyButton) {
-                    buyButton.addEventListener('click', function (event) {
-                        event.preventDefault(); // предотвращает переход по ссылке
-                        const courseId = {{ course.id }};
-
-                        fetch("/api/v1/purchase/create/", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRFToken': '{{ csrf_token }}'
-                            },
-                            body: JSON.stringify({
-                                course: courseId,
-                                payment_status: 'DONE'
-                            })
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.payment_status == 'DONE') {
+        {#document.addEventListener('DOMContentLoaded', function () {#}
+        {#    const buyButton = document.getElementById('buy');#}
+        {#    const userId = {{ request.user.id}};#}
+        {#    if (userId !== 'null') {#}
+        {#        if (buyButton) {#}
+        {#            buyButton.addEventListener('click', function (event) {#}
+        {#                event.preventDefault(); // предотвращает переход по ссылке#}
+        {#                const courseId = {{ course.id }};#}
+        {##}
+        {#                fetch("/api/v1/purchase/create/", {#}
+        {#                    method: 'POST',#}
+        {#                    headers: {#}
+        {#                        'Content-Type': 'application/json',#}
+        {#                        'X-CSRFToken': '{{ csrf_token }}'#}
+        {#                    },#}
+        {#                    body: JSON.stringify({#}
+        {#                        course: courseId,#}
+        {#                        payment_status: 'DONE'#}
+        {#                    })#}
+        {#                })#}
+        {#                    .then(response => response.json())#}
+        {#                    .then(data => {#}
+        {#                        if (data.payment_status == 'DONE') {#}
                                     {#window.location.href = "{% url 'user_detail' pk=userId %}" #}
-
-                                } else {
-                                    console.log(data)
-                                    alert('Failed to create purchase.');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred. Please try again later.');
-                            });
-                    });
-                }
-            }
-
-        });
+        {##}
+        {#                        } else {#}
+        {#                            console.log(data)#}
+        {#                            alert('Failed to create purchase.');#}
+        {#                        }#}
+        {#                    })#}
+        {#                    .catch(error => {#}
+        {#                        console.error('Error:', error);#}
+        {#                        alert('An error occurred. Please try again later.');#}
+        {#                    });#}
+        {#            });#}
+        {#        }#}
+        {#    }#}
+        {##}
+        {##}
 
 
     </script>

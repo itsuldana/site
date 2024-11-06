@@ -1,13 +1,5 @@
 # webapp/views/purchase.py
-import requests
-from django.conf import settings
-from django.urls import reverse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from webapp.models import Course
-from webapp.models.purchase import Purchase
 
-# webapp/views/purchase.py
 import requests
 from django.conf import settings
 from django.urls import reverse
@@ -15,6 +7,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from webapp.models import Course
 from webapp.models.purchase import Purchase
+import logging
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def purchase_course(request, course_id):
@@ -39,10 +34,13 @@ def purchase_course(request, course_id):
             }
 
             response = requests.post('https://stage-api.ioka.kz/v2/orders', json=payment_data, headers=headers)
+            logger.info("STATUS", response.status_code)
             if response.status_code == 201:
                 payment = response.json()
                 return redirect(payment['order']['checkout_url'])
             else:
+                error_data = response.json()
+                logger.error('API ERROR', error_data)
                 return render(request, 'purchase/purchase_failure.html', {'error': response.json()})
         else:
             return render(request, 'purchase/purchase_course.html', {'course': course})
