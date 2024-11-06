@@ -1,2 +1,3 @@
 from .progress_serializer import ProgressCreateSerializer
 from .purchase_serializer import PurchaseCreateSerializer
+from .feedback_serializer import FeedbackCreateSerializer
