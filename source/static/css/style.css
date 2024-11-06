@@ -185,3 +185,7 @@ h1, h2, h5 {
 .lesson-image{
     height: 100%;
 }
+
+.course-image-width {
+    width: 100%;
+}

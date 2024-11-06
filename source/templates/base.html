@@ -23,7 +23,7 @@
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark py-3">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold mx-2" href="{% url 'course_list' %}">Boston LMS</a>
+        <a class="navbar-brand fw-bold mx-2" href="{% url 'course_list' %}">PDGA</a>
         {% block navbar %}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="btn btn-warning fw-bold mx-2 my-2" href="#">{% trans "Help" %}</a>
+                            <a class="btn btn-warning fw-bold mx-2 my-2" href="{% url "help" %}">{% trans "Help" %}</a>
                         </li>
                         {% url 'user_detail' request.user.pk as profile_url %}
                         {% if request.path == profile_url %}
@@ -111,17 +111,17 @@
     <footer class="footer py-4 mt-auto">
         <div class="container d-flex justify-content-between">
             <div class="w-50">
-                <h5 class="text-white">{% trans "About" %}</h5>
-                <p class="text-light">{% trans "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." %}</p>
+                <h5 class="text-white">{% trans "Professor Dinara’s Global Academy" %}</h5>
+                <p class="text-light">{% trans "This platform offers unique courses and methods for preparing for most exams required for admission to American schools, including SAT, IELTS, and others." %}</p>
+                <p class="text-light">{% trans "© 2024 PDGA. All rights reserved." %}</p>
             </div>
 
             <div class="w-25">
                 <h5 class="text-white">{% trans "Menu" %}</h5>
                 <ul class="list-unstyled">
-                    <li><a class="text-light" href="#">{% trans "About" %}</a></li>
-                    <li><a class="text-light" href="#">{% trans "Contact" %}</a></li>
-                    <li><a class="text-light" href="#">{% trans "Privacy policy" %}</a></li>
-                    <li><a class="text-light" href="#">{% trans "Terms of use" %}</a></li>
+                    <li><a class="text-light text-decoration-none" href="{% url 'main_about_us' %}">{% trans 'About Us' %}</a></li>
+                    <li><a class="text-light text-decoration-none" href="#">{% trans "Contact" %}</a></li>
+                    <li><a class="text-light text-decoration-none" href="#">{% trans "Privacy policy" %}</a></li>
                 </ul>
             </div>
         </div>
