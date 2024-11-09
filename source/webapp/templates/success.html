@@ -1,0 +1,18 @@
+{% extends 'new_base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="ctr-area ptb-100 success-margin">
+    <div class="top-divider"></div>
+    <div class="bottom-divider"></div>
+    <div class="container">
+        <div class="ctr-text-content">
+            <h1>{% trans 'Your message has been successfully sent.' %}</h1>
+            <p>
+                {% trans 'Thank you for your message! Our team will review it as soon as possible, and we will get back to you with the necessary support. We are here to help and appreciate your patience' %}
+            </p>
+            <a href="{% url 'index' %}" class="btn btn-primary">{% trans 'Home' %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

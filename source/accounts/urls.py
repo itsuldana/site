@@ -3,7 +3,8 @@ from django.contrib.auth import views as auth_views
 from accounts.views import (
     RegisterView, LoginView, logout_view, activate, UserDetailView, UserUpdateView, UserEmailChangeView,
     confirm_email_change, CustomPasswordChangeView, set_language, ManageCoursesView, ManageModulesView,
-    ManageLessonsView
+    ManageLessonsView, EmailConfirmView
+
 )
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('activate/<uidb64>/<token>/', activate, name='activate'),
     path('logout/', logout_view, name='logout'),
+    path('email_confirm/', EmailConfirmView.as_view(), name='email_confirm'),
 
     # password reset urls
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset/password_reset.html'),

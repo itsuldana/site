@@ -1,39 +1,78 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.contrib.auth.password_validation import validate_password
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(
-        required=True,
-        label='Логин'
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Username'
+        })
     )
     password = forms.CharField(
-        required=True,
-        label='Пароль',
-        widget=forms.PasswordInput
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Password'
+        })
     )
 
 
 class CustomUserCreationForm(forms.ModelForm):
-    password = forms.CharField(label='Пароль', strip=False, required=True, widget=forms.PasswordInput)
-    password_confirm = forms.CharField(label='Подтвердите пароль', strip=False, required=True,
-                                       widget=forms.PasswordInput)
+    password = forms.CharField(
+        label='Пароль',
+        strip=False,
+        required=True,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+    )
+    password_confirm = forms.CharField(
+        label='Подтвердите пароль',
+        strip=False,
+        required=True,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Repeat Password'})
+    )
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password', 'password_confirm', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password_confirm')
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            validate_email(email)
+        except ValidationError:
+            raise ValidationError('Введите правильный адрес электронной почты.')
+
+        if get_user_model().objects.filter(email=email).exists():
+            raise ValidationError('Пользователь с таким email уже существует.')
+
+        return email
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        validate_password(password)  # Использует встроенные Django валидаторы для проверки сложности пароля
+        return password
 
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         password_confirm = cleaned_data.get('password_confirm')
+
         if password and password_confirm and password != password_confirm:
-            raise forms.ValidationError('Пароли не совпадают')
+            raise ValidationError('Пароли не совпадают.')
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data.get('password'))
+        user.set_password(self.cleaned_data['password'])
         user.email_confirmed = False
         if commit:
             user.save()

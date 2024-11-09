@@ -1,4 +1,5 @@
 from .course import Course
+from .course_skills import Skills
 from .module import Module
 from .tag import Tag
 from .lessons import Lesson

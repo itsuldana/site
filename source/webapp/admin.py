@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.contrib import admin
 
-from .models import Lesson, TestModule, Module, AnswerOption, Test, TestCaseDescriptions, Course, TestHistory
+from .models import Lesson, TestModule, Module, AnswerOption, Test, TestCaseDescriptions, Course, TestHistory, Skills
 
 
 class AnswerOptionInline(admin.TabularInline):  # Можно использовать StackedInline для другого оформления
@@ -19,6 +18,7 @@ class TestAdmin(admin.ModelAdmin):
     search_fields = ('question_text',)
     inlines = [AnswerOptionInline]  # Добавляем инлайн для AnswerOption
 
+
 admin.site.register(Lesson)
 admin.site.register(TestModule)
 admin.site.register(Module)
@@ -27,3 +27,20 @@ admin.site.register(TestCaseDescriptions)
 admin.site.register(Course)
 admin.site.register(TestHistory)
 
+
+@admin.register(Skills)
+class SkillsAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'priority',
+        'name',
+        'course',
+        'is_active',
+    )
+    list_display_links = (
+        'id',
+        'priority',
+        'name',
+        'course',
+        'is_active',
+    )

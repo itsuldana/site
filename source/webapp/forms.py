@@ -10,7 +10,7 @@ from .models.lessons import Lesson
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['title', 'description', 'price', 'image', 'tag', 'is_active']
+        fields = ['title', 'description', 'preview_description', 'price', 'image', 'tag', 'is_active']
 
 
 class CourseModuleForm(forms.ModelForm):
@@ -43,8 +43,6 @@ class AnswerOptionForm(forms.ModelForm):
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, required=True)
-    last_name = forms.CharField(max_length=100, required=True)
     email = forms.EmailField(required=True)
-    phone = forms.CharField(max_length=15, required=True)
+    number = forms.CharField(max_length=15, required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
-    attach_file = forms.FileField(required=False)

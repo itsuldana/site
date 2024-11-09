@@ -1,57 +1,123 @@
-{% extends 'base.html' %}
+{% extends 'new_base.html' %}
+{% load percent_filter %}
 {% load i18n %}
 
-{% block title %}Welcome{% endblock %}
+{% block title %}{% trans 'All Courses' %}{% endblock %}
 
 {% block content %}
-    <main>
-        <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">{% trans 'Our Courses' %}</h1>
-                    <p class="lead text-muted">{% trans 'Here, you’ll find our most popular and up-to-date courses. Explore new topics, develop in-demand skills, and work towards your goals! Choose a course that suits you and start learning today.' %}</p>
+
+    <!-- Start Page Title Area -->
+    <div class="page-title course-list-image">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'All Courses' %}</h3>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
 
-        <div class="album py-5 bg-light">
-            <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <!-- Start Courses Area -->
+    <section class="courses-area ptb-100">
+        <div class="container">
+            <div class="row">
 
+                {% if courses %}
                     {% for course in courses %}
-                        <div class="col">
-                            <div class="card shadow-sm">
-                                {% if course.image %}
-                                <img src="{{ course.image.url }}" class="bd-placeholder-img card-img-top" width="100%"
-                                     height="225">
-                                {% endif %}
-                                
-                                <div class="card-body">
-                                    <p class="card-text">{{ course.title }}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <a href="{% url 'course_detail' course.pk %}"
-                                               class="btn btn-sm btn-outline-secondary">View</a>
-                                            {% if request.user.is_superuser %}
-                                                <a href="{% url 'course_edit' course.pk %}"
-                                                   class="btn btn-sm btn-outline-secondary">Edit</a>
-                                            {% endif %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="courses-item">
+                                <div class="courses-img">
+                                    <img src="{{ course.image.url }}" alt="course">
+                                </div>
 
-                                        </div>
-                                        <small class="text-muted">{{ course.price }}</small>
-                                    </div>
+                                <div class="courses-content">
+                                    <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                                    <ul>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><span>(15 {% trans 'reviews' %})</span></li>
+                                    </ul>
+
+                                    <p>
+                                        {{ course.preview_description }}
+                                    </p>
+                                </div>
+
+                                <div class="courses-content-bottom">
+                                    <h4 class="price"><span>${{ course.price|increase_by_20_percent }}</span> ${{ course.price|floatformat:0 }}</h4>
+                                    <h4><a href="{% url 'course_detail' course.pk %}" class="btn btn-primary">Read More</a></h4>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
+                {% endif %}
+               
 
-                </div>
-                <div class="row">
-                    {% if is_paginated %}
-                        {% include 'partial/pagination.html' %}
-                    {% endif %}
-                </div>
+                {% include 'partial/pagination.html' %}
             </div>
         </div>
-    </main>
+    </section>
+    <!-- End Courses Area -->
 {% endblock %}
+
+{#{% extends 'base.html' %}#}
+{#{% load i18n %}#}
+{##}
+{#{% block title %}Welcome{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <main>#}
+{#        <section class="py-5 text-center container">#}
+{#            <div class="row py-lg-5">#}
+{#                <div class="col-lg-6 col-md-8 mx-auto">#}
+{#                    <h1 class="fw-light">{% trans 'Our Courses' %}</h1>#}
+{#                    <p class="lead text-muted">{% trans 'Here, you’ll find our most popular and up-to-date courses. Explore new topics, develop in-demand skills, and work towards your goals! Choose a course that suits you and start learning today.' %}</p>#}
+{#                </div>#}
+{#            </div>#}
+{#        </section>#}
+{##}
+{#        <div class="album py-5 bg-light">#}
+{#            <div class="container">#}
+{#                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">#}
+{##}
+{#                    {% for course in courses %}#}
+{#                        <div class="col">#}
+{#                            <div class="card shadow-sm">#}
+{#                                {% if course.image %}#}
+{#                                <img src="{{ course.image.url }}" class="bd-placeholder-img card-img-top" width="100%"#}
+{#                                     height="225">#}
+{#                                {% endif %}#}
+{#                                #}
+{#                                <div class="card-body">#}
+{#                                    <p class="card-text">{{ course.title }}</p>#}
+{#                                    <div class="d-flex justify-content-between align-items-center">#}
+{#                                        <div class="btn-group">#}
+{#                                            <a href="{% url 'course_detail' course.pk %}"#}
+{#                                               class="btn btn-sm btn-outline-secondary">View</a>#}
+{#                                            {% if request.user.is_superuser %}#}
+{#                                                <a href="{% url 'course_edit' course.pk %}"#}
+{#                                                   class="btn btn-sm btn-outline-secondary">Edit</a>#}
+{#                                            {% endif %}#}
+{##}
+{#                                        </div>#}
+{#                                        <small class="text-muted">{{ course.price }}</small>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{##}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    {% if is_paginated %}#}
+{#                        {% include 'partial/pagination.html' %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </main>#}
+{#{% endblock %}#}

@@ -10,6 +10,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.conf import settings
 from django.utils.translation import activate as activate_translation
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, TemplateView, DetailView, UpdateView, FormView, ListView
 
 from accounts.forms import (
@@ -19,35 +20,41 @@ from webapp.models import Course, Module, Lesson, LessonProgress, Purchase
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
 
+
 class LoginView(TemplateView):
     template_name = 'login.html'
-    form = LoginForm
+    form_class = LoginForm
 
     def get(self, request, *args, **kwargs):
-        form = self.form
-        context = {'form': form}
-        return self.render_to_response(context)
+        form = self.form_class()
+        return self.render_to_response({'form': form})
 
     def post(self, request, *args, **kwargs):
-        form = self.form(request.POST)
-        if not form.is_valid():
-            return redirect('index')
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        user = authenticate(request, username=username, password=password)
-        if not user:
-            return redirect('index')
-        next = request.GET.get('next')
-        login(request, user)
-        if next:
-            return redirect(next)
-        return redirect('user_detail', pk=user.pk)
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+
+            # Проверяем, является ли пользователь суперпользователем или подтвержден email
+            if user:
+                if not user.is_superuser and not user.email_confirmed:
+                    form.add_error(None, _('Please confirm your email before logging in.'))
+                else:
+                    login(request, user)
+                    next_url = request.GET.get('next')
+                    return redirect(next_url or 'user_detail', pk=user.pk)
+            else:
+                form.add_error(None, _('Invalid username or password'))
+
+        # Если форма не валидна или проверка не пройдена, вернуть форму с ошибками
+        return self.render_to_response({'form': form})
 
 
 class RegisterView(CreateView):
     template_name = 'registration.html'
     form_class = CustomUserCreationForm
-    success_url = '/'
+    success_url = reverse_lazy('email_confirm')
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -68,7 +75,7 @@ class RegisterView(CreateView):
             'token': default_token_generator.make_token(user),
         })
         to_email = user.email
-        send_mail(mail_subject, message, 'your_email@example.com', [to_email])
+        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL, [to_email])
 
 
 def activate(request, uidb64, token):
@@ -122,17 +129,17 @@ class UserEmailChangeView(LoginRequiredMixin, FormView):
         self.send_confirmation_email(user, new_email)
         return redirect('user_detail', pk=user.pk)
 
-    def send_confirmation_email(self, user, new_email):
-        current_site = get_current_site(self.request)
-        mail_subject = 'Confirm your new email address.'
-        message = render_to_string('email_change_confirm.html', {
+    def send_confirmation_email(user, request):
+        current_site = get_current_site(request)
+        mail_subject = 'Activate your account.'
+        message = render_to_string('acc_active_email.html', {
             'user': user,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'new_email': urlsafe_base64_encode(force_bytes(new_email)),
             'token': default_token_generator.make_token(user),
         })
-        send_mail(mail_subject, message, 'your_email@example.com', [new_email])
+        to_email = user.email
+        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL, [to_email])
 
 
 def confirm_email_change(request, uidb64, token, new_email_encoded):
@@ -227,3 +234,6 @@ class ManageLessonsView(UserPassesTestMixin, ListView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
+class EmailConfirmView(TemplateView):
+    template_name = 'email_confirm.html'

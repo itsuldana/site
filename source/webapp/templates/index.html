@@ -1,0 +1,936 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/icofont.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/classy-nav.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
+    <title>EduField - Education & Online Courses HTML Template</title>
+    <link rel="icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+</head>
+<body>
+<div class="preloader-area">
+    <div class="loader">
+        <div class="dots">
+            <i class="dots-item dots-item-move-down"></i> <i class="dots-item dots-item-move-left"></i> <i
+                class="dots-item dots-item-move-left"></i> <i class="dots-item dots-item-move-left"></i>
+            <i class="dots-item dots-item-move-left"></i> <i class="dots-item dots-item-move-down"></i> <i
+                class="dots-item dots-item-move-right"></i> <i class="dots-item dots-item-move-right"></i>
+            <i class="dots-item dots-item-move-down"></i> <i class="dots-item dots-item-move-up"></i> <i
+                class="dots-item dots-item-move-down"></i> <i class="dots-item dots-item-move-up"></i> <i
+                class="dots-item"></i>
+            <i class="dots-item dots-item-move-down"></i> <i class="dots-item dots-item-move-up"></i> <i
+                class="dots-item dots-item-move-down"></i> <i class="dots-item dots-item-move-up"></i>
+            <i class="dots-item dots-item-move-left"></i> <i class="dots-item dots-item-move-left"></i> <i
+                class="dots-item dots-item-move-up"></i> <i class="dots-item dots-item-move-right"></i>
+            <i class="dots-item dots-item-move-right"></i> <i class="dots-item dots-item-move-right"></i> <i
+                class="dots-item dots-item-move-right"></i> <i class="dots-item dots-item-move-up"></i>
+        </div>
+    </div>
+</div>
+<div class="main-header-area header-sticky">
+    <div class="container">
+        <div class="classy-nav-container breakpoint-off">
+            <nav class="classy-navbar justify-content-between" id="EduStudyNav">
+                <a class="nav-brand" href="index-two.html"><img src="{% static '/img/logo.png' %}" alt="logo"/></a>
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+                <div class="classy-menu">
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <div class="classynav">
+                        <ul>
+                            <li>
+                                <a href="#" class="active">Home</a>
+                                <ul class="dropdown">
+                                    <li><a href="index-default.html">Home Demo One</a></li>
+                                    <li><a href="index-two.html">Home Demo Two</a></li>
+                                    <li class="active"><a href="index-three.html">Home Demo Three</a></li>
+                                    <li><a href="index-four.html">Home Demo Four</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">About Us</a>
+                                <ul class="dropdown">
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="admission.html">Admission</a></li>
+                                    <li><a href="teacher-style-one.html">Teacher Style One</a></li>
+                                    <li><a href="teacher-style-two.html">Teacher Style Two</a></li>
+                                    <li><a href="single-teacher.html">Teacher Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'course_list' %}">{% trans 'All Courses' %}</a></li>
+                                    <li><a href="{% url 'course_paid_list' %}">{% trans 'Paid Courses' %}</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Events</a>
+                                <ul class="dropdown">
+                                    <li><a href="event-style-one.html">Events Style One</a></li>
+                                    <li><a href="event-style-two.html">Events Style Two</a></li>
+                                    <li><a href="single-events.html">Events Details</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li>
+                                        <a href="#">Blog</a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-style-one.html">Blog Style One</a></li>
+                                            <li><a href="blog-style-two.html">Blog Style Two</a></li>
+                                            <li><a href="blog-style-three.html">Blog Style Three</a></li>
+                                            <li><a href="single-blog.html">Blog Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Shop</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-style-one.html">Shop Style One</a></li>
+                                            <li><a href="shop-style-two.html">Shop Style Two</a></li>
+                                            <li><a href="single-shop.html">Shop Details</a></li>
+                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="checkout.html">Checkout</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{% url 'course_list' %}">{% trans 'All Courses' %}</a></li>
+                                            <li><a href="{% url 'course_paid_list' %}">{% trans 'Paid Courses' %}</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Teacher</a>
+                                        <ul class="dropdown">
+                                            <li><a href="teacher-style-one.html">Teacher Style One</a></li>
+                                            <li><a href="teacher-style-two.html">Teacher Style Two</a></li>
+                                            <li><a href="single-teacher.html">Teacher Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Events</a>
+                                        <ul class="dropdown">
+                                            <li><a href="event-style-one.html">Events Style One</a></li>
+                                            <li><a href="event-style-two.html">Events Style Two</a></li>
+                                            <li><a href="single-events.html">Events Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'contact_us' %}">Contact</a>
+                                        <ul class="dropdown">
+                                            <li><a href="contact-style-one.html">Contact Style One</a></li>
+                                            <li><a href="contact-style-two.html">Contact Style Two</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="admission.html">Admission</a></li>
+                                    <li><a href="error.html">404 Error</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="register.html">Register</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog-style-one.html">Blog Style One</a></li>
+                                    <li><a href="blog-style-two.html">Blog Style Two</a></li>
+                                    <li><a href="blog-style-three.html">Blog Style Three</a></li>
+                                    <li><a href="single-blog.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Shop</a>
+                                <ul class="dropdown">
+                                    <li><a href="shop-style-one.html">Shop Style One</a></li>
+                                    <li><a href="shop-style-two.html">Shop Style Two</a></li>
+                                    <li><a href="single-shop.html">Shop Details</a></li>
+                                    <li><a href="cart.html">Cart</a></li>
+                                    <li><a href="checkout.html">Checkout</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{% url 'contact_us' %}">Contact</a>
+                                <ul class="dropdown">
+                                    <li><a href="contact-style-one.html">Contact Style One</a></li>
+                                    <li><a href="contact-style-two.html">Contact Style Two</a></li>
+                                </ul>
+                            </li>
+                            {% if request.user.is_authenticated %}
+                                <a href="{% url 'user_detail' request.user.pk %}"> {% trans "Account" %}</a>
+                            {% else %}
+                                <li>
+                                    <a href="{% url 'login' %}"> {% trans "Log in" %}</a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a href="#search" class="search-btn"><i class="icofont-search-2"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<div id="search-area">
+    <button type="button" class="close">x</button>
+    <form><input type="search" value="" placeholder="Search Kewword(s)"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+<div class="main-banner-two">
+    <div class="container">
+        <div class="home-slides-two owl-carousel owl-theme">
+            <div class="hero-slides-content item-bg-one">
+                <h1>{% trans 'EPDA - Professor Dinara’s Global Academy' %}</h1>
+                <a href="{% url 'contact_us' %}" class="btn btn-primary">{% trans 'Get a Consultation' %}</a>
+            </div>
+            <div class="hero-slides-content item-bg-two">
+                <h1>{% trans 'EDPA - Education That Brings You Closer to Your Dream!' %}</h1>
+                <a href="{% url 'contact_us' %}" class="btn btn-primary">{% trans 'Get a Consultation' %}</a>
+            </div>
+            <div class="hero-slides-content item-bg-three">
+                <h1>{% trans 'EPDA - Learn from the Best to Become the Best!' %}</h1>
+                <a href="{% url 'contact_us' %}" class="btn btn-primary">{% trans 'Get a Consultation' %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{#        <div class="partner-area ptb-100 pt-150">#}
+{#            <div class="container-fluid">#}
+{#                <div class="row m-0">#}
+{#                    <div class="partner-slider owl-carousel owl-theme">#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="{% static '/img/partner1.png' %}" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="assets/img/partner2.png" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="assets/img/partner3.png" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="assets/img/partner4.png" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="assets/img/partner5.png" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="assets/img/partner6.png" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="assets/img/partner7.png" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-lg-12 col-md-12">#}
+{#                            <div class="single-partner">#}
+{#                                <div class="d-table">#}
+{#                                    <div class="d-table-cell">#}
+{#                                        <a href="#"> <img src="assets/img/partner8.png" alt="partner" /> </a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+<section class="popular-courses-area ptb-100">
+    <div class="container">
+        <div class="section-title mt-50">
+            <h3>{% trans 'EDPA Courses' %}</h3>
+            <p>
+                {% trans 'On this platform, you’ll find exclusive courses taught using a unique methodology developed by Dinara Yerenkyzy, an experienced instructor who has educated thousands of students. Each course is designed to provide in-depth knowledge and practical skills, ensuring you receive high-quality, results-driven education that truly stands out.' %}
+            </p>
+        </div>
+        <div class="row">
+
+            {% if courses %}
+                {% for course in courses %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-courses-item">
+                            <div class="courses-img"><img src="{{ course.image.url }}" alt="{{ course.title }}"/></div>
+                            <div class="courses-content">
+                                <h3><a href="{% url 'course_detail' course.pk %}">SAT</a></h3>
+                                <ul>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                </ul>
+                            </div>
+                            <div class="courses-content-bottom">
+                                <h4><i class="icofont-ui-user"></i> 120 Students</h4>
+                                <h4 class="price">{{ course.price }}$</h4>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="col-lg-12 col-md-12">
+                <div class="view-all text-center">
+                    <a href="courses-style-one.html" class="btn btn-primary">{% trans 'View All Courses' %} <i
+                            class="icofont-rounded-double-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="why-choose-us">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="image"></div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="why-choose ptb-100">
+                    <h3>{% trans 'Why Choose My Academy?' %}</h3>
+                    <div class="single-choose">
+                        <div class="icon"><i class="icofont-book-alt"></i></div>
+                        <div class="content">
+                            <h4>{% trans 'Exclusive Content' %}</h4>
+                            <p>
+                                {% trans 'Our courses are crafted uniquely, making your learning experience one-of-a-kind and highly effective.' %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="single-choose">
+                        <div class="icon"><i class="icofont-teacher"></i></div>
+                        <div class="content">
+                            <h4>{% trans 'Practical Skills' %}</h4>
+                            <p>
+                                {% trans 'Gain hands-on experience and knowledge that you can apply immediately in real-world situations.' %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="single-choose mb-0">
+                        <div class="icon"><i class="icofont-support"></i></div>
+                        <div class="content">
+                            <h4>
+                                {% trans 'Expert Guidance' %}
+                            </h4>
+                            <p>{% trans ' Learn directly from Dinara Yerenkyzy, an expert with a track record of success, dedicated to helping each student succeed.' %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="teacher-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h3>{% trans 'My Certificates' %}</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco .</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="teacher-box">
+                    <div class="pic"><img src="assets/img/teacher-one.jpg" alt="teacher"/> <a href="single-teacher.html"
+                                                                                              class="view-profile">View
+                        Profile</a></div>
+                    <div class="teacher-content">
+                        <h3 class="title"><a href="single-teacher.html">Jasika Pearl</a></h3>
+                        <span class="post">Web Developer</span>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="icofont-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="teacher-box">
+                    <div class="pic"><img src="assets/img/teacher-two.jpg" alt="teacher"/> <a href="single-teacher.html"
+                                                                                              class="view-profile">View
+                        Profile</a></div>
+                    <div class="teacher-content">
+                        <h3 class="title"><a href="single-teacher.html">Oliver Jack</a></h3>
+                        <span class="post">Web Developer</span>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="icofont-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="teacher-box">
+                    <div class="pic"><img src="assets/img/teacher-three.jpg" alt="teacher"/> <a
+                            href="single-teacher.html" class="view-profile">View Profile</a></div>
+                    <div class="teacher-content">
+                        <h3 class="title"><a href="single-teacher.html">Aisha Anna</a></h3>
+                        <span class="post">Web Developer</span>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="icofont-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="teacher-box">
+                    <div class="pic"><img src="assets/img/teacher-four.jpg" alt="teacher"/> <a
+                            href="single-teacher.html" class="view-profile">View Profile</a></div>
+                    <div class="teacher-content">
+                        <h3 class="title"><a href="single-teacher.html">Harry Jacob</a></h3>
+                        <span class="post">Web Developer</span>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="icofont-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="teacher-box">
+                    <div class="pic"><img src="assets/img/teacher-five.jpg" alt="teacher"/> <a
+                            href="single-teacher.html" class="view-profile">View Profile</a></div>
+                    <div class="teacher-content">
+                        <h3 class="title"><a href="single-teacher.html">Isabel Sarah</a></h3>
+                        <span class="post">Web Developer</span>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="icofont-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="teacher-box">
+                    <div class="pic"><img src="assets/img/teacher-six.jpg" alt="teacher"/> <a href="single-teacher.html"
+                                                                                              class="view-profile">View
+                        Profile</a></div>
+                    <div class="teacher-content">
+                        <h3 class="title"><a href="single-teacher.html">Oscar Noah</a></h3>
+                        <span class="post">Web Developer</span>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="icofont-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icofont-instagram"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="fun-facts-area facts-bg ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="fun-fact">
+                    <div class="icon bg-1"><img src="{% static 'img/icon1.png' %}" alt="icon"/></div>
+                    <h3><span class="count">2500</span>+</h3>
+                    <h5>{% trans 'Students' %}</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="fun-fact">
+                    <div class="icon bg-2"><img src="{% static 'img/icon2.png' %}" alt="icon"/></div>
+                    <h3><span class="count">5000</span>+</h3>
+                    <h5>{% trans 'Hours of Practice' %}</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="fun-fact">
+                    <div class="icon bg-3"><img src="{% static '/img/icon3.png' %}" alt="icon"/></div>
+                    <h3><span class="count">3000</span>+</h3>
+                    <h5>{% trans 'Student Test Success' %}</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="fun-fact">
+                    <div class="icon bg-4"><img src="{% static '/img/icon4.png' %}" alt="icon"/></div>
+                    <h3><span class="count">1236</span>+</h3>
+                    <h5>{% trans 'Global Admissions Success' %}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="upcoming-events-area events-two ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h3>Upcoming Events</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco .</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="single-event mb-0">
+                    <div class="row m-0">
+                        <div class="col-lg-6 col-md-6 p-0">
+                            <div class="event-image-box">
+                                <a href="single-events.html"><img src="assets/img/event-one.jpg" alt="event"/> </a>
+                                <div class="date"><span>18 Jan, 2024</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 p-0">
+                            <div class="event-content">
+                                <h3>Web Development</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi
+                                    ut aliquip ex ea commodo consequat.
+                                </p>
+                                <div class="where-when">
+                                    <ul class="pull-left">
+                                        <li><span>Where</span></li>
+                                        <li>Fort Mason Center Victoria City, Canada</li>
+                                    </ul>
+                                    <ul>
+                                        <li><span>When</span></li>
+                                        <li>Sunday</li>
+                                        <li>3.30 pm - 6.30 pm</li>
+                                    </ul>
+                                </div>
+                                <a href="single-events.html" class="btn btn-primary">View Details <i
+                                        class="icofont-rounded-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="single-event mb-0">
+                    <div class="row m-0">
+                        <div class="col-lg-6 col-md-6 p-0">
+                            <div class="event-content">
+                                <h3>Ruby on Rails Framework</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi
+                                    ut aliquip ex ea commodo consequat.
+                                </p>
+                                <div class="where-when">
+                                    <ul class="pull-left">
+                                        <li><span>Where</span></li>
+                                        <li>Fort Mason Center Victoria City, Canada</li>
+                                    </ul>
+                                    <ul>
+                                        <li><span>When</span></li>
+                                        <li>Sunday</li>
+                                        <li>3.30 pm - 6.30 pm</li>
+                                    </ul>
+                                </div>
+                                <a href="single-events.html" class="btn btn-primary">View Details <i
+                                        class="icofont-rounded-double-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 p-0">
+                            <div class="event-image-box bg-2">
+                                <a href="single-events.html"><img src="assets/img/event-two.jpg" alt="event"/> </a>
+                                <div class="date"><span>18 Jan, 2024</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="single-event mb-0">
+                    <div class="row m-0">
+                        <div class="col-lg-6 col-md-6 p-0">
+                            <div class="event-image-box bg-3">
+                                <a href="single-events.html"><img src="assets/img/event-three.jpg" alt="event"/> </a>
+                                <div class="date"><span>18 Jan, 2024</span></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 p-0">
+                            <div class="event-content">
+                                <h3>WordPress Framework</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi
+                                    ut aliquip ex ea commodo consequat.
+                                </p>
+                                <div class="where-when">
+                                    <ul class="pull-left">
+                                        <li><span>Where</span></li>
+                                        <li>Fort Mason Center Victoria City, Canada</li>
+                                    </ul>
+                                    <ul>
+                                        <li><span>When</span></li>
+                                        <li>Sunday</li>
+                                        <li>3.30 pm - 6.30 pm</li>
+                                    </ul>
+                                </div>
+                                <a href="single-events.html" class="btn btn-primary">View Details <i
+                                        class="icofont-rounded-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="apply-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="text">
+                    <p>
+                        {% trans 'Request a consultation and unlock ' %}<span>{% trans 'study abroad' %}</span>{% trans 'opportunities' %}
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="apply-form">
+                    <h3>Apply Now</h3>
+                    <form>
+                        <div class="form-group"><input type="text" class="form-control" placeholder="Your Name"/></div>
+                        <div class="form-group"><input type="email" class="form-control" placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group"><input type="text" class="form-control" placeholder="Your Phone"/></div>
+                        <button type="submit" class="btn btn-primary">Apply Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="testimonials-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h3>{% trans 'Testimonials' %}</h3>
+            <p>{% trans 'Watch real stories from our students who’ve achieved their goals with us! Discover how our programs have helped them on their journey to study abroad and beyond.”' %}</p>
+        </div>
+    </div>
+    <div class="row m-0">
+        <div class="testimonials-slider owl-carousel owl-theme">
+            <div class="col-lg-12 col-md-12">
+                <div class="">
+                    <iframe src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"
+                            allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="single-feedback">
+                    <img src="assets/img/client2.jpg" alt="client"/>
+                    <div class="feedback-content">
+                        <i class="icofont-quote-left"></i>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and
+                            scrambled it to make.
+                        </p>
+                        <h3>John Doe</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="single-feedback">
+                    <img src="assets/img/client3.jpg" alt="client"/>
+                    <div class="feedback-content">
+                        <i class="icofont-quote-left"></i>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut
+                            aliquip ex ea commodo consequat.
+                        </p>
+                        <h3>Steven Smith</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="newsletter-area ptb-100">
+    <div class="container">
+        <div class="newsletter">
+            <h3>Sign up to our newsletter</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            <form><input type="text" class="form-control" placeholder="Enter your email address..."/>
+                <button type="submit" class="btn btn-primary">Subscribe Now</button>
+            </form>
+        </div>
+    </div>
+</section>
+<section class="news-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h3>EduField News</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        </div>
+        <div class="row">
+            <div class="news-slider owl-carousel owl-theme">
+                <div class="col-lg-12 col-md-12">
+                    <div class="single-blog">
+                        <div class="blog-img">
+                            <a href="single-blog.html"><img src="assets/img/blog-one.jpg" alt="blog"/></a>
+                        </div>
+                        <div class="blog-content">
+                            <h4>
+                                <span><i class="icofont-ui-user"></i> Posted by <a href="blog-style-one.html">Admin</a></span>
+                                <span class="date"><i class="icofont-ui-calendar"></i> 18 Jan, 2024</span>
+                            </h4>
+                            <h3><a href="single-blog.html">Those Other College Expenses You Aren't Thinking About</a>
+                            </h3>
+                            <a href="single-blog.html" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="single-blog">
+                        <div class="blog-img">
+                            <a href="single-blog.html"><img src="assets/img/blog-two.jpg" alt="blog"/></a>
+                        </div>
+                        <div class="blog-content">
+                            <h4>
+                                <span><i class="icofont-ui-user"></i> Posted by <a href="blog-style-one.html">Admin</a></span>
+                                <span class="date"><i class="icofont-ui-calendar"></i> 18 Jan, 2024</span>
+                            </h4>
+                            <h3><a href="single-blog.html">Excepteur sint occaecat cupidatat non proident quaerat
+                                voluptatem.</a></h3>
+                            <a href="single-blog.html" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="single-blog">
+                        <div class="blog-img">
+                            <a href="single-blog.html"><img src="assets/img/blog-three.jpg" alt="blog"/></a>
+                        </div>
+                        <div class="blog-content">
+                            <h4>
+                                <span><i class="icofont-ui-user"></i> Posted by <a href="blog-style-one.html">Admin</a></span>
+                                <span class="date"><i class="icofont-ui-calendar"></i> 18 Jan, 2024</span>
+                            </h4>
+                            <h3><a href="single-blog.html">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                            </h3>
+                            <a href="single-blog.html" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="single-footer">
+                    <h3>About EduField</h3>
+                    <ul class="footer-contact-info">
+                        <li>2750 Quadra Street , Park Area, Victoria, Canada.</li>
+                        <li><a href="#">+4 (05) 345 6789</a></li>
+                        <li><a href="#">+4 (15) 345 6789</a></li>
+                        <li><a href="#">contact@EduField.org</a></li>
+                    </ul>
+                    <ul class="social">
+                        <li>
+                            <a href="#"><i class="icofont-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icofont-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icofont-linkedin"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icofont-google-plus"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icofont-pinterest"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-footer">
+                    <h3>Courses</h3>
+                    <ul class="list">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="admission.html">Admission</a></li>
+                        <li><a href="courses-style-one.html">Research</a></li>
+                        <li><a href="courses-style-one.html">Scholarship</a></li>
+                        <li><a href="blog-style-one.html">Blog</a></li>
+                        <li><a href="contact-style-one.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-footer">
+                    <h3>Research</h3>
+                    <ul class="list">
+                        <li><a href="admission.html">Forums</a></li>
+                        <li><a href="event-style-one.html">Events</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="blog-style-one.html">Blog</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="single-footer">
+                    <h3>Support</h3>
+                    <ul class="list">
+                        <li><a href="single-courses.html">Language Packs</a></li>
+                        <li><a href="single-courses.html">Relase Status</a></li>
+                        <li><a href="event-style-one.html">Events</a></li>
+                        <li><a href="teacher-style-one.html">Become A Teacher</a></li>
+                        <li><a href="courses-style-one.html">Courses</a></li>
+                        <li><a href="single-courses.html">LearnPress</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <p>Copyright <span>EduField</span> All Rights Reserved by <a href="https://envytheme.com/"
+                                                                                 target="_blank">EnvyTheme</a></p>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<a class="scrolltop" href="#top"><i class="icofont-hand-drawn-up"></i></a>
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static '/js/classy-nav.min.js' %}"></script>
+<script src="{% static '/js/owl.carousel.min.js' %}"></script>
+<script src="{% static '/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static '/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static '/js/waypoints.min.js' %}"></script>
+<script src="{% static '/js/form-validator.min.js' %}"></script>
+<script src="{% static '/js/contact-form-script.js' %}"></script>
+<script src="{% static '/js/main.js' %}"></script>
+</body>
+</html>

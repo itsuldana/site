@@ -5,12 +5,13 @@ from webapp import views
 urlpatterns = [
     # Лэндинг (он же О нас или About Us)
     path('', views.MainView.as_view(), name='main_about_us'),
+    path('index/', views.IndexView.as_view(), name='index'),
 
     # Help Page
-    path('help/', views.HelpView.as_view(), name='help'),
+    path('contact_us/', views.ContactUsView.as_view(), name='contact_us'),
     path('send_email/', views.send_email, name='send_email'),
 
-    path('', views.CourseListView.as_view(), name='index'),
+    # path('', views.CourseListView.as_view(), name='index'),
 
     path('courses/', views.CoursesView.as_view(), name='course_list'),
 

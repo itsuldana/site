@@ -1,70 +1,75 @@
-{% extends 'base.html' %}
+{% extends 'new_base.html' %}
+{% load percent_filter %}
 {% load i18n %}
 
-{% block title %}{% trans "Paid Courses" %}{% endblock %}
+{% block title %}{% trans 'Paid Courses' %}{% endblock %}
 
 {% block content %}
-    <main>
-        <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">{% trans "Paid Courses" %}</h1>
-                    <p class="lead text-muted">
-                        {% trans "This is a list of your paid courses, available for you right now. Here, you’ll find all the courses to which you have full access and can start learning at any convenient time. Dive in and achieve success!" %}
-                    </p>
-                </div>
-            </div>
-        </section>
 
-        <div class="album py-5 bg-light">
-            <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    {% if courses %}
-                        {% for course in courses %}
-                            <div class="col">
-                                <div class="card shadow-sm">
-                                    <img src="{{ course.image.url }}" class="bd-placeholder-img card-img-top"
-                                         width="100%"
-                                         height="225">
-                                    <div class="card-body">
-                                        <p class="card-text">{{ course.title }}</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a href="{% url 'course_detail' course.pk %}"
-                                                   class="btn btn-sm btn-outline-secondary">View</a>
-                                                {% if request.user.is_superuser %}
-                                                    <a href="{% url 'course_edit' course.pk %}"
-                                                       class="btn btn-sm btn-outline-secondary">Edit</a>
-                                                {% endif %}
-
-                                            </div>
-                                            <small class="text-muted">{{ course.price }}</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="row">
-                            <div class="col-12">
-                                <p>
-                                    You don’t have any paid courses yet. Click the button below to explore our amazing
-                                    courses
-                                    and start learning new skills. Join us and unlock new opportunities!
-                                </p>
-                                <a href="{% url 'course_list' %}" class="btn btn-outline-secondary">
-                                    {% trans "All courses" %}
-                                </a>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="row">
-                    {% if is_paginated %}
-                        {% include 'partial/pagination.html' %}
-                    {% endif %}
+    <!-- Start Page Title Area -->
+    <div class="page-title course-list-image">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'Paid Courses' %}</h3>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Courses Area -->
+    <section class="courses-area ptb-100">
+        <div class="container">
+            <div class="row">
+                {% if courses %}
+                    {% for course in courses %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="courses-item">
+                                <div class="courses-img">
+                                    <img src="{{ course.image.url }}" alt="course">
+                                </div>
+
+                                <div class="courses-content">
+                                    <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                                    <ul>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><span>(15 {% trans 'reviews' %})</span></li>
+                                    </ul>
+
+                                    <p>
+                                        {{ course.preview_description }}
+                                    </p>
+                                </div>
+
+                                <div class="courses-content-bottom">
+                                    <h4 class="price"><span>${{ course.price|increase_by_20_percent }}</span>
+                                        ${{ course.price|floatformat:0 }}</h4>
+                                    <h4><a href="{% url 'course_detail' course.pk %}" class="btn btn-primary">Read
+                                        More</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3>
+                        {% trans 'You haven’t purchased any courses yet.' %}
+                    </h3>
+                    <h4>
+                        <a href="{% url 'course_list' %}" class="btn btn-primary mt-50">{% trans 'View Courses' %}</a>
+                    </h4>
+                {% endif %}
+
+                {% if courses %}
+                    {% include 'partial/pagination.html' %}
+                {% endif %}
+            
+            </div>
+        </div>
+    </section>
+    <!-- End Courses Area -->
 {% endblock %}
