@@ -97,6 +97,21 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
+                            <li><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'course_list' %}">{% trans 'All Courses' %}</a></li>
+                                    <li><a href="{% url 'course_paid_list' %}">{% trans 'Paid Courses' %}</a></li>
+                                </ul>
+                            </li>
+                        
+                            <li>
+                                <a href="{% url 'contact_us' %}">Contact Us</a>
+                            </li>
+                        
+                            <li>
+                                <a href="{% url 'teacher_list' %}">Teachers</a>
+                            </li>
+                        
                             <li><a href="#">Home</a>
                                 <ul class="dropdown">
                                     <li><a href="index-default.html">Home Demo One</a></li>
@@ -106,30 +121,9 @@
                                 </ul>
                             </li>
 
-                            <li><a href="#">About Us</a>
-                                <ul class="dropdown">
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="admission.html">Admission</a></li>
-                                    <li><a href="teacher-style-one.html">Teacher Style One</a></li>
-                                    <li><a href="teacher-style-two.html">Teacher Style Two</a></li>
-                                    <li><a href="single-teacher.html">Teacher Details</a></li>
-                                </ul>
-                            </li>
+                            
 
-                            <li><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
-                                <ul class="dropdown">
-                                    <li><a href="{% url 'course_list' %}">{% trans 'All Courses' %}</a></li>
-                                    <li><a href="{% url 'course_paid_list' %}">{% trans 'Paid Courses' %}</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">Events</a>
-                                <ul class="dropdown">
-                                    <li><a href="event-style-one.html">Events Style One</a></li>
-                                    <li><a href="event-style-two.html">Events Style Two</a></li>
-                                    <li><a href="single-events.html">Events Details</a></li>
-                                </ul>
-                            </li>
+                            
 
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
@@ -140,15 +134,6 @@
                                             <li><a href="blog-style-two.html">Blog Style Two</a></li>
                                             <li><a href="blog-style-three.html">Blog Style Three</a></li>
                                             <li><a href="single-blog.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Shop</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop-style-one.html">Shop Style One</a></li>
-                                            <li><a href="shop-style-two.html">Shop Style Two</a></li>
-                                            <li><a href="single-shop.html">Shop Details</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
@@ -192,16 +177,6 @@
                                     <li><a href="blog-style-two.html">Blog Style Two</a></li>
                                     <li><a href="blog-style-three.html">Blog Style Three</a></li>
                                     <li><a href="single-blog.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">Shop</a>
-                                <ul class="dropdown">
-                                    <li><a href="shop-style-one.html">Shop Style One</a></li>
-                                    <li><a href="shop-style-two.html">Shop Style Two</a></li>
-                                    <li><a href="single-shop.html">Shop Details</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
                                 </ul>
                             </li>
 

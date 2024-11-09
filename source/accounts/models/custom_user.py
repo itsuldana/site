@@ -17,3 +17,4 @@ class CustomUser(AbstractUser):
         except CustomUser.DoesNotExist:
             pass
         super().save(*args, **kwargs)
+

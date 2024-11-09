@@ -1,0 +1,59 @@
+{% extends 'new_base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'All Teachers' %}{% endblock %}
+
+{% block content %}
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'All Teachers' %}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Teacher Area -->
+    <section class="teacher-area ptb-100">
+        <div class="container">
+            <div class="row">
+
+                {% for teacher in teachers %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-teacher">
+                            <img src="{{ teacher.profile_image.url }}" alt="teacher">
+
+                            <div class="teacher-content">
+                                <h3><a href="{% url 'teacher_detail' teacher.pk %}">{{ teacher.fullname }}</a></h3>
+                                <span>{{ teacher.position }}</span>
+
+                                <h4><a href="{% url 'teacher_detail' teacher.pk %}">{% trans 'View Profile' %} <i class="icofont-long-arrow-right"></i></a>
+                                </h4>
+                                <ul>
+                                    {% if teacher.facebook %}
+                                        <li><a href="{{ teacher.facebook }}"><i class="icofont-facebook"></i></a></li>
+                                    {% endif %}
+                                    {% if teacher.twitter %}
+                                        <li><a href="{{ teacher.twitter }}"><i class="icofont-twitter"></i></a></li>
+                                    {% endif %}
+                                    {% if teacher.linkedin %}
+                                        <li><a href="{{ teacher.linkedin }}"><i class="icofont-linkedin"></i></a></li>
+                                    {% endif %}
+                                    {% if teacher.instagram %}
+                                        <li><a href="{{ teacher.instagram }}"><i class="icofont-instagram"></i></a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+    <!-- End Teacher Area -->
+{% endblock %}

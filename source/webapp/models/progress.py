@@ -1,6 +1,7 @@
 from django.db import models
-from webapp.models.lessons import Lesson
+
 from accounts.models import CustomUser
+from webapp.models.lessons import Lesson
 
 
 class LessonProgress(models.Model):

@@ -1,0 +1,155 @@
+{% extends 'new_base.html' %}
+{% load i18n %}
+
+{% block title %}{{ teacher.fullname }}{% endblock %}
+
+{% block content %}
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{{ teacher.fullname }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Teacher Details Area -->
+    <section class="teacher-details-area ptb-100">
+        <div class="container">
+            <div class="teacher-details">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="teacher-img">
+                            <img src="{{ teacher.profile_image.url }}" alt="teacher">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="teacher-profile">
+                            <h3></h3>
+                            <span>{{ teacher.position }}</span>
+                        </div>
+
+                        <div class="teacher-contact-info">
+                            <h4>{% trans 'Contact Info' %}:</h4>
+                            <ul>
+                                <li><i class="icofont-envelope"></i> <a
+                                        href="mailto:{{ teacher.user.email }}">{{ teacher.user.email }}</a></li>
+                                <li><i class="icofont-phone"></i> <a
+                                        href="tel:{{ teacher.phone_number }}">{{ teacher.phone_number }}</a></li>
+                                <li><i class="icofont-google-map"></i> {{ teacher.geolocation }}</li>
+                            </ul>
+
+                            <ul class="teacher-social">
+                                {% if teacher.facebook %}
+                                    <li><a href="{{ teacher.facebook }}"><i class="icofont-facebook"></i></a></li>
+                                {% endif %}
+                                {% if teacher.twitter %}
+                                    <li><a href="{{ teacher.twitter }}"><i class="icofont-twitter"></i></a></li>
+                                {% endif %}
+                                {% if teacher.linkedin %}
+                                    <li><a href="{{ teacher.linkedin }}"><i class="icofont-linkedin"></i></a></li>
+                                {% endif %}
+                                {% if teacher.instagram %}
+                                    <li><a href="{{ teacher.instagram }}"><i class="icofont-instagram"></i></a></li>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single-teacher-about">
+                            <h2>Skills</h2>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <h3 class="progress-title">{% trans 'Accounting' %}</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width:{{ teacher.accounting }}%;">
+                                            <div class="progress-value">{{ teacher.accounting }}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <h3 class="progress-title">{% trans 'Writing' %}</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width:{{ teacher.writing }}%;">
+                                            <div class="progress-value">{{ teacher.writing }}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <h3 class="progress-title">{% trans 'Speaking' %}</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width:{{ teacher.speaking }}%;">
+                                            <div class="progress-value">{{ teacher.speaking }}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <h3 class="progress-title">{% trans 'Reading' %}</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width:{{ teacher.reading }}%;">
+                                            <div class="progress-value">{{ teacher.reading }}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="teacher-desc">
+                                <h2>{% trans 'About' %} {{ teacher.fullname }}</h2>
+                                <p>
+                                    {% if current_lang == 'en' %}
+                                        {{ teacher.about_en }}
+                                    {% else %}
+                                        {{ teacher.about_ru }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="teacher-involved-coures">
+            <div class="container">
+                <h2>{% trans 'Involved in courses' %}</h2>
+                <div class="row">
+                    {% for course in courses %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-courses-item">
+                            <div class="courses-img">
+                                <img src="{{ course.image.url }}" alt="course">
+                            </div>
+
+                            <div class="courses-content">
+                                <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                                <ul>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                    <li><i class="icofont-star"></i></li>
+                                </ul>
+                            </div>
+
+                            <div class="courses-content-bottom">
+                                <h4><i class="icofont-ui-user"></i> 120 Students</h4>
+                                <h4 class="price">${{ course.price }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Teacher Details Area -->
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+
+from accounts.models import CustomUser, Teacher
 
 
 class CustomUserAdmin(UserAdmin):
@@ -15,3 +16,19 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+
+@admin.register(Teacher)
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'user',
+        'fullname',
+        'position',
+    )
+    list_display_links = (
+        'id',
+        'user',
+        'fullname',
+        'position',
+    )

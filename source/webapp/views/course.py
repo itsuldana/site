@@ -92,6 +92,7 @@ class CourseDetailView(DetailView):
         skills = Skills.objects.filter(course=self.object).order_by('-priority').filter(is_active=True)
         context['skills'] = skills
 
+
         course = self.object
         modules = Module.objects.filter(course=course).filter(is_active=True).prefetch_related('lessons')
         context["modules"] = modules

@@ -11,14 +11,13 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.conf import settings
 from django.utils.translation import activate as activate_translation
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, TemplateView, DetailView, UpdateView, FormView, ListView
+from django.views.generic import CreateView, TemplateView, DetailView, UpdateView, FormView
 
 from accounts.forms import (
     CustomUserCreationForm, LoginForm, UserForm, EmailChangeForm, CustomPasswordChangeForm,
 )
-from webapp.models import Course, Module, Lesson, LessonProgress, Purchase
-from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class LoginView(TemplateView):
@@ -174,66 +173,6 @@ def set_language(request):
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang_code)
     return response
 
-
-class ManageCoursesView(UserPassesTestMixin, ListView):
-    template_name = 'manage/manage_courses.html'
-
-    context_object_name = 'courses'
-    model = Course
-    ordering = ['-created_at']
-
-    def test_func(self):
-        return self.request.user.is_superuser
-
-
-class ManageModulesView(UserPassesTestMixin, ListView):
-    template_name = 'manage/manage_modules.html'
-
-    model = Module
-    context_object_name = 'modules'
-
-    def get_queryset(self):
-        return Module.objects.filter(course_id=self.kwargs['pk']).order_by('position')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['course'] = Course.objects.get(id=self.kwargs['pk'])
-        return context
-
-    def test_func(self):
-        return self.request.user.is_superuser
-
-
-class ManageLessonsView(UserPassesTestMixin, ListView):
-    template_name = 'manage/manage_lessons.html'
-
-    model = Lesson
-    context_object_name = 'lessons'
-
-    def get_queryset(self):
-        return Lesson.objects.filter(module_id=self.kwargs['pk']).order_by('id')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        module = Module.objects.get(id=self.kwargs['pk'])
-        user = self.request.user
-
-        lessons = context['lessons']
-
-        lessons_with_progress = []
-
-        for lesson in lessons:
-            lesson_progress = LessonProgress.objects.filter(lesson=lesson, user=user).first()
-            lessons_with_progress.append({
-                'lesson': lesson,
-                'progress': lesson_progress.status if lesson_progress else ''
-            })
-        context['module'] = module
-        context['lessons_with_progress'] = lessons_with_progress
-        return context
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
 class EmailConfirmView(TemplateView):
     template_name = 'email_confirm.html'

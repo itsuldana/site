@@ -3,6 +3,8 @@ from django.db import models
 from PIL import Image
 import os
 
+from accounts.models import Teacher
+
 
 class Course(models.Model):
     LANGUAGE_CHOICES = [
@@ -17,6 +19,12 @@ class Course(models.Model):
         ('ADVANCED', 'Advanced'),
     ]
 
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.PROTECT,
+        verbose_name='Преподаватель',
+        related_name='teacher',
+    )
     title = models.CharField(
         max_length=255,
         null=False,

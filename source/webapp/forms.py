@@ -3,7 +3,7 @@ from django import forms
 from accounts.models import CustomUser
 # from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import Course, Module, Test, AnswerOption
+from .models import Course, Module, AnswerOption
 from .models.lessons import Lesson
 
 
@@ -29,7 +29,7 @@ class LessonForm(forms.ModelForm):
 
     class Meta:
         model = Lesson
-        fields = ['title', 'small_description','content', 'video_url', 'creator', 'is_active']
+        fields = ['title', 'small_description','content', 'video_url', 'is_active']
 
 
 class TestForm(forms.Form):
