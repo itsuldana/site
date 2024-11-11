@@ -1,4 +1,6 @@
 # from ckeditor.fields import RichTextField
+from urllib.parse import urlparse, parse_qs
+
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 import requests
@@ -30,6 +32,10 @@ class Lesson(models.Model):
         'Content',
         config_name='extends'
     )
+    key_takeaway = CKEditor5Field(
+        'Key Takeaway',
+        config_name='extends'
+    )
     video_url = models.URLField(
         max_length=1000,
         null=True,
@@ -56,6 +62,10 @@ class Lesson(models.Model):
         blank=True,
         verbose_name="Длительность видео"
     )
+    position = models.PositiveIntegerField(
+        verbose_name="Position",
+        default=1,
+    )
     is_active = models.BooleanField(
         default=True,
         null=False,
@@ -66,13 +76,23 @@ class Lesson(models.Model):
         return self.title
 
     def fetch_youtube_data(self, api_key):
-        video_id = self.video_url.split('v=')[-1]
+        # Извлечение идентификатора видео из URL
+        query = urlparse(self.video_url).query
+        video_id = parse_qs(query).get('v')
+        if video_id:
+            video_id = video_id[0]  # Получаем первый ID из списка
+        else:
+            print("Некорректный формат URL видео.")
+            return  # Выходим, если ID видео не найден
+
         url = f'https://www.googleapis.com/youtube/v3/videos?id={video_id}&part=contentDetails,snippet&key={api_key}'
+        print(f"URL запроса: {url}")  # Логирование URL
 
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
-            if data['items']:
+            print("Данные ответа:", data)  # Логирование данных для отладки
+            if data.get('items'):
                 video_info = data['items'][0]
                 self.thumbnail_url = video_info['snippet']['thumbnails']['high']['url']
 
@@ -80,16 +100,28 @@ class Lesson(models.Model):
                 match = re.match(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', iso_duration)
                 hours, minutes, seconds = map(lambda x: int(x) if x else 0, match.groups())
                 self.duration = hours * 3600 + minutes * 60 + seconds
-
-                self.save()
+            else:
+                print("Элементы не найдены в данных ответа. Проверьте ID видео и ключ API.")
         else:
-            print("Не удалось получить данные из YouTube API.")
+            print(f"Не удалось получить данные из YouTube API. Код статуса: {response.status_code}")
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.video_url and not self.thumbnail_url and not self.duration:
+        # Проверка, изменился ли URL видео
+        if self.pk:
+            # Получаем исходный объект из базы данных
+            original = Lesson.objects.get(pk=self.pk)
+            if original.video_url != self.video_url:
+                # Обновляем данные только если URL видео изменился
+                API_KEY = 'AIzaSyD4Y8Cg2fdGLUIlvteRxSvhRhRpS82R8h0'
+                self.fetch_youtube_data(API_KEY)
+        else:
+            # Новый объект, у которого видео-данные ещё не были получены
             API_KEY = 'AIzaSyD4Y8Cg2fdGLUIlvteRxSvhRhRpS82R8h0'
             self.fetch_youtube_data(API_KEY)
+
+        # Вызов супер сохранения только один раз
+        super().save(*args, **kwargs)
+
 
     def formatted_duration(self):
         if self.duration:

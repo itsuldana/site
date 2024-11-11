@@ -1,12 +1,14 @@
 {% extends "new_base.html" %}
+{% load i18n %}
+
+{% block title %}{{ lesson.title }}{% endblock %}
 
 {% block header %}
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
     <script src="https://kit.fontawesome.com/465e448dc1.js" crossorigin="anonymous"></script>
     <style>
         body {
-            background-color: #FFFFFF;
-            color: #0A3161;
+        {#background-color: #FFFFFF;#} color: #0A3161;
         }
 
         .plyr {
@@ -72,100 +74,128 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5 content-wrapper">
-        <h2 class="mb-4 course-title">{{ lesson.title }}</h2>
-        <div class="gap-3 ">
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{{ lesson.title }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <section class="course-details-area ptb-100">
+        <div class="container">
             <div class="row">
-                <div class="col-12 col-md-12 col-lg-8">
-                    {% if lesson.video_url %}
-                        <div class="plyr__video-embed" id="player">
-                            <iframe src="{{ lesson.video_url }}" allowfullscreen allowtransparency
-                                    allow="autoplay"></iframe>
-                        </div>
-                    {% endif %}
-                    <div>
-                        <div class="creator my-3">
-                            <div class="creator-info">
-                                {% if lesson.module.course.teacher.profile_image %}
-                                    <img class="avatar" src="{{ lesson.module.course.teacher.profile_image.url }}" alt="Avatar">
+
+                {#  Блок с видео и описанием  #}
+                <div class="col-lg-8 col-md-12">
+                    <div class="courses-details">
+                        {% if lesson.video_url %}
+                            <div class="plyr__video-embed" id="player">
+                                <iframe src="{{ lesson.video_url }}" allowfullscreen allowtransparency
+                                        allow="autoplay"></iframe>
+                            </div>
+                        {% endif %}
+
+                        <h3>{{ lesson.title }}</h3>
+
+
+                        <div class="course-details-tabs">
+                            <ul id="tabs" class="tabs-align">
+                                <li class="active" id="tab_1">{% trans 'Key takeaway' %}</li>
+                                <li class="inactive" id="tab_2">{% trans 'Transcript' %}</li>
+                                <li class="inactive" id="tab_3">{% trans 'Instructors' %}</li>
+                                <li class="inactive" id="tab_4">{% trans 'FeedBack' %}</li>
+                            </ul>
+
+                            <div class="content show" id="tab_1_content">
+                                <h4 class="title">{% trans 'Lesson Key Takeaway' %}</h4>
+                                {% if lesson.content %}
+                                    <p>{{ lesson.key_takeaway|safe }}</p>
                                 {% endif %}
-                                <div class="d-flex flex-column">
-                                        <span class="lesson-by-size">Lesson by
-{#                                            {% if lesson.creator.social_network_link %}#}
-{#                                                <a href="{{ lesson.creator.social_network_link }}">#}
-{#                                                    <strong> {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>#}
-{#                                                </a>#}
-{#                                            {% else %}#}
-                                                <strong> {{ lesson.module.course.teacher.fullname }} </strong>
-{#                                            {% endif %}#}
-                                        </span>
+                            </div>
 
-                                    <span class="creator-role-size">Expert</span>
+                            <div class="content" id="tab_2_content">
+                                <h4 class="title">{% trans 'Lesson Transcript' %}</h4>
+                                {% if lesson.content %}
+                                    <p>{{ lesson.content|safe }}</p>
+                                {% endif %}
+                            </div>
+
+                            <div class="content" id="tab_3_content">
+                                <div class="course-author">
+                                    <div class="img">
+                                        <img src="{{ lesson.module.course.teacher.profile_image.url }}" alt="teacher">
+                                    </div>
+
+                                    <div class="author-content">
+                                        <h4>{{ lesson.module.course.teacher.fullname }}</h4>
+                                        <span>{{ lesson.module.course.teacher.position }}</span>
+                                        <ul class="">
+                                            {% if lesson.module.course.teacher.facebook %}
+                                                <li><a href="{{ lesson.module.course.teacher.facebook }}"><i
+                                                        class="icofont-facebook"></i></a></li>
+                                            {% endif %}
+                                            {% if lesson.module.course.teacher.twitter %}
+                                                <li><a href="{{ lesson.module.course.teacher.twitter }}"><i
+                                                        class="icofont-twitter"></i></a>
+                                                </li>
+                                            {% endif %}
+                                            {% if lesson.module.course.teacher.linkedin %}
+                                                <li><a href="{{ lesson.module.course.teacher.linkedin }}"><i
+                                                        class="icofont-linkedin"></i></a></li>
+                                            {% endif %}
+                                            {% if lesson.module.course.teacher.instagram %}
+                                                <li><a href="{{ lesson.module.course.teacher.instagram }}"><i
+                                                        class="icofont-instagram"></i></a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        <p>
+                                            {% if current_lang == 'en' %}
+                                                {{ lesson.module.course.teacher.about_en }}
+                                            {% else %}
+                                                {{ lesson.module.course.teacher.about_ru }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div class="lesson-by-size">
-                                    <strong>Lesson Feedback:</strong>
-                                    Did you like this lesson?
-                                </div>
-                                <div class="creator-role-size">
-                                    <button class=" creator-role-size btn btn-outline-dark" id="nice-feedback"><i id="like-icon" class="fa-solid fa-check"
-                                                                  style="display: none"></i> Yes, I liked It
-                                    </button>
-                                    <button class=" creator-role-size btn btn-outline-dark" id="bad-feedback"><i id="dislike-icon" class="fa-solid fa-xmark"
-                                                                 style="display: none"></i> No, I don't like it
-                                    </button>
-                                </div>
 
+                            <div class="content" id="tab_4_content">
+                                <h4 class="title">{% trans 'Lesson Feedback: Did you like this lesson?' %}</h4>
+                                <div class="creator-role-size">
+                                    <button class=" creator-role-size btn btn-outline-dark" id="nice-feedback"><i
+                                            id="like-icon" class="fa-solid fa-check"
+                                            style="display: none"></i> {% trans 'Yes, I liked It' %}
+                                    </button>
+                                    <button class=" creator-role-size btn btn-outline-dark" id="bad-feedback"><i
+                                            id="dislike-icon" class="fa-solid fa-xmark"
+                                            style="display: none"></i> {% trans "No, I don't like it" %}
+                                    </button>
+                                </div>
                             </div>
 
                         </div>
+
+
                     </div>
-
-                    <ul class="nav nav-tabs justify-content-start" id="courseTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="course-tab" data-bs-toggle="tab"
-                                    data-bs-target="#course"
-                                    type="button" role="tab" aria-controls="course" aria-selected="true">This course
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="transcript-tab" data-bs-toggle="tab"
-                                    data-bs-target="#transcript"
-                                    type="button" role="tab" aria-controls="transcript" aria-selected="false">Video
-                                text
-                            </button>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content mt-4" id="courseTabContent">
-                        {#            <div class="tab-pane fade show active course-description" id="course" role="tabpanel" aria-labelledby="course-tab">#}
-                        {#                <p class="course-info"><strong>IELTS Preparation Course</strong></p>#}
-                        {#                <p class="course-info"><strong>Global Education Services</strong></p>#}
-                        {#                <p class="course-info">⭐ 4.8 (42,546 reviews) | Enrolled Students: 120,000</p>#}
-                        {#                <p class="course-info">Comprehensive IELTS Preparation — Professional Certification</p>#}
-                        {#                <p class="course-info">Start your journey towards IELTS success with this comprehensive preparation course. Taught by experienced instructors, this course covers all four sections of the IELTS exam: Listening, Reading, Writing, and Speaking. You will get tips and strategies to enhance your performance and achieve your desired band score. This course is suitable for learners at all levels, offering personalized feedback and practice tests to ensure you are ready for the exam.</p>#}
-                        {#            </div>#}
-                        {#            <div class="tab-pane fade course-transcript" id="transcript" role="tabpanel" aria-labelledby="transcript-tab">#}
-                        {#                <p>Transcript of the video will be available here.</p>#}
-                        {#            </div>#}
-                        {{ lesson.content|safe }}
-                    </div>
-
                 </div>
 
+                {# Блок со следующими уроками #}
                 <div class="col-12 col-md-12 col-lg-4">
                     <div class="d-flex justify-content-between align-items-start next-lessons-block mb-5">
                         <div class="d-flex flex-column gap-1">
                             <div class="d-flex flex-column gap-s">
                                 <strong>Status</strong>
-                                <button id="finish-button" class="btn btn-primary">Завершить урок</button>
+                                <button id="finish-button" class="btn btn-primary">{% trans 'Finish Lesson' %}</button>
                             </div>
                             <div>
                                 {% if next_lesson %}
                                     <div class="my-3">
-                                        <strong>Next Lesson</strong>
+                                        <strong>{% trans 'Next Lesson' %}</strong>
                                     </div>
                                     <div class="card mb-3" style="max-width: 540px;">
                                         <a class="text-decoration-none"
@@ -178,7 +208,9 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h5 class="lesson-title">{{ next_lesson.lesson.title }}</h5>
+                                                        <h5 class="lesson-title">
+                                                            {{ next_lesson.lesson.module.position }}.{{ next_lesson.lesson.position }} {{ next_lesson.lesson.title }}
+                                                        </h5>
                                                         <div class="d-flex justify-content-between">
                                                             <p class="card-text">
                                                                 <small
@@ -217,7 +249,9 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="card-body">
-                                                    <h5 class="lesson-title">{{ item.lesson.title }}</h5>
+                                                    <h5 class="lesson-title">
+                                                        {{ item.lesson.module.position }}.{{ item.lesson.position }} {{ item.lesson.title }}
+                                                    </h5>
                                                     <div class="d-flex justify-content-between">
                                                         <p id="video-duration" class="card-text"><small
                                                                 class="text-muted">{{ item.lesson.formatted_duration }}</small>
@@ -246,11 +280,7 @@
                 </div>
             </div>
         </div>
-        <!-- Video Section -->
-
-        <!-- Tabs for Course Description and Transcript -->
-
-    </div>
+    </section>
 
     <!-- Plyr JS -->
     <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
@@ -390,7 +420,7 @@
                     niceButton.style.background = 'white'
                     niceButton.style.color = 'black';
                     niceButton.disabled = false;
-                    likeIcon.style.display='none'
+                    likeIcon.style.display = 'none'
 
 
                 })

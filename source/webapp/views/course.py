@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Prefetch
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
-from ..models import Course, Tag, Module, LessonProgress, Purchase, Skills
+from ..models import Course, Tag, Module, LessonProgress, Purchase, Skills, Lesson
 
 
 class CourseListView(ListView):
@@ -94,7 +94,9 @@ class CourseDetailView(DetailView):
 
 
         course = self.object
-        modules = Module.objects.filter(course=course).filter(is_active=True).prefetch_related('lessons')
+        modules = Module.objects.filter(course=course, is_active=True).prefetch_related(
+            Prefetch('lessons', queryset=Lesson.objects.order_by('position'))
+        )
         context["modules"] = modules
         context['tags'] = course.tag.all()
 
