@@ -47,7 +47,11 @@
                             </ul>
 
                             <div class="apply-btn">
-                                <a href="admission.html" class="btn btn-primary">Buy</a>
+                                <form action="{% url 'purchase_course' course_id=course.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">Buy</button>
+
+                                </form>
                             </div>
                         </div>
 
