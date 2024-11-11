@@ -14,8 +14,30 @@
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
+
     <title>EduField - Education & Online Courses HTML Template</title>
     <link rel="icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+    <style>
+        .content-wrapper {
+            max-width: 880px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .plyr {
+            height: 550px;
+        }
+
+        .plyr__video-wrapper {
+            background: #000;
+        {#background: var(--plyr-video-background, var(--plyr-video-background, #000));#} margin: 0;
+            overflow: hidden;
+            position: static;
+            width: 100%;
+        }
+
+    </style>
 </head>
 <body>
 <div class="preloader-area">
@@ -596,7 +618,9 @@
                                 <div class="where-when">
                                     <ul class="pull-left">
                                         <li><span>Where</span></li>
-                                        <li>Fort Mason Center Victoria City, Canada</li>
+                                        <li>Fort Mason Center Victoria City, Canada
+                                            <R
+                                            /li>
                                     </ul>
                                     <ul>
                                         <li><span>When</span></li>
@@ -689,7 +713,7 @@
 <section class="apply-area ptb-100">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-12">
+            <div class="col-lg-6 col-md-12">К
                 <div class="text">
                     <p>
                         {% trans 'Request a consultation and unlock ' %}<span>{% trans 'study abroad' %}</span>{% trans 'opportunities' %}
@@ -721,42 +745,47 @@
     <div class="row m-0">
         <div class="testimonials-slider owl-carousel owl-theme">
             <div class="col-lg-12 col-md-12">
-                <div class="">
-                    <iframe src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"
+                <div class="plyr__video-embed" id="player1">
+                    <iframe src="https://www.youtube.com/embed/GQGX0_EHGHc?si=Y3TKTWg8z-AjC4ds"
                             allowfullscreen allowtransparency allow="autoplay"></iframe>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
-                <div class="single-feedback">
-                    <img src="assets/img/client2.jpg" alt="client"/>
-                    <div class="feedback-content">
-                        <i class="icofont-quote-left"></i>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and
-                            scrambled it to make.
-                        </p>
-                        <h3>John Doe</h3>
-                    </div>
+                <div class="plyr__video-embed" id="player2">
+                    <iframe src="https://www.youtube.com/watch?v=nrRfZJnVJco&list=PLERb_Bszeln6mZshSiKNo9ZavRBcny4WJ&index=4"
+                            allowfullscreen allowtransparency allow="autoplay"></iframe>
                 </div>
+
             </div>
             <div class="col-lg-12 col-md-12">
-                <div class="single-feedback">
-                    <img src="assets/img/client3.jpg" alt="client"/>
-                    <div class="feedback-content">
-                        <i class="icofont-quote-left"></i>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut
-                            aliquip ex ea commodo consequat.
-                        </p>
-                        <h3>Steven Smith</h3>
-                    </div>
+                <div class="plyr__video-embed" id="player3">
+                    <iframe src="https://www.youtube.com/embed/LIWQtvimSsI?si=9VWosYkIIMH7VO_z"
+                            allowfullscreen allowtransparency allow="autoplay"></iframe>
+                </div>
+
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="plyr__video-embed" id="player4">
+                    <iframe src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"
+                            allowfullscreen allowtransparency allow="autoplay"></iframe>
                 </div>
             </div>
         </div>
+        {#        <div class="col-lg-12 col-md-12">#}
+        {#            <div class="single-feedback">#}
+        {#                <img src="assets/img/client3.jpg" alt="client"/>#}
+        {#                <div class="feedback-content">#}
+        {#                    <i class="icofont-quote-left"></i>#}
+        {#                    <p>#}
+        {#                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt#}
+        {#                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco#}
+        {#                        laboris nisi ut#}
+        {#                        aliquip ex ea commodo consequat.#}
+        {#                    </p>#}
+        {#                    <h3>Steven Smith</h3>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
     </div>
 </section>
 <section class="newsletter-area ptb-100">
@@ -932,5 +961,17 @@
 <script src="{% static '/js/form-validator.min.js' %}"></script>
 <script src="{% static '/js/contact-form-script.js' %}"></script>
 <script src="{% static '/js/main.js' %}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(container => new Plyr(container));
+
+
+    });
+</script>
+
+<script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+
 </body>
 </html>

@@ -76,7 +76,7 @@ jQuery(function ($) {
         touchDrag: !1,
         items: 4,
         mouseDrag: !0,
-        autoplay: !0,
+        autoplay: false,
         smartSpeed: 750,
         autoplayHoverPause: !0,
         loop: !0,
