@@ -5011,3 +5011,42 @@ label {
     font-size: 18px;
     text-decoration: underline;
 }
+
+.lesson-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничение в 2 строки */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3em; /* Высота для двух строк (примерно 1.5em на строку, в зависимости от шрифта) */
+    line-height: 1.5em; /* Устанавливает высоту строки */
+}
+
+.lesson-image{
+    height: 100%;
+}
+.creator{
+    display: flex;
+    justify-content: space-between;
+}
+.creator-info{
+    display: flex;
+    align-items: center;
+}
+.avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+.lesson-by-size{
+    font-size: 15px;
+}
+.creator-role-size{
+    font-size: 12px;
+}
+.course-image-width {
+    width: 100%;
+}
