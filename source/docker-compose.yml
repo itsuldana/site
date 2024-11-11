@@ -6,7 +6,7 @@ networks:
 services:
   db:
     image: postgres:13
-    container_name: postgres
+    container_name: postgress
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -16,7 +16,7 @@ services:
     networks:
       - dev
     ports:
-      - "5432:5432"
+      - "5482:5432"
 
   redis:
     image: redis:alpine
