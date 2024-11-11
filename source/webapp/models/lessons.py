@@ -4,7 +4,6 @@ from django_ckeditor_5.fields import CKEditor5Field
 import requests
 import re
 
-from accounts.models import CustomUser
 from webapp.models import Module
 
 
@@ -61,12 +60,6 @@ class Lesson(models.Model):
         default=True,
         null=False,
         verbose_name="Активен"
-    )
-    creator = models.ForeignKey(
-        CustomUser,
-        on_delete=models.CASCADE,
-        verbose_name='Создатель',
-        related_name='creator',
     )
 
     def __str__(self):

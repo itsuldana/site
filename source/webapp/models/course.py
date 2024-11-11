@@ -1,16 +1,41 @@
 from django.db import models
-from django.utils import timezone
 
 from PIL import Image
 import os
 
+from accounts.models import Teacher
+
 
 class Course(models.Model):
+    LANGUAGE_CHOICES = [
+        ('EN', 'English'),
+        ('RU', 'Russian'),
+    ]
+
+    SKILL_LEVEL_CHOICES = [
+        ('ALL', 'All Levels'),
+        ('BEGINNER', 'Beginner'),
+        ('INTERMEDIATE', 'Intermediate'),
+        ('ADVANCED', 'Advanced'),
+    ]
+
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.PROTECT,
+        verbose_name='Преподаватель',
+        related_name='teacher',
+    )
     title = models.CharField(
         max_length=255,
         null=False,
         blank=False,
         verbose_name="Name"
+    )
+    preview_description = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name='Preview Description For Course List Page'
     )
     description = models.TextField(
         max_length=3000,
@@ -30,6 +55,18 @@ class Course(models.Model):
         null=True,
         blank=True,
         verbose_name="Image"
+    )
+    language = models.CharField(
+        max_length=2,
+        choices=LANGUAGE_CHOICES,
+        default='EN',
+        verbose_name="Язык"
+    )
+    skill_level = models.CharField(
+        max_length=12,
+        choices=SKILL_LEVEL_CHOICES,
+        default='ALL',
+        verbose_name="Skill Level"
     )
     tag = models.ManyToManyField(
         to='webapp.Tag',

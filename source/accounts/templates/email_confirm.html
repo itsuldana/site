@@ -1,0 +1,18 @@
+{% extends 'new_base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="ctr-area ptb-100 success-margin">
+    <div class="top-divider"></div>
+    <div class="bottom-divider"></div>
+    <div class="container">
+        <div class="ctr-text-content">
+            <h1>{% trans 'Your message has been successfully sent.' %}</h1>
+            <p>
+                {% trans 'Check your email and confirm your email address, then click ‘Login’ to access our system.' %}
+            </p>
+            <a href="{% url 'login' %}" class="btn btn-primary">{% trans 'Login' %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

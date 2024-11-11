@@ -1,10 +1,10 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Count, Sum
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
-from ..models import Course, Tag, Module, LessonProgress, Purchase
+from ..models import Course, Tag, Module, LessonProgress, Purchase, Skills
 
 
 class CourseListView(ListView):
@@ -24,7 +24,7 @@ class CourseListView(ListView):
     def test_func(self):
         return self.request.user.is_superuser
 
-class CoursePaidListView(ListView):
+class CoursePaidListView(LoginRequiredMixin, ListView):
     template_name = 'course/course_paid_list.html'
 
     context_object_name = 'courses'
@@ -32,6 +32,8 @@ class CoursePaidListView(ListView):
 
     paginate_by = 6
     paginate_orphans = 1
+
+    login_url = reverse_lazy('login')
 
     def get_queryset(self):
         paid_courses_ids = Purchase.objects.filter(
@@ -77,6 +79,19 @@ class CourseDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Пробрасываем похожие курсы (пока просто последние три, так как их мало)
+        similar_courses = Course.objects.exclude(id=self.object.pk).order_by('-created_at')[:3]
+        context['similar_courses'] = similar_courses
+
+        # Пробрасываем все курсы (пока последние 4, так как их мало)
+        all_courses = Course.objects.exclude(id=self.object.pk).order_by('-created_at')[:4]
+        context['all_courses'] = all_courses
+
+        # Пробрасываем скиллы, которым можно научиться на курсе
+        skills = Skills.objects.filter(course=self.object).order_by('-priority').filter(is_active=True)
+        context['skills'] = skills
+
 
         course = self.object
         modules = Module.objects.filter(course=course).filter(is_active=True).prefetch_related('lessons')

@@ -1,30 +1,43 @@
-<div class="row d-flex justify-content-center">
-    <div class="col-7">
-        <div class="pagination">
-            <span class="step-links">
-                <a href="?{% if query %}{{ query }}&{% endif %}page=1">&laquo; В начало</a>
-                {% if page_obj.has_previous %}
-                    <a href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.previous_page_number }}"
-                       class="btn btn-success pag-button">Назад</a>
-                {% else %}
-                    <span class="btn btn-success page-disabled">Назад</span>
-                {% endif %}
+<div class="col-lg-12 col-md-12">
+    <div class="pagination-area">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="?{% if query %}{{ query }}&{% endif %}page=1" aria-label="Previous">
+                            <i class="icofont-stylish-left"></i>
+                        </a>
+                    {% else %}
+                        <p class="disabled-link-pagination">
+                            <i class="icofont-stylish-left"></i>
+                        </p>
+                    {% endif %}
+                </li>
 
-                <form class="current-page" method="get">
-                    <label for="page">
-                        Страница <input type="text" name="page" id="page" value="{{ page_obj.number }}">
-                        из {{ page_obj.paginator.num_pages }}.
-                    </label>
-                </form>
+                <!-- Dynamic Page Number Links -->
+                {% for page_num in paginator.page_range %}
+                    {% if page_num == page_obj.number %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endfor %}
 
-                {% if page_obj.has_next %}
-                    <a href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.next_page_number }}">Далее</a>
-                {% else %}
-                    <span class="page-disabled">Далее</span>
-                {% endif %}
-                <a href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.paginator.num_pages }}">В конец &raquo;</a>
-            </span>
-        </div>
+                <li class="page-item">
+                    {% if page_obj.has_next %}
+                        <a class="page-link"
+                           href="?{% if query %}{{ query }}&{% endif %}page={{ page_obj.next_page_number }}"
+                           aria-label="Next">
+                            <i class="icofont-stylish-right"></i>
+                        </a>
+                    {% else %}
+                        <p class="disabled-link-pagination">
+                            <i class="icofont-stylish-right"></i>
+                        </p>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 

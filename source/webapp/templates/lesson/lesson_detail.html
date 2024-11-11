@@ -1,7 +1,8 @@
-{% extends "base.html" %}
+{% extends "new_base.html" %}
 
 {% block header %}
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
+    <script src="https://kit.fontawesome.com/465e448dc1.js" crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #FFFFFF;
@@ -10,7 +11,7 @@
 
         .plyr {
             width: 880px; /* Maximum width of the video */
-            max-height: 650px;
+            max-height: 490px;
         }
 
         .content-wrapper {
@@ -84,15 +85,42 @@
                         </div>
                     {% endif %}
                     <div>
-                        {% if lesson.creator.social_network_link %}
-                            <p>Lesson by<a class="text-decoration-none"
-                                           href="{{ lesson.creator.social_network_link }}">
-                                <strong>  {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>
-                            </a></p>
-                        {% else %}
-                            <p>Lesson by
-                                <strong> {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong></p>
-                        {% endif %}
+                        <div class="creator my-3">
+                            <div class="creator-info">
+                                {% if lesson.module.course.teacher.profile_image %}
+                                    <img class="avatar" src="{{ lesson.module.course.teacher.profile_image.url }}" alt="Avatar">
+                                {% endif %}
+                                <div class="d-flex flex-column">
+                                        <span class="lesson-by-size">Lesson by
+{#                                            {% if lesson.creator.social_network_link %}#}
+{#                                                <a href="{{ lesson.creator.social_network_link }}">#}
+{#                                                    <strong> {{ lesson.creator.first_name }} {{ lesson.creator.last_name }}</strong>#}
+{#                                                </a>#}
+{#                                            {% else %}#}
+                                                <strong> {{ lesson.module.course.teacher.fullname }} </strong>
+{#                                            {% endif %}#}
+                                        </span>
+
+                                    <span class="creator-role-size">Expert</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="lesson-by-size">
+                                    <strong>Lesson Feedback:</strong>
+                                    Did you like this lesson?
+                                </div>
+                                <div class="creator-role-size">
+                                    <button class=" creator-role-size btn btn-outline-dark" id="nice-feedback"><i id="like-icon" class="fa-solid fa-check"
+                                                                  style="display: none"></i> Yes, I liked It
+                                    </button>
+                                    <button class=" creator-role-size btn btn-outline-dark" id="bad-feedback"><i id="dislike-icon" class="fa-solid fa-xmark"
+                                                                 style="display: none"></i> No, I don't like it
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
 
                     <ul class="nav nav-tabs justify-content-start" id="courseTab" role="tablist">
@@ -212,25 +240,15 @@
                                     </a>
                                 </div>
                             {% endfor %}
-
                         </div>
 
-
                     </div>
-
                 </div>
-
-
             </div>
-
-
         </div>
-
         <!-- Video Section -->
 
-
         <!-- Tabs for Course Description and Transcript -->
-
 
     </div>
 
@@ -291,7 +309,93 @@
                 })
                 .catch(error => console.error('Ошибка:', error));
         });
+    </script>
 
+    <script>
+        document.getElementById('nice-feedback').addEventListener('click', () => {
+            const lessonId = '{{ lesson.id }}'
+            const user = '{{ request.user.id }}'
+            fetch('/api/v1/feedback/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // CSRF-токен
+                },
+                body: JSON.stringify(
+                    {
+                        lesson: lessonId,
+                        user: user,
+                        feedback_type: 'like',
+                        text: ''
+                    }
+                )
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const button = document.getElementById('nice-feedback');
+                    const likeIcon = document.getElementById('like-icon')
+                    button.style.backgroundColor = 'green';
+                    button.style.color = 'white';
+                    button.disabled = true; // Отключаем кнопку
+                    likeIcon.style.display = 'inline-block'
+
+                    const niceButton = document.getElementById('bad-feedback')
+                    const dislikeIcon = document.getElementById('dislike-icon')
+
+                    niceButton.style.background = 'white'
+                    niceButton.style.color = 'black';
+                    niceButton.disabled = false;
+                    dislikeIcon.style.display = 'none'
+
+
+                })
+                .catch(error => console.error('Ошибка', error))
+        })
+
+        document.getElementById('bad-feedback').addEventListener('click', () => {
+            const lessonId = '{{ lesson.id }}';
+            const userId = '{{ request.user.id }}';
+
+            fetch('/api/v1/feedback/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // CSRF-токен
+                },
+                body: JSON.stringify({
+                    lesson: lessonId,
+                    user: userId,
+                    feedback_type: 'dislike',
+                    text: ''
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Сервер вернул ошибку');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Feedback updated to dislike');
+                    // Меняем стиль кнопки на красный и отключаем её
+                    const button = document.getElementById('bad-feedback');
+                    const dislikeIcon = document.getElementById('dislike-icon')
+                    button.style.backgroundColor = 'red';
+                    button.style.color = 'white';
+                    button.disabled = true;
+                    dislikeIcon.style.display = 'inline-block'
+
+                    const niceButton = document.getElementById('nice-feedback')
+                    const likeIcon = document.getElementById('like-icon')
+                    niceButton.style.background = 'white'
+                    niceButton.style.color = 'black';
+                    niceButton.disabled = false;
+                    likeIcon.style.display='none'
+
+
+                })
+                .catch(error => console.error('Ошибка:', error));
+        });
     </script>
 
 {% endblock %}

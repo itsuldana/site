@@ -1,38 +1,64 @@
-{% extends 'base.html' %}
-
+{% extends 'new_base.html' %}
 {% load i18n %}
-{% load django_bootstrap5 %}
 
-{% block title %}{% trans "Log in" %}{% endblock %}
-
-{% block navbar %}{% endblock %}
+{% block title %}{% trans 'Login' %}{% endblock %}
 
 {% block content %}
-    <div class="container main-container py-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-6 col-lg-5">
-                <div class="card border-0 shadow-lg">
-                    <div class="card-header bg-dark-blue text-white text-center py-3">
-                        <h3>{% trans "Log in to your account" %}</h3>
-                    </div>
-                    <div class="card-body p-4 bg-light">
-                        <form method="post">
-                            {% csrf_token %}
-                            {% bootstrap_form form %}
-                            <div class="d-grid gap-2">
-                                {% trans "Log in" as log_in %}
-                                {% bootstrap_button button_type="submit" button_class='btn btn-primary btn-lg' content=log_in %}
-                            </div>
-                        </form>
-                        <div class="mt-3 d-flex justify-content-between">
-                            <a href="{% url 'password_reset' %}" class="text-primary">{% trans "Forgot your password?" %}</a>
-                            <a href="{% url 'register' %}" class="text-primary">{% trans "Create an account" %}</a>
-                        </div>
-                    </div>
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'Login' %}</h3>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
+    <!-- End Page Title Area -->
 
-{% block footer %}{% endblock %}
+    <!-- Start Login Area -->
+    <section class="login-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <form id="login-form" method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="heading">{% trans 'Login' %}</div>
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label>{% trans 'Username' %}</label>
+                            {{ form.username }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>{% trans 'Password' %}</label>
+                            {{ form.password }}
+                        </div>
+
+                        <div class="d-flex justify-content-between mlr-20">
+                            <h4>
+                                <a href="{% url 'password_reset' %}" class="login-urls">
+                                    {% trans "Forgot your password?" %}
+                                </a>
+                            </h4>
+                            <h4>
+                                <a href="{% url 'register' %}" class="login-urls">
+                                    {% trans "Create an account" %}
+                                </a>
+                            </h4>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">{% trans 'Login' %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     "drf_spectacular",
     "drf_spectacular_sidecar",
+    'anymail',
 
     'webapp',
     'accounts',
@@ -165,7 +166,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+ANYMAIL = {
+    'MAILJET_API_KEY': '69751d3507f36118709750f91908ec8d',
+    'MAILJET_SECRET_KEY': '601a20a6049462aadc79a79c8575fbcb',
+}
+
+EMAIL_BACKEND = 'anymail.backends.mailjet.EmailBackend'
+DEFAULT_FROM_EMAIL = 'glebtgd@gmail.com'
 
 # Settings for CKEditor
 

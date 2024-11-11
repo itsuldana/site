@@ -1,0 +1,82 @@
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+.pagination .btn {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.pagination .dots {
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+.pagination .btn-light {
+    background-color: transparent;
+    border: none;
+}
+
+.pagination .btn-primary {
+    background-color: var(--gray-neutral-50);
+    color: var(--gray-700-light-mode);
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+}
+
+
+.btn:active {
+    background-color: #5CD5A0 !important;
+    border-color: #5CD5A0 !important;
+}
+
+.pagination{
+    text-align: center;
+}
+
+.pagination .btn-outline-primary {
+    background-color: white;
+    border: 1px solid var(--gray-300-light-mode);
+    color: var(--gray-700-light-mode);
+    font-weight: 600;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+.pages, .mobile-page-text {
+    text-align: center;
+}
+
+.mobile-off {
+    display: inline-block;
+}
+
+.desktop-off {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .mobile-off {
+        display: none;
+    }
+
+    .desktop-off {
+        display: block;
+    }
+
+    .mobile-button-styles {
+        padding: 8px;
+        border-radius: 8px;
+    }
+}
+

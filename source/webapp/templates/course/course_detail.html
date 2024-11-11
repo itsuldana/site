@@ -1,126 +1,516 @@
-{% extends 'base.html' %}
+{% extends 'new_base.html' %}
+{% load percent_filter %}
+{% load static %}
 {% load i18n %}
-{% block title %}English Course Details{% endblock %}
+
+{% block title %}{{ course.title }}{% endblock %}
 
 {% block content %}
-    <main class="bg-light text-dark py-5">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-8">
-                    <h1 class="fw-bold">{{ course.title }}</h1>
-                    <p class="lead">{{ course.description }}</p>
-                    <div class="d-flex align-items-center mb-3">
-                        {% if request.user.is_authenticated %}
-                            <a id="buy" href=""
-                               class="btn btn-primary me-2">{% trans 'Buy' %}</a>
-                            <a href="{% url 'dashboard' cours_id=course.id %}" class="btn btn-secondary me-2">DashBoard</a>
-                            <a href="{% url 'test_case_description_detail' course_id=course.id %}" class="btn btn-outline-secondary">Course Tests</a>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-primary me-2">{% trans 'Buy' %}</a>
-                            <a href="{% url 'login' %}" class="btn btn-outline-secondary">Add to Watchlist</a>
-                        {% endif %}
-                    </div>
-                    <div class="d-flex flex-wrap mb-3">
-                        {% for tag in tags %}
-                            <span class="badge bg-primary me-2 mb-2">{{ tag.name }}</span>
-                        {% endfor %}
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <span class="me-3"><i class="bi bi-book"></i> {{ total_lessons }} lessons</span>
-                        <span class="me-3"><i class="bi bi-clock"></i> {{ total_duration }}</span>
-                        <span class="me-3"><i class="bi bi-bar-chart"></i> Intermediate</span>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="{{ course.image.url }}" alt="{{ course.image }}" class="img-fluid rounded">
-                </div>
-            </div>
-            <hr class="bg-secondary">
-            <div class="row">
-                <div class="col-12">
-                    {% if modules %}
-                        {% for module in modules %}
-                            <h2 class="fw-bold mb-4">{{ module.position }}. {{ module.title }}</h2>
-                            {% if module.lessons.all %}
-                                <div class="list-group">
-                                    {% for lesson in module.lessons.all %}
-                                        <div class="list-group-item bg-light text-dark">
-                                            {% if is_paid or request.user.is_superuser %}
-                                                <a class="text-decoration-none"
-                                                   href="{% url 'lesson_detail' pk=lesson.id %}">
-                                                    <h5 class="mb-1">
-                                                        {% for progress in lesson_progress %}
-                                                            {% if progress.lesson == lesson %}
-                                                                {% if progress.status == 'done' %}
-                                                                    <i class="bi bi-check-circle-fill text-success"></i>
-                                                                {% elif progress.status == 'in_progress' %}
-                                                                    <i class="bi bi-hourglass-split text-warning"></i>
-                                                                {% endif %}
-                                                            {% endif %}
-                                                        {% endfor %}
-
-                                                        {{ forloop.counter }}. {{ lesson.title }}</h5>
-                                                </a>
-                                            {% else %}
-                                                <h5>{{ forloop.counter }}. {{ lesson.title }}</h5>
-                                            {% endif %}
-                                            <p class="mb-1">{{ lesson.small_description }}</p>
-                                            <small>{{ lesson.formatted_duration }}</small>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                <p>No lessons available.</p>
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        <p>No modules available.</p>
-                    {% endif %}
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{{ course.title }}</h3>
                 </div>
             </div>
         </div>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const buyButton = document.getElementById('buy');
-            const userId = {{ request.user.id}};
-            if (userId !== 'null') {
-                if (buyButton) {
-                    buyButton.addEventListener('click', function (event) {
-                        event.preventDefault(); // предотвращает переход по ссылке
-                        const courseId = {{ course.id }};
+    </div>
+    <!-- End Page Title Area -->
 
-                        fetch("/api/v1/purchase/create/", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRFToken': '{{ csrf_token }}'
-                            },
-                            body: JSON.stringify({
-                                course: courseId,
-                                payment_status: 'DONE'
-                            })
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.payment_status == 'DONE') {
-                                    {#window.location.href = "{% url 'user_detail' pk=userId %}" #}
+    <!-- Start Course Details Area -->
+    <section class="course-details-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="courses-details">
 
-                                } else {
-                                    console.log(data)
-                                    alert('Failed to create purchase.');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred. Please try again later.');
-                            });
-                    });
-                }
-            }
+                        <div class="courses-details-img">
+                            <img src="{{ course.image.url }}" alt="courses-details">
+                        </div>
 
-        });
+                        <h3>{{ course.title }}</h3>
 
+                        <div class="courses-details-meta">
+                            <ul>
+                                <li>
+                                    <div class="teacher-img">
+                                        <img src="{{ course.teacher.profile_image.url }}" alt="teacher">
+                                    </div>
 
-    </script>
+                                    {% trans 'Teacher' %}: {{ course.teacher.fullname }}
+                                </li>
+
+                                <li>
+                                    {% trans 'Specialization' %}: {{ course.teacher.position }}
+                                </li>
+                            </ul>
+
+                            <div class="apply-btn">
+                                <form action="{% url 'purchase_course' course_id=course.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary">Buy</button>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="course-details-tabs">
+                            <ul id="tabs">
+                                <li class="active" id="tab_1">Description</li>
+                                <li class="inactive" id="tab_2">Curriculum</li>
+                                <li class="inactive" id="tab_3">Instructors</li>
+                                <li class="inactive" id="tab_4">Review</li>
+                            </ul>
+
+                            <div class="content show" id="tab_1_content">
+                                <h4 class="title">{% trans 'Course Details' %}</h4>
+
+                                <p>{{ course.description|safe }}</p>
+
+                                <div class="requirements-list">
+                                    <h4 class="title">{% trans 'What You Will Learn' %}</h4>
+
+                                    <ul>
+                                        {% for skill in skills %}
+                                            <li><i class="icofont-double-right"></i> {{ skill.name }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="content" id="tab_2_content">
+                                <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+                                    {% if modules %}
+                                        {% for module in modules %}
+                                            <div class="card">
+                                                <!-- Генерация уникального id для каждого модуля -->
+                                                <div class="card-header" role="tab" id="heading{{ module.id }}">
+                                                    <a data-bs-toggle="collapse" data-bs-parent="#accordionEx"
+                                                       href="#collapse{{ module.id }}" aria-expanded="true"
+                                                       aria-controls="collapse{{ module.id }}">
+                                                        <h5 class="mb-0">
+                                                            {{ module.position }}. {{ module.title }} <span><i
+                                                                class="icofont-rounded-down"></i></span>
+                                                        </h5>
+                                                    </a>
+                                                </div>
+
+                                                <div id="collapse{{ module.id }}"
+                                                     class="collapse{% if forloop.first %} show{% endif %}"
+                                                     role="tabpanel" aria-labelledby="heading{{ module.id }}"
+                                                     data-bs-parent="#accordionEx">
+                                                    <div class="card-body">
+                                                        <ul>
+                                                            {% for lesson in module.lessons.all %}
+                                                                <li>
+                                                                    <i class="icofont-ui-play"></i> {% trans 'Lesson' %}
+                                                                    {{ module.position }}.{{ forloop.counter }}
+
+                                                                    <span><a
+                                                                            href="{% url 'lesson_detail' pk=lesson.id %}">{{ lesson.title }}</a></span>
+
+                                                                    <span class="duration"><i
+                                                                            class="icofont-clock-time"></i> {{ lesson.formatted_duration }} min</span>
+
+                                                                    <a href="{% url 'lesson_detail' pk=lesson.id %}"
+                                                                       class="preview">View</a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="content" id="tab_3_content">
+                                <div class="course-author">
+                                    <div class="img">
+                                        <img src="{{ course.teacher.profile_image.url }}" alt="teacher">
+                                    </div>
+
+                                    <div class="author-content">
+                                        <h4>{{ course.teacher.fullname }}</h4>
+                                        <span>{{ course.teacher.position }}</span>
+                                        <ul class="">
+                                            {% if teacher.facebook %}
+                                                <li><a href="{{ course.teacher.facebook }}"><i
+                                                        class="icofont-facebook"></i></a></li>
+                                            {% endif %}
+                                            {% if teacher.twitter %}
+                                                <li><a href="{{ course.teacher.twitter }}"><i
+                                                        class="icofont-twitter"></i></a>
+                                                </li>
+                                            {% endif %}
+                                            {% if teacher.linkedin %}
+                                                <li><a href="{{ course.teacher.linkedin }}"><i
+                                                        class="icofont-linkedin"></i></a></li>
+                                            {% endif %}
+                                            {% if teacher.instagram %}
+                                                <li><a href="{{ course.teacher.instagram }}"><i
+                                                        class="icofont-instagram"></i></a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        <p>
+                                            {% if current_lang == 'en' %}
+                                                {{ course.teacher.about_en }}
+                                            {% else %}
+                                                {{ course.teacher.about_ru }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content" id="tab_4_content">
+                                <div class="courses-review">
+                                    <div class="single-review">
+                                        <div class="img">
+                                            <img src="assets/img/teacher-one.jpg" alt="client">
+                                        </div>
+
+                                        <div class="client-content">
+                                            <h4>Luyes Jagu</h4>
+                                            <ul>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                            </ul>
+                                            <p>Smply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                                has
+                                                been the industry’s standard dummy text ever since the 1500s, when an
+                                                unknown printer took a galley of type and scrambled it to make a type
+                                                specimen book.Smply dummy text of the printing and typesetting
+                                                industry.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="single-review">
+                                        <div class="img">
+                                            <img src="assets/img/teacher-two.jpg" alt="client">
+                                        </div>
+
+                                        <div class="client-content">
+                                            <h4>Luyes Jagu</h4>
+                                            <ul>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                            </ul>
+                                            <p>Smply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                                has
+                                                been the industry’s standard dummy text ever since the 1500s, when an
+                                                unknown printer took a galley of type and scrambled it to make a type
+                                                specimen book.Smply dummy text of the printing and typesetting
+                                                industry.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="single-review">
+                                        <div class="img">
+                                            <img src="assets/img/teacher-three.jpg" alt="client">
+                                        </div>
+
+                                        <div class="client-content">
+                                            <h4>Luyes Jagu</h4>
+                                            <ul>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                            </ul>
+                                            <p>Smply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                                has
+                                                been the industry’s standard dummy text ever since the 1500s, when an
+                                                unknown printer took a galley of type and scrambled it to make a type
+                                                specimen book.Smply dummy text of the printing and typesetting
+                                                industry.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="single-review mb-0">
+                                        <div class="img">
+                                            <img src="assets/img/teacher-four.jpg" alt="client">
+                                        </div>
+
+                                        <div class="client-content">
+                                            <h4>Luyes Jagu</h4>
+                                            <ul>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                                <li><i class="icofont-star"></i></li>
+                                            </ul>
+                                            <p>Smply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                                has
+                                                been the industry’s standard dummy text ever since the 1500s, when an
+                                                unknown printer took a galley of type and scrambled it to make a type
+                                                specimen book.Smply dummy text of the printing and typesetting
+                                                industry.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="side-bar mb-0">
+                        <div class="single-widget features-box">
+                            <h3 class="title">Course Features</h3>
+
+                            <ul>
+                                <li><i class="icofont-file-fill"></i> {% trans 'Lectures' %}
+                                    <span>{{ total_lessons }}</span></li>
+
+                                <li><i class="icofont-clock-time"></i> {% trans 'Duration' %}
+                                    <span>{{ total_duration }}</span>
+                                </li>
+
+                                <li><i class="icofont-caret-up"></i> {% trans 'Skill level' %}
+                                    <span>{{ course.get_skill_level_display }}</span></li>
+
+                                <li><i class="icofont-read-book"></i> {% trans 'Language' %}
+                                    <span>{{ course.get_language_display }}</span></li>
+
+                                <li><i class="icofont-users-social"></i> Students <span>560</span></li>
+
+                                {#                                <li><i class="icofont-certificate-alt-1"></i> Certificate <span>Yes</span></li>#}
+
+                                <li><i class="icofont-checked"></i> {% trans 'Practise Tests' %} <span>Yes</span></li>
+
+                                <li><i class="icofont-price"></i> {% trans 'Price' %} <span>${{ course.price }}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="single-widget share-boxes">
+                            <h3 class="title">{% trans 'Share Courses' %}</h3>
+
+                            <ul>
+                                <li>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                                       target="_blank">
+                                        <i class="icofont-facebook"></i>
+                                    </a></li>
+                                <li><a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}"
+                                       target="_blank">
+                                    <i class="icofont-twitter"></i>
+                                </a></li>
+                                <li><a href="https://www.instagram.com/" target="_blank">
+                                    <i class="icofont-instagram"></i>
+                                </a></li>
+                                <li><a href="https://www.linkedin.com/shareArticle?url={{ request.build_absolute_uri }}"
+                                       target="_blank">
+                                    <i class="icofont-linkedin"></i>
+                                </a></li>
+                            </ul>
+                        </div>
+
+                        <div class="single-widget latest-courses">
+                            <h3 class="title">{% trans 'All Courses' %}</h3>
+
+                            {% for course in all_courses %}
+                                <div class="single-latest-courses">
+                                    <div class="img">
+                                        <a href="{% url 'course_detail' course.pk %}"><img src="{{ course.image.url }}"
+                                                                                           alt="course"></a>
+                                    </div>
+
+                                    <div class="content">
+                                        <h4 class="all-courses-slide-bar-margin">
+                                            <a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a>
+                                        </h4>
+                                        <p><span>${{ course.price|increase_by_20_percent }}</span>
+                                            ${{ course.price|floatformat:0 }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="similar-courses">
+            <div class="container">
+                <h2>Similar Courses</h2>
+
+                <div class="row">
+
+                    {% for course in similar_courses %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-courses-item">
+                                <div class="courses-img">
+                                    <img src="{{ course.image.url }}" alt="course">
+                                </div>
+
+                                <div class="courses-content">
+                                    <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                                    <ul>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                        <li><i class="icofont-star"></i></li>
+                                    </ul>
+                                </div>
+
+                                <div class="courses-content-bottom">
+                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>
+                                    <h4 class="price">${{ course.price }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Course Details Area -->
 {% endblock %}
+
+{##}
+{##}
+{##}
+{#{% extends 'base.html' %}#}
+{#{% load i18n %}#}
+{#{% block title %}English Course Details{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <main class="bg-light text-dark py-5">#}
+{#        <div class="container">#}
+{#            <div class="row mb-5">#}
+{#                <div class="col-md-8">#}
+{#                    <h1 class="fw-bold">{{ course.title }}</h1>#}
+{#                    <p class="lead">{{ course.description }}</p>#}
+{#                    <div class="d-flex align-items-center mb-3">#}
+{#                        {% if request.user.is_authenticated %}#}
+{#                            <a href="{% url 'purchase_course' course.id %}"#}
+{#                               class="btn btn-primary me-2">{% trans 'Buy' %}</a>#}
+{#                            <a href="{% url 'dashboard' cours_id=course.id %}" class="btn btn-secondary me-2">DashBoard</a>#}
+{#                            <a href="{% url 'test_case_description_detail' course_id=course.id %}" class="btn btn-outline-secondary">Course Tests</a>#}
+{#                        {% else %}#}
+{#                            <a href="{% url 'login' %}" class="btn btn-primary me-2">{% trans 'Buy' %}</a>#}
+{#                            <a href="{% url 'login' %}" class="btn btn-outline-secondary">Add to Watchlist</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                    <div class="d-flex flex-wrap mb-3">#}
+{#                        {% for tag in tags %}#}
+{#                            <span class="badge bg-primary me-2 mb-2">{{ tag.name }}</span>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                    <div class="d-flex align-items-center">#}
+{#                        <span class="me-3"><i class="bi bi-book"></i> {{ total_lessons }} lessons</span>#}
+{#                        <span class="me-3"><i class="bi bi-clock"></i> {{ total_duration }}</span>#}
+{#                        <span class="me-3"><i class="bi bi-bar-chart"></i> Intermediate</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-md-4 text-center">#}
+{#                    <img src="{{ course.image.url }}" alt="{{ course.image }}" class="img-fluid course-image-width rounded">#}
+{#                </div>#}
+{#            </div>#}
+{#            <hr class="bg-secondary">#}
+{#            <div class="row">#}
+{#                <div class="col-12">#}
+{#                    {% if modules %}#}
+{#                        {% for module in modules %}#}
+{#                            <h2 class="fw-bold mb-4">{{ module.position }}. {{ module.title }}</h2>#}
+{#                            {% if module.lessons.all %}#}
+{#                                <div class="list-group">#}
+{#                                    {% for lesson in module.lessons.all %}#}
+{#                                        <div class="list-group-item bg-light text-dark">#}
+{#                                            {% if is_paid or request.user.is_superuser %}#}
+{#                                                <a class="text-decoration-none"#}
+{#                                                   href="{% url 'lesson_detail' pk=lesson.id %}">#}
+{#                                                    <h5 class="mb-1">#}
+{#                                                        {% for progress in lesson_progress %}#}
+{#                                                            {% if progress.lesson == lesson %}#}
+{#                                                                {% if progress.status == 'done' %}#}
+{#                                                                    <i class="bi bi-check-circle-fill text-success"></i>#}
+{#                                                                {% elif progress.status == 'in_progress' %}#}
+{#                                                                    <i class="bi bi-hourglass-split text-warning"></i>#}
+{#                                                                {% endif %}#}
+{#                                                            {% endif %}#}
+{#                                                        {% endfor %}#}
+{##}
+{#                                                        {{ forloop.counter }}. {{ lesson.title }}</h5>#}
+{#                                                </a>#}
+{#                                            {% else %}#}
+{#                                                <h5>{{ forloop.counter }}. {{ lesson.title }}</h5>#}
+{#                                            {% endif %}#}
+{#                                            <p class="mb-1">{{ lesson.small_description }}</p>#}
+{#                                            <small>{{ lesson.formatted_duration }}</small>#}
+{#                                        </div>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
+{#                            {% else %}#}
+{#                                <p>No lessons available.</p>#}
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+{#                    {% else %}#}
+{#                        <p>No modules available.</p>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </main>#}
+{#    <script>#}
+{#document.addEventListener('DOMContentLoaded', function () {#}
+{#    const buyButton = document.getElementById('buy');#}
+{#    const userId = {{ request.user.id}};#}
+{#    if (userId !== 'null') {#}
+{#        if (buyButton) {#}
+{#            buyButton.addEventListener('click', function (event) {#}
+{#                event.preventDefault(); // предотвращает переход по ссылке#}
+{#                const courseId = {{ course.id }};#}
+{##}
+{#                fetch("/api/v1/purchase/create/", {#}
+{#                    method: 'POST',#}
+{#                    headers: {#}
+{#                        'Content-Type': 'application/json',#}
+{#                        'X-CSRFToken': '{{ csrf_token }}'#}
+{#                    },#}
+{#                    body: JSON.stringify({#}
+{#                        course: courseId,#}
+{#                        payment_status: 'DONE'#}
+{#                    })#}
+{#                })#}
+{#                    .then(response => response.json())#}
+{#                    .then(data => {#}
+{#                        if (data.payment_status == 'DONE') {#}
+{#window.location.href = "{% url 'user_detail' pk=userId %}" #}
+{##}
+{#                        } else {#}
+{#                            console.log(data)#}
+{#                            alert('Failed to create purchase.');#}
+{#                        }#}
+{#                    })#}
+{#                    .catch(error => {#}
+{#                        console.error('Error:', error);#}
+{#                        alert('An error occurred. Please try again later.');#}
+{#                    });#}
+{#            });#}
+{#        }#}
+{#    }#}
+{##}
+{##}
+{##}
+{##}
+{#    </script>#}
+{#{% endblock %}#}
