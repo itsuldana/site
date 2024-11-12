@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-12 19:58+0000\n"
+"POT-Creation-Date: 2024-11-12 20:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,6 +70,7 @@ msgid "Title"
 msgstr "Название"
 
 #: accounts/templates/manage/manage_courses.html:24
+#: webapp/templates/course/course_detail.html:60
 msgid "Description"
 msgstr "Описание"
 
@@ -223,7 +224,7 @@ msgstr "Reading"
 
 #: accounts/templates/teachers/teachers_detail.html:105
 msgid "About"
-msgstr "О нас"
+msgstr "Про"
 
 #: accounts/templates/teachers/teachers_detail.html:122
 msgid "Involved in courses"
@@ -359,6 +360,10 @@ msgstr ""
 "форму ниже. Мы стараемся отвечать на все запросы и комментарии в течение 24 "
 "часов."
 
+#: webapp/templates/contact_us.html:82
+msgid "Stay Connected"
+msgstr "Оставайтесь с нами"
+
 #: webapp/templates/contact_us.html:126
 msgid "Name*"
 msgstr "Имя*"
@@ -410,6 +415,23 @@ msgstr "Преподаватель"
 msgid "Specialization"
 msgstr "Спецификация"
 
+#: webapp/templates/course/course_detail.html:52
+msgid "Buy"
+msgstr "Купить"
+
+#: webapp/templates/course/course_detail.html:61
+msgid "Curriculum"
+msgstr "Учебный план"
+
+#: webapp/templates/course/course_detail.html:62
+#: webapp/templates/lesson/lesson_detail.html:109
+msgid "Instructors"
+msgstr "Преподаватели"
+
+#: webapp/templates/course/course_detail.html:63
+msgid "Review"
+msgstr "Отзывы"
+
 #: webapp/templates/course/course_detail.html:67
 msgid "Course Details"
 msgstr "Создание курса"
@@ -422,12 +444,15 @@ msgstr "Чему вы научитесь?"
 msgid "Lesson"
 msgstr "Уроки"
 
+#: webapp/templates/course/course_detail.html:272
+msgid "Course Features"
+msgstr "Особенности курса"
+
 #: webapp/templates/course/course_detail.html:275
 msgid "Lectures"
 msgstr "Лекции"
 
 #: webapp/templates/course/course_detail.html:278
-
 msgid "Duration"
 msgstr "Описание"
 
@@ -439,6 +464,12 @@ msgstr "Skill"
 msgid "Language"
 msgstr "Язык"
 
+#: webapp/templates/course/course_detail.html:288
+#: webapp/templates/course/course_detail.html:374
+#: webapp/templates/index.html:360
+msgid "Students"
+msgstr "Студенты"
+
 #: webapp/templates/course/course_detail.html:292
 msgid "Practise Tests"
 msgstr "Практикум"
@@ -446,6 +477,10 @@ msgstr "Практикум"
 #: webapp/templates/course/course_detail.html:300
 msgid "Share Courses"
 msgstr "Наши Курсы"
+
+#: webapp/templates/course/course_detail.html:351
+msgid "Similar Courses"
+msgstr "Похожие Курсы"
 
 #: webapp/templates/course/course_edit.html:4
 #: webapp/templates/course/course_edit.html:12
@@ -578,10 +613,6 @@ msgstr ""
 msgid "My Certificates"
 msgstr "Мои сертификаты"
 
-#: webapp/templates/index.html:360
-msgid "Students"
-msgstr "Студенты"
-
 #: webapp/templates/index.html:367
 msgid "Hours of Practice"
 msgstr "Часов практики"
@@ -615,7 +646,10 @@ msgid ""
 "Watch real stories from our students who’ve achieved their goals with us! "
 "Discover how our programs have helped them on their journey to study abroad "
 "and beyond.”"
-msgstr "Смотрите реальные истории наших студентов, которые достигли своих целей вместе с нами! Узнайте, как наши программы помогли им на пути к обучению за границей и не только."
+msgstr ""
+"Смотрите реальные истории наших студентов, которые достигли своих целей "
+"вместе с нами! Узнайте, как наши программы помогли им на пути к обучению за "
+"границей и не только."
 
 #: webapp/templates/lesson/lesson_create.html:4
 #: webapp/templates/lesson/lesson_create.html:16
@@ -624,15 +658,11 @@ msgstr "Создание урока"
 
 #: webapp/templates/lesson/lesson_detail.html:107
 msgid "Key takeaway"
-msgstr "Ключевой вывод"
+msgstr "Выводы"
 
 #: webapp/templates/lesson/lesson_detail.html:108
 msgid "Transcript"
 msgstr "Транскрипт"
-
-#: webapp/templates/lesson/lesson_detail.html:109
-msgid "Instructors"
-msgstr "Преподаватели"
 
 #: webapp/templates/lesson/lesson_detail.html:110
 msgid "FeedBack"
@@ -663,8 +693,6 @@ msgid "Finish Lesson"
 msgstr "Закончить урок"
 
 #: webapp/templates/lesson/lesson_detail.html:198
-#, fuzzy
-#| msgid "Add New Lesson"
 msgid "Next Lesson"
 msgstr "Следующий урок"
 
@@ -739,9 +767,6 @@ msgstr "На главную"
 
 #~ msgid "Terms of use"
 #~ msgstr "Условия использования"
-
-#~ msgid "Buy"
-#~ msgstr "Купить"
 
 #~ msgid ""
 #~ "Here, you’ll find our most popular and up-to-date courses. Explore new "
