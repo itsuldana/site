@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-02 20:33+0500\n"
+"POT-Creation-Date: 2024-11-12 19:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,20 +20,37 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: accounts/templates/login.html:6 accounts/templates/login.html:23
-#: templates/base.html:73
-msgid "Log in"
-msgstr "Войти"
+#: accounts/templates/email_confirm.html:10 webapp/templates/success.html:10
+msgid "Your message has been successfully sent."
+msgstr "Ваше письмо успешно отправлено."
 
-#: accounts/templates/login.html:16
-msgid "Log in to your account"
-msgstr "Войдите в свой аккаунт"
+#: accounts/templates/email_confirm.html:12
+msgid ""
+"Check your email and confirm your email address, then click ‘Login’ to "
+"access our system."
+msgstr ""
+"Проверьте ваши входящие сообщения и подтвердите email адрес, затем кликните "
+"'Login' и войдите в систему"
 
-#: accounts/templates/login.html:28
+#: accounts/templates/email_confirm.html:14 accounts/templates/login.html:4
+#: accounts/templates/login.html:12 accounts/templates/login.html:26
+#: accounts/templates/login.html:57
+msgid "Login"
+msgstr "Вход"
+
+#: accounts/templates/login.html:35
+msgid "Username"
+msgstr "Username"
+
+#: accounts/templates/login.html:40
+msgid "Password"
+msgstr "Пароль"
+
+#: accounts/templates/login.html:47
 msgid "Forgot your password?"
 msgstr "Забыли пароль?"
 
-#: accounts/templates/login.html:29
+#: accounts/templates/login.html:52
 msgid "Create an account"
 msgstr "Создать аккаунт"
 
@@ -43,39 +60,40 @@ msgid "Manage Courses"
 msgstr "Управление курсами"
 
 #: accounts/templates/manage/manage_courses.html:14
-msgid "Delete"
-msgstr "Удалить"
-
-#: accounts/templates/manage/manage_courses.html:17
 msgid "Add New Course"
 msgstr "Добавить новый курс"
 
-#: accounts/templates/manage/manage_courses.html:29
+#: accounts/templates/manage/manage_courses.html:23
 #: accounts/templates/manage/manage_lessons.html:23
 #: accounts/templates/manage/manage_modules.html:24
 msgid "Title"
 msgstr "Название"
 
-#: accounts/templates/manage/manage_courses.html:30
+#: accounts/templates/manage/manage_courses.html:24
 msgid "Description"
 msgstr "Описание"
 
-#: accounts/templates/manage/manage_courses.html:31
+#: accounts/templates/manage/manage_courses.html:25
+#: webapp/templates/course/course_detail.html:294
 msgid "Price"
 msgstr "Цена"
 
-#: accounts/templates/manage/manage_courses.html:32
+#: accounts/templates/manage/manage_courses.html:26
 #: accounts/templates/manage/manage_lessons.html:24
 #: accounts/templates/manage/manage_modules.html:25
 msgid "Actions"
 msgstr "Действия"
 
-#: accounts/templates/manage/manage_courses.html:52
-#: accounts/templates/manage/manage_modules.html:41 templates/base.html:47
-msgid "Manage"
-msgstr "Управление"
+#: accounts/templates/manage/manage_courses.html:40
+#: accounts/templates/manage/manage_modules.html:4
+msgid "Manage Modules"
+msgstr "Управление модулями"
 
-#: accounts/templates/manage/manage_courses.html:73
+#: accounts/templates/manage/manage_courses.html:43
+msgid "Manage Tests"
+msgstr "Управление тестами"
+
+#: accounts/templates/manage/manage_courses.html:64
 msgid "No courses available."
 msgstr "Курсы отсутствуют."
 
@@ -95,10 +113,6 @@ msgstr "Добавить новый урок"
 msgid "No lessons available."
 msgstr "Уроки отсутствуют."
 
-#: accounts/templates/manage/manage_modules.html:4
-msgid "Manage Modules"
-msgstr "Управление модулями"
-
 #: accounts/templates/manage/manage_modules.html:11
 msgid "Manage Modules for"
 msgstr "Управление модулями для"
@@ -111,7 +125,11 @@ msgstr "Добавить новый модуль"
 msgid "Position"
 msgstr "Позиция"
 
-#: accounts/templates/manage/manage_modules.html:62
+#: accounts/templates/manage/manage_modules.html:38
+msgid "Manage"
+msgstr "Управление"
+
+#: accounts/templates/manage/manage_modules.html:59
 msgid "No modules available."
 msgstr "Модули отсутствуют."
 
@@ -166,93 +184,212 @@ msgstr "Мы отправили вам письмо с инструкциями 
 msgid "Return to Login"
 msgstr "Вернуться к входу"
 
-#: accounts/templates/registration.html:6
-#: accounts/templates/registration.html:16
+#: accounts/templates/registration.html:10
+#: accounts/templates/registration.html:23
+msgid "Register"
+msgstr "Регистрация"
+
+#: accounts/templates/registration.html:78
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: accounts/templates/registration.html:21 templates/base.html:69
-msgid "Sign up"
-msgstr "Зарегистрироваться"
+#: accounts/templates/registration.html:82
+msgid "Are you a member?"
+msgstr "Вы являетесь участником?"
 
-#: core/settings.py:127
-msgid "English"
-msgstr "Английский"
+#: accounts/templates/registration.html:82
+msgid "Login Now!"
+msgstr "Войти Сейчас!"
 
-#: core/settings.py:128
-msgid "Russian"
-msgstr "Русский"
+#: accounts/templates/teachers/teachers_detail.html:37
+msgid "Contact Info"
+msgstr "Контактная информация"
 
-#: templates/base.html:34
-#, fuzzy
-#| msgid "Courses"
-msgid "All Courses"
-msgstr "Все Курсы"
+#: accounts/templates/teachers/teachers_detail.html:69
+msgid "Accounting"
+msgstr "Accounting"
 
-#: templates/base.html:37 webapp/templates/course/course_paid_list.html:4
-#: webapp/templates/course/course_paid_list.html:11
-#, fuzzy
-#| msgid "Courses"
-msgid "Paid Courses"
-msgstr "Оплаченные Курсы"
+#: accounts/templates/teachers/teachers_detail.html:78
+msgid "Writing"
+msgstr "Writing"
 
-#: templates/base.html:40
-msgid "Practice"
-msgstr "Практикум"
+#: accounts/templates/teachers/teachers_detail.html:87
+msgid "Speaking"
+msgstr "Speaking"
 
-#: templates/base.html:43
-msgid "Resources"
-msgstr "Ресурсы"
+#: accounts/templates/teachers/teachers_detail.html:96
+msgid "Reading"
+msgstr "Reading"
 
-#: templates/base.html:51
-msgid "Help"
-msgstr "Помощь"
-
-#: templates/base.html:56
-msgid "Log Out"
-msgstr "Выйти"
-
-#: templates/base.html:61
-msgid "Account"
-msgstr "Аккаунт"
-
-#: templates/base.html:65
-msgid "Plans"
-msgstr "Планы"
-
-#: templates/base.html:66
-msgid "Blog"
-msgstr "Блог"
-
-#: templates/base.html:106 templates/base.html:113
+#: accounts/templates/teachers/teachers_detail.html:105
 msgid "About"
 msgstr "О нас"
 
-#: templates/base.html:107
-msgid ""
-"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-"Lorem Ipsum has been the industry's standard dummy text ever since the "
-"1500s, when an unknown printer took a galley of type and scrambled it to "
-"make a type specimen book."
+#: accounts/templates/teachers/teachers_detail.html:122
+msgid "Involved in courses"
+msgstr "Участвует в курсах"
+
+#: accounts/templates/teachers/teachers_list.html:4
+#: accounts/templates/teachers/teachers_list.html:12
+msgid "All Teachers"
+msgstr "Все преподаватели"
+
+#: accounts/templates/teachers/teachers_list.html:33
+msgid "View Profile"
+msgstr "Посмотреть профиль"
+
+#: accounts/views/user.py:41
+msgid "Please confirm your email before logging in."
+msgstr "Пожалуйста, подтвердите ваш email перед входом в систему."
+
+#: accounts/views/user.py:47
+msgid "Invalid username or password"
+msgstr "Неправильный username или пароль"
+
+#: blog/templates/post_detail.html:64
+msgid "Сonclusions"
+msgstr "Заключение"
+
+#: blog/templates/post_detail.html:95
+msgid "Conclusions"
+msgstr "Заключение"
+
+#: blog/templates/post_detail.html:123
+msgid "Copy Link"
+msgstr "Скопировать ссылку"
+
+#: blog/templates/post_detail.html:152 blog/templates/post_detail.html:220
+msgid "Boston School Posts"
+msgstr "Посты Boston School"
+
+#: blog/templates/post_detail.html:155 blog/templates/post_detail.html:223
+msgid "Similar Posts"
+msgstr "Схожыие по"
+
+#: blog/templates/post_detail.html:160
+msgid "View All Posts"
 msgstr ""
-"Lorem Ipsum - это текст-рыба, используемый в печати и вэб-дизайне. Lorem "
-"Ipsum является стандартной 'рыбой' для текстов на латинице с начала XVI века."
 
-#: templates/base.html:111
-msgid "Menu"
-msgstr "Меню"
+#: blog/templates/post_detail.html:290
+msgid "View all Posts"
+msgstr ""
 
-#: templates/base.html:114
-msgid "Contact"
+#: blog/templates/post_list.html:18
+msgid "All Posts"
+msgstr "Все Посты"
+
+#: blog/templates/post_list.html:21
+msgid "Posts"
+msgstr ""
+
+#: blog/templates/post_list.html:36 blog/templates/post_list.html:39
+msgid "Search"
+msgstr ""
+
+#: core/settings.py:125
+msgid "English"
+msgstr "Английский"
+
+#: core/settings.py:126
+msgid "Russian"
+msgstr "Русский"
+
+#: templates/new_base.html:101 webapp/templates/courses.html:7
+#: webapp/templates/module_test/results.html:7
+msgid "Courses"
+msgstr "Курсы"
+
+#: templates/new_base.html:103 webapp/templates/course/course_detail.html:323
+#: webapp/templates/course/course_list.html:5
+#: webapp/templates/course/course_list.html:14
+msgid "All Courses"
+msgstr "Все Курсы"
+
+#: templates/new_base.html:105 webapp/templates/course/course_paid_list.html:5
+#: webapp/templates/course/course_paid_list.html:14
+msgid "Paid Courses"
+msgstr "Оплаченные Курсы"
+
+#: templates/new_base.html:111
+msgid "Teachers"
+msgstr "Преподаватели"
+
+#: templates/new_base.html:115 webapp/templates/contact_us.html:14
+msgid "Contact Us"
 msgstr "Контакты"
 
-#: templates/base.html:115
-msgid "Privacy policy"
-msgstr "Политика конфиденциальности"
+#: templates/new_base.html:121
+msgid "Account"
+msgstr "Аккаунт"
 
-#: templates/base.html:116
-msgid "Terms of use"
-msgstr "Условия использования"
+#: templates/new_base.html:125
+msgid "Log in"
+msgstr "Войти"
+
+#: webapp/templates/contact_us.html:5
+msgid "Contact PDGA"
+msgstr "Связаться с PDGA"
+
+#: webapp/templates/contact_us.html:32
+msgid "Phone / Fax"
+msgstr "Телефон"
+
+#: webapp/templates/contact_us.html:60
+msgid "Location"
+msgstr "Геолокация"
+
+#: webapp/templates/contact_us.html:61
+msgid "Zheltoksan 37 \"Trade Union\""
+msgstr "Желтоксан 37 \"Trade Union\""
+
+#: webapp/templates/contact_us.html:61
+msgid "Almaty, Kazakhstan"
+msgstr "Алматы, Казахстан"
+
+#: webapp/templates/contact_us.html:76
+msgid "Leave Your Message"
+msgstr "Оставьте ваше сообщение"
+
+#: webapp/templates/contact_us.html:78
+msgid ""
+"If you have any questions about the services we provide simply use the form "
+"below. We try and respond to all queries and comments within 24 hours."
+msgstr ""
+"Если у вас есть вопросы о предоставляемых нами услугах, просто используйте "
+"форму ниже. Мы стараемся отвечать на все запросы и комментарии в течение 24 "
+"часов."
+
+#: webapp/templates/contact_us.html:126
+msgid "Name*"
+msgstr "Имя*"
+
+#: webapp/templates/contact_us.html:128
+msgid "Please enter your name"
+msgstr "Введите Ваше имя"
+
+#: webapp/templates/contact_us.html:137
+msgid "Please enter your email\""
+msgstr "Введите Ваш email"
+
+#: webapp/templates/contact_us.html:144
+msgid "Phone Number*"
+msgstr "Введите Ваш номер телефона*"
+
+#: webapp/templates/contact_us.html:146
+msgid "Please enter your number"
+msgstr "Введите Ваш номер телефона"
+
+#: webapp/templates/contact_us.html:153
+msgid "Message*"
+msgstr "Сообщение*"
+
+#: webapp/templates/contact_us.html:155
+msgid "Write your message"
+msgstr "Оставьте ваше сообщение"
+
+#: webapp/templates/contact_us.html:163
+msgid "Send Message"
+msgstr "Отправить письмо"
 
 #: webapp/templates/course/course_create.html:4
 #: webapp/templates/course/course_create.html:12
@@ -265,10 +402,50 @@ msgstr "Создание курса"
 msgid "Create"
 msgstr "Создать"
 
-#: webapp/templates/course/course_detail.html:15
-#: webapp/templates/course/course_detail.html:18
-msgid "Buy"
-msgstr "Купить"
+#: webapp/templates/course/course_detail.html:41
+msgid "Teacher"
+msgstr "Преподаватель"
+
+#: webapp/templates/course/course_detail.html:45
+msgid "Specialization"
+msgstr "Спецификация"
+
+#: webapp/templates/course/course_detail.html:67
+msgid "Course Details"
+msgstr "Создание курса"
+
+#: webapp/templates/course/course_detail.html:72
+msgid "What You Will Learn"
+msgstr "Чему вы научитесь?"
+
+#: webapp/templates/course/course_detail.html:108
+msgid "Lesson"
+msgstr "Уроки"
+
+#: webapp/templates/course/course_detail.html:275
+msgid "Lectures"
+msgstr "Лекции"
+
+#: webapp/templates/course/course_detail.html:278
+
+msgid "Duration"
+msgstr "Описание"
+
+#: webapp/templates/course/course_detail.html:282
+msgid "Skill level"
+msgstr "Skill"
+
+#: webapp/templates/course/course_detail.html:285
+msgid "Language"
+msgstr "Язык"
+
+#: webapp/templates/course/course_detail.html:292
+msgid "Practise Tests"
+msgstr "Практикум"
+
+#: webapp/templates/course/course_detail.html:300
+msgid "Share Courses"
+msgstr "Наши Курсы"
 
 #: webapp/templates/course/course_edit.html:4
 #: webapp/templates/course/course_edit.html:12
@@ -281,35 +458,18 @@ msgstr "Редактирование курса"
 msgid "Edit"
 msgstr "Редактировать"
 
-#: webapp/templates/course/course_list.html:11
-#, fuzzy
-#| msgid "Courses"
-msgid "Our Courses"
-msgstr "Наши Курсы"
+#: webapp/templates/course/course_list.html:42
+#: webapp/templates/course/course_paid_list.html:41
+msgid "reviews"
+msgstr "отзывы"
 
-#: webapp/templates/course/course_list.html:12
-msgid ""
-"Here, you’ll find our most popular and up-to-date courses. Explore new "
-"topics, develop in-demand skills, and work towards your goals! Choose a "
-"course that suits you and start learning today."
-msgstr "Здесь вы найдете наши самые популярные и актуальные курсы. Изучайте новые темы, осваивайте востребованные навыки и двигайтесь к своим целям! Выберите курс, который подходит вам, и начните обучение уже сегодня."
+#: webapp/templates/course/course_paid_list.html:60
+msgid "You haven’t purchased any courses yet."
+msgstr "Вы еще не купили ни единого курса."
 
-#: webapp/templates/course/course_paid_list.html:13
-msgid ""
-"This is a list of your paid courses, available for you right now. Here, "
-"you’ll find all the courses to which you have full access and can start "
-"learning at any convenient time. Dive in and achieve success!"
-msgstr "Это список оплаченных курсов, которые доступны для вас прямо сейчас. Здесь вы найдете все курсы, к которым у вас уже есть полный доступ, и можете начать обучение в любое удобное время. Приступайте к занятиям и добивайтесь успехов!"
-
-#: webapp/templates/course/course_paid_list.html:56
-#, fuzzy
-#| msgid "No courses!"
-msgid "All courses"
-msgstr "Курсы отсутствуют!"
-
-#: webapp/templates/courses.html:7
-msgid "Courses"
-msgstr "Курсы"
+#: webapp/templates/course/course_paid_list.html:63
+msgid "View Courses"
+msgstr "Оплаченные Курсы"
 
 #: webapp/templates/courses.html:14
 msgid "Filters"
@@ -335,10 +495,178 @@ msgstr "Просмотр"
 msgid "No courses!"
 msgstr "Курсы отсутствуют!"
 
+#: webapp/templates/index.html:12
+msgid "EPDA - Professor Dinara’s Global Academy"
+msgstr "EPDA - Professor Dinara’s Global Academy"
+
+#: webapp/templates/index.html:13 webapp/templates/index.html:17
+#: webapp/templates/index.html:21
+msgid "Get a Consultation"
+msgstr "Получить консультацию"
+
+#: webapp/templates/index.html:16
+msgid "EDPA - Education That Brings You Closer to Your Dream!"
+msgstr "EDPA — Образование, которое приближает вас к мечте!"
+
+#: webapp/templates/index.html:20
+msgid "EPDA - Learn from the Best to Become the Best!"
+msgstr "EPDA — Учитесь у лучших, чтобы стать лучшим!"
+
+#: webapp/templates/index.html:109
+msgid "EDPA Courses"
+msgstr "EDPA Курсы"
+
+#: webapp/templates/index.html:111
+msgid ""
+"On this platform, you’ll find exclusive courses taught using a unique "
+"methodology developed by Dinara Yerenkyzy, an experienced instructor who has "
+"educated thousands of students. Each course is designed to provide in-depth "
+"knowledge and practical skills, ensuring you receive high-quality, results-"
+"driven education that truly stands out."
+msgstr ""
+"На этой платформе вы найдете эксклюзивные курсы, разработанные по уникальной "
+"методике Динары Еренкызы, опытного преподавателя, обучившего тысячи "
+"студентов. Каждый курс создан для того, чтобы предоставить глубокие знания и "
+"практические навыки, гарантируя высококачественное, ориентированное на "
+"результат образование, которое действительно выделяется.”"
+
+#: webapp/templates/index.html:143
+msgid "View All Courses"
+msgstr "Все Курсы"
+
+#: webapp/templates/index.html:158
+msgid "Why Choose My Academy?"
+msgstr "Почему выбирают PDGA?"
+
+#: webapp/templates/index.html:162
+msgid "Exclusive Content"
+msgstr "Эксклюзивный контент"
+
+#: webapp/templates/index.html:164
+msgid ""
+"Our courses are crafted uniquely, making your learning experience one-of-a-"
+"kind and highly effective."
+msgstr ""
+"Наши курсы созданы уникально, чтобы ваш учебный опыт был неповторимым и "
+"максимально эффективным."
+
+#: webapp/templates/index.html:171
+msgid "Practical Skills"
+msgstr "Практические навыки"
+
+#: webapp/templates/index.html:173
+msgid ""
+"Gain hands-on experience and knowledge that you can apply immediately in "
+"real-world situations."
+msgstr ""
+"Получите практический опыт и знания, которые вы сможете сразу применить в "
+"реальных ситуациях."
+
+#: webapp/templates/index.html:181
+msgid "Expert Guidance"
+msgstr "Экспертное руководство"
+
+#: webapp/templates/index.html:183
+msgid ""
+" Learn directly from Dinara Yerenkyzy, an expert with a track record of "
+"success, dedicated to helping each student succeed."
+msgstr ""
+"Учитесь напрямую у Динары Еренкызы, эксперта с успешным опытом, которая "
+"стремится помочь каждому студенту достичь успеха."
+
+#: webapp/templates/index.html:194
+msgid "My Certificates"
+msgstr "Мои сертификаты"
+
+#: webapp/templates/index.html:360
+msgid "Students"
+msgstr "Студенты"
+
+#: webapp/templates/index.html:367
+msgid "Hours of Practice"
+msgstr "Часов практики"
+
+#: webapp/templates/index.html:374
+msgid "Student Test Success"
+msgstr "Успешно сданных тестов"
+
+#: webapp/templates/index.html:381
+msgid "Global Admissions Success"
+msgstr "Поступлений заграницу"
+
+#: webapp/templates/index.html:519
+msgid "Request a consultation and unlock "
+msgstr "Запишитесь на консультацию и"
+
+#: webapp/templates/index.html:519
+msgid "study abroad"
+msgstr "откройте"
+
+#: webapp/templates/index.html:519
+msgid "opportunities"
+msgstr "возможности обучения за границей"
+
+#: webapp/templates/index.html:543
+msgid "Testimonials"
+msgstr "Отзывы"
+
+#: webapp/templates/index.html:544
+msgid ""
+"Watch real stories from our students who’ve achieved their goals with us! "
+"Discover how our programs have helped them on their journey to study abroad "
+"and beyond.”"
+msgstr "Смотрите реальные истории наших студентов, которые достигли своих целей вместе с нами! Узнайте, как наши программы помогли им на пути к обучению за границей и не только."
+
 #: webapp/templates/lesson/lesson_create.html:4
 #: webapp/templates/lesson/lesson_create.html:16
 msgid "Lesson Creation"
 msgstr "Создание урока"
+
+#: webapp/templates/lesson/lesson_detail.html:107
+msgid "Key takeaway"
+msgstr "Ключевой вывод"
+
+#: webapp/templates/lesson/lesson_detail.html:108
+msgid "Transcript"
+msgstr "Транскрипт"
+
+#: webapp/templates/lesson/lesson_detail.html:109
+msgid "Instructors"
+msgstr "Преподаватели"
+
+#: webapp/templates/lesson/lesson_detail.html:110
+msgid "FeedBack"
+msgstr "Обратная связь"
+
+#: webapp/templates/lesson/lesson_detail.html:114
+msgid "Lesson Key Takeaway"
+msgstr "Ключевые выводы урока"
+
+#: webapp/templates/lesson/lesson_detail.html:121
+msgid "Lesson Transcript"
+msgstr "Транскрипт урока"
+
+#: webapp/templates/lesson/lesson_detail.html:168
+msgid "Lesson Feedback: Did you like this lesson?"
+msgstr "Обратная связь: Вам понравился данный урок?"
+
+#: webapp/templates/lesson/lesson_detail.html:172
+msgid "Yes, I liked It"
+msgstr "Да, мне понравилось!"
+
+#: webapp/templates/lesson/lesson_detail.html:176
+msgid "No, I don't like it"
+msgstr "Нет, мне не понравилось!"
+
+#: webapp/templates/lesson/lesson_detail.html:193
+msgid "Finish Lesson"
+msgstr "Закончить урок"
+
+#: webapp/templates/lesson/lesson_detail.html:198
+#, fuzzy
+#| msgid "Add New Lesson"
+msgid "Next Lesson"
+msgstr "Следующий урок"
 
 #: webapp/templates/lesson/lesson_edit.html:4
 #: webapp/templates/lesson/lesson_edit.html:16
@@ -355,8 +683,84 @@ msgstr "Создание модуля"
 msgid "Module Editing"
 msgstr "Редактирование модуля"
 
+#: webapp/templates/success.html:12
+msgid ""
+"Thank you for your message! Our team will review it as soon as possible, and "
+"we will get back to you with the necessary support. We are here to help and "
+"appreciate your patience"
+msgstr ""
+"Спасибо за ваше сообщение! Наша команда рассмотрит его в ближайшее время и "
+"предоставит необходимую поддержку. Мы здесь, чтобы помочь, и благодарим вас "
+"за терпение."
+
+#: webapp/templates/success.html:14
+msgid "Home"
+msgstr "На главную"
+
+#~ msgid "Log in to your account"
+#~ msgstr "Войдите в свой аккаунт"
+
+#~ msgid "Delete"
+#~ msgstr "Удалить"
+
+#~ msgid "Sign up"
+#~ msgstr "Зарегистрироваться"
+
+#~ msgid "Resources"
+#~ msgstr "Ресурсы"
+
+#~ msgid "Help"
+#~ msgstr "Помощь"
+
+#~ msgid "Log Out"
+#~ msgstr "Выйти"
+
+#~ msgid "Plans"
+#~ msgstr "Планы"
+
+#~ msgid "Blog"
+#~ msgstr "Блог"
+
+#~ msgid ""
+#~ "Lorem Ipsum is simply dummy text of the printing and typesetting "
+#~ "industry. Lorem Ipsum has been the industry's standard dummy text ever "
+#~ "since the 1500s, when an unknown printer took a galley of type and "
+#~ "scrambled it to make a type specimen book."
+#~ msgstr ""
+#~ "Lorem Ipsum - это текст-рыба, используемый в печати и вэб-дизайне. Lorem "
+#~ "Ipsum является стандартной 'рыбой' для текстов на латинице с начала XVI "
+#~ "века."
+
+#~ msgid "Menu"
+#~ msgstr "Меню"
+
+#~ msgid "Privacy policy"
+#~ msgstr "Политика конфиденциальности"
+
+#~ msgid "Terms of use"
+#~ msgstr "Условия использования"
+
+#~ msgid "Buy"
+#~ msgstr "Купить"
+
+#~ msgid ""
+#~ "Here, you’ll find our most popular and up-to-date courses. Explore new "
+#~ "topics, develop in-demand skills, and work towards your goals! Choose a "
+#~ "course that suits you and start learning today."
+#~ msgstr ""
+#~ "Здесь вы найдете наши самые популярные и актуальные курсы. Изучайте новые "
+#~ "темы, осваивайте востребованные навыки и двигайтесь к своим целям! "
+#~ "Выберите курс, который подходит вам, и начните обучение уже сегодня."
+
+#~ msgid ""
+#~ "This is a list of your paid courses, available for you right now. Here, "
+#~ "you’ll find all the courses to which you have full access and can start "
+#~ "learning at any convenient time. Dive in and achieve success!"
+#~ msgstr ""
+#~ "Это список оплаченных курсов, которые доступны для вас прямо сейчас. "
+#~ "Здесь вы найдете все курсы, к которым у вас уже есть полный доступ, и "
+#~ "можете начать обучение в любое удобное время. Приступайте к занятиям и "
+#~ "добивайтесь успехов!"
+
 #~ msgid "Dashboard"
 #~ msgstr "Планировщик"
-
-#~ msgid "Lessons"
-#~ msgstr "Уроки"

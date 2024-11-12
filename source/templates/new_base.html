@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    {%block header%} {%endblock%}
+    {% block header %} {% endblock %}
 
     <title>{% block title %}PDGA{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static '/img/favicon.png' %}">
@@ -73,7 +73,7 @@
 <!-- End Preloader Area -->
 
 <!-- Start Main Menu Area -->
-<div class="main-header-area navbar-area header-sticky">
+<div class="main-header-area {% block navbar-area %}navbar-area{% endblock %} header-sticky">
     <div class="container">
         <div class="classy-nav-container breakpoint-off">
             <!-- Classy Menu -->
@@ -98,105 +98,60 @@
                     <!-- Nav Start -->
                     <div class="classynav">
                         <ul>
-                            <li><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
+                            <li class="mr-ul"><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
                                 <ul class="dropdown">
                                     <li><a href="{% url 'course_list' %}">{% trans 'All Courses' %}</a></li>
-                                    <li><a href="{% url 'course_paid_list' %}">{% trans 'Paid Courses' %}</a></li>
+                                    {% if request.user.is_authenticated %}
+                                        <li><a href="{% url 'course_paid_list' %}">{% trans 'Paid Courses' %}</a></li>
+                                    {% endif %}
                                 </ul>
+                            </li>
+
+                            <li class="mr-ul">
+                                <a href="{% url 'teacher_list' %}">{% trans 'Teachers' %}</a>
+                            </li>
+
+                            <li class="mr-ul">
+                                <a href="{% url 'contact_us' %}">{% trans 'Contact Us' %}</a>
                             </li>
                         
-                            <li>
-                                <a href="{% url 'contact_us' %}">Contact Us</a>
-                            </li>
-                        
-                            <li>
-                                <a href="{% url 'teacher_list' %}">Teachers</a>
-                            </li>
-                        
-                            <li><a href="#">Home</a>
-                                <ul class="dropdown">
-                                    <li><a href="index-default.html">Home Demo One</a></li>
-                                    <li><a href="index-two.html">Home Demo Two</a></li>
-                                    <li><a href="index-three.html">Home Demo Three</a></li>
-                                    <li><a href="index-four.html">Home Demo Four</a></li>
-                                </ul>
-                            </li>
 
-                            
-
-                            
-
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="#">Blog</a>
-                                        <ul class="dropdown">
-                                            <li><a href="blog-style-one.html">Blog Style One</a></li>
-                                            <li><a href="blog-style-two.html">Blog Style Two</a></li>
-                                            <li><a href="blog-style-three.html">Blog Style Three</a></li>
-                                            <li><a href="single-blog.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{% url 'course_list' %}">{% trans 'Courses' %}</a>
-                                        <ul class="dropdown">
-                                            <li><a href="{% url 'course_list' %}">{% trans 'All Courses' %}</a></li>
-                                            <li><a href="{% url 'course_paid_list' %}">{% trans 'Paid Courses' %}</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Teacher</a>
-                                        <ul class="dropdown">
-                                            <li><a href="teacher-style-one.html">Teacher Style One</a></li>
-                                            <li><a href="teacher-style-two.html">Teacher Style Two</a></li>
-                                            <li><a href="single-teacher.html">Teacher Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Events</a>
-                                        <ul class="dropdown">
-                                            <li><a href="event-style-one.html">Events Style One</a></li>
-                                            <li><a href="event-style-two.html">Events Style Two</a></li>
-                                            <li><a href="single-events.html">Events Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Contact</a>
-                                        <ul class="dropdown">
-                                            <li><a href="contact-style-one.html">Contact Style One</a></li>
-                                            <li><a href="contact-style-two.html">Contact Style Two</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="admission.html">Admission</a></li>
-                                    <li><a href="error.html">404 Error</a></li>
-                                    <li><a href="faq.html">FAQ</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#">Blog</a>
-                                <ul class="dropdown">
-                                    <li><a href="blog-style-one.html">Blog Style One</a></li>
-                                    <li><a href="blog-style-two.html">Blog Style Two</a></li>
-                                    <li><a href="blog-style-three.html">Blog Style Three</a></li>
-                                    <li><a href="single-blog.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#" class="active">Contact</a>
-                                <ul class="dropdown">
-                                    <li class="active"><a href="contact-style-one.html">Contact Style One</a></li>
-                                    <li><a href="contact-style-two.html">Contact Style Two</a></li>
-                                </ul>
-                            </li>
-                            
                             {% if request.user.is_authenticated %}
-                                <a href="{% url 'user_detail' request.user.pk %}"> {% trans "Account" %}</a>
+                                <li class="">
+                                    <a href="{% url 'user_detail' request.user.pk %}"> {% trans "Account" %}</a>
+                                </li>
                             {% else %}
-                            <li>
-                                <a href="{% url 'login' %}"> {% trans "Log in" %}</a>
-                            </li>
+                                <li class="">
+                                    <a href="{% url 'login' %}"> {% trans "Log in" %}</a>
+                                </li>
                             {% endif %}
 
-                            <li><a href="#search" class="search-btn"><i class="icofont-search-2"></i></a></li>
+                            <li>
+                                <a>
+                                    {% if request.LANGUAGE_CODE == 'en' %}
+                                        EN
+                                    {% else %}
+                                        RU
+                                    {% endif %}
+                                </a>
+                                <ul class="dropdown">
+                                    <form action="{% url 'set_language' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next" value="{{ request.path }}">
+                                        <!-- Вернуться на текущую страницу -->
+                                        <li>
+                                            <button class="change-language-buttons" type="submit" name="language"
+                                                    value="en">EN
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="change-language-buttons" type="submit" name="language"
+                                                    value="ru">RU
+                                            </button>
+                                        </li>
+                                    </form>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                     <!-- Nav End -->
@@ -206,16 +161,6 @@
     </div>
 </div>
 <!-- End Main Menu Area -->
-
-<!-- Start Search Popup Area -->
-<div id="search-area">
-    <button type="button" class="close">x</button>
-    <form>
-        <input type="search" value="" placeholder="Search Kewword(s)">
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-</div>
-<!-- End Search Popup Area -->
 
 {% block content %}
 {% endblock %}

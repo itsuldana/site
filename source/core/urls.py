@@ -29,5 +29,6 @@ urlpatterns = [
     path('account/', include('accounts.urls')),
     path('blog/', include('blog.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
