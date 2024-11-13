@@ -88,7 +88,7 @@ jQuery(function ($) {
     $(".about-slider").owlCarousel({
         items: 1,
         loop: !0,
-        autoplay: !0,
+        autoplay: false,
         margin: 30,
         nav: !0,
         responsiveClass: !0,
