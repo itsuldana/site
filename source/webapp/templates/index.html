@@ -2,7 +2,31 @@
 {% load static %}
 {% load i18n %}
 
-{% block navbar-area %}{% endblock %}
+{% block header %}
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
+    <style>
+        .content-wrapper {
+            max-width: 880px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .plyr {
+            height: 550px;
+        }
+
+        .plyr__video-wrapper {
+            background: #000;
+        {#background: var(--plyr-video-background, var(--plyr-video-background, #000));#} margin: 0;
+            overflow: hidden;
+            position: static;
+            width: 100%;
+        }
+
+
+    </style>
+{% endblock %}
+
 
 {% block content %}
     <div class="main-banner-two">
@@ -131,7 +155,7 @@
                                 </div>
                                 <div class="courses-content-bottom">
                                     <h4><i class="icofont-ui-user"></i> 120 Students</h4>
-                                    <h4 class="price">{{ course.price }}$</h4>
+                                    <h4 class="price">{{ course.price }} тг.</h4>
                                 </div>
                             </div>
                         </div>
@@ -670,4 +694,13 @@
             </div>
         </div>
     </section>
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(container => new Plyr(container));
+
+
+        });
+    </script>
 {% endblock %}

@@ -1539,7 +1539,7 @@ a:hover {
 
 .course-details-tabs #tabs > li {
     display: inline-block;
-    padding: 12px 65px;
+    padding: 12px 45px;
     cursor: pointer;
     font-weight: 600;
     font-size: 16px;
