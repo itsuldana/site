@@ -111,7 +111,7 @@ class CourseDetailView(DetailView):
 
         hours, remainder = divmod(total_duration, 3600)
         minutes, seconds = divmod(remainder, 60)
-        context['total_duration'] = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02}"
+        context['total_duration'] = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
 
         user = self.request.user
         if isinstance(user, AnonymousUser):

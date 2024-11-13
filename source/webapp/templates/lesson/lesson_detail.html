@@ -4,8 +4,6 @@
 {% block title %}{{ lesson.title }}{% endblock %}
 
 {% block header %}
-    <script src="https://kit.fontawesome.com/465e448dc1.js" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
     <style>
         body {
@@ -221,10 +219,12 @@
                                                             </p>
 
                                                             {% if next_lesson.status == 'in_progress' %}
-                                                                <i class="fa-solid fa-hourglass-start text-warning"></i>
+                                                                <i class="icofont-spinner-alt-2 text-info"></i>
+
 
                                                             {% elif next_lesson.status == 'done' %}
-                                                                <i class="fa-regular fa-circle-check text-success"></i>
+                                                                <i class="icofont-check-circled text-success"></i>
+
 
                                                             {% endif %}
                                                         </div>
@@ -262,10 +262,12 @@
                                                             <i class="bi bi-hourglass-split text-warning"></i>
                                                         </p>
                                                         {% if item.status == "in_progress" %}
-                                                            <i class="fa-solid fa-hourglass-start text-warning"></i>
+                                                            <i class="icofont-spinner-alt-2 text-info"></i>
+
 
                                                         {% elif item.status == 'done' %}
-                                                            <i class="fa-regular fa-circle-check text-success"></i>
+                                                            <i class="icofont-check-circled text-success"></i>
+
 
                                                         {% else %}
 
