@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="course-details-tabs">
-                            <ul id="tabs">
+                            <ul id="tabs" class="d-lg-flex justify-content-lg-between">
                                 <li class="active" id="tab_1">{% trans 'Description' %}</li>
                                 <li class="inactive" id="tab_2">{% trans 'Curriculum' %}</li>
                                 <li class="inactive" id="tab_3">{% trans 'Instructors' %}</li>
@@ -91,8 +91,8 @@
                                                        href="#collapse{{ module.id }}" aria-expanded="true"
                                                        aria-controls="collapse{{ module.id }}">
                                                         <h5 class="mb-0">
-                                                            {{ module.position }}. {{ module.title }} <span><i
-                                                                class="icofont-rounded-down"></i></span>
+                                                            {{ module.position }}. {{ module.title }} <span>
+                                                            <i class="icofont-rounded-down"></i></span>
                                                         </h5>
                                                     </a>
                                                 </div>
@@ -105,11 +105,24 @@
                                                         <ul>
                                                             {% for lesson in module.lessons.all %}
                                                                 <li>
-                                                                    <i class="icofont-ui-play"></i> {% trans 'Lesson' %}
+
+                                                                    {% if lesson.progress_status == 'done' %}
+                                                                        <i class="icofont-check-circled text-success"></i>
+                                                                        {# Иконка для завершённого урока #}
+                                                                    {% elif lesson.progress_status == 'in_progress' %}
+                                                                        <i class="icofont-spinner-alt-2 text-info"></i>
+                                                                        {# Иконка для урока в процессе #}
+                                                                    {% else %}
+                                                                        <i class="icofont-ui-play"></i>
+
+                                                                    {% endif %}
+                                                                    {% trans 'Lesson' %}
                                                                     {{ module.position }}.{{ forloop.counter }}
 
                                                                     <span><a
-                                                                            href="{% url 'lesson_detail' pk=lesson.id %}">{{ lesson.title }}</a></span>
+                                                                            href="{% url 'lesson_detail' pk=lesson.id %}">
+
+                                                                        {{ lesson.title }}</a></span>
 
                                                                     <span class="duration"><i
                                                                             class="icofont-clock-time"></i> {{ lesson.formatted_duration }} min</span>
@@ -269,7 +282,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="side-bar mb-0">
                         <div class="single-widget features-box">
-                            <h3 class="title">{% trans 'Course Features' %}</h3>
+                            <h3 class="title">Course Features</h3>
 
                             <ul>
                                 <li><i class="icofont-file-fill"></i> {% trans 'Lectures' %}
@@ -291,7 +304,8 @@
 
                                 <li><i class="icofont-checked"></i> {% trans 'Practise Tests' %} <span>Yes</span></li>
 
-                                <li><i class="icofont-price"></i> {% trans 'Price' %} <span>${{ course.price }}</span>
+                                <li><i class="icofont-price"></i> {% trans 'Price' %}
+                                    <span>{{ course.price|floatformat:0 }} тг.</span>
                                 </li>
                             </ul>
                         </div>
@@ -348,7 +362,7 @@
 
         <div class="similar-courses">
             <div class="container">
-                <h2>{% trans 'Similar Courses' %}</h2>
+                <h2>Similar Courses</h2>
 
                 <div class="row">
 
@@ -371,7 +385,7 @@
                                 </div>
 
                                 <div class="courses-content-bottom">
-                                    <h4><i class="icofont-ui-user"></i> 120 {% trans 'Students' %}</h4>
+                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>
                                     <h4 class="price">${{ course.price }}</h4>
                                 </div>
                             </div>

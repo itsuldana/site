@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
-from django.db.models import Count, Sum, Prefetch
+from django.db.models import Count, Sum, Prefetch, OuterRef, Subquery, Value
+from django.db.models.functions import Coalesce
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
 from ..forms import CourseForm
@@ -23,6 +24,7 @@ class CourseListView(ListView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
 
 class CoursePaidListView(LoginRequiredMixin, ListView):
     template_name = 'course/course_paid_list.html'
@@ -92,7 +94,6 @@ class CourseDetailView(DetailView):
         skills = Skills.objects.filter(course=self.object).order_by('-priority').filter(is_active=True)
         context['skills'] = skills
 
-
         course = self.object
         modules = Module.objects.filter(course=course, is_active=True).prefetch_related(
             Prefetch('lessons', queryset=Lesson.objects.order_by('position'))
@@ -110,15 +111,28 @@ class CourseDetailView(DetailView):
 
         hours, remainder = divmod(total_duration, 3600)
         minutes, seconds = divmod(remainder, 60)
-        context['total_duration'] = f"{minutes}m {seconds}s"
+        context['total_duration'] = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
 
         user = self.request.user
         if isinstance(user, AnonymousUser):
-            context['lesson_progress'] = None
             context['is_paid'] = False
         else:
-            context['lesson_progress'] = LessonProgress.objects.filter(user=user, lesson__module__course=course)
-            context['is_paid'] = Purchase.objects.filter(user=user, course=course, payment_status='DONE').exists()
+            lesson_progress_subquery = LessonProgress.objects.filter(
+                user=user,
+                lesson=OuterRef('pk')
+            ).values('status')[:1]
+            # Если статуса нет, возвращаем None
+            lesson_progress_status = Coalesce(Subquery(lesson_progress_subquery), Value(None))
+
+            # Подгружаем модули с уроками, аннотированными статусом прогресса
+        modules = Module.objects.filter(course=course, is_active=True).prefetch_related(
+            Prefetch(
+                'lessons',
+                queryset=Lesson.objects.filter(module__course=course).annotate(progress_status=lesson_progress_status)
+            )
+        )
+        context["modules"] = modules
+        context['is_paid'] = Purchase.objects.filter(user=user, course=course, payment_status='DONE').exists()
 
         return context
 

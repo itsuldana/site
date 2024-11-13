@@ -5,7 +5,6 @@
 
 {% block header %}
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
-    <script src="https://kit.fontawesome.com/465e448dc1.js" crossorigin="anonymous"></script>
     <style>
         body {
         {#background-color: #FFFFFF;#} color: #0A3161;
@@ -103,7 +102,7 @@
 
 
                         <div class="course-details-tabs">
-                            <ul id="tabs" class="tabs-align">
+                            <ul id="tabs" class="d-md-flex justify-content-md-between tabs-align">
                                 <li class="active" id="tab_1">{% trans 'Key takeaway' %}</li>
                                 <li class="inactive" id="tab_2">{% trans 'Transcript' %}</li>
                                 <li class="inactive" id="tab_3">{% trans 'Instructors' %}</li>
@@ -216,11 +215,16 @@
                                                                 <small
                                                                         class="text-muted"> {{ next_lesson.lesson.formatted_duration }}
                                                                 </small>
+                                                                {{ next_lesson.status }}
                                                             </p>
+
                                                             {% if next_lesson.status == 'in_progress' %}
-                                                                <i class="bi bi-hourglass-split text-warning"></i>
+                                                                <i class="icofont-spinner-alt-2 text-info"></i>
+
+
                                                             {% elif next_lesson.status == 'done' %}
-                                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                                                <i class="icofont-check-circled text-success"></i>
+
 
                                                             {% endif %}
                                                         </div>
@@ -250,17 +254,20 @@
                                             <div class="col-md-8">
                                                 <div class="card-body">
                                                     <h5 class="lesson-title">
-                                                        {{ item.lesson.module.position }}.{{ item.lesson.position }} {{ item.lesson.title }}
+                                                        {{ item.lesson.module.position }}.{{ forloop.counter }} {{ item.lesson.title }}
                                                     </h5>
                                                     <div class="d-flex justify-content-between">
                                                         <p id="video-duration" class="card-text"><small
                                                                 class="text-muted">{{ item.lesson.formatted_duration }}</small>
+                                                            <i class="bi bi-hourglass-split text-warning"></i>
                                                         </p>
                                                         {% if item.status == "in_progress" %}
-                                                            <i class="bi bi-hourglass-split text-warning"></i>
+                                                            <i class="icofont-spinner-alt-2 text-info"></i>
+
 
                                                         {% elif item.status == 'done' %}
-                                                            <i class="bi bi-check-circle-fill text-success"></i>
+                                                            <i class="icofont-check-circled text-success"></i>
+
 
                                                         {% else %}
 
