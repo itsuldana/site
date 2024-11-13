@@ -83,6 +83,19 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ('first_name', 'last_name', 'avatar')
+        widgets = {
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'First Name'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Last Name'
+            }),
+            'avatar': forms.ClearableFileInput(attrs={
+                'class': 'form-control'
+            }),
+        }
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -110,9 +123,18 @@ class EmailChangeForm(forms.Form):
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
-    old_password = forms.CharField(label='Current Password', widget=forms.PasswordInput)
-    new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput)
-    new_password2 = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput)
+    old_password = forms.CharField(
+        label='Current Password',
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Current Password'})
+    )
+    new_password1 = forms.CharField(
+        label='New Password',
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'New Password'})
+    )
+    new_password2 = forms.CharField(
+        label='Confirm New Password',
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm New Password'})
+    )
 
     class Meta:
         model = get_user_model()

@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    {% block links %}{% endblock %}
+
     {% block header %} {% endblock %}
 
     <title>{% block title %}PDGA{% endblock %}</title>
@@ -114,7 +116,7 @@
                             <li class="mr-ul">
                                 <a href="{% url 'contact_us' %}">{% trans 'Contact Us' %}</a>
                             </li>
-                        
+
 
                             {% if request.user.is_authenticated %}
                                 <li class="">
@@ -171,13 +173,13 @@
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="single-footer">
-                    <h3>About EduField</h3>
+                    <h3>{% trans 'About PDGA' %}</h3>
 
                     <ul class="footer-contact-info">
-                        <li>2750 Quadra Street , Park Area, Victoria, Canada.</li>
-                        <li><a href="#">+4 (05) 345 6789</a></li>
-                        <li><a href="#">+4 (15) 345 6789</a></li>
-                        <li><a href="#">contact@EduField.org</a></li>
+                        <li>{% trans 'Kazakhstan, Almaty' %}, {% trans 'Zheltoksan 37 "Trade Union"' %} </li>
+                        <li><a href="tel:+77052889271">+7 (705) 288-92-71</a></li>
+                        <li><a href="tel:+77273802349">+7 (727) 380-23-49</a></li>
+                        <li><a href="mailto:info@boston-school.kz">info@boston-school.kz</a></li>
                     </ul>
 
                     <ul class="social">
@@ -192,45 +194,41 @@
 
             <div class="col-lg-3 col-md-6">
                 <div class="single-footer">
-                    <h3>Courses</h3>
+                    <h3>{% trans 'Courses' %}</h3>
 
                     <ul class="list">
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="admission.html">Admission</a></li>
-                        <li><a href="courses-style-one.html">Research</a></li>
-                        <li><a href="courses-style-one.html">Scholarship</a></li>
-                        <li><a href="blog-style-one.html">Blog</a></li>
-                        <li><a href="contact-style-one.html">Contact</a></li>
+                        <li><a href="{% url 'course_list' %}">{% trans 'All Courses' %}</a></li>
+                        <li><a href="{% url 'teacher_list' %}">{% trans 'Teachers' %}</a></li>
+                        <li><a href="#">Blog</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="single-footer">
-                    <h3>Research</h3>
+                    <h3>{% trans 'More' %}</h3>
 
                     <ul class="list">
-                        <li><a href="admission.html">Forums</a></li>
-                        <li><a href="event-style-one.html">Events</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
                         <li><a href="blog-style-one.html">Blog</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-6">
                 <div class="single-footer">
-                    <h3>Support</h3>
+                    <h3>{% trans 'Support' %}</h3>
 
                     <ul class="list">
-                        <li><a href="single-courses.html">Language Packs</a></li>
-                        <li><a href="single-courses.html">Relase Status</a></li>
-                        <li><a href="event-style-one.html">Events</a></li>
-                        <li><a href="teacher-style-one.html">Become A Teacher</a></li>
-                        <li><a href="courses-style-one.html">Courses</a></li>
-                        <li><a href="single-courses.html">LearnPress</a></li>
+                        <li><a href="{% url 'contact_us' %}">{% trans 'Contact Us' %}</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li class="">
+                                <a href="{% url 'user_detail' request.user.pk %}"> {% trans "Account" %}</a>
+                            </li>
+                        {% else %}
+                            <li class="">
+                                <a href="{% url 'login' %}"> {% trans "Log in" %}</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -241,16 +239,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-7">
-                    <p>Copyright <span>EduField</span> All Rights Reserved by <a href="https://envytheme.com/"
-                                                                                 target="_blank">EnvyTheme</a></p>
+                    <p>© <span>PDGA</span>. {% trans 'All rights reserved' %}.</p>
                 </div>
 
-                <div class="col-lg-5 col-md-5">
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                    </ul>
-                </div>
+{#                <div class="col-lg-5 col-md-5">#}
+{#                    <ul>#}
+{#                        <li><a href="#">Privacy Policy</a></li>#}
+{#                        <li><a href="#">Terms & Conditions</a></li>#}
+{#                    </ul>#}
+{#                </div>#}
             </div>
         </div>
     </div>
