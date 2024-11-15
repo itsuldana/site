@@ -29,7 +29,7 @@ class Course(models.Model):
         max_length=255,
         null=False,
         blank=False,
-        verbose_name="Name"
+        verbose_name="Название"
     )
     preview_description = models.CharField(
         max_length=100,
@@ -48,7 +48,7 @@ class Course(models.Model):
         decimal_places=2,
         null=False,
         blank=False,
-        verbose_name="Price"
+        verbose_name="Цена"
     )
     image = models.ImageField(
         upload_to='course_images/',
@@ -127,4 +127,8 @@ class Course(models.Model):
             img.save(self.image.path)
 
     def __str__(self):
-        return f'{self.title} - {self.description}'
+        return f'{self.id} {self.title}'
+
+    class Meta:
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Курсы'
