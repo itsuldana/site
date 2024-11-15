@@ -132,7 +132,7 @@ class CourseDetailView(DetailView):
             )
         )
         context["modules"] = modules
-        context['is_paid'] = Purchase.objects.filter(user=user, course=course, payment_status='DONE').exists()
+        context['students'] = Purchase.objects.filter(course=course, payment_status='DONE').count()
 
         return context
 

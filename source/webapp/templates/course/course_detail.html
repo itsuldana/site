@@ -298,7 +298,7 @@
                                 <li><i class="icofont-read-book"></i> {% trans 'Language' %}
                                     <span>{{ course.get_language_display }}</span></li>
 
-                                <li><i class="icofont-users-social"></i> {% trans 'Students' %} <span>560</span></li>
+                                <li><i class="icofont-users-social"></i> {% trans 'Students' %} <span>{{ students }}</span></li>
 
                                 {#                                <li><i class="icofont-certificate-alt-1"></i> Certificate <span>Yes</span></li>#}
 
@@ -347,8 +347,8 @@
                                         <h4 class="all-courses-slide-bar-margin">
                                             <a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a>
                                         </h4>
-                                        <p><span>${{ course.price|increase_by_20_percent }}</span>
-                                            ${{ course.price|floatformat:0 }}</p>
+                                        <p><span>{{ course.price|increase_by_20_percent }} </span>
+                                            {{ course.price|floatformat:0 }} тг. </p>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -385,8 +385,9 @@
                                 </div>
 
                                 <div class="courses-content-bottom">
-                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>
-                                    <h4 class="price">${{ course.price }}</h4>
+{#                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>#}
+                                    <h4><i class="icofont-chart-histogram-alt"></i> {{ course.skill_level }}</h4>
+                                    <h4 class="price">{{ course.price }} тг.</h4>
                                 </div>
                             </div>
                         </div>

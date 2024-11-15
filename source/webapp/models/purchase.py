@@ -11,21 +11,31 @@ class Purchase(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='purchases'
+        related_name='purchases',
+        verbose_name='Пользователи'
+
     )
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
-        related_name='purchases'
+        related_name='purchases',
+        verbose_name='Курсы'
     )
     purchase_date = models.DateTimeField(
-        auto_now_add=True
+        auto_now_add=True,
+        verbose_name='Дата оплаты'
     )
     payment_status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICE,
-        default='PENDING'
+        default='PENDING',
+        verbose_name='Статус оплаты'
+
     )
 
     def __str__(self):
         return f'{self.user.username} - {self.course.title}'
+
+    class Meta:
+        verbose_name = 'Оплата'
+        verbose_name_plural = 'Оплаты'

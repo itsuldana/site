@@ -1530,6 +1530,9 @@ a:hover {
 
 .course-details-tabs .content {
     display: none;
+    word-wrap: break-word; /* Для поддержки старых браузеров */
+    overflow-wrap: break-word; /* Современный способ */
+    white-space: normal; /* Обеспечивает перенос текста */
 }
 
 .course-details-tabs #tabs {
@@ -5074,7 +5077,7 @@ label {
 }
 
 @media only screen and (max-width: 767px) {
-    .change-language-buttons  {
+    .change-language-buttons {
         height: 38px;
         color: #fff;
         background-color: #000;

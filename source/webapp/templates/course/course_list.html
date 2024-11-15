@@ -48,7 +48,7 @@
                                 </div>
 
                                 <div class="courses-content-bottom">
-                                    <h4 class="price"><span>${{ course.price|increase_by_20_percent }}</span> ${{ course.price|floatformat:0 }}</h4>
+                                    <h4 class="price"><span>{{ course.price|increase_by_20_percent }}</span> {{ course.price|floatformat:0 }} тг.</h4>
                                     <h4><a href="{% url 'course_detail' course.pk %}" class="btn btn-primary">Read More</a></h4>
                                 </div>
                             </div>

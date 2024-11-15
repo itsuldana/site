@@ -124,6 +124,6 @@ class Teacher(models.Model):
         return f'{self.fullname}'
 
     class Meta:
-        verbose_name = "Teacher"
-        verbose_name_plural = "Teachers"
+        verbose_name = "Учитель"
+        verbose_name_plural = "Учителя"
         ordering = ['fullname']

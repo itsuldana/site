@@ -8,7 +8,7 @@ class Module(models.Model):
         Course,
         on_delete=models.CASCADE,
         related_name='modules',
-        verbose_name='Модуль',
+        verbose_name='Курс',
     )
     title = models.CharField(
         max_length=255,
@@ -67,3 +67,7 @@ class Module(models.Model):
             next_module.position, self.position = self.position, next_module.position
             next_module.save()
             self.save()
+
+    class Meta:
+        verbose_name = 'Модуль'
+        verbose_name_plural = 'Модули'
