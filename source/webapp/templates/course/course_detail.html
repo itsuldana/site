@@ -387,7 +387,7 @@
                                 <div class="courses-content-bottom">
 {#                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>#}
                                     <h4><i class="icofont-chart-histogram-alt"></i> {{ course.skill_level }}</h4>
-                                    <h4 class="price">{{ course.price }} тг.</h4>
+                                    <h4 class="price">{{ course.price|floatformat:0 }} тг.</h4>
                                 </div>
                             </div>
                         </div>
