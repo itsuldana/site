@@ -1,50 +1,21 @@
 @font-face {
     font-family: Aller;
-    src: url(../fonts/Aller-BoldItalic.woff2) format("woff2"), url(../fonts/Aller-BoldItalic.woff) format("woff");
+    src: url(../fonts/allercyrillic.woff2) format("woff2"),
+    url(../fonts/allercyrillic.woff) format("woff"),
+    url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 700;
     font-style: italic;
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
     font-family: Aller;
-    src: url(../fonts/Aller-Light.woff2) format("woff2"), url(../fonts/Aller-Light.woff) format("woff");
+    src: url(../fonts/allercyrillic.woff2) format("woff2"),
+    url(../fonts/allercyrillic.woff) format("woff"),
+    url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 300;
     font-style: normal;
-}
-
-@font-face {
-    font-family: "Aller Display";
-    src: url(../fonts/AllerDisplay.woff2) format("woff2"), url(../fonts/AllerDisplay.woff) format("woff");
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: Aller;
-    src: url(../fonts/Aller.woff2) format("woff2"), url(../fonts/Aller.woff) format("woff");
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: Aller;
-    src: url(../fonts/Aller-LightItalic.woff2) format("woff2"), url(../fonts/Aller-LightItalic.woff) format("woff");
-    font-weight: 300;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: Aller;
-    src: url(../fonts/Aller-Bold.woff2) format("woff2"), url(../fonts/Aller-Bold.woff) format("woff");
-    font-weight: 700;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: Aller;
-    src: url(../fonts/Aller-Italic.woff2) format("woff2"), url(../fonts/Aller-Italic.woff) format("woff");
-    font-weight: 400;
-    font-style: italic;
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -54,7 +25,57 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 400;
     font-style: normal;
-    unicode-range: U+0400-04FF; /* Cyrillic Unicode range */
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+}
+
+@font-face {
+    font-family: Aller;
+    src: url(../fonts/allercyrillic.woff2) format("woff2"),
+    url(../fonts/allercyrillic.woff) format("woff"),
+    url(../fonts/allercyrillic.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal;
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+}
+
+@font-face {
+    font-family: Aller;
+    src: url(../fonts/allercyrillic.woff2) format("woff2"),
+    url(../fonts/allercyrillic.woff) format("woff"),
+    url(../fonts/allercyrillic.ttf) format("truetype");
+    font-weight: 300;
+    font-style: italic;
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+}
+
+@font-face {
+    font-family: Aller;
+    src: url(../fonts/allercyrillic.woff2) format("woff2"),
+    url(../fonts/allercyrillic.woff) format("woff"),
+    url(../fonts/allercyrillic.ttf) format("truetype");
+    font-weight: 700;
+    font-style: normal;
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+}
+
+@font-face {
+    font-family: Aller;
+    src: url(../fonts/allercyrillic.woff2) format("woff2"),
+    url(../fonts/allercyrillic.woff) format("woff"),
+    url(../fonts/allercyrillic.ttf) format("truetype");
+    font-weight: 400;
+    font-style: italic;
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+}
+
+@font-face {
+    font-family: Aller;
+    src: url(../fonts/allercyrillic.woff2) format("woff2"),
+    url(../fonts/allercyrillic.woff) format("woff"),
+    url(../fonts/allercyrillic.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal;
+     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 body {
@@ -1544,7 +1565,7 @@ a:hover {
     display: inline-block;
     padding: 12px 45px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     background: #eaeaea;
 }
@@ -3334,7 +3355,7 @@ a:hover {
 .page-title h3 {
     color: #fff;
     font-size: 50px;
-    font-weight: 700;
+    font-weight: 500;
     position: relative;
     text-transform: uppercase;
 }
