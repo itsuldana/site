@@ -1,8 +1,10 @@
 # webapp/views.py
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
+from rest_framework.status import HTTP_404_NOT_FOUND
 
 from ..forms import LessonForm
 from ..models import Lesson, Module, LessonProgress
@@ -28,6 +30,14 @@ class LessonDetailView(DetailView):
     model = Lesson
     template_name = 'lesson/lesson_detail.html'
     context_object_name = "lesson"
+
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+        lesson = self.get_object()
+        if not lesson.module.course.purchases.filter(user=user, payment_status='DONE').exists():
+            raise Http404('Вы не оплатили курс')
+
+        return super().dispatch(request,*args,**kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
