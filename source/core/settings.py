@@ -29,6 +29,12 @@ ALLOWED_HOSTS = ["185.22.67.9", "pdgaedu.com", "www.pdgaedu.com" ]
 
 CSRF_TRUSTED_ORIGINS = ['https://pdgaedu.com']
 
+# Включение логов CSRF
+import logging
+
+logger = logging.getLogger('django.security.csrf')
+logger.setLevel(logging.DEBUG)
+
 # Application definition
 
 INSTALLED_APPS = [
