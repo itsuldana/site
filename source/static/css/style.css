@@ -5086,4 +5086,9 @@ label {
     margin-right: 15px;
 }
 
+.selected {
+    background-color: #e6133e;
+    color: white;
+}
+
 

@@ -14,24 +14,6 @@ class Tag(models.Model):
         max_length=100,
         verbose_name="Название на английском"
     )
-    text_color = models.CharField(
-        max_length=6,
-        null=False,
-        blank=False,
-        verbose_name="HEX цвет шрифта (цвет отображений на странице блога)"
-    )
-    background_color = models.CharField(
-        max_length=6,
-        null=False,
-        blank=False,
-        verbose_name="HEX цвет бэкграунда (цвет отображений на странице блога)"
-    )
-    border_color = models.CharField(
-        max_length=6,
-        null=False,
-        blank=False,
-        verbose_name="HEX цвет обводки (цвет отображений на странице блога)"
-    )
 
     class Meta:
         verbose_name = "Тег"

@@ -17,7 +17,6 @@ class PostListView(ListView):
     model = Post
 
     ordering = ['-created_at']
-
     paginate_by = 8
     paginate_orphans = 1
 
@@ -42,7 +41,6 @@ class PostListView(ListView):
         context['selected_tag'] = self.request.GET.get('tag')
         context['search_query'] = self.request.GET.get('search_query', '')
 
-        # Пагинация
         paginator = Paginator(self.get_queryset(), self.paginate_by, orphans=self.paginate_orphans)
         page_number = self.request.GET.get('page', 1)
         try:
@@ -57,37 +55,6 @@ class PostListView(ListView):
         context['current_lang'] = translation.get_language()
 
         return context
-
-    def get(self, request, *args, **kwargs):
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            queryset = self.get_queryset()
-            page_number = request.GET.get('page', 1)
-            paginator = Paginator(queryset, self.paginate_by, orphans=self.paginate_orphans)
-
-            try:
-                page_obj = paginator.page(page_number)
-            except PageNotAnInteger:
-                page_obj = paginator.page(1)
-            except EmptyPage:
-                page_obj = paginator.page(paginator.num_pages)
-
-            post_html = render_to_string('partial/post_cards.html', {'posts': page_obj.object_list, 'current_lang': get_language()})
-            pagination_html = render_to_string('pagination.html', {'page_obj': page_obj, 'page_number': page_obj.number,
-                                                                   'request': request})
-
-            response_data = {
-                'post_html': post_html,
-                'pagination_html': pagination_html,
-                'has_next': page_obj.has_next(),
-                'has_previous': page_obj.has_previous(),
-                'current_page': page_obj.number,
-                'total_pages': paginator.num_pages,
-            }
-
-            return JsonResponse(response_data)
-
-        # В случае обычного запроса, возвращаем HTML
-        return super().get(request, *args, **kwargs)
 
 
 class PostDetailView(DetailView):

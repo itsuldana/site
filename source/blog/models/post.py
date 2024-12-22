@@ -1,8 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
-from django.core.files.base import ContentFile
-from io import BytesIO
 from PIL import Image
 
 
@@ -20,19 +19,6 @@ class Post(models.Model):
         verbose_name="Заголовок на английском"
     )
 
-    description_ru = models.TextField(
-        max_length=350,
-        null=True,
-        blank=True,
-        verbose_name='Описание на русском'
-    )
-    description_en = models.TextField(
-        max_length=350,
-        null=True,
-        blank=True,
-        verbose_name="Описание на английском"
-    )
-
     image = models.FileField(
         upload_to='news/pictures/',
         verbose_name="Основная картинка поста",
@@ -43,12 +29,6 @@ class Post(models.Model):
         null=True,
         blank=True
     )
-    image_mobile = models.FileField(
-        upload_to='news/pictures/',
-        verbose_name="Картинка для мобильной версии",
-        null=True,
-        blank=True
-    )
 
     content_ru = CKEditor5Field(
         verbose_name='Контент на русском',
@@ -56,19 +36,6 @@ class Post(models.Model):
     )
     content_en = CKEditor5Field(
         verbose_name='Контент на английском',
-        config_name='extends'
-    )
-
-    conclusion_ru = CKEditor5Field(
-        null=True,
-        blank=True,
-        verbose_name='Выводы на русском',
-        config_name='extends'
-    )
-    conclusion_en = CKEditor5Field(
-        null=True,
-        blank=True,
-        verbose_name='Выводы на английском',
         config_name='extends'
     )
 
@@ -93,59 +60,6 @@ class Post(models.Model):
         null=True
     )
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.image:
-            self.image_list = self.generate_image_version(self.image, 2.47, 'list_image.jpg')  # 592:240
-            self.image_mobile = self.generate_image_version(self.image, 1.43, 'mobile_image.jpg')  # 343:240
-            self.image = self.generate_image_version(self.image, 1.83, 'news_detail_image.jpg')  # 560:583
-            super().save(*args, **kwargs)
-
-    def crop_center(self, img, aspect_ratio):
-        # Получаем текущие размеры изображения
-        width, height = img.size
-
-        # Рассчитываем новое соотношение сторон
-        new_width = height * aspect_ratio
-        new_height = width / aspect_ratio
-
-        # Проверяем, что обрезать: по ширине или по высоте
-        if new_width < width:
-            # Обрезаем по ширине
-            left = (width - new_width) / 2
-            right = (width + new_width) / 2
-            top = 0
-            bottom = height
-        else:
-            # Обрезаем по высоте
-            top = (height - new_height) / 2
-            bottom = (height + new_height) / 2
-            left = 0
-            right = width
-
-        # Обрезаем изображение по новым координатам
-        img = img.crop((left, top, right, bottom))
-
-        return img
-
-    def generate_image_version(self, image_field, aspect_ratio, filename):
-        img = Image.open(image_field)
-
-        # Oбрезаем изображение до нужного соотношения сторон
-        img = self.crop_center(img, aspect_ratio)
-
-        # Convert 'P' (palette) or 'RGBA' mode images to 'RGB' for JPEG compatibility
-        if img.mode in ('P', 'RGBA'):
-            img = img.convert('RGB')
-
-        # Сохраняем обработанное изображение в BytesIO объект
-        img_io = BytesIO()
-        img.save(img_io, format='JPEG')
-
-        # Используем ContentFile для сохранения изображения в поле ImageField
-        img_content = ContentFile(img_io.getvalue(), filename)
-        return img_content
-
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'pk': self.pk})
 
@@ -155,3 +69,32 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title_ru[:50]
+
+    def clean(self):
+        super().clean()
+        # Validate main image dimensions (aspect ratio 1.88 and minimum width of 800px)
+        if self.image:
+            self._validate_image_dimensions(self.image, required_aspect_ratio=1.88, min_width=800, field_name="image")
+
+        # Validate image_list dimensions (aspect ratio 1 and minimum width of 360px)
+        if self.image_list:
+            self._validate_image_dimensions(self.image_list, required_aspect_ratio=1, min_width=360, field_name="image_list")
+
+    def _validate_image_dimensions(self, image_field, required_aspect_ratio, min_width, field_name):
+        try:
+            with Image.open(image_field) as img:
+                width, height = img.size
+                aspect_ratio = width / height
+
+                if abs(aspect_ratio - required_aspect_ratio) > 0.03:
+                    raise ValidationError(
+                        {field_name: f"The {field_name} must have an aspect ratio of {required_aspect_ratio}:1."}
+                    )
+
+                if width < min_width:
+                    raise ValidationError(
+                        {field_name: f"The {field_name} must be at least {min_width}px wide."}
+                    )
+
+        except Exception as e:
+            raise ValidationError({field_name: f"An error occurred with the {field_name}: {str(e)}"})

@@ -1,122 +1,116 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'new_base.html' %}
 {% load i18n %}
+{% load format_date %}
+{% load static %}
 
-{% block links %}
-    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
-{% endblock %}
+{% block title %}{% trans 'Blog' %}{% endblock %}
+
 
 {% block content %}
-
-    {# Блок с названием страницы #}
-    <div class="bg-body-tertiary">
-        <div class="container title-block ">
-            <div class="row">
-                <div class="col-12">
-                    <p class="regular text-xl text-tertiary-600 title-block-title" id="post-start">
-                        {% trans 'All Posts' %}
-                    </p>
-                    <h1 class="semibold display-lg text-primary-900 title-block-description" id="post-start-mobile">
-                        {% trans 'Posts' %}
-                    </h1>
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'PDGA Blog' %}</h3>
                 </div>
             </div>
         </div>
     </div>
+    <!-- End Page Title Area -->
 
-    {# Поиск #}
-    <div class="bg-body-tertiary search-post">
+    <!-- Start Blog Area -->
+    <section class="blog-area ptb-100">
         <div class="container">
-            <div class="form-group">
-                <form id="searchFormPosts" method="get" action="">
-                    <div class="input-group">
-                        <input type="text" id="searchPosts" name="search_query"
-                               class="form-control regular text-md text-placeholder post-input"
-                               placeholder="{% trans 'Search' %}"
-                               value="{{ search_query }}">
-                        <button type="submit" class="btn btn-success post-search-button">
-                            {% trans 'Search' %}
-                        </button>
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="row">
+                        {% for post in posts %}
+                            <div class="col-lg-6 col-md-6">
+                                <div class="single-card-post">
+                                    <div class="blog-img">
+                                        <a href="{% url 'post_detail' post.pk %}"><img src="{{ post.image_list.url }}"
+                                                                                       alt="blog"></a>
+
+                                        <div class="date"><span>{{ post.created_at|format_date:current_lang }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="blog-card-content">
+                                        <h3>
+                                            <a href="{% url 'post_detail' post.pk %}">
+                                                {% if request.LANGUAGE_CODE == 'en' %}
+                                                    {{ post.title_en }}
+                                                {% else %}
+                                                    {{ post.title_ru }}
+                                                {% endif %}
+                                            </a>
+                                        </h3>
+
+                                        <a href="{% url 'post_detail' post.pk %}" class="read-more">
+                                            <span class="left"><i class="icofont-rounded-double-right"></i></span>
+                                            {% trans 'Read More' %}
+                                            <span class="right"><i class="icofont-rounded-double-right"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        {# Пагинация #}
+                    {% if posts %}
+                        {% include 'partial/pagination.html' %}
+                    {% else %}
+                        <h5>{% trans 'No results were found for your request. Try again' %}</h5>
+                    {% endif %}
+
                     </div>
-                </form>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="side-bar mb-0">
+                        <div class="single-widget search-box">
+                            <h3 class="title">Search</h3>
+                            <form id="searchFormPosts" method="get" action="">
+                                <input type="text" id="searchPosts" class="form-control" placeholder="Search..."
+                                       name="search_query" value="{{ search_query }}">
+                                <button type="submit" class="btn btn-primary"><i class="icofont icofont-search"></i>
+                                </button>
+                            </form>
+                        </div>
+
+
+                        <div class="single-widget tags-box">
+                            <h3 class="title">{% trans 'Popular Tags' %}</h3>
+                            <ul>
+                                <li><a href="{% url 'post_list' %}?tag=" class="{% if not selected_tag %}selected{% endif %}"
+                                       data-tag="">
+                                    {% if request.LANGUAGE_CODE == 'en' %}
+                                        All
+                                    {% else %}
+                                        Все
+                                    {% endif %}
+                                </a></li>
+
+                                {% for tag in tags %}
+                                    <li><a href="{% url 'post_list' %}?tag={{ tag.slug }}"
+                                           class="{% if selected_tag == tag.slug %}selected{% endif %}"
+                                           data-tag="{{ tag.slug }}">
+                                        {% if request.LANGUAGE_CODE == 'en' %}
+                                            {{ tag.name_en }}
+                                        {% else %}
+                                            {{ tag.name_ru }}
+                                        {% endif %}
+                                    </a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    
-    {# Блок с тегами #}
-    <div class="container tag-block">
-        <div class="row">
-            {% if tags %}
-                <div class="tag-list" id="tag-container">
-                    <a href="javascript:void(0);"
-                       class="tag-item semibold text-md text-quaternary-500 {% if not selected_tag %}selected{% endif %}"
-                       data-tag="">
-                        {% if current_lang == "en" %}
-                            All
-                        {% else %}
-                            Все
-                        {% endif %}
-                    </a>
-                    {% for tag in tags %}
-                        <a href="javascript:void(0);"
-                           class="tag-item semibold text-md text-quaternary-500 {% if selected_tag == tag.slug %}selected{% endif %}"
-                           data-tag="{{ tag.slug }}">
-                            {% if current_lang == "en" and tag.name_en %}
-                                {{ tag.name_en }}
-                            {% else %}
-                                {{ tag.name_ru }}
-                            {% endif %}
-                        </a>
-                    {% endfor %}
-                </div>
-
-                <!-- Dropdown for mobile -->
-                <div class="tag-dropdown">
-                    <select id="tag-select" class="tag-select">
-                        <option value="" {% if not selected_tag %}selected{% endif %}>
-                            {% if current_lang == "en" %}
-                                All
-                            {% else %}
-                                Все
-                            {% endif %}
-                        </option>
-                        {% for tag in tags %}
-                            <option value="{{ tag.slug }}" {% if selected_tag == tag.slug %}selected{% endif %}>
-                                {% if current_lang == "en" and tag.name_en %}
-                                    {{ tag.name_en }}
-                                {% else %}
-                                    {{ tag.name_ru }}
-                                {% endif %}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-
-    {# Блок с карточками новостей #}
-    <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 g-4" id="post-container" data-post-url="{% url 'post_list' %}">
-            {% if posts %}
-                {% include 'partial/post_cards.html' %}
-            {% endif %}
-        </div>
-
-        {# Горизонтальная черта #}
-        <div class="row">
-            <div class="full-width-line"></div>
-        </div>
-
-        <div class="row pagination-block" id="pagination-container">
-            {% if is_paginated %}
-                {% include 'pagination.html' %}
-            {% endif %}
-        </div>
-    </div>
-
-    {# Скрипт для Ajax запросов для поиска и фильтров и плавных анимаций#}
-    <script src="{% static 'js/ajax_search_and_filters.js' %}"></script>
+    </section>
 
 {% endblock %}
+

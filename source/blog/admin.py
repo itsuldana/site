@@ -6,8 +6,18 @@ from .models import *
 
 @admin.register(Tag)
 class CustomAdminClass(admin.ModelAdmin):
-    list_display = ('id', 'slug', 'name_ru', 'name_en')
-    list_display_links = ('id', 'slug', 'name_ru', 'name_en')
+    list_display = (
+        'id',
+        'slug',
+        'name_ru',
+        'name_en',
+    )
+    list_display_links = (
+        'id',
+        'slug',
+        'name_ru',
+        'name_en',
+    )
 
 
 @admin.register(Post)
