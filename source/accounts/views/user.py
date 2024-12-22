@@ -128,17 +128,17 @@ class UserEmailChangeView(LoginRequiredMixin, FormView):
         self.send_confirmation_email(user, new_email)
         return redirect('user_detail', pk=user.pk)
 
-    def send_confirmation_email(user, request):
-        current_site = get_current_site(request)
-        mail_subject = 'Activate your account.'
+    def send_confirmation_email(self, user, new_email):
+        current_site = get_current_site(self.request)
+        mail_subject = 'Activate your new email address.'
         message = render_to_string('acc_active_email.html', {
             'user': user,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': default_token_generator.make_token(user),
+            'new_email': urlsafe_base64_encode(force_bytes(new_email)),
         })
-        to_email = user.email
-        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL, [to_email])
+        send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL, [new_email])
 
 
 def confirm_email_change(request, uidb64, token, new_email_encoded):
