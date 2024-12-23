@@ -5,7 +5,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 700;
     font-style: italic;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -15,7 +15,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 300;
     font-style: normal;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -25,7 +25,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 400;
     font-style: normal;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -35,7 +35,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 400;
     font-style: normal;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -45,7 +45,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 300;
     font-style: italic;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -55,7 +55,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 700;
     font-style: normal;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -65,7 +65,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 400;
     font-style: italic;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 @font-face {
@@ -75,7 +75,7 @@
     url(../fonts/allercyrillic.ttf) format("truetype");
     font-weight: 400;
     font-style: normal;
-     unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
+    unicode-range: U+0000-00FF, U+0400-04FF; /* Latin + Cyrillic */
 }
 
 body {
@@ -1568,6 +1568,7 @@ a:hover {
     font-weight: 500;
     font-size: 16px;
     background: #eaeaea;
+    width: 33%;
 }
 
 .course-details-tabs .show {
@@ -5104,6 +5105,10 @@ label {
         background-color: #000;
         padding: 0;
     }
+
+    .course-details-tabs #tabs > li {
+        width: 100%;
+    }
 }
 
 .mr-ul {
@@ -5114,5 +5119,6 @@ label {
     background-color: #e6133e;
     color: white;
 }
+
 
 

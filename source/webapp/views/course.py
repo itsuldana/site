@@ -124,11 +124,15 @@ class CourseDetailView(DetailView):
             # Если статуса нет, возвращаем None
             lesson_progress_status = Coalesce(Subquery(lesson_progress_subquery), Value(None))
 
-            # Подгружаем модули с уроками, аннотированными статусом прогресса
+        # Подгружаем модули с уроками, аннотированными статусом прогресса
+        lessons = Lesson.objects.filter(module__course=course)
+        if context['is_paid'] != False:
+            lessons = lessons.annotate(progress_status=lesson_progress_status)
+
         modules = Module.objects.filter(course=course, is_active=True).prefetch_related(
             Prefetch(
                 'lessons',
-                queryset=Lesson.objects.filter(module__course=course).annotate(progress_status=lesson_progress_status)
+                queryset=lessons
             )
         )
         context["modules"] = modules
