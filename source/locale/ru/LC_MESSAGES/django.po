@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-24 02:39+0500\n"
+"POT-Creation-Date: 2024-12-24 03:26+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,7 @@ msgstr ""
 
 #: accounts/templates/email_change.html:16
 #: accounts/templates/email_change.html:28
+#: accounts/templates/user_detail.html:84
 msgid "Change Email"
 msgstr "Сменить Email"
 
@@ -80,7 +81,7 @@ msgid "Description"
 msgstr "Описание"
 
 #: accounts/templates/manage/manage_courses.html:25
-#: webapp/templates/course/course_detail.html:226
+#: webapp/templates/course/course_detail.html:225
 msgid "Price"
 msgstr "Цена"
 
@@ -142,21 +143,19 @@ msgstr "Модули отсутствуют."
 #: accounts/templates/password_change.html:5
 #: accounts/templates/password_change.html:14
 #: accounts/templates/password_change.html:28
+#: accounts/templates/user_detail.html:87
 msgid "Change Password"
 msgstr "Сменить пароль"
 
 #: accounts/templates/password_change.html:49
-#| msgid "Reset Password"
 msgid "Current Password"
 msgstr "Текущий пароль"
 
 #: accounts/templates/password_change.html:54
-#| msgid "Password"
 msgid "New Password"
 msgstr "Новый пароль"
 
 #: accounts/templates/password_change.html:59
-#| msgid "Change Password"
 msgid "Confirm New Password"
 msgstr "Подтверждение нового пароля"
 
@@ -264,12 +263,35 @@ msgstr "Все преподаватели"
 msgid "View Profile"
 msgstr "Посмотреть профиль"
 
+#: accounts/templates/user_detail.html:53
+#| msgid "First name"
+msgid "First Name"
+msgstr "Имя"
+
+#: accounts/templates/user_detail.html:62
+#| msgid "Last name"
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: accounts/templates/user_detail.html:71
+#| msgid "Login"
+msgid "Last Login"
+msgstr "Последний Вход"
+
+#: accounts/templates/user_detail.html:81
+#| msgid "View Profile"
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: accounts/templates/user_detail.html:89
+msgid "Log Out"
+msgstr "Выйти"
+
 #: accounts/templates/user_update.html:4 accounts/templates/user_update.html:13
 #: accounts/templates/user_update.html:28
-#, fuzzy
 #| msgid "View Profile"
 msgid "Update Profile"
-msgstr "Посмотреть профиль"
+msgstr "Редактировать профиль"
 
 #: accounts/templates/user_update.html:37
 msgid "First name"
@@ -359,7 +381,7 @@ msgid "Courses"
 msgstr "Курсы"
 
 #: templates/new_base.html:105 templates/new_base.html:204
-#: webapp/templates/course/course_detail.html:256
+#: webapp/templates/course/course_detail.html:255
 #: webapp/templates/course/course_list.html:5
 #: webapp/templates/course/course_list.html:14
 msgid "All Courses"
@@ -526,32 +548,32 @@ msgstr "Чему вы научитесь?"
 msgid "Lesson"
 msgstr "Уроки"
 
-#: webapp/templates/course/course_detail.html:206
+#: webapp/templates/course/course_detail.html:205
 msgid "Lectures"
 msgstr "Лекции"
 
-#: webapp/templates/course/course_detail.html:209
+#: webapp/templates/course/course_detail.html:208
 msgid "Duration"
 msgstr "Длительность"
 
-#: webapp/templates/course/course_detail.html:213
+#: webapp/templates/course/course_detail.html:212
 msgid "Skill level"
 msgstr "Skill"
 
-#: webapp/templates/course/course_detail.html:216
+#: webapp/templates/course/course_detail.html:215
 msgid "Language"
 msgstr "Язык"
 
-#: webapp/templates/course/course_detail.html:219
+#: webapp/templates/course/course_detail.html:218
 #: webapp/templates/index.html:278
 msgid "Students"
 msgstr "Студенты"
 
-#: webapp/templates/course/course_detail.html:224
+#: webapp/templates/course/course_detail.html:223
 msgid "Practise Tests"
 msgstr "Практикум"
 
-#: webapp/templates/course/course_detail.html:233
+#: webapp/templates/course/course_detail.html:232
 msgid "Share Courses"
 msgstr "Поделиться Курсами"
 
@@ -604,7 +626,6 @@ msgid "No courses!"
 msgstr "Курсы отсутствуют!"
 
 #: webapp/templates/index.html:39
-#| msgid "PDGA - Professor Dinara’s Global Academy"
 msgid "PDGA - Professor Dinara’s Global Academy"
 msgstr "PDGA - Professor Dinara’s Global Academy"
 
@@ -614,17 +635,14 @@ msgid "Get a Consultation"
 msgstr "Получить консультацию"
 
 #: webapp/templates/index.html:43
-#| msgid "PDGA - Education That Brings You Closer to Your Dream!"
 msgid "PDGA - Education That Brings You Closer to Your Dream!"
 msgstr "PDGA — Образование, которое приближает вас к мечте!"
 
 #: webapp/templates/index.html:47
-#| msgid "PDGA - Learn from the Best to Become the Best!"
 msgid "PDGA - Learn from the Best to Become the Best!"
 msgstr "PDGA — Учитесь у лучших, чтобы стать лучшим!"
 
 #: webapp/templates/index.html:136
-#| msgid "EDPA Courses"
 msgid "PDGA Courses"
 msgstr "PDGA Курсы"
 
@@ -828,9 +846,6 @@ msgstr "На главную"
 
 #~ msgid "Help"
 #~ msgstr "Помощь"
-
-#~ msgid "Log Out"
-#~ msgstr "Выйти"
 
 #~ msgid "Plans"
 #~ msgstr "Планы"
