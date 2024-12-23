@@ -141,6 +141,20 @@ a:hover {
     text-decoration: none;
 }
 
+.mt-110-mb-60 {
+    margin-top: 110px;
+}
+
+@media only screen and (max-width: 767px) {
+    .mt-110-mb-60 {
+        margin-top: 60px;
+    }
+}
+
+.course-details-tabs #tabs > li {
+    width: 100%;
+}
+
 .ptb-100 {
     padding-top: 100px;
     padding-bottom: 100px;

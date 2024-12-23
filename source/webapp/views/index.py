@@ -1,8 +1,8 @@
-from lib2to3.fixes.fix_input import context
-
+from django.utils import translation
 from django.views.generic import  ListView
 
 from accounts.models import Teacher
+from blog.models import Post
 from webapp.models import Course
 
 
@@ -22,5 +22,7 @@ class IndexView(ListView):
         teachers = Teacher.objects.all()
 
         context['teachers'] = teachers
+        context['posts'] = Post.objects.all().order_by('-created_at').exclude(is_active=False)
+        context['current_lang'] = translation.get_language()
 
         return context

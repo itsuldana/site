@@ -1,5 +1,6 @@
 {% extends 'new_base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
@@ -49,7 +50,7 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">First Name</h6>
+                                    <h6 class="mb-0">{% trans 'First Name' %}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{ user_obj.first_name }}
@@ -58,7 +59,7 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Last Name</h6>
+                                    <h6 class="mb-0">{% trans 'Last Name' %}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{ user_obj.last_name }}
@@ -67,7 +68,7 @@
                             <hr>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Last Login</h6>
+                                    <h6 class="mb-0">{% trans 'Last Login' %}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{ user_obj.last_login }}
@@ -76,13 +77,16 @@
                             <hr>
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">Edit
-                                        Profile</a>
-                                    <a href="{% url 'change_email' user_obj.id %}" class="btn btn-primary mb-2 me-2">Change
-                                        Email</a>
-                                    <a href="{% url 'change_password' user_obj.id %}" class="btn btn-primary mb-2 me-2">Change
-                                        Password</a>
-                                    <a href="{% url 'logout' %}" class="btn btn-danger mb-2 me-2">Log Out</a>
+                                    <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">
+                                        {% trans 'Edit Profile' %}
+                                    </a>
+                                    <a href="{% url 'change_email' user_obj.id %}" class="btn btn-primary mb-2 me-2">
+                                        {% trans 'Change Email' %}
+                                    </a>
+                                    <a href="{% url 'change_password' user_obj.id %}" class="btn btn-primary mb-2 me-2">
+                                        {% trans 'Change Password' %}
+                                    </a>
+                                    <a href="{% url 'logout' %}" class="btn btn-danger mb-2 me-2">{% trans 'Log Out' %}</a>
                                 </div>
                             </div>
                         </div>

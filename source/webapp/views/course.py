@@ -82,6 +82,8 @@ class CourseDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context['is_paid'] = False
+
         # Пробрасываем похожие курсы (пока просто последние три, так как их мало)
         similar_courses = Course.objects.exclude(id=self.object.pk).order_by('-created_at')[:3]
         context['similar_courses'] = similar_courses
@@ -114,9 +116,7 @@ class CourseDetailView(DetailView):
         context['total_duration'] = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
 
         user = self.request.user
-        if isinstance(user, AnonymousUser):
-            context['is_paid'] = False
-        else:
+        if not isinstance(user, AnonymousUser):
             lesson_progress_subquery = LessonProgress.objects.filter(
                 user=user,
                 lesson=OuterRef('pk')
@@ -124,9 +124,12 @@ class CourseDetailView(DetailView):
             # Если статуса нет, возвращаем None
             lesson_progress_status = Coalesce(Subquery(lesson_progress_subquery), Value(None))
 
+            if Purchase.objects.filter(user=user, course=self.object, payment_status="DONE").exists():
+                context['is_paid'] = True
+
         # Подгружаем модули с уроками, аннотированными статусом прогресса
         lessons = Lesson.objects.filter(module__course=course)
-        if context['is_paid'] != False:
+        if context['is_paid']:
             lessons = lessons.annotate(progress_status=lesson_progress_status)
 
         modules = Module.objects.filter(course=course, is_active=True).prefetch_related(

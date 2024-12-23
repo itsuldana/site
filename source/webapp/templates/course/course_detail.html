@@ -47,11 +47,14 @@
                             </ul>
 
                             <div class="apply-btn">
-                                <form action="{% url 'purchase_course' course_id=course.id %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-primary">{% trans 'Buy' %}</button>
-
-                                </form>
+                                {% if is_paid %}
+                                    <p class="btn btn-primary">{% trans 'Purchased' %}</p>
+                                {% else %}
+                                    <form action="{% url 'purchase_course' course_id=course.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">{% trans 'Buy' %}</button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -125,9 +128,18 @@
 
                                                                     <span class="duration"><i
                                                                             class="icofont-clock-time"></i> {{ lesson.formatted_duration }} min</span>
-
-                                                                    <a href="{% url 'lesson_detail' pk=lesson.id %}"
-                                                                       class="preview">View</a>
+                                                                    {% if not is_paid %}
+                                                                        {#                                                                        <form action="{% url 'purchase_course' course_id=course.id %}"#}
+                                                                        {#                                                                              method="post">#}
+                                                                        {#                                                                            {% csrf_token %}#}
+                                                                        {#                                                                            <button type="submit" class="preview">#}
+                                                                        {#                                                                                {% trans 'Get access' %}#}
+                                                                        {#                                                                            </button>#}
+                                                                        {#                                                                        </form>#}
+                                                                    {% else %}
+                                                                        <a href="{% url 'lesson_detail' pk=lesson.id %}"
+                                                                           class="preview">View</a>
+                                                                    {% endif %}
                                                                 </li>
                                                             {% endfor %}
                                                         </ul>
@@ -179,7 +191,7 @@
                                 </div>
                             </div>
 
-                        
+
                         </div>
                     </div>
                 </div>
@@ -203,7 +215,8 @@
                                 <li><i class="icofont-read-book"></i> {% trans 'Language' %}
                                     <span>{{ course.get_language_display }}</span></li>
 
-                                <li><i class="icofont-users-social"></i> {% trans 'Students' %} <span>{{ students }}</span></li>
+                                <li><i class="icofont-users-social"></i> {% trans 'Students' %}
+                                    <span>{{ students }}</span></li>
 
                                 {#                                <li><i class="icofont-certificate-alt-1"></i> Certificate <span>Yes</span></li>#}
 
@@ -290,7 +303,7 @@
                                 </div>
 
                                 <div class="courses-content-bottom">
-{#                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>#}
+                                    {#                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>#}
                                     <h4><i class="icofont-chart-histogram-alt"></i> {{ course.skill_level }}</h4>
                                     <h4 class="price">{{ course.price|floatformat:0 }} тг.</h4>
                                 </div>
