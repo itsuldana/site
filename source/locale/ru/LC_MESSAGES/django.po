@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-24 03:26+0500\n"
+"POT-Creation-Date: 2024-12-24 03:32+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,22 +264,18 @@ msgid "View Profile"
 msgstr "Посмотреть профиль"
 
 #: accounts/templates/user_detail.html:53
-#| msgid "First name"
 msgid "First Name"
 msgstr "Имя"
 
 #: accounts/templates/user_detail.html:62
-#| msgid "Last name"
 msgid "Last Name"
 msgstr "Фамилия"
 
 #: accounts/templates/user_detail.html:71
-#| msgid "Login"
 msgid "Last Login"
 msgstr "Последний Вход"
 
 #: accounts/templates/user_detail.html:81
-#| msgid "View Profile"
 msgid "Edit Profile"
 msgstr "Редактировать профиль"
 
@@ -289,7 +285,6 @@ msgstr "Выйти"
 
 #: accounts/templates/user_update.html:4 accounts/templates/user_update.html:13
 #: accounts/templates/user_update.html:28
-#| msgid "View Profile"
 msgid "Update Profile"
 msgstr "Редактировать профиль"
 
@@ -355,7 +350,8 @@ msgstr "Блог"
 msgid "PDGA Blog"
 msgstr "PDGA Блог>"
 
-#: blog/templates/post_list.html:52 webapp/templates/index.html:559
+#: blog/templates/post_list.html:52 webapp/templates/course/course_list.html:52
+#: webapp/templates/index.html:559
 msgid "Read More"
 msgstr "Узнать больше"
 
@@ -577,6 +573,10 @@ msgstr "Практикум"
 msgid "Share Courses"
 msgstr "Поделиться Курсами"
 
+#: webapp/templates/course/course_detail.html:283
+msgid "Similar Courses"
+msgstr "Похожие Курсы"
+
 #: webapp/templates/course/course_edit.html:4
 #: webapp/templates/course/course_edit.html:12
 msgid "Course Editing"
@@ -627,7 +627,7 @@ msgstr "Курсы отсутствуют!"
 
 #: webapp/templates/index.html:39
 msgid "PDGA - Professor Dinara’s Global Academy"
-msgstr "PDGA - Professor Dinara’s Global Academy"
+msgstr "PDGA - Международная академия профессора Динары"
 
 #: webapp/templates/index.html:40 webapp/templates/index.html:44
 #: webapp/templates/index.html:48
@@ -828,9 +828,6 @@ msgstr "На главную"
 
 #~ msgid "Course Features"
 #~ msgstr "Особенности курса"
-
-#~ msgid "Similar Courses"
-#~ msgstr "Похожие Курсы"
 
 #~ msgid "Log in to your account"
 #~ msgstr "Войдите в свой аккаунт"
