@@ -1,10 +1,23 @@
 from django.urls import path
-
+from django.contrib.sitemaps.views import sitemap
 from webapp import views
+from webapp.sitemaps import StaticViewSitemap, CourseSitemap, PostSitemap
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'courses': CourseSitemap,
+    'posts': PostSitemap,
+}
 
 urlpatterns = [
-    # Лэндинг (он же О нас или About Us)
+    # Главная
     path('', views.IndexView.as_view(), name='index'),
+
+    # Robots.txt
+    path('robots.txt', views.robots_txt, name='robots_txt'),
+
+    # Sitemapp
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     # Help Page
     path('contact_us/', views.ContactUsView.as_view(), name='contact_us'),
