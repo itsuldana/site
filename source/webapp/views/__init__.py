@@ -4,6 +4,7 @@ from .lessons import LessonCreateView, LessonUpdateView, LessonDeleteView, Lesso
 from .module import ModuleCreateView, ModuleUpdateView
 from .purchase import purchase_course, purchase_success, purchase_failure
 from .index import IndexView
+from .robots import robots_txt
 
 from .module_test import (
     TestModulesList, TestDetailView,
