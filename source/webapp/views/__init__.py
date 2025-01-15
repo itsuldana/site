@@ -1,4 +1,4 @@
-from .main_about_us import MainView
+from .index import MainView
 from .contact_us import ContactUsView, send_email
 from .lessons import LessonCreateView, LessonUpdateView, LessonDeleteView, LessonDetailView
 from .module import ModuleCreateView, ModuleUpdateView

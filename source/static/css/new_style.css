@@ -1,0 +1,453 @@
+@font-face {
+    font-family: "Gotham Pro";
+    src: url('../fonts/gothampro.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Gotham Pro";
+    src: url('../fonts/gothampro_italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Gotham Pro";
+    src: url('../fonts/gothampro_medium.ttf') format('truetype'); /* 500 - Medium */
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Gotham Pro";
+    src: url('../fonts/gothampro_mediumitalic.ttf') format('truetype'); /* 500 - Medium Italic */
+    font-weight: 500;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: "Gotham Pro";
+    src: url('../fonts/gothampro_bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Gotham Pro";
+    src: url('../fonts/gothampro_bolditalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+body {
+    font-family: "Gotham Pro";
+    background-color: #f9f9f9;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+
+    /* Font Weights */
+    --font-weight-regular: 400; /* Regular */
+    --font-weight-medium: 500; /* Medium */
+    --font-weight-semibold: 600; /* Semibold */
+    --font-weight-bold: 700; /* Bold */
+    --font-weight-ultrabold: 800; /* Ultrabold */
+}
+
+.main-banner {
+    background-image: url('/static/new_img/Rectangle.png'); /* Укажите путь к изображению */
+    background-size: cover; /* Заставляет изображение покрывать весь элемент */
+    background-position: center; /* Центрует изображение */
+    background-repeat: no-repeat; /* Отключает повторение изображения */
+    height: 904px;
+}
+
+.mt--3 {
+    margin-top: -3px;
+}
+
+.mt-8 {
+    margin-top: 8px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.mt-24 {
+    margin-top: 24px;
+}
+
+.mt-32 {
+    margin-top: 32px;
+}
+
+.mt-38 {
+    margin-top: 38px;
+}
+
+.mt-60 {
+    margin-top: 60px;
+}
+
+.mt-100 {
+    margin-top: 100px;
+}
+
+.mb-60 {
+    margin-bottom: 60px;
+}
+
+.mt-120 {
+    margin-top: 120px;
+}
+
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+.pt-5 {
+    padding-top: 5px !important;
+}
+
+.pt-38 {
+    padding-top: 38px;
+}
+
+.pt-45 {
+    padding-top: 45px;
+}
+
+.pt-48 {
+    padding-top: 48px;
+}
+
+.pt-60 {
+    padding-top: 60px;
+}
+
+.pt-130 {
+    padding-top: 130px;
+}
+
+.pb-25 {
+    padding-bottom: 25px;
+}
+
+.pb-35 {
+    padding-bottom: 35px;
+}
+
+.pb-80 {
+    padding-bottom: 80px;
+}
+
+.ml-6 {
+    margin-left: 6px !important;
+}
+
+.ml-15 {
+    margin-left: 15px;
+}
+
+.ml-25 {
+    margin-left: 25px;
+}
+
+.ml-30 {
+    margin-left: 30px;
+}
+
+.mr-6 {
+    margin-right: 6px !important;
+}
+
+.mr-15 {
+    margin-right: 15px;
+}
+
+.mr-30 {
+    margin-right: 30px;
+}
+
+/* Font Weights */
+.regular {
+    font-weight: var(--font-weight-regular);
+}
+
+.medium {
+    font-weight: var(--font-weight-medium);
+}
+
+.semibold {
+    font-weight: var(--font-weight-semibold);
+}
+
+.bold {
+    font-weight: var(--font-weight-bold);
+}
+
+.ultrabold {
+    font-weight: var(--font-weight-ultrabold);
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+.font-18 {
+    font-size: 18px;
+}
+
+.font-20 {
+    font-size: 20px;
+}
+
+.font-24 {
+    font-size: 24px;
+}
+
+.font-28 {
+    font-size: 28px;
+}
+
+.font-50 {
+    font-size: 50px;
+}
+
+.banner-icon {
+    height: 57px;
+    width: 82px;
+    margin-top: 40px;
+}
+
+.green-text {
+    color: #30BC83;
+}
+
+.white-text {
+    color: #FFFFFF;
+}
+
+.black-text {
+    color: #000000;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.input {
+    width: 465px;
+    height: 55px;
+    /*border-top-left-radius: 8px !important;*/
+    /*border-bottom-left-radius: 8px !important;*/
+    border-radius: 8px !important;
+}
+
+.green-button {
+    background-color: #30BC83;
+    padding: 15px 75px;
+    border-radius: 5px;
+}
+
+.category-div {
+    border-radius: 5px;
+    background-color: #CCF6E5;
+    /*width: 137px;*/
+    height: 37px;
+}
+
+.course-card {
+    border-radius: 12px;
+    border: 1px solid black;
+    padding: 25px;
+}
+
+.course-image {
+    border-radius: 8px;
+    width: 100%;
+}
+
+.teacher-course-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.text-near-icon {
+    margin-left: 5px;
+}
+
+.rating-div {
+    background-color: #CCF6E5;
+    padding: 14px;
+    border-radius: 8px;
+    height: 57px;
+}
+
+.diagonal-gradient {
+    background: linear-gradient(to bottom right, #FFFFFF, #CEFDBD);
+}
+
+.advantages-block {
+    height: 758px;
+}
+
+.vidgets-block-1 .banner-container, .vidgets-block-2 {
+    position: relative; /* Устанавливает относительное позиционирование для контейнера */
+}
+
+.banner-image {
+    width: 100%; /* Изображение растягивается на всю ширину контейнера */
+    height: auto; /* Сохраняет пропорции изображения */
+}
+
+.banner-block {
+    position: absolute; /* Абсолютное позиционирование внутри контейнера */
+    top: 9.41%; /* Располагает текст по центру вертикально */
+    left: 9.41%; /* Располагает текст по центру горизонтально */
+    transform: translate(-10%, 9%); /* Центрирует блок по оси X и Y */
+    text-align: center; /* Центрирует текст внутри блока */
+    background-color: #7878788A; /* Полупрозрачный фон для контраста */
+    padding: 20px;
+    border-radius: 35px; /* Закруглённые углы для блока */
+     width: 450px;
+    height: 363px;
+}
+
+.banner-block-2 {
+    position: absolute; /* Абсолютное позиционирование внутри контейнера */
+    top: 9.41%; /* Располагает текст по центру вертикально */
+    right: 15.41%; /* Располагает текст по центру горизонтально */
+    transform: translate(-10%, 9%); /* Центрирует блок по оси X и Y */
+    text-align: center; /* Центрирует текст внутри блока */
+    background-color: #7878788A; /* Полупрозрачный фон для контраста */
+    padding: 20px;
+    border-radius: 35px; /* Закруглённые углы для блока */
+     width: 450px;
+    height: 363px;
+}
+
+.text-banner-block {
+    position: absolute; /* Абсолютное позиционирование внутри контейнера */
+    top: 10%; /* Располагает текст по центру вертикально */
+    left: 10%; /* Располагает текст по центру горизонтально */
+    transform: translate(-10%, 10%); /* Центрирует блок по оси X и Y */
+    text-align: center; /* Центрирует текст внутри блока */
+    background-color: #7878788A; /* Полупрозрачный фон для контраста */
+    padding: 20px;
+    border-radius: 35px; /* Закруглённые углы для блока */
+    height: 348px;
+    width: 432px;
+}
+
+.text-banner-block-2 {
+    position: absolute; /* Абсолютное позиционирование внутри контейнера */
+    top: 10%; /* Располагает текст по центру вертикально */
+    right: 16%; /* Располагает текст по центру горизонтально */
+    transform: translate(-10%, 10%); /* Центрирует блок по оси X и Y */
+    text-align: center; /* Центрирует текст внутри блока */
+    background-color: #7878788A; /* Полупрозрачный фон для контраста */
+    padding: 20px;
+    border-radius: 35px; /* Закруглённые углы для блока */
+    height: 348px;
+    width: 432px;
+}
+
+.text-banner-block p {
+    margin: 0;
+    color: #fff; /* Белый текст */
+}
+
+.review-image {
+    width: 100%;
+    border-radius: 50px;
+}
+
+.footer {
+    background-color: black;
+}
+
+.header {
+    height: 120px;
+}
+
+.border-top {
+    border-top: 1px solid #FFFFFF80;
+}
+
+
+.border-bottom {
+    border-bottom: 1px solid #FFFFFF80;
+}
+
+.border-bottom-second {
+    border-bottom: 1px solid #FFFFFF80;
+}
+
+.border-right {
+    border-right: 1px solid #FFFFFF80;
+}
+
+.footer-icon-site {
+    height: 30px;
+    width: 30px;
+}
+
+.right-footer-block {
+    height: 130px;
+}
+
+.arrow {
+    margin-top: -5px;
+    width: 22px;
+    height: 17px;
+}
+
+.carousel-inner {
+    height: 130px;
+    background: #CCF6E5;
+}
+
+.tag-button {
+    padding: 12px 32px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.submit-button {
+    border: none;
+    background: none;
+    margin-left: -57px !important;
+}
+
+/*#searchFormNews {*/
+/*    display: flex; !* Flexbox *!*/
+/*    justify-content: flex-end; !* Выровнять по правому краю *!*/
+/*}*/

@@ -1,755 +1,271 @@
+{% extends 'base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'css/old/main.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+{% load i18n %}
+{% load format_date %}
 
-    {#    FONT AWESOME#}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{% block content %}
 
-    {#    FONT INTER#}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
-    <style>
-        .content-wrapper {
-            max-width: 880px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        .plyr {
-            height: 550px;
-        }
-
-        .plyr__video-wrapper {
-            background: #000;
-        {#background: var(--plyr-video-background, var(--plyr-video-background, #000));#} margin: 0;
-            overflow: hidden;
-            position: static;
-            width: 100%;
-        }
-
-
-    </style>
-    <title>Document</title>
-</head>
-<body>
-
-<header class="header">
-
-    <nav class="navbar navbar-expand-lg navbar-light ">
+    <!-- Главный баннер -->
+    <div class="main-banner">
         <div class="container">
-            <div>
-                <a class="navbar-brand logo" href="#">
-                    <img src="../../static/img/main_page/logo.png" alt="Логотип">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <img src="{% static 'new_img/Group.png' %}" alt="иконка на баннере" class="banner-icon">
+                    <p class="font-20 semibold green-text mt-120">
+                        {% trans 'Учитесь онлайн и покоряйте высоты.' %}
+                    </p>
+                    <h1 class="font-50 medium white-text mt-32">
+                        {% trans 'Открываем двери к вашему Будущему, делая обучение Доступным и вдохновляющим' %}
+                    </h1>
+                    <p class="font-20 medium white-text mt-32 mb-50">
+                        {% trans 'Доступные онлайн-курсы для развития навыков, повышения квалификации и достижения ваших целей. Учитесь в удобное время и в любом месте.' %}
+                    </p>
+                    <a class="font-20 medium white-text green-button text-decoration-none">
+                        {% trans 'Узнать больше' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма поиска -->
+    <div class="container mt-60 mb-60">
+        <div class="form-group text-align-right">
+            <form id="searchFormNews" method="get" action="" class="inline-block">
+                <div class="input-group ">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchNews" name="search_query"
+                           class="font-20 medium input"
+                           placeholder="{% trans 'Найдите подходящий курс' %}"
+                           value="{{ search_query }}">
+                    <button type="submit" class="submit-button">
+                        <img src="{% static 'new_img/serach_icon.png' %}" alt="Поиск">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Slider категорий -->
+    <div id="carouselExampleControls" class="carousel slide mb-60" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item text-align-center active pt-48">
+                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
+                    {% trans 'UX/UI дизайн' %}
+                </a>
+                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
+                    {% trans 'Маркетинг и реклама' %}
+                </a>
+                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
+                    {% trans 'Языки' %}
+                </a>
+                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
+                    {% trans 'Математика' %}
                 </a>
             </div>
-            <div class="d-flex justify-content-end">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon-burger"></span>
-                </button>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown2"
-                        aria-controls="navbarNavDropdown2" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon-phone"></span>
-                </button>
-
-
+            <div class="carousel-item">
+                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
+                    {% trans 'Математика' %}
+                </a>
             </div>
-
-
-            <div class="collapse navbar-collapse " id="navbarNavDropdown" style="justify-content: flex-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item px-2">
-                        <a class="nav-link " aria-current="page" href="{% url 'course_list' %}">Курсы</a>
-                    </li>
-                    <li class="nav-item dropdown px-2" style="color:white">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            О преподавателе
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link" href="#">Отзывы</a>
-                    </li>
-
-                    <li class="nav-item px-2">
-                        <a class="nav-link" href="#">Цены</a>
-                    </li>
-
-                    <li class="nav-item px-2">
-                        <a class="nav-link" href="#">Контакты</a>
-                    </li>
-                </ul>
-
+            <div class="carousel-item">
             </div>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown2" style="justify-content: flex-end">
-                <ul class="contacts navbar-nav pt-2" style="display: block">
-                    <li class="nav-item">
-                        <a href="tel:+77052889271">+7 705 288 9271</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="tel:+77273410815">+7 727 341 0815</a>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-    </nav>
-    {#    <div class="container-header">#}
-    {#        <div class="logo">#}
-    {#            <img src="../../static/img/main_page/logo.png" alt="Логотип">#}
-    {#        </div>#}
-    {#        <button class="header__burger-btn">#}
-    {#            <img src="../../static/icons/burger.png" alt="">#}
-    {#        </button>#}
-    {#        <nav class="nav">#}
-    {#            <ul class="menu-list mb-0">#}
-    {#                <li><a href="#">Курсы</a></li>#}
-    {#                <li><a href="#">О преподавателе</a></li>#}
-    {#                <li><a href="#">Отзывы</a></li>#}
-    {#                <li><a href="#">Цены</a></li>#}
-    {#                <li><a href="#">Контакты</a></li>#}
-    {#            </ul>#}
-    {#        </nav>#}
-    {#        <div class="contacts">#}
-    {#            <a href="tel:+77052889271">+7 705 288 9271</a>#}
-    {#            <a href="tel:+77273410815">+7 727 341 0815</a>#}
-    {#        </div>#}
-    {##}
-    {#    </div>#}
-</header>
-
-
-<div class="swiper-container">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide first-slide">
-            <div class="slide-content">
-                <h1>ПОДГОТОВКА К TOEFL, GRE, SAT, ELTIS, ISEE, IELTS</h1>
-                <p class="text-size-24 mb-5">С гарантией поступления на бакалавриат, магистратуру и докторантуру в
-                    лучшие вузы СНГ и США</p>
-                <h2 class="text-size-24 mb-4">Первое занятие — бесплатно</h2>
-                <div class="sign-up-button">
-                    <a href="#" class="first-slide-btn">Записаться на урок</a>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-slide second-slide">
-            <div class="slide-content">
-                <h1 class="mb-4">ПЕРСОНАЛЬНЫЙ ПРЕПОДАВАТЕЛЬ <br>
-                    АНГЛИЙСКОГО ЯЗЫКА</h1>
-                <p class="text-size-24 mb-5">По бостонской методике</p>
-                <p class="text-size-24 mb-4">Первое занятие — бесплатно</p>
-                <div class="sign-up-button">
-                    <a href="#" class="second-slide-btn">Записаться на урок</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="swiper-slide thirty-slide">
-            <div class="slide-content">
-                <h1 class="mb-4">ИЗУЧЕНИЕ ФИНАНСОВ И МАТЕМАТИКИ</h1>
-                <p class="text-size-24 mb-5">На английском для студентов международных и казахстанских вузов</p>
-                <p class="text-size-24 mb-4">Первое занятие — бесплатно</p>
-                <div class="sign-up-button">
-                    <a href="#" class="thirty-slide-btn">Записаться на урок</a>
-
-                </div>
-            </div>
-        </div>
-        <!-- Добавьте больше слайдов по необходимости -->
-    </div>
-    <!-- Pagination и навигация -->
-    <div class="swiper-pagination" style="bottom: 20%"></div>
-
-</div>
-
-<section id="courses" class="">
-    <div class="container courses-padding">
-        <div class="row">
-            <div class="col-md-4 col-sm-12 col-12 text-color courses-padding">
-                <h2 class="text-size-60">КУРСЫ</h2>
-                <p class="text-size-36">По подготовке к международным экзаменам</p>
-            </div>
-            <!-- Карточка курса -->
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка к экзамену IELTS</p>
-                </div>
-            </div>
-
-            <!-- Карточка курса -->
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_6.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка к экзамену ELTiS</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_2.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка к экзамену TOEFL.iBT</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_3.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка к экзамену TOEFL.ITP</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_4.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка к экзамену TOEFL.PBT</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_9.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка к экзамену ISEE</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_5.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка к экзамену GRE</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_8.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Подготовка в поступлении в ВУЗы США с 9 класса</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_11.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Математика на английском языке</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-6 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_10.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Финансы на английском языке</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-12 mb-4">
-                <div class="course-card text-center ">
-                    <img src="../../static/img/courses/img_7.png" class="course-img " alt="TOEFL iBT">
-                    <p class="course-text">Помощь при поступлении
-                        на магистратуру и PhD в РК</p>
-                </div>
-            </div>
-
-
-            <!-- Добавляем остальные курсы -->
-            <!-- ... -->
         </div>
     </div>
-</section>
 
-<section id="consultation">
-    <div class="container courses-padding justify-content-center">
-        <div class="row  my-5">
-            <div class="consult text-color">
-                <h2 class="text-size-60"> НУЖНА КОНСУЛЬТАЦИЯ?</h2>
-                <p class="text-size-36">Запишитесь на консультацию сейчас! Совершите первый шаг к эффективному изучению
-                    английского языка и
-                    подготовки к экзаменам.</p>
-                <div class="sign-up-button">
-                    <button class="btn btn-danger consult-take "> Получить консультацию</button>
+    <!-- Курсы -->
+    <div class="course-list">
+        <div class="container">
+            <div class="row">
+                {% for course in courses %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="course-card">
 
-                </div>
-            </div>
+                            <img class="img-fluid course-image" src="{{ course.image.url }}" alt="{{ course.title }}">
 
-        </div>
-    </div>
-</section>
+                            <div class="row mt-24">
+                                <div class="col-2">
+                                    <img src="{{ course.teacher.profile_image.url }}" alt="{{ course.title }}"
+                                         class="teacher-course-image">
+                                </div>
+                                <div class="col-6">
+                                    <p class="font-18 regular black-text mt-15">
+                                        {{ course.teacher.fullname }}
+                                    </p>
+                                </div>
+                                <div class="col-4 category-div mt-10">
+                                    <p class="font-18 regular black-text text-align-center">
 
+                                    </p>
+                                </div>
 
-<div class="container margin-blocks">
-    <div class="row ">
-        <div class="col-12 text-color ">
-            <h2 class="fw-bold text-size-60">В ЧЕМ ЗАКЛЮЧЕНА ПОЛЬЗА ИМЕННО ДЛЯ ВАС?</h2>
-            <p class="text-size-36 sm-border">Три основных преимущества моей методики:</p>
-        </div>
-        <!-- Блок изображения -->
-        <div class="col-md-6 image-container pe-4">
-            <img src="../../static/img/blocks/img.png" alt="Lecture image">
-        </div>
+                                <div class="col-12 mt-24">
+                                    <p class="font-20 medium black-text">
+                                        {{ course.title }}
+                                    </p>
+                                </div>
+                            </div>
 
-        <!-- Блок текста -->
-        <div class="col-12 col-md-6 text-color ps-4">
-            <ul class="list-unstyled benefits">
-                <li class="mb-4">
-                    <div class="d-flex align-items-baseline">
-                        <i class="fa-solid fa-check icon-font me-3"></i>
-                        <h2 class="text-size-36">
-                            Бостонская технология обучения
-                        </h2>
+                            <div class="row mt-24">
+                                <div class="col-6">
+                                    <img src="{% static 'new_img/Vector.png' %}" alt="Часы" class="mt--3">
+                                    <p class="font-18 regular black-text inline-block text-near-icon">
+                                        30 часов
+                                    </p>
+                                </div>
+
+                                <div class="col-6 text-align-right">
+                                    <img src="{% static 'new_img/Vector2.png' %}" alt="Часы" class="mt--3">
+                                    <p class="font-18 regular black-text inline-block text-near-icon">
+                                        2 куратора
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-24">
+                                <div class="col-12 rating-div">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="font-20 medium">
+                                                {{ course.price|floatformat:0 }} тг.
+                                            </p>
+                                        </div>
+                                        <div class="col-6 text-align-right">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <p class="text-size-24">
-                        Использую одну из лучших методик обучения, по которой учащиеся из года в год успешно поступают в
-                        ВУЗы США и Европы.
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Преимущества -->
+    <div class="advantages-block mt-60 diagonal-gradient">
+        <div class="container pt-60">
+            <h3 class="font-32 text-align-center">
+                {% trans 'Преимущества прохождения курсов на SkillSpring' %}
+            </h3>
+
+            <div class="row mt-60">
+
+                <div class="col-12 col-lg-4">
+                    <img src="{% static 'new_img/Group2.png' %}" alt="Авторы">
+                    <h5 class="font-20 medium mt-8">
+                        {% trans 'Экспертные авторы' %}
+                    </h5>
+                    <p class="font-18 regular mt-24">
+                        {% trans 'Курсы ведут практикующие специалисты с реальным опытом в своей области.' %}
                     </p>
-                    <div class="divider"></div>
-                </li>
-                <li class="my-5">
-                    <div class="d-flex align-items-baseline">
-                        <i class="fa-solid fa-person me-3 icon-font"></i>
+                </div>
 
-                        <h2 class="text-size-36"> Персональные занятия</h2>
-                    </div>
-                    <p class="text-size-24">
-                        Все занятия проводятся индивидуально.
+                <div class="col-12 col-lg-4">
+                    <img src="{% static 'new_img/book.png' %}" alt="Авторы">
+                    <h5 class="font-20 medium mt-8">
+                        {% trans 'Актуальные материалы' %}
+                    </h5>
+                    <p class="font-18 regular mt-24">
+                        {% trans 'Учебные программы обновляются с учётом последних трендов и технологий.' %}
                     </p>
-                    <div class="divider"></div>
-                </li>
-                <li class="mt-5">
-                    <div class="d-flex align-items-baseline">
-                        <i class="fa-solid fa-arrow-trend-up me-3 icon-font"></i>
-                        <h2 class="text-size-36">Индивидуальный подбор методики и материала</h2>
-                    </div>
-                    <p class="text-size-24 sm-border">Для достижения желаемого результата метод обучения подбирается
-                        индивидуально
-                        с учетом
-                        особенностей
-                        каждого ученика.</p>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
-<div class="container margin-blocks ">
-    <div class="">
-        <h2 class="text-size-60">О ПРЕПОДАВАТЕЛЕ</h2>
-        <p class="text-size-36">Достижения и биография</p>
-    </div>
-    <div class="row g-4">
-        <div class=" col-12 col-md-6 image-container-teacher  ">
-                <img class="teacher-image" src="../../static/img/blocks/img_1.png" alt="teacher" style="max-width: 100%">
-                <h2 class="image-title">Динара Еркенкызы</h2>
-
-
-        </div>
-        <div class="col-12 col-md-6 ">
-            <div class="certificate">
-                <div class="p-4">
-
-                    <div class="d-flex content-between-center mb-4">
-                        <h2 class="text-size-36">Сертификаты</h2>
-                        <i class="fa-solid fa-chevron-right text-size-24"></i>
-                    </div>
-                    <ul>
-                        <li>Сертификат о сдаче экзамена TOEFL IBT</li>
-                    </ul>
-                    <p>Бостон, США</p>
-                    <ul>
-                        <li>Сертификат о сдаче экзамена TOEFL PBT</li>
-                    </ul>
-                    <p>Бостон, США</p>
-
-                    <ul>
-                        <li>Сертификат о сдаче экзамена GRE</li>
-                    </ul>
-                    <p>Бостон, США</p>
-                    <ul>
-                        <li>Сертификаты о прохождении программ по подготовке к TOEFL, GRE</li>
-                    </ul>
-                    <p>Бостон, США</p>
-
                 </div>
 
-            </div>
-
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="certificate">
-                <div class="p-4">
-                    <h2 class="mb-4">Образование</h2>
-                    <ul>
-                        <li>
-                            Магистр Делового Администрирования, специальность “Accounting and Finance»
-                        </li>
-                    </ul>
-                    <p>KIMEP University</p>
-                    <ul>
-                        <li>
-                            Квалификация «Экономист», специальность: «Финансы и Кредит»
-                        </li>
-                    </ul>
-                    <p>
-                        Казахская Государственная Академия Управления
+                <div class="col-12 col-lg-4">
+                    <img src="{% static 'new_img/tree.png' %}" alt="Авторы">
+                    <h5 class="font-20 medium mt-8">
+                        {% trans 'Практические задания' %}
+                    </h5>
+                    <p class="font-18 regular mt-24">
+                        {% trans 'Акцент на реальных проектах для применения знаний в работе.' %}
                     </p>
-
-
                 </div>
-
             </div>
 
-        </div>
-        <div class="col-12 col-md-6  ">
-            <div class="certificate-academ">
-                <div class="p-4">
-                    <h2 class="mb-4">Академический опыт</h2>
-                    <ul>
-                        <li>
-                            Ассистент в исследовательской работе MDP/GCP Program
-                        </li>
-                    </ul>
-                    <p>
-                        Участвовала в программе Sustainable Development рамках программы, организованной совместно с MDP
-                        Program
-                        Колумбийского университета США
+            <div class="row mt-60">
+                <div class="col-12 col-lg-4">
+                    <img src="{% static 'new_img/lamp.png' %}" alt="Авторы">
+                    <h5 class="font-20 medium mt-8">
+                        {% trans 'Гибкость обучения' %}
+                    </h5>
+                    <p class="font-18 regular mt-24">
+                        {% trans 'Учитесь в удобное время и в любом месте.' %}
                     </p>
-                    <ul>
-                        <li>
-                            Курсы по английскому языку
-                        </li>
-                    </ul>
-                    <p>
-                        2015 — 2016  Бостон <br>
-                        Проходила курсы по подготовке к TOEFLи GRE
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <img src="{% static 'new_img/files.png' %}" alt="Авторы">
+                    <h5 class="font-20 medium mt-8">
+                        {% trans 'Доступ к уникальному контенту' %}
+                    </h5>
+                    <p class="font-18 regular mt-24">
+                        {% trans 'Эксклюзивные видеоуроки и материалы, недоступные на других платформах.' %}
                     </p>
-
-
                 </div>
 
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<section class="margin-blocks">
-    <div class="container justify-content-center">
-        <div class="row  ">
-            <div class="consult text-color">
-                <h2 class="text-size-48"> Легко и быстро подтянем произношение
-                    для успешной сдачи TOEFL, GRE, SAT</h2>
-                <p class="text-size-24">Оставьте заявку на бесплатное индивидуальное занятие с Динарой Еркенкызы.</p>
-                <div class="sign-up-button">
-                    <div class="sign-up-button">
-                        <button class="btn btn-danger consult-take"> Записаться на урок</button>
-
-                    </div>
-
+                <div class="col-12 col-lg-4">
+                    <img src="{% static 'new_img/certificate.png' %}" alt="Авторы">
+                    <h5 class="font-20 medium mt-8">
+                        {% trans 'Сертификаты и портфолио' %}
+                    </h5>
+                    <p class="font-18 regular mt-24">
+                        {% trans 'По завершении курсов вы получаете сертификаты, которые могут быть полезны в карьере.' %}
+                    </p>
                 </div>
             </div>
 
         </div>
     </div>
-</section>
 
-<div class="container  margin-blocks">
-
-    <h2 class="text-size-60">
-        ОТЗЫВЫ ОТ УЧЕНИКОВ
-    </h2>
-
-    <div class="row mb-5 g-3">
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="plyr__video-embed" id="player1">
-                <iframe src="https://www.youtube.com/embed/GQGX0_EHGHc?si=Y3TKTWg8z-AjC4ds"
-                        allowfullscreen allowtransparency allow="autoplay"></iframe>
-            </div>
-
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="plyr__video-embed" id="player2">
-                <iframe src="https://www.youtube.com/watch?v=nrRfZJnVJco&list=PLERb_Bszeln6mZshSiKNo9ZavRBcny4WJ&index=4"
-                        allowfullscreen allowtransparency allow="autoplay"></iframe>
-            </div>
-
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="plyr__video-embed" id="player3">
-                <iframe src="https://www.youtube.com/embed/LIWQtvimSsI?si=9VWosYkIIMH7VO_z"
-                        allowfullscreen allowtransparency allow="autoplay"></iframe>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="plyr__video-embed" id="player4">
-                <iframe src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"
-                        allowfullscreen allowtransparency allow="autoplay"></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
-{#<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">#}
-{#    <div class="carousel-inner">#}
-{#        <div class="carousel-item active">#}
-{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/ULQap4SGX6E?si=saqeHjSavv9NwSvX"#}
-{#                    title="YouTube video player" frameborder="0"#}
-{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
-{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
-{#        </div>#}
-{#        <div class="carousel-item">#}
-{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/GQGX0_EHGHc?si=Y3TKTWg8z-AjC4ds"#}
-{#                    title="YouTube video player" frameborder="0"#}
-{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
-{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
-{##}
-{#        </div>#}
-{#        <div class="carousel-item">#}
-{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/LIWQtvimSsI?si=9VWosYkIIMH7VO_z"#}
-{#                    title="YouTube video player" frameborder="0"#}
-{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
-{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
-{#        </div>#}
-{#        <div class="carousel-item">#}
-{#            <iframe class="w-100" height="550" src="https://www.youtube.com/embed/UqmvatX3Jzs?si=Z976WiFAPzTwgQun"#}
-{#                    title="YouTube video player" frameborder="0"#}
-{#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
-{#                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>#}
-{#        </div>#}
-{##}
-{#    </div>#}
-{#    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">#}
-{#        <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
-{#        <span class="visually-hidden">Предыдущий</span>#}
-{#    </button>#}
-{#    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">#}
-{#        <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
-{#        <span class="visually-hidden">Следующий</span>#}
-{#    </button>#}
-{#</div>#}
-
-
-<section class="py-5">
-    <div class="container">
-        <h2 class="text-size-60 my-5">СТОИМОСТЬ ЗАНЯТИЙ</h2>
-        <div class="row gutter-x-course gx-4">
-            <div class="col-md-6 col-6 col-sm-6 d-flex align-items-stretch">
-                <div class="table-headers p-3  w-100">
-                    <p>Название предмета:</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-3 col-sm-6 d-flex align-items-stretch">
-                <div class="table-headers p-3  w-100">
-                    <p class="duration-lessons">Длительность занятия:</p>
-                    <p class="time-lessons">Время занятия:</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-3 col-sm-6 d-flex align-items-stretch">
-                <div class="table-headers p-3  w-100">
-                    <p>Цена:</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="table-column mb-2">
-            <p class="subject">TOEFL IBT</p>
-            <p class="duration">90 мин</p>
-            <p class="price">10 000тг</p>
-        </div>
-        <div class="table-column mb-2">
-            <p class="subject">TOEFL PBT</p>
-            <p class="duration">90 мин</p>
-            <p class="price">10 000тг</p>
-        </div>
-        <div class="table-column mb-2">
-            <p class="subject">TOEFL ITP</p>
-            <p class="duration">60 мин</p>
-            <p class="price">8 000тг</p>
-        </div>
-        <div class="table-column mb-2">
-            <p class="subject">IELTS</p>
-            <p class="duration">60 мин</p>
-            <p class="price">6 500тг</p>
-        </div>
-        <div class="table-column mb-2">
-            <p class="subject">EELTS</p>
-            <p class="duration">60 мин</p>
-            <p class="price">8 000тг</p>
-        </div>
-
-        <div class="table-column mb-2">
-            <p class="subject">GRE</p>
-            <p class="duration">90 мин</p>
-            <p class="price">10 000тг</p>
-        </div>
-
-        <div class="table-column mb-2">
-            <p class="subject">Математика на английском</p>
-            <p class="duration">60 мин</p>
-            <p class="price">8 000тг</p>
-        </div>
-        <div class="table-column mb-2">
-            <p class="subject">Курс аглийского языка по уровням</p>
-            <p class="duration">60 мин</p>
-            <p class="price">5 000тг</p>
-        </div>
-        <div class="table-column mb-2">
-            <p class="subject">Финансовые предметы на английском</p>
-            <p class="duration">60 мин</p>
-            <p class="price">12 000тг</p>
-        </div>
-
-        <div class="table-column mb-2">
-            <p class="subject">Подготовка к поступлению в университет с 9 класса</p>
-            <p class="price-depending">
-                в зависимости от уровня кандидата
-            </p>
-        </div>
-
-        <div class="table-column mb-2">
-            <p class="subject">Помощь при поступлении на магистратуру и PhD в РК</p>
-            <p class="price-depending">
-                в зависимости от уровня кандидата</p>
-        </div>
-    </div>
-
-</section>
-
-<section>
-    <div class="container justify-content-center margin-blocks">
-        <div class="row  mb-5">
-            <div class="consult text-color">
-                <h2 class="consult-header"> НУЖНА КОНСУЛЬТАЦИЯ?</h2>
-                <p class="consult-text">Запишитесь на консультацию сейчас! Совершите первый шаг к эффективному изучению
-                    английского языка и
-                    подготовки к экзаменам.</p>
-                <div class="sign-up-button">
-                    <button class="btn btn-danger consult-take"> Получить консультацию</button>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-<footer class="margin-blocks">
-    <div class="container">
-        <div class="row">
-            <div class="logo logo-padding">
-                <img src="../../static/img/main_page/logo.png" alt="Логотип">
-            </div>
-            <div class="col-12 col-md-6 footer-text">
-                <h2>
-                    Частный преподаватель <br>
-                    Динара Еркенкызы
-                </h2>
-                <p>
-                    Подготовка к TOEFL, GRE, SAT с гарантией поступления на бакалавриат, магистратуру и докторантуру в
-                    лучшие ВУЗы СНГ и США
-                </p>
-            </div>
-            <div class="col-12 col-md-6 footer-contacts">
-                <h2>
-                    Контактная информация
-                </h2>
-                <div class="contact-info">
-                    <div>
-                        <p>
-                            Мы в соцсетях
-                        </p>
-                        <p class="footer-icons">
-                            <i class="fa-brands fa-instagram"></i>
-                            <i class="fa-brands fa-telegram"></i>
-                        </p>
-
-                    </div>
-
-                    <div>
-                        <p> Телефон (WhatsApp)</p>
-                        <p>
-                            +7 705 288 9271
-                        </p>
-                        <p>
-                            +7 705 288 9272
-                        </p>
-                        <p>
-                            +7 727 341 0815
+    <!-- Блок с виджетами -->
+    <div class="vidgets-block-1 mt-100">
+        <div class="container">
+            <div class="banner-container">
+                <img src="{% static 'new_img/banner1.png' %}" alt="люди за компьютерами" class="banner-image">
+                <div class="banner-block"></div>
+                <div class="text-banner-block d-flex flex-column justify-content-between">
+                    <p class="font-24 semibold white-text text-align-left">
+                        {% trans 'Присоединяйтесь к нашим курсам и развивайтесь с уверенностью!' %}
+                    </p>
+                    <div class="text-align-left">
+                        <img src="{% static 'new_img/arrow-right.png' %}" alt="стрелка вправо">
+                        <p class="font-14 regular white-text inline-block ml-6">
+                            {% trans 'Присоединиться' %}
                         </p>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
+    </div>
 
+    <div class="vidgets-block-2 mt-32">
+        <div class="container">
+            <div class="banner-container">
+                <img src="{% static 'new_img/banner2.png' %}" alt="люди за совещанием" class="banner-image">
+                <div class="banner-block-2"></div>
+                <div class="text-banner-block-2 d-flex flex-column justify-content-between">
+                    <p class="font-24 semibold white-text text-align-left">
+                        {% trans 'Присоединяйтесь к нашим курсам и развивайтесь с уверенностью!' %}
+                    </p>
+                    <div class="text-align-left">
+                        <img src="{% static 'new_img/arrow-right.png' %}" alt="стрелка вправо">
+                        <p class="font-14 regular white-text inline-block ml-6">
+                            {% trans 'Присоединиться' %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="review-block mt-100">
+        <div class="container">
+            <img src="{% static 'new_img/frame.png' %}" alt="Отзывы студентов" class="review-image">
+        </div>
     </div>
 
 
-</footer>
 
-
-</body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-
-<script>
-    let swiper = new Swiper('.swiper-container', {
-        loop: true,
-        autoplay: {
-            delay: 20000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: false,
-    });
-</script>
-
-<!-- Plyr JS -->
-<script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-
-        const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(container => new Plyr(container));
-
-
-    });
-</script>
-
-
-</html>
+{% endblock %}

@@ -1,0 +1,189 @@
+{% load i18n %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/new_style.css' %}">
+
+    {% block links %}{% endblock %}
+
+    {% block header %} {% endblock %}
+
+    <title>{% block title %}SkillSpring{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static '/img/favicon.png' %}">
+</head>
+<body>
+
+
+<!-- Start Main Menu Area -->
+<header class="header">
+    <div class="container">
+        <div class="row d-flex justify-content-between pt-38">
+            <div class="col-3 text-align-left">
+                <img class="logo1" src="{% static 'new_img/logo1.png' %}" alt="logo">
+                <img class="SkillSpring1.png" src="{% static 'new_img/SkillSpring1.png' %}" alt="SkillSpring">
+            </div>
+
+            <div class="col-6 text-align-center pt-5">
+                <a href="#" class="font-20 regular text-decoration-none text-black mr-30">
+                    {% trans 'Курсы' %}
+                </a>
+                <a href="#" class="font-20 regular text-decoration-none text-black ml-30 mr-30">
+                    {% trans 'О нас' %}
+                </a>
+                <a href="#" class="font-20 regular text-decoration-none text-black ml-30 mr-30">
+                    {% trans 'Тарифы' %}
+                </a>
+                <a href="#" class="font-20 regular text-decoration-none text-black ml-30">
+                    {% trans 'Контакты' %}
+                </a>
+            </div>
+
+            <div class="col-3 text-align-right">
+                <a href="#" class="font-20 regular text-decoration-none">
+                    <img class="logo1 text-black" src="{% static 'new_img/world.png' %}" alt="logo">
+                    <p class="font-20 regular text-decoration-none inline-block text-black ml-6 mr-6">
+                        Рус
+                    </p>
+                </a>
+                <p class="font-20 inline-block">
+                    |
+                </p>
+                <a href="#" class="font-20 regular text-decoration-none  ml-6 mr-6">
+                    <img class="logo1 text-black" src="{% static 'new_img/basket.png' %}" alt="logo">
+                </a>
+                <p class="font-20 inline-block">
+                    |
+                </p>
+                <a href="#" class="font-20 regular text-decoration-none ml-6 mr-6">
+                    <img class="logo1 text-black" src="{% static 'new_img/search.png' %}" alt="logo">
+                </a>
+                <p class="font-20 inline-block">
+                    |
+                </p>
+                <a href="#" class="font-20 regular text-decoration-none ml-6">
+                    <img class="logo1 text-black" src="{% static 'new_img/log_out.png' %}" alt="logo">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- End Main Menu Area -->
+
+{% block content %}
+{% endblock %}
+
+<!-- Start Footer Area -->
+<footer class="footer mt-100 pt-130">
+    <div class="border-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 border-right">
+                <img src="{% static 'new_img/bxs_book.png' %}" alt="Лого" class="footer-logo mt-38">
+                <img src="{% static 'new_img/SkillSpring.png' %}" alt="Лого" class="footer-name mt-38 ml-25">
+                <p class="font-20 regular white-text mt-15">
+                    {% trans 'Найди идеальный курс у нас' %}
+                </p>
+                <div class="row mt-24">
+                    <div class="col-12">
+                        <img src="{% static 'new_img/streamline_web.png' %}" alt="Лого" class="footer-icon-site">
+                        <p class="font-20 regular white-text inline-block ml-6">
+                            www.skillspring.kz
+                        </p>
+                    </div>
+                </div>
+                <div class="row mt-15">
+                    <div class="col-12">
+                        <img src="{% static 'new_img/phone.png' %}" alt="Телефон" class="footer-name">
+                        <p class="font-20 regular white-text inline-block ml-6">
+                            +7 (777) 123-45-67
+                        </p>
+                    </div>
+                </div>
+                <div class="row pb-35 mt-15">
+                    <div class="col-12">
+                        <a href="#" class="text-decoration-none">
+                            <img src="{% static 'new_img/facebook.png' %}" alt="Facebook">
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <img src="{% static 'new_img/insta.png' %}" alt="Instagram" class="ml-25">
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <img src="{% static 'new_img/linkedin.png' %}" alt="LinkedIn" class="ml-25">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8">
+
+                <div class="pt-45 pb-25">
+                    <p class="font-28 semibold white-text inline-block ml-25">
+                        {% trans 'Основные ссылки' %}
+                    </p>
+                    <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
+                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Курсы' %}
+                    </a>
+                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'О нас' %}
+                    </a>
+                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Тарифы' %}
+                    </a>
+                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Контакты' %}
+                    </a>
+                </div>
+
+                <div class="pt-45 pb-25">
+                    <p class="font-28 semibold white-text inline-block ml-25">
+                        {% trans 'Обзор сайта' %}
+                    </p>
+                    <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
+                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Вход/Регистрация' %}
+                    </a>
+                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Помощь и поддержка' %}
+                    </a>
+                </div>
+
+                <div class="pt-45 pb-25">
+                    <p class="font-28 semibold white-text inline-block ml-25">
+                        {% trans 'Подпишитесь на рассылку' %}
+                    </p>
+                    <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
+                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Курсы' %}
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="border-top pb-80"></div>
+</footer>
+
+
+<!-- Bootstrap Min JS -->
+<script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
