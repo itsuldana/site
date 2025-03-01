@@ -11,7 +11,7 @@ class Teacher(models.Model):
         CustomUser,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
-        related_name='user',
+        related_name='user_teacher',
     )
     fullname = models.CharField(
         max_length=256,

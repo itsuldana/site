@@ -19,6 +19,8 @@ from accounts.forms import (
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from accounts.models import Teacher
+
 
 class LoginView(TemplateView):
     template_name = 'login.html'
@@ -105,6 +107,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context['is_teacher'] = self.object.user_teacher.exists()
+        if context['is_teacher']:
+            context['teacher_id'] = Teacher.objects.get(user=self.object).id
 
         return context
 

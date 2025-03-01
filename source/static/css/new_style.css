@@ -58,7 +58,7 @@ body {
     --font-weight-ultrabold: 800; /* Ultrabold */
 }
 
-.main-banner {
+.main-banner-image {
     background-image: url('/static/new_img/Rectangle.png'); /* Укажите путь к изображению */
     background-size: cover; /* Заставляет изображение покрывать весь элемент */
     background-position: center; /* Центрует изображение */
@@ -336,7 +336,7 @@ body {
     background-color: #7878788A; /* Полупрозрачный фон для контраста */
     padding: 20px;
     border-radius: 35px; /* Закруглённые углы для блока */
-     width: 450px;
+    width: 450px;
     height: 363px;
 }
 
@@ -349,7 +349,7 @@ body {
     background-color: #7878788A; /* Полупрозрачный фон для контраста */
     padding: 20px;
     border-radius: 35px; /* Закруглённые углы для блока */
-     width: 450px;
+    width: 450px;
     height: 363px;
 }
 
@@ -451,3 +451,117 @@ body {
 /*    display: flex; !* Flexbox *!*/
 /*    justify-content: flex-end; !* Выровнять по правому краю *!*/
 /*}*/
+
+
+.preloader-area {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    background: #fff;
+    right: 0;
+    bottom: 0;
+}
+
+.preloader-area .loader {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    right: 0;
+    margin-top: -68px;
+}
+
+.preloader-area .dots {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+    max-width: 80px;
+}
+
+.preloader-area .dots-item {
+    position: relative;
+    width: 20%;
+    min-width: 20%;
+    max-width: 20%;
+    height: 16px;
+    font-size: 0;
+}
+
+.preloader-area .dots-item-move-up {
+    animation: 0.8s move-up linear infinite;
+}
+
+.preloader-area .dots-item-move-right {
+    animation: 0.8s move-right linear infinite;
+}
+
+.preloader-area .dots-item-move-down {
+    animation: 0.8s move-down linear infinite;
+}
+
+.preloader-area .dots-item-move-left {
+    animation: 0.8s move-left linear infinite;
+}
+
+.preloader-area .dots-item::after {
+    content: "";
+    position: absolute;
+    margin: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #30BC83;
+    border-radius: 50%;
+}
+
+.dropbtn {
+  color: white;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+    padding: 10px 10px 0px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 20px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.btn-change-lang {
+    padding-top: 10px;
+    border: none;
+}
+
+.block {
+    display: block;
+}
+
+.icon-height-width-34 {
+    height: 34px;
+    width: 34px;
+}

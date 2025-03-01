@@ -1,4 +1,4 @@
-{% extends 'new_base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 
 {% block title %}{{ teacher.fullname }}{% endblock %}
@@ -121,32 +121,40 @@
             <div class="container">
                 <h2>{% trans 'Involved in courses' %}</h2>
                 <div class="row">
-                    {% for course in courses %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-courses-item">
-                            <div class="courses-img">
-                                <img src="{{ course.image.url }}" alt="course">
-                            </div>
 
-                            <div class="courses-content">
-                                <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
-                                <ul>
-                                    <li><i class="icofont-star"></i></li>
-                                    <li><i class="icofont-star"></i></li>
-                                    <li><i class="icofont-star"></i></li>
-                                    <li><i class="icofont-star"></i></li>
-                                    <li><i class="icofont-star"></i></li>
-                                </ul>
-                            </div>
+                    {% if courses %}
+                        {% for course in courses %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-courses-item">
+                                    <div class="courses-img">
+                                        <img src="{{ course.image.url }}" alt="course">
+                                    </div>
 
-                            <div class="courses-content-bottom">
-                                <h4><i class="icofont-ui-user"></i> 120 Students</h4>
-                                <h4 class="price">${{ course.price }}</h4>
+                                    <div class="courses-content">
+                                        <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                                        <ul>
+                                            <li><i class="icofont-star"></i></li>
+                                            <li><i class="icofont-star"></i></li>
+                                            <li><i class="icofont-star"></i></li>
+                                            <li><i class="icofont-star"></i></li>
+                                            <li><i class="icofont-star"></i></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="courses-content-bottom">
+                                        <h4><i class="icofont-ui-user"></i> 120 Students</h4>
+                                        <h4 class="price">${{ course.price }}</h4>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                
+                        {% endfor %}
+                    {% else %}
+                        <h4>
+                        {% trans 'You have no courses' %}
+                        <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2"></a>
+                        </h4>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

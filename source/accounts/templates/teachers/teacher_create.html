@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Become Teacher' %}{% endblock %}
+
+{% block content %}
+    <!-- Start Page Title Area -->
+    <div class="page-title">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'Become Teacher' %}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Login Area -->
+    <section class="login-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="heading">{% trans 'Become Teacher' %}</div>
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label>{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Position' %}</label>#}
+{#                            {{ form.position }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Instagram' %}</label>#}
+{#                            {{ form.instagram }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Facebook' %}</label>#}
+{#                            {{ form.facebook }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Linkedin' %}</label>#}
+{#                            {{ form.linkedin }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Twitter' %}</label>#}
+{#                            {{ form.twitter }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Phone Number' %}</label>#}
+{#                            {{ form.phone_number }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Geolocation' %}</label>#}
+{#                            {{ form.geolocation }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Accounting' %}</label>#}
+{#                            {{ form.accounting }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Writing' %}</label>#}
+{#                            {{ form.writing }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Speaking' %}</label>#}
+{#                            {{ form.speaking }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Reading' %}</label>#}
+{#                            {{ form.reading }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'About Ru' %}</label>#}
+{#                            {{ form.about_ru }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'About En' %}</label>#}
+{#                            {{ form.about_en }}#}
+{#                        </div>#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <label>{% trans 'Profile Image' %}</label>#}
+{#                            {{ form.profile_image }}#}
+{#                        </div>#}
+
+                        <div class="d-flex justify-content-between mlr-20">
+                            <h4>
+                                <a href="{% url 'user_detail' user.pk %}" class="login-urls">
+                                    {% trans "Go back" %}
+                                </a>
+                            </h4>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">{% trans 'Become Teacher' %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

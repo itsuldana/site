@@ -11,9 +11,9 @@ sitemaps = {
 
 urlpatterns = [
     # Главная
-    path('', views.IndexView.as_view(), name='index'),
+    # path('', views.IndexView.as_view(), name='index'),
 
-    path('main', views.MainView.as_view(), name='main'),
+    path('', views.MainView.as_view(), name='index'),
 
     # Robots.txt
     path('robots.txt', views.robots_txt, name='robots_txt'),

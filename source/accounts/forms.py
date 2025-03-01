@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.password_validation import validate_password
 
+from accounts.models import Teacher
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -139,3 +141,80 @@ class CustomPasswordChangeForm(PasswordChangeForm):
     class Meta:
         model = get_user_model()
         fields = ['old_password', 'new_password1', 'new_password2']
+
+
+class TeacherApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = [
+            'fullname', 'position', 'instagram', 'facebook', 'linkedin', 'twitter',
+            'phone_number', 'geolocation', 'accounting', 'writing', 'speaking', 'reading',
+            'about_ru', 'about_en', 'profile_image'
+        ]
+        widgets = {
+            'fullname': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Full Name'
+            }),
+            'position': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Specialization'
+            }),
+            'instagram': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Instagram Profile URL'
+            }),
+            'facebook': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Facebook Profile URL'
+            }),
+            'linkedin': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'LinkedIn Profile URL'
+            }),
+            'twitter': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Twitter Profile URL'
+            }),
+            'phone_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Phone Number'
+            }),
+            'geolocation': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Location (e.g. Kazakhstan, Almaty)'
+            }),
+            'accounting': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Accounting Skill (0-100)',
+                'min': 0, 'max': 100
+            }),
+            'writing': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Writing Skill (0-100)',
+                'min': 0, 'max': 100
+            }),
+            'speaking': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Speaking Skill (0-100)',
+                'min': 0, 'max': 100
+            }),
+            'reading': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Reading Skill (0-100)',
+                'min': 0, 'max': 100
+            }),
+            'about_ru': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'About (Russian)',
+                'rows': 4
+            }),
+            'about_en': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'About (English)',
+                'rows': 4
+            }),
+            'profile_image': forms.ClearableFileInput(attrs={
+                'class': 'form-control'
+            }),
+        }

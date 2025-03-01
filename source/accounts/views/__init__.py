@@ -6,5 +6,5 @@ from .user import (
 )
 
 from .teacher import (
-    TeacherListView, TeacherDetailView
+    TeacherListView, TeacherDetailView, become_teacher
 )
