@@ -144,14 +144,20 @@
                                     <div class="courses-content-bottom">
                                         <h4><i class="icofont-ui-user"></i> 120 Students</h4>
                                         <h4 class="price">${{ course.price }}</h4>
+                                        <a href="{% url 'course_edit' course.pk %}" class="btn btn-primary mb-2 me-2">
+                                            {% trans 'Edit' %}
+                                        </a>
+                                        <a href="{% url 'manage_modules' course.pk %}" class="btn btn-primary mb-2 me-2">
+                                            {% trans 'Manage Modules' %}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         {% endfor %}
                     {% else %}
                         <h4>
-                        {% trans 'You have no courses' %}
-                        <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2"></a>
+                            {% trans 'You have no courses' %}
+                            <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2"></a>
                         </h4>
                     {% endif %}
 

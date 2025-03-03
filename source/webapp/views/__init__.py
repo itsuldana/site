@@ -1,7 +1,7 @@
 from .index import MainView
 from .contact_us import ContactUsView, send_email
-from .lessons import LessonCreateView, LessonUpdateView, LessonDeleteView, LessonDetailView
-from .module import ModuleCreateView, ModuleUpdateView
+from .lessons import LessonCreateView, LessonUpdateView, LessonDeleteView, LessonDetailView, ManageLessonsView
+from .module import ModuleCreateView, ModuleUpdateView, ManageModulesView
 from .purchase import purchase_course, purchase_success, purchase_failure
 from .index import IndexView
 from .robots import robots_txt

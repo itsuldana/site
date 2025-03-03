@@ -28,21 +28,23 @@ urlpatterns = [
     path('courses/', views.CoursesView.as_view(), name='course_list'),
 
     # urls для курсов
-    # path('courses/create/', views.CourseCreateView.as_view(), name='course_create'),
+    path('courses/create/', views.CourseCreateView.as_view(), name='course_create'),
     path('courses/<int:pk>/detail/', views.CourseDetailView.as_view(), name='course_detail'),
-    # path('courses/<int:pk>/edit/', views.CourseUpdateView.as_view(), name='course_edit'),
+    path('courses/<int:pk>/edit/', views.CourseUpdateView.as_view(), name='course_edit'),
     path('courses/list', views.CourseListView.as_view(), name='course_list'),
     path('courses/paid_list/', views.CoursePaidListView.as_view(), name='course_paid_list'),
 
     # urls для модулей
-    # path('courses/<int:pk>/modules/create/', views.ModuleCreateView.as_view(), name='module_create'),
-    # path('modules/<int:pk>/edit/', views.ModuleUpdateView.as_view(), name='module_edit'),
+    path('courses/<int:pk>/modules/create/', views.ModuleCreateView.as_view(), name='module_create'),
+    path('modules/<int:pk>/edit/', views.ModuleUpdateView.as_view(), name='module_edit'),
+    path('modules/manage/<int:pk>', views.ManageModulesView.as_view(), name='manage_modules'),
 
     # urls для уроков
-    # path('modules/<int:pk>/lessons/create/', views.LessonCreateView.as_view(), name='lesson_create'),
-    # path('lessons/<int:pk>/edit/', views.LessonUpdateView.as_view(), name='lesson_edit'),
+    path('modules/<int:pk>/lessons/create/', views.LessonCreateView.as_view(), name='lesson_create'),
+    path('lessons/<int:pk>/edit/', views.LessonUpdateView.as_view(), name='lesson_edit'),
     path('lessons/<int:pk>/', views.LessonDetailView.as_view(), name='lesson_detail'),
-    # path('lessons/<int:pk>/delete/', views.LessonDeleteView.as_view(), name='lesson_delete'),
+    path('lessons/<int:pk>/delete/', views.LessonDeleteView.as_view(), name='lesson_delete'),
+    path('lessons/manage/<int:pk>', views.ManageLessonsView.as_view(), name='manage_lessons'),
 
     # urls для оплаты
     path('purchase/<int:course_id>/', views.purchase_course, name='purchase_course'),

@@ -3,6 +3,14 @@
 {% load i18n %}
 {% block title %}{% trans "Course Editing" %}{% endblock %}
 
+{% block style %}
+    <style>
+        input, textarea, select {
+            border: 1px solid #ccc !important;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="container main-container py-5">
         <div class="row justify-content-center">

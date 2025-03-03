@@ -2,8 +2,11 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Count, Sum, Prefetch, OuterRef, Subquery, Value
 from django.db.models.functions import Coalesce
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, TemplateView
+
+from accounts.models import Teacher
 from ..forms import CourseForm
 from ..models import Course, Tag, Module, LessonProgress, Purchase, Skills, Lesson
 
@@ -48,21 +51,28 @@ class CoursePaidListView(LoginRequiredMixin, ListView):
         return queryset
 
 
-class CourseCreateView(UserPassesTestMixin, CreateView):
+class CourseCreateView(CreateView):
     model = Course
     form_class = CourseForm
     template_name = 'course/course_create.html'
-    success_url = reverse_lazy('course_list')
+    # success_url = reverse('teacher_detail', kwargs={'pk': request.user.pk})
+    # success_url = reverse('index')
 
-    def test_func(self):
-        return self.request.user.is_superuser
+
+    def form_valid(self, form):
+        teacher = Teacher.objects.get(user_id=self.request.user.id)
+        form.instance.teacher = teacher
+        return super().form_valid(form)
+
+    # def test_func(self):
+    #     return self.request.user
 
 
 class CourseUpdateView(UserPassesTestMixin, UpdateView):
     model = Course
     form_class = CourseForm
     template_name = 'course/course_edit.html'
-    success_url = reverse_lazy('manage_courses')
+    success_url = reverse_lazy('manage_modules')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load percent_filter %}
+{% load i18n %}
+
+{% block title %}{% trans 'Lessons Manage' %}{% endblock %}
+
+{% block content %}
+
+    <!-- Start Page Title Area -->
+    <div class="page-title course-list-image">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'Manage Lessons of Module' %} {{ module.title }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Courses Area -->
+    <section class="courses-area ptb-100">
+        <div class="container">
+            <table class="table">
+                <thead>
+                <tr style="height: 38px">
+                    <th scope="col">#</th>
+                    <th scope="col">{% trans 'Lesson Name' %}</th>
+                    <th scope="col">{% trans 'Is Active' %}</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for lesson in lessons %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ lesson.title }}</td>
+                        {% if lesson.is_active %}
+                            <td>{% trans 'Yes' %}</td>
+                        {% else %}
+                            <td>{% trans 'No' %}</td>
+                        {% endif %}
+                        <td>
+                            <a href="{% url 'lesson_edit' lesson.pk %}" class="btn btn-primary mb-2 me-2">
+                                {% trans 'Edit' %}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'manage_lessons' lesson.pk %}" class="btn btn-secondary mb-2 me-2">
+                                {% trans 'Manage Lessons' %}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'lesson_delete' lesson.pk %}" class="btn btn-danger mb-2 me-2">
+                                {% trans 'Delete' %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{% url 'lesson_create' module.pk %}" class="btn btn-primary mb-2 me-2" style="margin-top: 20px;">
+                {% trans 'Create Lesson' %}
+            </a>
+            <a href="{% url 'manage_modules' module.pk %}" class="btn btn-warning mb-2 me-2" style="margin-top: 20px;">
+                {% trans 'Return To Modules' %}
+            </a>
+        </div>
+    </section>
+    <!-- End Courses Area -->
+{% endblock %}

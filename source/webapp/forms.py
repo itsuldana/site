@@ -25,7 +25,6 @@ class LessonForm(forms.ModelForm):
         # it is required to set it False,
         # otherwise it will throw error in console
         self.fields["content"].required = False
-        self.fields['creator'].queryset = CustomUser.objects.filter(is_superuser=True)
 
     class Meta:
         model = Lesson

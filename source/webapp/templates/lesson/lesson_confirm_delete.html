@@ -1,32 +1,35 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}Удаление с подтверждением{% endblock %}
 
 {% block content %}
-    <div class="container main-container">
-        <div class="row">
-            <div class="col">
-                <h2>
-                    Вы точно хотите удалить урок?
-                </h2>
+    <section class="courses-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>
+                        {% trans 'Are you sure you want to delete the lesson?' %}
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" style="margin-top: 40px">
+                    <h5>{{ lesson.title }}</h5>
+                    <p>{{ lesson.content|safe }}</p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px">
+                <div class="col-1">
+                    <form action="{% url 'lesson_delete' lesson.pk %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class='btn btn-danger'>Удалить</button>
+                    </form>
+                </div>
+                <div class="col-2" style="margin-left: 25px">
+                    <a href="{% url 'manage_lessons' module.pk %}" class='btn btn-success'>Отмена</a>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-4">
-                <h5>{{ lesson.title }}</h5>
-                <p>{{ lesson.content|safe }}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-1 button-margin">
-                <form action="{% url 'lesson_delete' lesson.pk %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class='btn btn-danger'>Удалить</button>
-                </form>
-            </div>
-            <div class="col-1">
-                <a href="{% url 'manage_lessons' module.pk %}" class='btn btn-success'>Отмена</a>
-            </div>
-        </div>
-    </div>
+    </section>
 {% endblock %}

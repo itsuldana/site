@@ -10,7 +10,7 @@ from ..forms import LessonForm
 from ..models import Lesson, Module, LessonProgress
 
 
-class LessonCreateView(UserPassesTestMixin, CreateView):
+class LessonCreateView(CreateView):
     model = Lesson
     form_class = LessonForm
     template_name = 'lesson/lesson_create.html'
@@ -21,9 +21,6 @@ class LessonCreateView(UserPassesTestMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('manage_lessons', kwargs={'pk': self.object.module_id})
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
 
 class LessonDetailView(DetailView):
@@ -102,7 +99,18 @@ class LessonDeleteView(UserPassesTestMixin, DeleteView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('manage_modules', kwargs={'pk': self.object.module_id})
+        return reverse_lazy('manage_lessons', kwargs={'pk': self.object.module_id})
 
     def test_func(self):
         return self.request.user.is_superuser
+
+class ManageLessonsView(DetailView):
+    model = Module
+    template_name = 'lesson/lessons_manage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["lessons"] = Lesson.objects.filter(module=self.object)
+
+        return context

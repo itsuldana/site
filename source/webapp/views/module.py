@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 
+from accounts.models import Teacher
 from webapp.forms import CourseModuleForm
 from webapp.models import Module, Course
 
@@ -40,3 +41,16 @@ class ModuleUpdateView(UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
+
+class ManageModulesView(DetailView):
+    model = Course
+    template_name = 'module/module_manage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["modules"] = Module.objects.filter(course=self.object)
+        context["teacher_id"] = Teacher.objects.get(user_id=self.request.user.id).pk
+
+        return context
