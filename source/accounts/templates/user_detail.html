@@ -9,112 +9,129 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="main-body">
-
-            <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-column align-items-center text-center">
-                                {% if request.user.avatar %}
-                                    <img class="img-fluid" src="{{ request.user.avatar.url }}">
-                                {% else %}
-                                    <img class="img-fluid" src="{% static 'img/none_image_profile.png' %}">
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-
+    <!-- Start Page Title Area -->
+    <div class="page-title new-york">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'Profile' %} - {{ user_obj.first_name }}</h3>
                 </div>
-                <div class="col-md-8">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Nickname</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
 
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Email</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ user_obj.email }}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">{% trans 'First Name' %}</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ user_obj.first_name }}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">{% trans 'Last Name' %}</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ user_obj.last_name }}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">{% trans 'Last Login' %}</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ user_obj.last_login }}
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">{% trans 'Is Teacher' %}</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {% if not is_teacher %}
-                                        <a href="{% url 'become_teacher' %}" class="btn btn-primary mb-2 me-2">
-                                            {% trans 'Become Teacher' %}
-                                        </a>
+    <section class="course-details-area ptb-100">
+        <div class="container">
+            <div class="main-body">
+
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    {% if request.user.avatar %}
+                                        <img class="img-fluid" src="{{ request.user.avatar.url }}">
                                     {% else %}
-                                        <a href="{% url 'teacher_detail' teacher_id %}" class="btn btn-primary mb-2 me-2">
-                                            {% trans 'Teacher admin' %}
-                                        </a>
+                                        <img class="img-fluid" src="{% static 'img/none_image_profile.png' %}">
                                     {% endif %}
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">
-                                        {% trans 'Edit Profile' %}
-                                    </a>
-                                    <a href="{% url 'change_email' user_obj.id %}" class="btn btn-primary mb-2 me-2">
-                                        {% trans 'Change Email' %}
-                                    </a>
-                                    <a href="{% url 'change_password' user_obj.id %}" class="btn btn-primary mb-2 me-2">
-                                        {% trans 'Change Password' %}
-                                    </a>
-                                    <a href="{% url 'logout' %}"
-                                       class="btn btn-danger mb-2 me-2">{% trans 'Log Out' %}</a>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Nickname</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user_obj.email }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">{% trans 'First Name' %}</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user_obj.first_name }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">{% trans 'Last Name' %}</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user_obj.last_name }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">{% trans 'Last Login' %}</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ user_obj.last_login }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">{% trans 'Is Teacher' %}</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {% if not is_teacher %}
+                                            <a href="{% url 'become_teacher' %}" class="btn btn-primary mb-2 me-2">
+                                                {% trans 'Become Teacher' %}
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'teacher_detail' teacher_id %}"
+                                               class="btn btn-primary mb-2 me-2">
+                                                {% trans 'Teacher admin' %}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">
+                                            {% trans 'Edit Profile' %}
+                                        </a>
+                                        <a href="{% url 'change_email' user_obj.id %}"
+                                           class="btn btn-primary mb-2 me-2">
+                                            {% trans 'Change Email' %}
+                                        </a>
+                                        <a href="{% url 'change_password' user_obj.id %}"
+                                           class="btn btn-primary mb-2 me-2">
+                                            {% trans 'Change Password' %}
+                                        </a>
+                                        <a href="{% url 'logout' %}"
+                                           class="btn btn-danger mb-2 me-2">{% trans 'Log Out' %}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
+    </section>
 
 
 
