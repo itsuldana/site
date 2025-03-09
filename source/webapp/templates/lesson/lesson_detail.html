@@ -69,6 +69,41 @@
             border-color: #083D77;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
     </style>
 {% endblock %}
 
@@ -330,6 +365,7 @@
         document.getElementById('finish-button').addEventListener('click', () => {
             const lessonId = '{{ lesson.id }}';
             const nextLessonUrl = '{% if next_lesson %}{% url "lesson_detail" pk=next_lesson.lesson.id %}{% else %}{% url "course_detail" pk=lesson.module.course.id %}{% endif %}';
+
             fetch(`/api/v1/lesson-progress/${lessonId}/`, {
                 method: 'PUT',
                 headers: {
@@ -343,12 +379,32 @@
                         console.error('Ошибка:', data.error);
                     } else {
                         console.log('Статус обновлен:', data);
-                        window.location.href = nextLessonUrl
 
+                        // Отображаем сообщение о повышении уровня
+                        if (data.level_message) {
+                            showNotification(data.level_message);
+                        }
+
+                        // Перенаправляем на следующий урок
+                        setTimeout(() => {
+                            window.location.href = nextLessonUrl;
+                        }, 2000); // Даем пользователю время прочитать сообщение
                     }
                 })
                 .catch(error => console.error('Ошибка:', error));
         });
+
+        // Функция для отображения уведомлений
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerText = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000); // Уведомление исчезает через 3 секунды
+        }
     </script>
 
     <script>

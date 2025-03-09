@@ -112,6 +112,21 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         if context['is_teacher']:
             context['teacher_id'] = Teacher.objects.get(user=self.object).id
 
+        user = self.object
+        next_level_xp = user.get_xp_for_next_level()
+        xp_needed = next_level_xp - user.xp
+        progress_percentage = int((user.xp / next_level_xp) * 100 if next_level_xp > 0 else 0)
+
+        discount = user.get_user_discount()
+
+        context.update({
+            'discount': discount,
+            'user_xp': user.xp,
+            'xp': xp_needed,
+            'next_level_xp': next_level_xp,
+            'progress_percentage': progress_percentage,
+        })
+
         return context
 
 

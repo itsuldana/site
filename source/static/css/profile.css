@@ -54,3 +54,7 @@ body {
 .shadow-none {
     box-shadow: none !important;
 }
+
+.mb-19 {
+    margin-bottom: 19px;
+}

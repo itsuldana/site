@@ -45,10 +45,38 @@
                             <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Nickname</h6>
+                                        <h6 class="mb-0">{% trans 'Account Level' %}</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
+                                        {{ user_obj.level }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <!-- Прогресс-бар -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">{% trans 'Until Next Level' %}</h6>
+                                    </div>
 
+                                    <div class="col-sm-9 text-secondary mb-19">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar"
+                                                 style="width: {{ progress_percentage }}%;"
+                                                 aria-valuenow=" {{ user_obj.xp }} / {{ next_level_xp }} XP"
+                                                 aria-valuemin="0"
+                                                 aria-valuemax="{{ user.get_xp_for_next_level }}"> {{ user_obj.xp }}
+                                                / {{ user.get_xp_for_next_level }} XP
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">{% trans 'Your discount' %}</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{ discount }}%
                                     </div>
                                 </div>
                                 <hr>
@@ -93,34 +121,11 @@
                                         <h6 class="mb-0">{% trans 'Is Teacher' %}</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        {% if not is_teacher %}
-                                            <a href="{% url 'become_teacher' %}" class="btn btn-primary mb-2 me-2">
-                                                {% trans 'Become Teacher' %}
-                                            </a>
+                                        {% if not is_teacher %}#}
+                                            {% trans 'No' %}
                                         {% else %}
-                                            <a href="{% url 'teacher_detail' teacher_id %}"
-                                               class="btn btn-primary mb-2 me-2">
-                                                {% trans 'Teacher admin' %}
-                                            </a>
+                                            {% trans 'Yes' %}
                                         {% endif %}
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">
-                                            {% trans 'Edit Profile' %}
-                                        </a>
-                                        <a href="{% url 'change_email' user_obj.id %}"
-                                           class="btn btn-primary mb-2 me-2">
-                                            {% trans 'Change Email' %}
-                                        </a>
-                                        <a href="{% url 'change_password' user_obj.id %}"
-                                           class="btn btn-primary mb-2 me-2">
-                                            {% trans 'Change Password' %}
-                                        </a>
-                                        <a href="{% url 'logout' %}"
-                                           class="btn btn-danger mb-2 me-2">{% trans 'Log Out' %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -128,6 +133,34 @@
 
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        {% if not is_teacher %}#}
+                            <a href="{% url 'become_teacher' %}" class="btn btn-primary mb-2 me-2">
+                                {% trans 'Become Teacher' %}
+                            </a>
+                        {% else %}
+                            <a href="{% url 'teacher_detail' teacher_id %}"
+                               class="btn btn-primary mb-2 me-2">
+                                {% trans 'Teacher admin' %}
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">
+                            {% trans 'Edit Profile' %}
+                        </a>
+                        <a href="{% url 'change_email' user_obj.id %}" class="btn btn-primary mb-2 me-2">
+                            {% trans 'Change Email' %}
+                        </a>
+                        <a href="{% url 'change_password' user_obj.id %}" class="btn btn-primary mb-2 me-2">
+                            {% trans 'Change Password' %}
+                        </a>
+                        <a href="{% url 'logout' %}" class="btn btn-danger mb-2 me-2">
+                            {% trans 'Log Out' %}
+                        </a>
+                    </div>
+                </div>
+
 
             </div>
         </div>

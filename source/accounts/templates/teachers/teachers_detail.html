@@ -3,6 +3,14 @@
 
 {% block title %}{{ teacher.fullname }}{% endblock %}
 
+{% block style %}
+    <style>
+        .btn {
+            padding: 9px 18px;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <!-- Start Page Title Area -->
     <div class="page-title new-york">
@@ -144,14 +152,16 @@
                                     <div class="courses-content-bottom">
                                         <h4><i class="icofont-ui-user"></i> 120 Students</h4>
                                         <h4 class="price">${{ course.price }}</h4>
-                                        <a href="{% url 'course_edit' course.pk %}" class="btn btn-primary mb-2 me-2">
-                                            {% trans 'Edit' %}
-                                        </a>
-                                        <a href="{% url 'manage_modules' course.pk %}" class="btn btn-primary mb-2 me-2">
-                                            {% trans 'Manage Modules' %}
-                                        </a>
                                     </div>
                                 </div>
+
+                                <a href="{% url 'course_edit' course.pk %}" class="btn btn-primary mb-2 me-2">
+                                    {% trans 'Edit' %}
+                                </a>
+                                <a href="{% url 'manage_modules' course.pk %}" class="btn btn-primary mb-2 me-2">
+                                    {% trans 'Manage Modules' %}
+                                </a>
+
                             </div>
                         {% endfor %}
                     {% else %}

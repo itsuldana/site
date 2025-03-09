@@ -42,6 +42,7 @@ class ProgressUpdateApiView(APIView):
     )
     def put(self, request, lesson_id):
         user = request.user
+
         try:
             progress = LessonProgress.objects.get(lesson_id=lesson_id, user=user)
         except LessonProgress.DoesNotExist:
@@ -51,7 +52,11 @@ class ProgressUpdateApiView(APIView):
         progress.finished_at = timezone.now()
         progress.save()
 
+        # Вызываем функцию добавления опыта
+        course_id = progress.lesson.module.course.id
+        level_message = user.add_experience(course_id=course_id, lesson_id=lesson_id, xp_amount=25)
+
         serializer = ProgressSerializer(progress)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'progress': serializer.data, 'level_message': level_message}, status=status.HTTP_200_OK)
 
 

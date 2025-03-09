@@ -136,15 +136,15 @@
                 <p class="font-20 inline-block">
                     |
                 </p>
-                <a href="#" class="font-20 regular text-decoration-none  ml-6 mr-6">
-                    <img class="logo1 text-black" src="{% static 'new_img/basket.png' %}" alt="logo">
-                </a>
-                <p class="font-20 inline-block">
-                    |
-                </p>
-                <a href="#" class="font-20 regular text-decoration-none ml-6 mr-6">
-                    <img class="logo1 text-black" src="{% static 'new_img/search.png' %}" alt="logo">
-                </a>
+                <div class="level-badge" style="background: linear-gradient(135deg, {{ user.get_level_color }});">
+                    {{ user.level }}
+                </div>
+{#                <p class="font-20 inline-block">#}
+{#                    |#}
+{#                </p>#}
+{#                <a href="#" class="font-20 regular text-decoration-none ml-6 mr-6">#}
+{#                    <img class="logo1 text-black" src="{% static 'new_img/search.png' %}" alt="logo">#}
+{#                </a>#}
                 <p class="font-20 inline-block">
                     |
                 </p>
@@ -275,25 +275,25 @@
 
 
 {#<!-- jQuery Min JS -->#}
-{#<script src="{% static '/js/jquery.min.js' %}"></script>#}
-{#<!-- Bootstrap Min JS -->#}
-{#<script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>#}
-{#<!-- Classy Nav Min Js -->#}
-{#<script src="{% static '/js/classy-nav.min.js' %}"></script>#}
-{#<!-- Owl Carousel Min Js -->#}
-{#<script src="{% static '/js/owl.carousel.min.js' %}"></script>#}
-{#<!-- Magnific Popup JS -->#}
-{#<script src="{% static '/js/jquery.magnific-popup.min.js' %}"></script>#}
-{#<!-- CounterUp JS -->#}
-{#<script src="{% static '/js/jquery.counterup.min.js' %}"></script>#}
-{#<!-- Waypoints JS -->#}
-{#<script src="{% static '/js/waypoints.min.js' %}"></script>#}
-{#<!-- Form Validator Min JS -->#}
-{#<script src="{% static '/js/form-validator.min.js' %}"></script>#}
-{#<!-- Contact Form Min JS -->#}
-{#<script src="{% static '/js/contact-form-script.js' %}"></script>#}
-{#<!-- Main JS -->#}
-{#<script src="{% static '/js/main.js' %}"></script>#}
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<!-- Bootstrap Min JS -->
+<script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+<!-- Classy Nav Min Js -->
+<script src="{% static '/js/classy-nav.min.js' %}"></script>
+<!-- Owl Carousel Min Js -->
+<script src="{% static '/js/owl.carousel.min.js' %}"></script>
+<!-- Magnific Popup JS -->
+<script src="{% static '/js/jquery.magnific-popup.min.js' %}"></script>
+<!-- CounterUp JS -->
+<script src="{% static '/js/jquery.counterup.min.js' %}"></script>
+<!-- Waypoints JS -->
+<script src="{% static '/js/waypoints.min.js' %}"></script>
+<!-- Form Validator Min JS -->
+<script src="{% static '/js/form-validator.min.js' %}"></script>
+<!-- Contact Form Min JS -->
+<script src="{% static '/js/contact-form-script.js' %}"></script>
+<!-- Main JS -->
+<script src="{% static '/js/main.js' %}"></script>
 
 </body>
 </html>

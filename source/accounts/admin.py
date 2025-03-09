@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from accounts.models import CustomUser, Teacher
+from accounts.models import CustomUser, Teacher, LevelSetting
 
 
 class CustomUserAdmin(UserAdmin):
@@ -31,4 +31,18 @@ class TeacherAdmin(admin.ModelAdmin):
         'user',
         'fullname',
         'position',
+    )
+
+
+@admin.register(LevelSetting)
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'level',
+        'xp_required',
+    )
+    list_display_links = (
+        'id',
+        'level',
+        'xp_required',
     )
