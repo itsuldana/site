@@ -380,15 +380,13 @@
                     } else {
                         console.log('Статус обновлен:', data);
 
-                        // Отображаем сообщение о повышении уровня
+                        let redirectUrl = nextLessonUrl;
+
                         if (data.level_message) {
-                            showNotification(data.level_message);
+                            redirectUrl += `?message=${encodeURIComponent(data.level_message)}`;
                         }
 
-                        // Перенаправляем на следующий урок
-                        setTimeout(() => {
-                            window.location.href = nextLessonUrl;
-                        }, 2000); // Даем пользователю время прочитать сообщение
+                        window.location.href = redirectUrl;
                     }
                 })
                 .catch(error => console.error('Ошибка:', error));
@@ -403,8 +401,20 @@
 
             setTimeout(() => {
                 notification.remove();
-            }, 3000); // Уведомление исчезает через 3 секунды
+            }, 10000); // Уведомление исчезает через 3 секунды
         }
+
+
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            if (message) {
+                showNotification(decodeURIComponent(message));
+            }
+        });
     </script>
 
     <script>

@@ -132,5 +132,5 @@ class Lesson(models.Model):
             return " "
 
     class Meta:
-        verbose_name = 'Урок'
-        verbose_name_plural = 'Уроки'
+        verbose_name = 'Lesson'
+        verbose_name_plural = 'Lessons'

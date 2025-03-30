@@ -32,8 +32,30 @@ class ModuleAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 class PurchaseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'course' ,'payment_status', 'purchase_date')
-    search_fields = ('user', 'course')
+    list_display = (
+        'id',
+        'user',
+        'payment_code',
+        'course',
+        'payment_status',
+        'purchase_date',
+    )
+    search_fields = (
+        'id',
+        'user',
+        'payment_code',
+        'course',
+        'payment_status',
+        'purchase_date',
+    )
+    list_display_links = (
+        'id',
+        'user',
+        'payment_code',
+        'course',
+        'payment_status',
+        'purchase_date',
+    )
 
 
 admin.site.register(Lesson, LessonAdmin)

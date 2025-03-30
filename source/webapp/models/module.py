@@ -69,5 +69,5 @@ class Module(models.Model):
             self.save()
 
     class Meta:
-        verbose_name = 'Модуль'
-        verbose_name_plural = 'Модули'
+        verbose_name = 'Module'
+        verbose_name_plural = 'Modules'

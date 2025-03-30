@@ -33,10 +33,37 @@ class CustomUser(AbstractUser):
             return None  # Если уровень не настроен, вернется None
 
     def add_experience(self, course_id: int, lesson_id: int, xp_amount: int):
-        """Добавляет опыт и проверяет, не пора ли повысить уровень"""
+        """Добавляет опыт, проверяет завершение модуля/курса и повышает уровень."""
+        from webapp.models import Lesson, LessonProgress
+
         self.xp += xp_amount
         level_up_messages = []
 
+        # Проверка завершения модуля
+        lesson = Lesson.objects.get(id=lesson_id)
+        module = lesson.module
+        course = module.course
+
+        completed_lessons_in_module = LessonProgress.objects.filter(
+            user=self, lesson__module=module, status="done"
+        ).count()
+        total_lessons_in_module = module.lessons.count()
+
+        if completed_lessons_in_module == total_lessons_in_module:
+            self.xp += 50
+            level_up_messages.append(f"🎉 Вы завершили модуль '{module.title}' и получили +50 XP!")
+
+        # Проверка завершения курса
+        completed_lessons_in_course = LessonProgress.objects.filter(
+            user=self, lesson__module__course=course, status="done"
+        ).count()
+        total_lessons_in_course = Lesson.objects.filter(module__course=course).count()
+
+        if completed_lessons_in_course == total_lessons_in_course:
+            self.xp += 100
+            level_up_messages.append(f"🎉 Вы завершили курс '{course.title}' и получили +100 XP!")
+
+        # Проверка на повышение уровня
         while True:
             xp_needed = self.get_xp_for_next_level()
             if xp_needed is None or self.level >= 25:
@@ -52,7 +79,7 @@ class CustomUser(AbstractUser):
         self.save()
         xp_left = self.get_xp_for_next_level() - self.xp if self.get_xp_for_next_level() else 0
 
-        return " ".join(level_up_messages) if level_up_messages else f"Вам осталось {xp_left} опыта до следующего уровня."
+        return "\n".join(level_up_messages) if level_up_messages else f"Вам осталось {xp_left} опыта до следующего уровня."
 
     def get_user_discount(self):
         discount_levels = {

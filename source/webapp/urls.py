@@ -11,8 +11,6 @@ sitemaps = {
 
 urlpatterns = [
     # Главная
-    # path('', views.IndexView.as_view(), name='index'),
-
     path('', views.MainView.as_view(), name='index'),
 
     # Robots.txt
@@ -47,9 +45,8 @@ urlpatterns = [
     path('lessons/manage/<int:pk>', views.ManageLessonsView.as_view(), name='manage_lessons'),
 
     # urls для оплаты
-    path('purchase/<int:course_id>/', views.purchase_course, name='purchase_course'),
-    path('purchase/success/', views.purchase_success, name='purchase_success'),
-    path('purchase/failure/', views.purchase_failure, name='purchase_failure'),
+    path('purchase/<int:course_id>/', views.PurchaseCreateView.as_view(), name='purchase_course'),
+    path('payment-qr/<int:pk>/', views.PaymentQRView.as_view(), name='payment_qr'),
 
     # urls для тестов от модуля
     path('start-test/<int:module_id>/', views.StartTestView.as_view(), name='start_test'),

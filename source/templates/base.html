@@ -133,12 +133,14 @@
                         </form>
                     </div>
                 </div>
-                <p class="font-20 inline-block">
-                    |
-                </p>
-                <div class="level-badge" style="background: linear-gradient(135deg, {{ user.get_level_color }});">
-                    {{ user.level }}
-                </div>
+                {% if request.user.is_authenticated %}
+                    <p class="font-20 inline-block">
+                        |
+                    </p>
+                    <div class="level-badge" style="background: linear-gradient(135deg, {{ user.get_level_color }});">
+                        {{ user.level }}
+                    </div>
+                {% endif %}
 {#                <p class="font-20 inline-block">#}
 {#                    |#}
 {#                </p>#}

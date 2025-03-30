@@ -16,8 +16,8 @@ class LevelSetting(models.Model):
 
     class Meta:
         ordering = ["level"]
-        verbose_name = "Настройка уровня"
-        verbose_name_plural = "Настройки уровней"
+        verbose_name = "Level"
+        verbose_name_plural = "Level settings"
 
     def __str__(self):
-        return f"Уровень {self.level}: {self.xp_required} XP"
+        return f"Level {self.level}: {self.xp_required} XP"

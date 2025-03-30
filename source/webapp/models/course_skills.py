@@ -36,8 +36,8 @@ class Skills(models.Model):
     )
 
     class Meta:
-        verbose_name = "Скилл, который можно приобрести на курсе"
-        verbose_name_plural = "Скиллы, которые можно приобрести на курсе"
+        verbose_name = "Skill"
+        verbose_name_plural = "Skills"
 
     def __str__(self):
         return f"{self.name}"

@@ -1,91 +1,59 @@
-# webapp/views/purchase.py
+import random
+from decimal import Decimal, ROUND_HALF_UP
 
-import requests
-from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from webapp.models import Course
-from webapp.models.purchase import Purchase
-import logging
+from django.views import View
+from django.views.generic import DetailView
+from rest_framework.generics import get_object_or_404
 
-logger = logging.getLogger(__name__)
+from webapp.models import Purchase, Course
 
 
-@login_required
-def purchase_course(request, course_id):
-    course = get_object_or_404(Course, id=course_id)
-    if request.method == 'POST':
-        purchase = Purchase.objects.create(user=request.user, course=course)
-        amount = int(course.price * 100)  # цена в тиенах (100 тиен = 1 тенге)
-        success_url = request.build_absolute_uri(reverse('purchase_success'))
-        failure_url = request.build_absolute_uri(reverse('purchase_failure'))
-        logger.error(f'Success URL: {success_url}')
-        logger.error(f'Failure URL: {failure_url}')
-        payment_data = {
-            "amount": amount,
-            "currency": "KZT",
-            "capture_method": "AUTO",
-            "external_id": f"{purchase.id}",
-            "description": f"Purchase of {course.title}",
-            "attempts": 10,
-            "success_url": f'{success_url}',
-            "failure_url": f'{failure_url}'
-        }
+class PurchaseCreateView(LoginRequiredMixin, View):
+    def get(self, request, course_id):
+        course = get_object_or_404(Course, id=course_id)
 
-        headers = {
-            'API-KEY': f'{settings.IOKA_SECRET_KEY}',
-            'Content-Type': 'application/json'
-        }
+        # Генерация случайного шестнадцатеричного числа (6 символов)
+        payment_code = f'{random.randint(0, 0xFFFFFF):06X}'
 
-        response = requests.post('https://stage-api.ioka.kz/v2/orders', json=payment_data, headers=headers)
+        # Считаем стоимость заказа
+        # Получаем скидку пользователя в процентах
+        user_discount = request.user.get_user_discount()  # Например, 20 для 20%
 
-        logger.error(f'STATUS {response.json()}')
-        if response.status_code == 201:
-            payment = response.json()
-            return redirect(payment['order']['checkout_url'] + "?autoRedirectMs=5000")
-        else:
-            error_data = response.json()
-            logger.error('API ERROR', error_data)
-            return render(request, 'purchase/purchase_failure.html', {'error': response.json()})
+        # Считаем стоимость заказа с учетом скидки
+        discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
 
-    return redirect('course_detail', pk=course_id)
+        # Округляем до целого числа
+        purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+        # Создание заказа со статусом PENDING
+        purchase = Purchase.objects.create(
+            user=request.user,
+            course=course,
+            payment_status='PENDING',
+            payment_code=payment_code,
+            purchase_amount=purchase_amount,
+        )
+
+        # Редирект на страницу с инструкцией
+        return redirect(reverse('payment_qr', kwargs={'pk': purchase.pk}))
 
 
-@login_required
-def purchase_success(request):
-    # Обработка успешного платежа
-    order_id = request.GET.get('external_id')
+class PaymentQRView(DetailView):
+    template_name = 'purchase/purchase_qr.html'
 
-    if not order_id:
-        logger.error("Не передан order_id")
-        return redirect('purchase_failure')
+    model = Purchase
+    context_object_name = 'purchase'
 
-    try:
-        purchase = Purchase.objects.get(id=order_id)
-        purchase.payment_status = 'PAID'
-        purchase.save()
-    except Purchase.DoesNotExist:
-        logger.error(f"Purchase с id={order_id} не найден")
-        return redirect('purchase_failure')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    return redirect('course_detail', pk=purchase.course.id)
+        context['course'] = get_object_or_404(Course, id=self.object.course_id)
 
+        context['purchase_amount'] = self.object.purchase_amount
 
-@login_required
-def purchase_failure(request):
-    order_id = request.GET.get('external_id')
-    if not order_id:
-        logger.error("Не передан order_id")
-        return redirect('some_error_page')  # Редирект в случае отсутствия order_id
+        context['discount'] = self.request.user.get_user_discount()
 
-    try:
-        purchase = Purchase.objects.get(id=order_id)
-
-        purchase.delete()
-        logger.info(f"Запись Purchase с id={order_id} успешно удалена после неудачной оплаты")
-
-    except Purchase.DoesNotExist:
-        logger.error(f"Запись Purchase с id={order_id} не найдена для удаления")
-
-    return redirect(request, 'purchase/purchase_failure.html')
+        return context
