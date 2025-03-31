@@ -12,16 +12,16 @@
                 <div class="col-12 col-lg-8">
                     <img src="{% static 'new_img/Group.png' %}" alt="иконка на баннере" class="banner-icon">
                     <p class="font-20 semibold green-text mt-120">
-                        {% trans 'Учитесь онлайн и покоряйте высоты.' %}
+                        {% trans 'Learn online and conquer heights.' %}
                     </p>
                     <h1 class="font-50 medium white-text mt-32">
-                        {% trans 'Открываем двери к вашему Будущему, делая обучение Доступным и вдохновляющим' %}
+                        {% trans 'Opening the doors to your Future by making learning Accessible and inspiring' %}
                     </h1>
                     <p class="font-20 medium white-text mt-32 mb-50">
-                        {% trans 'Доступные онлайн-курсы для развития навыков, повышения квалификации и достижения ваших целей. Учитесь в удобное время и в любом месте.' %}
+                        {% trans 'Affordable online courses to develop skills, improve your qualifications and achieve your goals. Learn when and where it suits you.' %}
                     </p>
                     <a class="font-20 medium white-text green-button text-decoration-none">
-                        {% trans 'Узнать больше' %}
+                        {% trans 'Find out more' %}
                     </a>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     <i class="bi bi-search"></i>
                     <input type="text" id="searchNews" name="search_query"
                            class="font-20 medium input"
-                           placeholder="{% trans 'Найдите подходящий курс' %}"
+                           placeholder="{% trans 'Find the course that suits you' %}"
                            value="{{ search_query }}">
                     <button type="submit" class="submit-button">
                         <img src="{% static 'new_img/serach_icon.png' %}" alt="Поиск">
@@ -51,21 +51,21 @@
         <div class="carousel-inner">
             <div class="carousel-item text-align-center active pt-48">
                 <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'UX/UI дизайн' %}
+                    {% trans 'UX/UI design' %}
                 </a>
                 <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Маркетинг и реклама' %}
+                    {% trans 'Marketing and advertising' %}
                 </a>
                 <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Языки' %}
+                    {% trans 'Languages' %}
                 </a>
                 <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Математика' %}
+                    {% trans 'Mathematics' %}
                 </a>
             </div>
             <div class="carousel-item">
                 <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Математика' %}
+                    {% trans 'Mathematics' %}
                 </a>
             </div>
             <div class="carousel-item">
@@ -110,14 +110,14 @@
                                 <div class="col-6">
                                     <img src="{% static 'new_img/Vector.png' %}" alt="Часы" class="mt--3">
                                     <p class="font-18 regular black-text inline-block text-near-icon">
-                                        30 часов
+                                        {% trans '30 hours' %}
                                     </p>
                                 </div>
 
                                 <div class="col-6 text-align-right">
                                     <img src="{% static 'new_img/Vector2.png' %}" alt="Часы" class="mt--3">
                                     <p class="font-18 regular black-text inline-block text-near-icon">
-                                        2 куратора
+                                        {% trans '2 curators' %}
                                     </p>
                                 </div>
                             </div>
@@ -148,7 +148,7 @@
     <div class="advantages-block mt-60 diagonal-gradient">
         <div class="container pt-60">
             <h3 class="font-32 text-align-center">
-                {% trans 'Преимущества прохождения курсов на SkillSpring' %}
+                {% trans 'Benefits of Taking Courses on SkillSpring' %}
             </h3>
 
             <div class="row mt-60">
@@ -156,30 +156,30 @@
                 <div class="col-12 col-lg-4">
                     <img src="{% static 'new_img/Group2.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
-                        {% trans 'Экспертные авторы' %}
+                        {% trans 'Expert authors' %}
                     </h5>
                     <p class="font-18 regular mt-24">
-                        {% trans 'Курсы ведут практикующие специалисты с реальным опытом в своей области.' %}
+                        {% trans 'The courses are taught by practicing specialists with real experience in their field.' %}
                     </p>
                 </div>
 
                 <div class="col-12 col-lg-4">
                     <img src="{% static 'new_img/book.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
-                        {% trans 'Актуальные материалы' %}
+                        {% trans 'Current materials' %}
                     </h5>
                     <p class="font-18 regular mt-24">
-                        {% trans 'Учебные программы обновляются с учётом последних трендов и технологий.' %}
+                        {% trans 'The curriculum is updated to take into account the latest trends and technologies.' %}
                     </p>
                 </div>
 
                 <div class="col-12 col-lg-4">
                     <img src="{% static 'new_img/tree.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
-                        {% trans 'Практические задания' %}
+                        {% trans 'Practical tasks' %}
                     </h5>
                     <p class="font-18 regular mt-24">
-                        {% trans 'Акцент на реальных проектах для применения знаний в работе.' %}
+                        {% trans 'Emphasis on real projects to apply knowledge in work.' %}
                     </p>
                 </div>
             </div>
@@ -188,30 +188,30 @@
                 <div class="col-12 col-lg-4">
                     <img src="{% static 'new_img/lamp.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
-                        {% trans 'Гибкость обучения' %}
+                        {% trans 'Flexibility of learning' %}
                     </h5>
                     <p class="font-18 regular mt-24">
-                        {% trans 'Учитесь в удобное время и в любом месте.' %}
+                        {% trans 'Study at your convenience and in any place.' %}
                     </p>
                 </div>
 
                 <div class="col-12 col-lg-4">
                     <img src="{% static 'new_img/files.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
-                        {% trans 'Доступ к уникальному контенту' %}
+                        {% trans 'Access to unique content' %}
                     </h5>
                     <p class="font-18 regular mt-24">
-                        {% trans 'Эксклюзивные видеоуроки и материалы, недоступные на других платформах.' %}
+                        {% trans 'Exclusive video tutorials and materials not available on other platforms.' %}
                     </p>
                 </div>
 
                 <div class="col-12 col-lg-4">
                     <img src="{% static 'new_img/certificate.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
-                        {% trans 'Сертификаты и портфолио' %}
+                        {% trans 'Certificates and Portfolio' %}
                     </h5>
                     <p class="font-18 regular mt-24">
-                        {% trans 'По завершении курсов вы получаете сертификаты, которые могут быть полезны в карьере.' %}
+                        {% trans 'Upon completion of the courses, you receive certificates that can be useful in your career.' %}
                     </p>
                 </div>
             </div>
@@ -227,12 +227,12 @@
                 <div class="banner-block"></div>
                 <div class="text-banner-block d-flex flex-column justify-content-between">
                     <p class="font-24 semibold white-text text-align-left">
-                        {% trans 'Присоединяйтесь к нашим курсам и развивайтесь с уверенностью!' %}
+                        {% trans 'Join our courses and develop with confidence!' %}
                     </p>
                     <div class="text-align-left">
                         <img src="{% static 'new_img/arrow-right.png' %}" alt="стрелка вправо">
                         <p class="font-14 regular white-text inline-block ml-6">
-                            {% trans 'Присоединиться' %}
+                            {% trans 'Connect' %}
                         </p>
                     </div>
                 </div>
@@ -247,12 +247,12 @@
                 <div class="banner-block-2"></div>
                 <div class="text-banner-block-2 d-flex flex-column justify-content-between">
                     <p class="font-24 semibold white-text text-align-left">
-                        {% trans 'Присоединяйтесь к нашим курсам и развивайтесь с уверенностью!' %}
+                        {% trans 'Join our courses and develop with confidence!' %}
                     </p>
                     <div class="text-align-left">
                         <img src="{% static 'new_img/arrow-right.png' %}" alt="стрелка вправо">
                         <p class="font-14 regular white-text inline-block ml-6">
-                            {% trans 'Присоединиться' %}
+                            {% trans 'Connect' %}
                         </p>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
 
     <div class="review-block mt-100">
         <div class="container">
-            <img src="{% static 'new_img/frame.png' %}" alt="Отзывы студентов" class="review-image">
+            <img src="{% static 'new_img/frame.png' %}" alt="Student reviews" class="review-image">
         </div>
     </div>
 

@@ -21,9 +21,6 @@ from .purchase import (
     PurchaseCreateView, PaymentQRView,
 )
 
-from .index import (
-    IndexView,
-)
 
 from .robots import (
     robots_txt,

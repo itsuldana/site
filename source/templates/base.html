@@ -94,17 +94,19 @@
             </div>
 
             <div class="col-6 text-align-center pt-5">
-                <a href="{% url 'course_list' %}" class="font-20 regular text-decoration-none text-black mr-30">
-                    {% trans 'Курсы' %}
+                <a href="{% url 'index' %}" class="font-20 regular text-decoration-none text-black mr-30">
+                    {% trans 'Home' %}
                 </a>
-                <a href="{% url 'contact_us' %}" class="font-20 regular text-decoration-none text-black ml-30 mr-30">
-                    {% trans 'О нас' %}
+                <a href="{% url 'course_list' %}" class="font-20 regular text-decoration-none text-black ml-30 mr-30">
+                    {% trans 'Courses' %}
                 </a>
-                <a href="#" class="font-20 regular text-decoration-none text-black ml-30 mr-30">
-                    {% trans 'Тарифы' %}
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'course_paid_list' %}" class="font-20 regular text-decoration-none text-black ml-30 mr-30">
+                    {% trans 'Paid Courses' %}
                 </a>
+                {% endif %}
                 <a href="{% url 'contact_us' %}" class="font-20 regular text-decoration-none text-black ml-30">
-                    {% trans 'Контакты' %}
+                    {% trans 'Contact Us' %}
                 </a>
             </div>
 

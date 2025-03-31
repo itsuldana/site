@@ -127,7 +127,13 @@
 
         <div class="teacher-involved-coures">
             <div class="container">
-                <h2>{% trans 'Involved in courses' %}</h2>
+                <h2>
+                    {% trans 'Involved in courses' %}
+                </h2>
+                <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2">
+                    {% trans 'Create Course' %}
+                </a>
+            
                 <div class="row">
 
                     {% if courses %}
@@ -167,7 +173,7 @@
                     {% else %}
                         <h4>
                             {% trans 'You have no courses' %}
-                            <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2"></a>
+                            <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2">{% trans 'Create Course' %}</a>
                         </h4>
                     {% endif %}
 
