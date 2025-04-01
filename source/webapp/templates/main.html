@@ -20,8 +20,8 @@
                     <p class="font-20 medium white-text mt-32 mb-50">
                         {% trans 'Affordable online courses to develop skills, improve your qualifications and achieve your goals. Learn when and where it suits you.' %}
                     </p>
-                    <a class="font-20 medium white-text green-button text-decoration-none">
-                        {% trans 'Find out more' %}
+                    <a class="font-20 medium white-text green-button text-decoration-none" href="{% url 'course_list' %}">
+                        {% trans 'Go to courses' %}
                     </a>
                 </div>
             </div>
@@ -47,101 +47,56 @@
     </div>
 
     <!-- Slider категорий -->
-    <div id="carouselExampleControls" class="carousel slide mb-60" data-ride="carousel">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item text-align-center active pt-48">
-                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'UX/UI design' %}
-                </a>
-                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Marketing and advertising' %}
-                </a>
-                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Languages' %}
-                </a>
-                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Mathematics' %}
-                </a>
-            </div>
-            <div class="carousel-item">
-                <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15">
-                    {% trans 'Mathematics' %}
-                </a>
-            </div>
-            <div class="carousel-item">
-            </div>
+
+            <!-- Добавляем "All" (Все) и разбиваем теги на группы по 3 -->
+            {% for chunk in tags %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="d-block w-100 text-align-center pt-48">
+                        <a href="#" class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15"
+                           data-code="all">
+                            {% if request.LANGUAGE_CODE == 'en' %}
+                                All
+                            {% else %}
+                                Все
+                            {% endif %}
+                        </a>
+                        {% for tag in chunk %}
+                            {% if tag %}
+                                <a href="#"
+                                   class="font-20 regular text-black tag-button text-decoration-none ml-15 mr-15"
+                                   data-code="{{ tag.code }}">
+                                    {% if request.LANGUAGE_CODE == 'en' %}
+                                        {{ tag.name_en }}
+                                    {% else %}
+                                        {{ tag.name_ru }}
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- Кнопки переключения -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+
+
     </div>
 
     <!-- Курсы -->
-    <div class="course-list">
-        <div class="container">
-            <div class="row">
-                {% for course in courses %}
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="course-card">
-
-                            <img class="img-fluid course-image" src="{{ course.image.url }}" alt="{{ course.title }}">
-
-                            <div class="row mt-24">
-                                <div class="col-2">
-                                    <img src="{{ course.teacher.profile_image.url }}" alt="{{ course.title }}"
-                                         class="teacher-course-image">
-                                </div>
-                                <div class="col-6">
-                                    <p class="font-18 regular black-text mt-15">
-                                        {{ course.teacher.fullname }}
-                                    </p>
-                                </div>
-                                <div class="col-4 category-div mt-10">
-                                    <p class="font-18 regular black-text text-align-center">
-
-                                    </p>
-                                </div>
-
-                                <div class="col-12 mt-24">
-                                    <p class="font-20 medium black-text">
-                                        {{ course.title }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="row mt-24">
-                                <div class="col-6">
-                                    <img src="{% static 'new_img/Vector.png' %}" alt="Часы" class="mt--3">
-                                    <p class="font-18 regular black-text inline-block text-near-icon">
-                                        {% trans '30 hours' %}
-                                    </p>
-                                </div>
-
-                                <div class="col-6 text-align-right">
-                                    <img src="{% static 'new_img/Vector2.png' %}" alt="Часы" class="mt--3">
-                                    <p class="font-18 regular black-text inline-block text-near-icon">
-                                        {% trans '2 curators' %}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="row mt-24">
-                                <div class="col-12 rating-div">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <p class="font-20 medium">
-                                                {{ course.price|floatformat:0 }} тг.
-                                            </p>
-                                        </div>
-                                        <div class="col-6 text-align-right">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
+    <div id="course-list" class="course-list mt-60">
+        {% include 'course/course_list_main_page.html' %}
     </div>
 
     <!-- Преимущества -->
@@ -266,6 +221,35 @@
         </div>
     </div>
 
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tagLinks = document.querySelectorAll('.tag-button');
+
+            tagLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const tagCode = this.getAttribute('data-code');
+
+                    fetchCourses(tagCode);
+                });
+            });
+        });
+
+        function fetchCourses(tagCode) {
+            fetch(`/filter_courses/?tag_code=${tagCode}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('course-list').innerHTML = data;
+                })
+                .catch(error => console.error('Ошибка при загрузке курсов:', error));
+        }
+    </script>
+
+    {#<!-- jQuery Min JS -->#}
+    <script src="{% static '/js/jquery.min.js' %}"></script>
+    <!-- Bootstrap Min JS -->
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
 
 
 {% endblock %}

@@ -162,6 +162,10 @@ body {
     margin-left: 15px;
 }
 
+.ml-20 {
+    margin-left: 20px;
+}
+
 .ml-25 {
     margin-left: 25px;
 }
@@ -176,6 +180,10 @@ body {
 
 .mr-15 {
     margin-right: 15px;
+}
+
+.mr-20 {
+    margin-right: 20px;
 }
 
 .mr-30 {
@@ -298,8 +306,8 @@ body {
 }
 
 .teacher-course-image {
-    height: 50px;
-    width: 50px;
+    max-height: 50px !important;
+    max-width: 50px !important;
     border-radius: 50%;
 }
 

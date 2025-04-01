@@ -1,5 +1,5 @@
 from .index import (
-    MainView
+    MainView, filter_courses,
 )
 
 from .contact_us import (

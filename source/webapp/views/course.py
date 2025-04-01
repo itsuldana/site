@@ -72,7 +72,6 @@ class CourseUpdateView(UserPassesTestMixin, UpdateView):
     model = Course
     form_class = CourseForm
     template_name = 'course/course_edit.html'
-    success_url = reverse_lazy('manage_modules')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -83,6 +82,13 @@ class CourseUpdateView(UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
+    def get_success_url(self):
+        teacher = self.request.user.user_teacher.first()  # Получение первого Teacher связанного с пользователем
+        if teacher:
+            return reverse('teacher_detail', kwargs={'pk': teacher.pk})
+        else:
+            return reverse('index')
 
 
 class CourseDetailView(DetailView):

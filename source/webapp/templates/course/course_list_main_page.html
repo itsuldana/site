@@ -1,0 +1,70 @@
+{% load i18n %}
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        {% for course in courses %}
+            <div class="col-12 col-md-6 col-lg-4 mb-24">
+                <div class="course-card">
+
+                    <img class="img-fluid course-image" src="{{ course.image.url }}" alt="{{ course.title }}">
+
+                    <div class="row mt-24">
+                        <div class="col-2">
+                            <img src="{{ course.teacher.profile_image.url }}" alt="{{ course.title }}"
+                                 class="teacher-course-image">
+                        </div>
+                        <div class="col-6">
+                            <p class="font-18 regular black-text mt-15">
+                                {{ course.teacher.fullname }}
+                            </p>
+                        </div>
+                        <div class="col-4 category-div mt-10">
+                            <p class="font-18 regular black-text text-align-center">
+
+                            </p>
+                        </div>
+
+                        <div class="col-12 mt-24">
+                            <p class="font-20 medium black-text">
+                                {{ course.title }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-24">
+                        <div class="col-6">
+                            <img src="{% static 'new_img/Vector.png' %}" alt="Часы" class="mt--3">
+                            <p class="font-18 regular black-text inline-block text-near-icon">
+                                {% trans '30 hours' %}
+                            </p>
+                        </div>
+
+                        <div class="col-6 text-align-right">
+                            <img src="{% static 'new_img/Vector2.png' %}" alt="Часы" class="mt--3">
+                            <p class="font-18 regular black-text inline-block text-near-icon">
+                                {% trans '2 curators' %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-24">
+                        <div class="col-12 rating-div">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="font-20 medium">
+                                        {{ course.price|floatformat:0 }} тг.
+                                    </p>
+                                </div>
+                                <div class="col-6 text-align-right">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
