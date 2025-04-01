@@ -20,7 +20,8 @@
                     <p class="font-20 medium white-text mt-32 mb-50">
                         {% trans 'Affordable online courses to develop skills, improve your qualifications and achieve your goals. Learn when and where it suits you.' %}
                     </p>
-                    <a class="font-20 medium white-text green-button text-decoration-none" href="{% url 'course_list' %}">
+                    <a class="font-20 medium white-text green-button text-decoration-none"
+                       href="{% url 'course_list' %}">
                         {% trans 'Go to courses' %}
                     </a>
                 </div>
@@ -237,19 +238,25 @@
         });
 
         function fetchCourses(tagCode) {
-            fetch(`/filter_courses/?tag_code=${tagCode}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('course-list').innerHTML = data;
-                })
-                .catch(error => console.error('Ошибка при загрузке курсов:', error));
+            const courseList = document.getElementById('course-list');
+            courseList.classList.add('fade-out');
+
+            setTimeout(() => {
+                fetch(`/filter_courses/?tag_code=${tagCode}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        courseList.innerHTML = data;
+                        courseList.classList.remove('fade-out');
+                        courseList.classList.add('fade-in');
+
+                        setTimeout(() => {
+                            courseList.classList.remove('fade-in');
+                        }, 1000); // Удаляем класс fade-in после завершения анимации
+                    })
+                    .catch(error => console.error('Ошибка при загрузке курсов:', error));
+            }, 1000); // Задержка 1 секунда для завершения анимации исчезания
         }
     </script>
-
-    {#<!-- jQuery Min JS -->#}
-    <script src="{% static '/js/jquery.min.js' %}"></script>
-    <!-- Bootstrap Min JS -->
-    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
 
 
 {% endblock %}
