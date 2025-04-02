@@ -1,5 +1,6 @@
 from itertools import zip_longest
 
+from django.db.models import Q
 from django.utils import translation
 from django.views.generic import ListView
 
@@ -44,11 +45,22 @@ class MainView(ListView):
 
 def filter_courses(request):
     tag_code = request.GET.get('tag_code', 'all')
+    search_query = request.GET.get('search_query', '').strip()
 
+    # Фильтрация по тегу
     if tag_code == 'all':
-        courses = Course.objects.all().order_by('-created_at')
+        courses = Course.objects.all()
     else:
-        courses = Course.objects.filter(tag__code=tag_code).order_by('-created_at')
+        courses = Course.objects.filter(tag__code=tag_code)
+
+    # Поиск по названию курса или описанию (можешь добавить другие поля, если нужно)
+    if search_query:
+        courses = courses.filter(
+            Q(title__icontains=search_query) | Q(description__icontains=search_query)
+        )
+
+    # Сортировка по дате
+    courses = courses.order_by('-created_at')
 
     html = render_to_string('course/course_list_main_page.html', {'courses': courses})
     return HttpResponse(html)
