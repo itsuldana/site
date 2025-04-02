@@ -1,6 +1,6 @@
 from itertools import zip_longest
-
-from django.db.models import Q
+from decimal import Decimal, ROUND_HALF_UP
+from django.db.models import Q, Count, Sum
 from django.utils import translation
 from django.views.generic import ListView
 
@@ -21,6 +21,38 @@ class MainView(ListView):
     paginate_by = 6
     paginate_orphans = 1
 
+    def get_queryset(self):
+        courses = Course.objects.annotate(lesson_total=Count('modules__lessons'))
+
+        price_with_discount_exists = 'No'
+
+        for course in courses:
+            lesson_stats = course.modules.aggregate(
+                total_lessons=Count('lessons'),
+                total_duration=Sum('lessons__duration')
+            )
+
+            total_duration = lesson_stats['total_duration'] or 0
+
+            hours, remainder = divmod(total_duration, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            course.total_duration = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
+
+            if self.request.user.is_authenticated:
+                user_discount = self.request.user.get_user_discount()  # Например, 20 для 20%
+                discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
+
+                # Округляем до целого числа
+                purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+                course.price_with_discount = purchase_amount
+
+                price_with_discount_exists = 'Yes'
+
+        self.price_with_discount_exists = price_with_discount_exists
+
+        return courses
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -39,6 +71,8 @@ class MainView(ListView):
         context['current_lang'] = translation.get_language()
 
         context['tags'] = chunked_tags
+
+        context['price_with_discount_exists'] = self.price_with_discount_exists
 
         return context
 
@@ -62,5 +96,36 @@ def filter_courses(request):
     # Сортировка по дате
     courses = courses.order_by('-created_at')
 
-    html = render_to_string('course/course_list_main_page.html', {'courses': courses})
+    courses = courses.annotate(lesson_total=Count('modules__lessons'))
+
+    price_with_discount_exists = 'No'
+
+    for course in courses:
+        lesson_stats = course.modules.aggregate(
+            total_lessons=Count('lessons'),
+            total_duration=Sum('lessons__duration')
+        )
+
+        total_duration = lesson_stats['total_duration'] or 0
+
+        hours, remainder = divmod(total_duration, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        course.total_duration = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
+
+
+        if request.user.is_authenticated:
+            user_discount = request.user.get_user_discount()  # Например, 20 для 20%
+            discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
+
+            # Округляем до целого числа
+            purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+            course.price_with_discount = purchase_amount
+
+            price_with_discount_exists = 'Yes'
+
+    html = render_to_string('course/course_list_main_page.html', {
+        'courses': courses,
+        'price_with_discount_exists': price_with_discount_exists,
+    })
     return HttpResponse(html)

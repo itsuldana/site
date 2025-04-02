@@ -5,65 +5,115 @@
     <div class="row">
         {% for course in courses %}
             <div class="col-12 col-md-6 col-lg-4 mb-24">
-                <div class="course-card">
+                <a href="{% url 'course_detail' course.id %}">
+                    <div class="course-card">
 
-                    <img class="img-fluid course-image" src="{{ course.image.url }}" alt="{{ course.title }}">
+                        <img class="img-fluid course-image" src="{{ course.image.url }}" alt="{{ course.title }}">
 
-                    <div class="row mt-24">
-                        <div class="col-2">
-                            <img src="{{ course.teacher.profile_image.url }}" alt="{{ course.title }}"
-                                 class="teacher-course-image">
+                        <div class="row mt-24">
+                            <div class="col-2">
+                                <img src="{{ course.teacher.profile_image.url }}" alt="{{ course.title }}"
+                                     class="teacher-course-image">
+                            </div>
+                            <div class="col-6">
+                                <p class="font-18 regular black-text mt-15">
+                                    {{ course.teacher.fullname }}
+                                </p>
+                            </div>
+                            <div class="col-4 category-div mt-10">
+                                <p class="font-18 regular black-text text-align-center course-language-text">
+                                    {% if course.language == 'RU' %}
+                                        {% if request.LANGUAGE_CODE == 'en' %}
+                                            russian
+                                        {% else %}
+                                            русский
+                                        {% endif %}
+                                    {% elif course.language == 'EN' %}
+                                        {% if request.LANGUAGE_CODE == 'en' %}
+                                            english
+                                        {% else %}
+                                            английский
+                                        {% endif %}
+                                    {% else %}
+                                        {% if request.LANGUAGE_CODE == 'en' %}
+                                            not defined
+                                        {% else %}
+                                            не определен
+                                        {% endif %}
+                                    {% endif %}
+                                </p>
+                            </div>
+
+                            <div class="col-12 mt-24">
+                                <p class="font-20 medium black-text">
+                                    {{ course.title }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <p class="font-18 regular black-text mt-15">
-                                {{ course.teacher.fullname }}
-                            </p>
+
+                        <div class="row mt-24">
+                            <div class="col-6">
+                                <img src="{% static 'new_img/Vector.png' %}" alt="Часы" class="mt--3">
+                                <p class="font-18 regular black-text inline-block text-near-icon">
+                                    {{ course.total_duration }}
+                                </p>
+                            </div>
+
+                            <div class="col-6 text-align-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                     class="bi bi-book-half" viewBox="0 0 20 20" style="color: #30bc83;">
+                                    <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                                </svg>
+                                <p class="font-18 regular black-text inline-block text-near-icon">
+                                    {% if  course.lesson_total > 1 and course.lesson_total <= 4 %}
+                                        {{ course.lesson_total }}
+                                        {% if request.LANGUAGE_CODE == 'en' %}
+                                            lessons
+                                        {% else %}
+                                            урока
+                                        {% endif %}
+                                    {% elif course.lesson_total > 4 or course.lesson_total == 0 %}
+                                        {{ course.lesson_total }}
+                                        {% if request.LANGUAGE_CODE == 'en' %}
+                                            lessons
+                                        {% else %}
+                                            уроков
+                                        {% endif %}
+                                    {% else %}
+                                        {{ course.lesson_total }}
+                                        {% if request.LANGUAGE_CODE == 'en' %}
+                                            lesson
+                                        {% else %}
+                                            урок
+                                        {% endif %}
+                                    {% endif %}
+                                </p>
+                            </div>
                         </div>
-                        <div class="col-4 category-div mt-10">
-                            <p class="font-18 regular black-text text-align-center">
 
-                            </p>
-                        </div>
-
-                        <div class="col-12 mt-24">
-                            <p class="font-20 medium black-text">
-                                {{ course.title }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row mt-24">
-                        <div class="col-6">
-                            <img src="{% static 'new_img/Vector.png' %}" alt="Часы" class="mt--3">
-                            <p class="font-18 regular black-text inline-block text-near-icon">
-                                {% trans '30 hours' %}
-                            </p>
-                        </div>
-
-                        <div class="col-6 text-align-right">
-                            <img src="{% static 'new_img/Vector2.png' %}" alt="Часы" class="mt--3">
-                            <p class="font-18 regular black-text inline-block text-near-icon">
-                                {% trans '2 curators' %}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row mt-24">
-                        <div class="col-12 rating-div">
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="font-20 medium">
-                                        {{ course.price|floatformat:0 }} тг.
-                                    </p>
-                                </div>
-                                <div class="col-6 text-align-right">
-
+                        <div class="row mt-24">
+                            <div class="col-12 rating-div">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {% if price_with_discount_exists == 'Yes' %}
+                                            <p class="font-20 medium display-inline-block text-line-through">
+                                                {{ course.price|floatformat:0 }} тг.
+                                            </p>
+                                            <p class="font-20 display-inline-block text-black ml-10">
+                                                {{ course.price_with_discount }}тг
+                                            </p>
+                                        {% else %}
+                                            <p class="font-20 medium">
+                                                {{ course.price|floatformat:0 }} тг
+                                            </p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                </a>
             </div>
         {% endfor %}
     </div>
