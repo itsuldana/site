@@ -76,7 +76,7 @@ class LessonDetailView(DetailView):
         context['current_lesson'] = current_lesson
         return context
 
-class LessonUpdateView(UserPassesTestMixin, UpdateView):
+class LessonUpdateView(UpdateView):
     model = Lesson
     form_class = LessonForm
     template_name = 'lesson/lesson_edit.html'
@@ -84,11 +84,8 @@ class LessonUpdateView(UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('manage_lessons', kwargs={'pk': self.object.module_id})
 
-    def test_func(self):
-        return self.request.user.is_superuser
 
-
-class LessonDeleteView(UserPassesTestMixin, DeleteView):
+class LessonDeleteView(DeleteView):
     model = Lesson
     template_name = 'lesson/lesson_confirm_delete.html'
 
@@ -100,9 +97,6 @@ class LessonDeleteView(UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('manage_lessons', kwargs={'pk': self.object.module_id})
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
 class ManageLessonsView(DetailView):
     model = Module

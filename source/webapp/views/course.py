@@ -68,7 +68,7 @@ class CourseCreateView(CreateView):
     #     return self.request.user
 
 
-class CourseUpdateView(UserPassesTestMixin, UpdateView):
+class CourseUpdateView(UpdateView):
     model = Course
     form_class = CourseForm
     template_name = 'course/course_edit.html'
@@ -79,9 +79,6 @@ class CourseUpdateView(UserPassesTestMixin, UpdateView):
             self.object.crop_image()
         self.object.save()
         return super().form_valid(form)
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
     def get_success_url(self):
         teacher = self.request.user.user_teacher.first()  # Получение первого Teacher связанного с пользователем

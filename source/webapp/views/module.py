@@ -9,7 +9,7 @@ from webapp.models import Module, Course
 
 
 
-class ModuleCreateView(UserPassesTestMixin, CreateView):
+class ModuleCreateView(CreateView):
     model = Module
     form_class = CourseModuleForm
     template_name = 'module/module_create.html'
@@ -26,11 +26,8 @@ class ModuleCreateView(UserPassesTestMixin, CreateView):
         self.object.save()
         return super().form_valid(form)
 
-    def test_func(self):
-        return self.request.user.is_superuser
 
-
-class ModuleUpdateView(UserPassesTestMixin, UpdateView):
+class ModuleUpdateView(UpdateView):
     model = Module
     form_class = CourseModuleForm
     template_name = 'module/module_edit.html'
@@ -38,9 +35,6 @@ class ModuleUpdateView(UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('manage_modules', kwargs={'pk': self.object.course_id})
-
-    def test_func(self):
-        return self.request.user.is_superuser
 
 
 class ManageModulesView(DetailView):
