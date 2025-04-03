@@ -32,7 +32,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "9000:9000"
+      - "9400:9400"
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/lms
     depends_on:
