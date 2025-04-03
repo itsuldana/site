@@ -55,14 +55,14 @@ class CourseCreateView(CreateView):
     model = Course
     form_class = CourseForm
     template_name = 'course/course_create.html'
-    # success_url = reverse('teacher_detail', kwargs={'pk': request.user.pk})
-    # success_url = reverse('index')
-
 
     def form_valid(self, form):
         teacher = Teacher.objects.get(user_id=self.request.user.id)
         form.instance.teacher = teacher
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('teacher_detail', kwargs={'pk': self.request.user.user_teacher.pk})
 
     # def test_func(self):
     #     return self.request.user
@@ -129,7 +129,8 @@ class CourseDetailView(DetailView):
 
         hours, remainder = divmod(total_duration, 3600)
         minutes, seconds = divmod(remainder, 60)
-        context['total_duration'] = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
+        context[
+            'total_duration'] = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
 
         user = self.request.user
         if not isinstance(user, AnonymousUser):
