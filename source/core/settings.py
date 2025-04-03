@@ -93,9 +93,9 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lms',
-        'USER': 'lms_user',
-        'PASSWORD': 'lms_password',
+        'NAME': 'skillspring',
+        'USER': 'skillspring_user',
+        'PASSWORD': 'skillspring_password',
         'HOST': '185.22.67.9',
         'PORT': '5432',
     }
