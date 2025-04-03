@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!rcr$z=_!7g(5f=05!^n_@g0bo2-wposgwolxo))f8=8r$#2d3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["localhost" ]
+ALLOWED_HOSTS = ["*" ]
 
 CSRF_TRUSTED_ORIGINS = ['https://pdgaedu.com']
 
