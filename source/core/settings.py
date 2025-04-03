@@ -27,7 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*" ]
 
-CSRF_TRUSTED_ORIGINS = ['https://pdgaedu.com']
+CSRF_TRUSTED_ORIGINS = ['https://skillspring.oyustudio.kz']
 
 # Включение логов CSRF
 import logging
