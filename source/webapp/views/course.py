@@ -62,7 +62,7 @@ class CourseCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('teacher_detail', kwargs={'pk': self.request.user.user_teacher.pk})
+        return reverse('teacher_detail', kwargs={'pk': self.request.user.user_teacher.id})
 
     # def test_func(self):
     #     return self.request.user
