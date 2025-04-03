@@ -24,13 +24,11 @@ services:
     networks:
       - dev
     ports:
-      - "6379:6379" 
-      
+      - "6379:6379"
+
   web:
     build: .
-    command: /bin/bash -c "python manage.py makemigrations &&
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:9000"
+    command: /bin/bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:9000"
     volumes:
       - .:/usr/src/app
     ports:
