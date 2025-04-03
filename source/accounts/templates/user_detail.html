@@ -121,10 +121,15 @@
                                         <h6 class="mb-0">{% trans 'Is Teacher' %}</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        {% if not is_teacher %}#}
+                                        {% if not is_teacher %}
                                             {% trans 'No' %}
                                         {% else %}
-                                            {% trans 'Yes' %}
+                                            {% if is_approved %}
+                                                {% trans 'Yes' %}
+                                            {% else %}
+                                                {#                                   Заявка на рассмотрении             #}
+                                                {% trans 'Request under consideration' %}
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>
@@ -136,15 +141,17 @@
 
                 <div class="row">
                     <div class="col-12">
-                        {% if not is_teacher %}#}
+                        {% if not is_teacher %}
                             <a href="{% url 'become_teacher' %}" class="btn btn-primary mb-2 me-2">
                                 {% trans 'Become Teacher' %}
                             </a>
                         {% else %}
-                            <a href="{% url 'teacher_detail' teacher_id %}"
-                               class="btn btn-primary mb-2 me-2">
-                                {% trans 'Teacher admin' %}
-                            </a>
+                            {% if is_approved %}
+                                <a href="{% url 'teacher_detail' teacher_id %}"
+                                   class="btn btn-primary mb-2 me-2">
+                                    {% trans 'Teacher admin' %}
+                                </a>
+                            {% endif %}
                         {% endif %}
                         <a href="{% url 'user_update' user_obj.id %}" class="btn btn-primary mb-2 me-2">
                             {% trans 'Edit Profile' %}

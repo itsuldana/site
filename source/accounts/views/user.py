@@ -109,7 +109,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
 
         context['is_teacher'] = self.object.user_teacher.exists()
+
         if context['is_teacher']:
+            context['is_approved'] = Teacher.objects.get(user_id=self.object.pk).is_approved
+
             context['teacher_id'] = Teacher.objects.get(user=self.object).id
 
         user = self.object

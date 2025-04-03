@@ -1,3 +1,6 @@
+from io import BytesIO
+
+from django.core.files.base import ContentFile
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
@@ -101,24 +104,76 @@ class Teacher(models.Model):
         blank=True
     )
 
-    def clean(self):
-        # Validate profile image
-        if self.profile_image:
-            image = Image.open(self.profile_image)
-            width, height = image.size
-
-            # Check aspect ratio
-            aspect_ratio = width / height
-            if not (round(aspect_ratio, 2) == 1.26):  # For 1.36 aspect ratio
-                raise ValidationError("The image aspect ratio must be 1:1.26.")
-
-            # Check minimum width
-            if width < 360:
-                raise ValidationError("The image width must be at least 360 pixels.")
+    certificate = models.FileField(
+        upload_to='teacher_certificates/',
+        verbose_name="Certificate",
+        null=True,
+        blank=True,
+    )
+    is_approved = models.BooleanField(
+        null=False,
+        blank=False,
+        verbose_name="Is Teacher Approved",
+        default=False,
+    )
+    request_code = models.CharField(
+        null=False,
+        blank=False,
+        verbose_name="Request Code",
+        max_length=6,
+    )
 
     def save(self, *args, **kwargs):
         self.full_clean()  # Ensure validations are run on save
         super().save(*args, **kwargs)
+        if self.profile_image:
+            self.image = self.generate_image_version(self.profile_image, 1, 'news_detail_image.jpg')  # 560:583
+            super().save(*args, **kwargs)
+
+    def crop_center(self, img, aspect_ratio):
+        # Получаем текущие размеры изображения
+        width, height = img.size
+
+        # Рассчитываем новое соотношение сторон
+        new_width = height * aspect_ratio
+        new_height = width / aspect_ratio
+
+        # Проверяем, что обрезать: по ширине или по высоте
+        if new_width < width:
+            # Обрезаем по ширине
+            left = (width - new_width) / 2
+            right = (width + new_width) / 2
+            top = 0
+            bottom = height
+        else:
+            # Обрезаем по высоте
+            top = (height - new_height) / 2
+            bottom = (height + new_height) / 2
+            left = 0
+            right = width
+
+        # Обрезаем изображение по новым координатам
+        img = img.crop((left, top, right, bottom))
+
+        return img
+
+    def generate_image_version(self, image_field, aspect_ratio, filename):
+        img = Image.open(image_field)
+
+        # Oбрезаем изображение до нужного соотношения сторон
+        img = self.crop_center(img, aspect_ratio)
+
+        # Convert 'P' (palette) or 'RGBA' mode images to 'RGB' for JPEG compatibility
+        if img.mode in ('P', 'RGBA'):
+            img = img.convert('RGB')
+
+        # Сохраняем обработанное изображение в BytesIO объект
+        img_io = BytesIO()
+        img.save(img_io, format='JPEG')
+
+        # Используем ContentFile для сохранения изображения в поле ImageField
+        img_content = ContentFile(img_io.getvalue(), filename)
+        return img_content
 
     def __str__(self):
         return f'{self.fullname}'

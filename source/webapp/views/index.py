@@ -47,7 +47,8 @@ class MainView(ListView):
 
                 course.price_with_discount = purchase_amount
 
-                price_with_discount_exists = 'Yes'
+                if user_discount != 0:
+                    price_with_discount_exists = 'Yes'
 
         self.price_with_discount_exists = price_with_discount_exists
 

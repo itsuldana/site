@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans 'Payment for the request' %}{% endblock %}
+
+{% block style %}
+    <style>
+        .main-card {
+            background: linear-gradient(135deg, #76E6B6, #48C9B0);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .payment-instructions {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .qr-code-block {
+            margin: auto;
+            padding: 35px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            display: table;
+        }
+        
+        .qr-image {
+            max-width: 400px;
+        }
+        
+        .return-button {
+            display: table;
+            margin: auto;
+        }
+        
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="main-card">
+
+            <h1 class="text-align-center text-white">
+                {% trans 'Thanks for your request!' %}
+            </h1>
+            <p class="text-align-center text-white mt-10 mb-24">
+                {% trans 'Your request' %}
+                <strong>{{ purchase.payment_code }}</strong>
+                {% trans 'has been successfully delivered.' %}
+            </p>
+
+            <div class="payment-instructions">
+                <h5 class="text-align-center mb-15">
+                    {% trans 'For payment:' %}
+                </h5>
+                <ul>
+                    <li>
+                        1) {% trans 'Scan the QR code.' %}
+                    </li>
+                    <li>
+                        2) {% trans 'Enter the request amount: ' %} 
+                        <strong>20000 тг.</strong>
+                    </li>
+                    <li>
+                        3) {% trans 'Please indicate your request code in the message when paying:' %}
+                        <strong>{{ teacher.request_code }}</strong>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="qr-code-block mt-24 mb-24">
+                <img class="qr-image" src="{% static 'new_img/kaspi_qr.png' %}" alt="QR Code">
+            </div>
+            
+            <a href="{% url 'user_detail' pk=request.user.id %}" class="btn btn-secondary return-button">
+                {% trans 'Your Profile' %}
+            </a>
+
+        </div>
+    </div>
+
+{% endblock %}

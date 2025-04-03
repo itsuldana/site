@@ -40,6 +40,8 @@ urlpatterns = [
     path('teachers/', views.TeacherListView.as_view(), name='teacher_list'),
     path('teachers/<int:pk>/', views.TeacherDetailView.as_view(), name='teacher_detail'),
     path('teachers/create/', views.become_teacher, name='become_teacher'),
+    path('teachers/confirm/', views.TeacherConfirmView.as_view(), name='teacher_confirm'),
+    path('teachers/<int:pk>/payment/', views.TeacherPaymentView.as_view(), name='teacher_payment'),
 
     # manage urls
     # path('manage/courses/', views.ManageCoursesView.as_view(), name='manage_courses'),

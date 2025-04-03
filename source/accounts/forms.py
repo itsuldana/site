@@ -147,11 +147,15 @@ class TeacherApplicationForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = [
-            'fullname', 'position', 'instagram', 'facebook', 'linkedin', 'twitter',
+            'certificate', 'fullname', 'position', 'instagram', 'facebook', 'linkedin', 'twitter',
             'phone_number', 'geolocation', 'accounting', 'writing', 'speaking', 'reading',
             'about_ru', 'about_en', 'profile_image'
         ]
         widgets = {
+            'certificate': forms.FileInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Certificate'
+            }),
             'fullname': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Full Name'

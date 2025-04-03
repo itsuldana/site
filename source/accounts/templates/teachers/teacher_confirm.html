@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="ctr-area ptb-100 success-margin">
+        <div class="top-divider"></div>
+        <div class="bottom-divider"></div>
+        <div class="container">
+            <div class="ctr-text-content">
+{#      Ваша заявка успешно отправлена          #}
+                <h1>{% trans 'Your request has been successfully sent.' %}</h1>
+                <p>
+{#                    Если ваша заявка будет одобрена, в у вас появится панель адмимтрирования преподавателя в вашем личном профиле#}
+                    {% trans 'If your request is approved, you will have a teacher admin panel in your personal profile.' %}
+                </p>
+                <a href="{% url 'user_detail' user.pk %}" class="btn btn-primary">{% trans 'Your Profile' %}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

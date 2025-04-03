@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{{ teacher.fullname }}{% endblock %}
 
@@ -31,7 +32,11 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4 col-md-12">
                         <div class="teacher-img">
-                            <img src="{{ teacher.profile_image.url }}" alt="teacher">
+                            {% if teacher.profile_image %}
+                                <img src="{{ teacher.profile_image.url }}" alt="teacher">
+                            {% else %}
+                                <img src="{% static 'img/none_image_profile.png' %}" alt="teacher">
+                            {% endif %}
                         </div>
                     </div>
 
@@ -127,13 +132,13 @@
 
         <div class="teacher-involved-coures">
             <div class="container">
-                <h2>
+                <h2 class="display-inline-block">
                     {% trans 'Involved in courses' %}
                 </h2>
-                <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2">
+                <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2 ml-20">
                     {% trans 'Create Course' %}
                 </a>
-            
+
                 <div class="row">
 
                     {% if courses %}
@@ -173,7 +178,6 @@
                     {% else %}
                         <h4>
                             {% trans 'You have no courses' %}
-                            <a href="{% url 'course_create' %}" class="btn btn-primary mb-2 me-2">{% trans 'Create Course' %}</a>
                         </h4>
                     {% endif %}
 

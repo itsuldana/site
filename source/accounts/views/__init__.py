@@ -2,9 +2,10 @@ from .user import (
     LoginView, RegisterView,
     activate, logout_view,
     UserDetailView, UserUpdateView, UserEmailChangeView,
-    confirm_email_change, CustomPasswordChangeView, set_language, EmailConfirmView
+    confirm_email_change, CustomPasswordChangeView, set_language, EmailConfirmView,
 )
 
 from .teacher import (
-    TeacherListView, TeacherDetailView, become_teacher
+    TeacherListView, TeacherDetailView, become_teacher,
+    TeacherConfirmView, TeacherPaymentView,
 )

@@ -6,7 +6,7 @@ from accounts.models import CustomUser, Teacher, LevelSetting
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ['email', 'username', 'is_staff', 'is_active', 'email_confirmed', 'avatar']
+    list_display = ['email', 'username', 'is_staff', 'is_active', 'email_confirmed']
     fieldsets = UserAdmin.fieldsets + (
         (None, {'fields': ('email_confirmed', 'avatar')}),
     )
@@ -24,14 +24,19 @@ class TeacherAdmin(admin.ModelAdmin):
         'id',
         'user',
         'fullname',
+        'is_approved',
+        'request_code',
         'position',
     )
     list_display_links = (
         'id',
         'user',
         'fullname',
+        'is_approved',
+        'request_code',
         'position',
     )
+    ordering = ('-id',)
 
 
 @admin.register(LevelSetting)
