@@ -1,3 +1,5 @@
+from decimal import Decimal, ROUND_HALF_UP
+
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser
 from django.db.models import Count, Sum, Prefetch, OuterRef, Subquery, Value
@@ -23,11 +25,34 @@ class CourseListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset().exclude(is_active=False)
+
+        self.price_with_discount_exists = 'No'
+
+        for course in queryset:
+
+            if self.request.user.is_authenticated:
+                user_discount = self.request.user.get_user_discount()  # Например, 20 для 20%
+                discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
+
+                # Округляем до целого числа
+                purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+                course.price_with_discount = purchase_amount
+
+                if user_discount != 0:
+                    self.price_with_discount_exists = 'Yes'
+
         return queryset
 
     def test_func(self):
         return self.request.user.is_superuser
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['price_with_discount_exists'] = self.price_with_discount_exists
+
+        return context
 
 class CoursePaidListView(LoginRequiredMixin, ListView):
     template_name = 'course/course_paid_list.html'
@@ -92,17 +117,63 @@ class CourseDetailView(DetailView):
     model = Course
     template_name = 'course/course_detail.html'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['is_paid'] = False
 
+        context['price_with_discount_exists'] = 'No'
+        course = Course.objects.get(pk=self.kwargs['pk'])
+
+        if self.request.user.is_authenticated:
+            user_discount = self.request.user.get_user_discount()  # Например, 20 для 20%
+            discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
+
+            # Округляем до целого числа
+            purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+            if user_discount != 0:
+                context['price_with_discount_exists'] = 'Yes'
+                context['price_with_discount'] = purchase_amount
+
         # Пробрасываем похожие курсы (пока просто последние три, так как их мало)
         similar_courses = Course.objects.exclude(id=self.object.pk).order_by('-created_at')[:3]
+        context['price_with_discount_similar_exists'] = 'No'
+
+        for course in similar_courses:
+            if self.request.user.is_authenticated:
+                user_discount = self.request.user.get_user_discount()  # Например, 20 для 20%
+                discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
+
+                # Округляем до целого числа
+                purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+                course.price_with_discount = purchase_amount
+
+                if user_discount != 0:
+                    context['price_with_discount_similar_exists'] = 'Yes'
+
+
         context['similar_courses'] = similar_courses
 
         # Пробрасываем все курсы (пока последние 4, так как их мало)
         all_courses = Course.objects.exclude(id=self.object.pk).order_by('-created_at')[:4]
+        context['price_with_discount_all_courses_exists'] = 'No'
+
+        for course in all_courses:
+            if self.request.user.is_authenticated:
+                user_discount = self.request.user.get_user_discount()  # Например, 20 для 20%
+                discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
+
+                # Округляем до целого числа
+                purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+                course.price_with_discount = purchase_amount
+
+                if user_discount != 0:
+                    context['price_with_discount_all_courses_exists'] = 'Yes'
+
         context['all_courses'] = all_courses
 
         # Пробрасываем скиллы, которым можно научиться на курсе

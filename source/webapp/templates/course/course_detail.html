@@ -80,9 +80,6 @@
                                     {% trans 'Teacher' %}: {{ course.teacher.fullname }}
                                 </li>
 
-                                <li>
-                                    {% trans 'Specialization' %}: {{ course.teacher.position }}
-                                </li>
                             </ul>
 
                             <div class="apply-btn">
@@ -103,7 +100,7 @@
                                 <li class="inactive" id="tab_3">{% trans 'Instructors' %}</li>
                             </ul>
 
-                            <div class="content " id="tab_1_content">
+                            <div class="content show" id="tab_1_content">
                                 <h4 class="title">{% trans 'Course Details' %}</h4>
 
                                 <p>{{ course.description|safe }}</p>
@@ -260,8 +257,22 @@
 
                                 <li><i class="icofont-checked"></i> {% trans 'Practise Tests' %} <span>Yes</span></li>
 
-                                <li><i class="icofont-price"></i> {% trans 'Price' %}
-                                    <span>{{ course.price|floatformat:0 }} тг.</span>
+                                <li style="color: #30BC83;">
+                                    <i class="icofont-price"></i>
+                                    {% trans 'Price' %}
+
+                                    {% if price_with_discount_exists == 'Yes' %}
+                                        <span>
+                                            <b class="text-decoration-line-through"
+                                               style="font-weight: 500; color: #777;">
+                                               {{ course.price|floatformat:0 }}
+                                            </b>
+                                             {{ price_with_discount }} тг.
+                                        </span>
+                                    {% else %}
+                                        <span>{{ course.price|floatformat:0 }} тг.</span>
+                                    {% endif %}
+
                                 </li>
                             </ul>
                         </div>
@@ -303,8 +314,15 @@
                                         <h4 class="all-courses-slide-bar-margin">
                                             <a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a>
                                         </h4>
-                                        <p><span>{{ course.price|increase_by_20_percent }} </span>
-                                            {{ course.price|floatformat:0 }} тг. </p>
+                                        {% if price_with_discount_all_courses_exists == 'Yes' %}
+                                            <p><span>{{ course.price|floatformat:0 }} </span>
+                                                {{ course.price_with_discount }} тг. </p>
+                                        {% else %}
+                                            <p>
+                                                {{ course.price|floatformat:0 }} тг.
+                                            </p>
+                                        {% endif %}
+
                                     </div>
                                 </div>
                             {% endfor %}
@@ -324,26 +342,45 @@
 
                     {% for course in similar_courses %}
                         <div class="col-lg-4 col-md-6">
-                            <div class="single-courses-item">
+                            <div class="courses-item">
                                 <div class="courses-img">
                                     <img src="{{ course.image.url }}" alt="course">
                                 </div>
 
                                 <div class="courses-content">
                                     <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
-                                    <ul>
-                                        <li><i class="icofont-star"></i></li>
-                                        <li><i class="icofont-star"></i></li>
-                                        <li><i class="icofont-star"></i></li>
-                                        <li><i class="icofont-star"></i></li>
-                                        <li><i class="icofont-star"></i></li>
-                                    </ul>
+                                    {#                                    <ul>#}
+                                    {#                                        <li><i class="icofont-star"></i></li>#}
+                                    {#                                        <li><i class="icofont-star"></i></li>#}
+                                    {#                                        <li><i class="icofont-star"></i></li>#}
+                                    {#                                        <li><i class="icofont-star"></i></li>#}
+                                    {#                                        <li><i class="icofont-star"></i></li>#}
+                                    {#                                        <li><span>(15 {% trans 'reviews' %})</span></li>#}
+                                    {#                                    </ul>#}
+
+                                    <p>
+                                        {{ course.preview_description }}
+                                    </p>
                                 </div>
 
                                 <div class="courses-content-bottom">
-                                    {#                                    <h4><i class="icofont-ui-user"></i> 120 Students</h4>#}
-                                    <h4><i class="icofont-chart-histogram-alt"></i> {{ course.skill_level }}</h4>
-                                    <h4 class="price">{{ course.price|floatformat:0 }} тг.</h4>
+                                    {% if price_with_discount_exists == 'Yes' %}
+                                        <h4 class="price">
+                                            <span>
+                                                {{ course.price|floatformat:0 }}
+                                            </span>
+                                            {{ course.price_with_discount }} тг.
+                                        </h4>
+                                    {% else %}
+                                        <h4 class="price">
+                                            {{ course.price|floatformat:0 }} тг.
+                                        </h4>
+                                    {% endif %}
+                                    <h4>
+                                        <a href="{% url 'course_detail' course.pk %}"
+                                           class="btn btn-primary">{% trans 'Read More' %}</a>
+                                    </h4>
+
                                 </div>
                             </div>
                         </div>
