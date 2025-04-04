@@ -101,9 +101,10 @@
                     {% trans 'Courses' %}
                 </a>
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'course_paid_list' %}" class="font-20 regular text-decoration-none text-black ml-20 mr-20">
-                    {% trans 'Paid Courses' %}
-                </a>
+                    <a href="{% url 'course_paid_list' %}"
+                       class="font-20 regular text-decoration-none text-black ml-20 mr-20">
+                        {% trans 'Paid Courses' %}
+                    </a>
                 {% endif %}
                 <a href="{% url 'contact_us' %}" class="font-20 regular text-decoration-none text-black ml-20">
                     {% trans 'Contact Us' %}
@@ -112,7 +113,7 @@
 
             <div class="col-3 text-align-right">
                 <div class="dropdown">
-                    <img class="dropbtn logo1 text-black" src="{% static 'new_img/world.png' %}" alt="logo">
+                    <img class="dropbtn logo1 text-black" style="margin-top: -3px;" src="{% static 'new_img/world.png' %}" alt="logo">
                     <p class="dropbtn font-20 regular text-decoration-none inline-block text-black ml-6 mr-6">
                         {% if request.LANGUAGE_CODE == 'en' %}
                             Eng
@@ -143,25 +144,35 @@
                         {{ user.level }}
                     </div>
                 {% endif %}
-{#                <p class="font-20 inline-block">#}
-{#                    |#}
-{#                </p>#}
-{#                <a href="#" class="font-20 regular text-decoration-none ml-6 mr-6">#}
-{#                    <img class="logo1 text-black" src="{% static 'new_img/search.png' %}" alt="logo">#}
-{#                </a>#}
+                {#                <p class="font-20 inline-block">#}
+                {#                    |#}
+                {#                </p>#}
+                {#                <a href="#" class="font-20 regular text-decoration-none ml-6 mr-6">#}
+                {#                    <img class="logo1 text-black" src="{% static 'new_img/search.png' %}" alt="logo">#}
+                {#                </a>#}
                 <p class="font-20 inline-block">
                     |
                 </p>
                 <a href="#" class="font-20 regular text-decoration-none ml-6">
                     {% if request.user.is_authenticated %}
                         <a href="{% url 'user_detail' request.user.pk %}" class="text-decoration-none">
-                            <img class="logo1 text-black icon-height-width-34"
-                                 src="{% static 'new_img/person-badge.svg' %}" alt="logo">
+                            <svg style="margin-top: -3px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                 fill="currentColor"
+                                 class="bi bi-person-square" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                            </svg>
                         </a>
                     {% else %}
                         <a href="{% url 'login' %}" class="text-decoration-none">
-                            <img class="logo1 text-black icon-height-width-34" src="{% static 'new_img/log_out.png' %}"
-                                 alt="logo">
+                            <svg style="margin-top: -3px;" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                 fill="currentColor"
+                                 class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                            </svg>
                         </a>
                     {% endif %}
                 </a>
