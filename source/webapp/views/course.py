@@ -73,7 +73,31 @@ class CoursePaidListView(LoginRequiredMixin, ListView):
 
         # Фильтруем только оплаченные курсы
         queryset = Course.objects.filter(id__in=paid_courses_ids, is_active=True)
+
+        self.price_with_discount_exists = 'No'
+
+        for course in queryset:
+
+            if self.request.user.is_authenticated:
+                user_discount = self.request.user.get_user_discount()  # Например, 20 для 20%
+                discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
+
+                # Округляем до целого числа
+                purchase_amount = discounted_price.quantize(Decimal('1'), rounding=ROUND_HALF_UP)
+
+                course.price_with_discount = purchase_amount
+
+                if user_discount != 0:
+                    self.price_with_discount_exists = 'Yes'
+
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['price_with_discount_exists'] = self.price_with_discount_exists
+
+        return context
 
 
 class CourseCreateView(CreateView):

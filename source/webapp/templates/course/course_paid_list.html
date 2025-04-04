@@ -47,8 +47,18 @@
                                 </div>
 
                                 <div class="courses-content-bottom">
-                                    <h4 class="price"><span>${{ course.price|increase_by_20_percent }}</span>
-                                        ${{ course.price|floatformat:0 }}</h4>
+                                   {% if price_with_discount_exists == 'Yes' %}
+                                        <h4 class="price">
+                                            <span>
+                                                {{ course.price|floatformat:0 }}
+                                            </span>
+                                            {{ course.price_with_discount }} тг.
+                                        </h4>
+                                    {% else %}
+                                        <h4 class="price">
+                                            {{ course.price|floatformat:0 }} тг.
+                                        </h4>
+                                    {% endif %}
                                     <h4><a href="{% url 'course_detail' course.pk %}" class="btn btn-primary">Read
                                         More</a></h4>
                                 </div>
