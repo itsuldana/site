@@ -7,5 +7,5 @@ from .user import (
 
 from .teacher import (
     TeacherListView, TeacherDetailView, become_teacher,
-    TeacherConfirmView, TeacherPaymentView,
+    TeacherConfirmView, TeacherPaymentView, TeacherUpdateView
 )

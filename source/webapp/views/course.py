@@ -250,6 +250,9 @@ class CourseDetailView(DetailView):
         context["modules"] = modules
         context['students'] = Purchase.objects.filter(course=course, payment_status='DONE').count()
 
+        # 👇 Проверка: есть ли связанные тесты
+        context['test_exists'] = course.test_case_descriptions.exists()
+
         return context
 
 

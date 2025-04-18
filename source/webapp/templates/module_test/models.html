@@ -84,22 +84,34 @@
 </style>
 
 <div class="container">
-    <!-- Header Section -->
     <div class="header">
         <h1>Тестовые Модули</h1>
         <p>Выберите модуль, чтобы начать тестирование</p>
     </div>
 
-    <!-- Test Modules List -->
-    {% for module in test_modules %}
-    <div class="module-card">
-        <h3>{{ module.title }}</h3>
-        <p>{{ module.description|safe }}</p>
-        <p class="time-limit">Лимит времени: {{ module.time_limit }} минут</p>
-        <a href="{% url 'start_test' module.id %}" class="start-test-link">Начать Тест</a>
-    </div>
+    {% for item in user_module_data %}
+        {% with module=item.module %}
+        <div class="module-card">
+            <h3>{{ module.title }}</h3>
+            <p>{{ module.description|safe }}</p>
+            <p class="time-limit">Лимит времени: {{ module.time_limit }} минут</p>
+
+            {% if item.total_questions > 0 %}
+            <p><strong>Пройдено:</strong> {{ item.correct_answers }}/{{ item.total_questions }} правильных ответов</p>
+            {% endif %}
+
+            {% if item.is_completed %}
+                <a href="{% url 'start_test' module.id %}" class="btn btn-outline-primary mt-24">Пройти заново</a>
+                <a href="{% url 'test_history' module.id %}" class="btn btn-outline-secondary mt-24">Прошлые результаты</a>
+            {% elif item.can_start %}
+                <a href="{% url 'start_test' module.id %}" class="btn btn-success mt-24">Начать тест</a>
+            {% else %}
+                <button class="btn btn-secondary mt-24" disabled>Недоступно (пройдите предыдущий модуль)</button>
+            {% endif %}
+        </div>
+        {% endwith %}
     {% empty %}
-    <p>Модули тестов отсутствуют.</p>
+        <p>Модули тестов отсутствуют.</p>
     {% endfor %}
 </div>
 

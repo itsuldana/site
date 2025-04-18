@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.cache import cache
 from collections import defaultdict
 
@@ -24,10 +25,36 @@ class TestModulesList(View):
 
     def get(self, request, *args, **kwargs):
         cours_id = self.kwargs.get('cours')
-        # Sort test modules by position
+        user = request.user
+
         test_modules = self.model.objects.filter(cours__id=cours_id).order_by('position')
-        
-        context = {'test_modules': test_modules}
+
+        user_module_data = []
+
+        previous_completed = True  # флаг для блокировки следующих
+
+        for module in test_modules:
+            histories = models.TestHistory.objects.filter(user=user, test_module=module)
+            total_questions = models.Test.objects.filter(test_module=module).count()
+            correct_answers = 0
+
+            for h in histories:
+                correct_answers += sum(1 for a in h.user_answer_ids if a in h.correct_answer_ids)
+
+            is_completed = correct_answers == total_questions and total_questions > 0
+
+            user_module_data.append({
+                'module': module,
+                'total_questions': total_questions,
+                'correct_answers': correct_answers,
+                'is_completed': is_completed,
+                'can_start': previous_completed,
+            })
+
+            # Обновляем флаг: если текущий не пройден, дальше блокируем
+            previous_completed = is_completed
+
+        context = {'user_module_data': user_module_data}
         return render(request, self.template_name, context)
 
 
@@ -90,7 +117,46 @@ class NextTestView(View):
             correct_answer_ids=correct_answer_ids,
             selected_option_id=selected_option_id
         )
+
+        # ✅ Проверка: все тесты пройдены
         if not cache.get(request.user.id):
+            course = test_module.cours
+            user = request.user
+
+            # Все вопросы в курсе
+            total_questions = models.Test.objects.filter(test_module__cours=course).count()
+
+            # Все истории пользователя по курсу
+            user_histories = models.TestHistory.objects.filter(
+                user=user,
+                test_module__cours=course
+            )
+
+            # Считаем все правильные ответы
+            correct_answers = 0
+            for history in user_histories:
+                correct_answers += sum(1 for a in history.user_answer_ids if a in history.correct_answer_ids)
+
+            if total_questions > 0:
+                percentage = (correct_answers / total_questions) * 100
+            else:
+                percentage = 0
+
+            # Если больше 80%, ставим сертификат
+            if percentage >= 80:
+                purchase = models.Purchase.objects.filter(
+                    user=user,
+                    course=course,
+                    payment_status='DONE'
+                ).first()
+
+                if purchase and not purchase.has_certificate:
+                    purchase.has_certificate = True
+                    purchase.save()
+                    # ✅ Добавляем сообщение
+                    messages.success(request,
+                                     "Поздравляем! Вы набрали более 80% по курсу — сертификат доступен в профиле.")
+
             return redirect('result', test_id=test_id)
         
         return redirect('next_test', test_id=test_id)
@@ -100,6 +166,7 @@ class ResultView(View):
     def get(self, request, *args, **kwargs):
         test_id = self.kwargs.get('test_id')
         module = models.Test.objects.get(id=test_id).test_module
+
         # Получаем историю тестов для пользователя
         test_histories = models.TestHistory.objects.filter(user=request.user, test_module=module)
 
@@ -110,6 +177,7 @@ class ResultView(View):
         )
         # Подготовка данных для отображения
         context = {
+            "module": module,
             "module_id": module.id,
             'total_tests': total_tests,
             'correct_answers': correct_answers,
@@ -165,24 +233,19 @@ class DashboardView(View):
         cours_id = self.kwargs.get('cours_id')
         test_histories = models.TestHistory.objects.filter(user=user, test_module__cours_id=cours_id)
 
-        # Общее количество тестов и счетчики правильных/неправильных ответов
         total_tests = test_histories.count()
         correct_answers_total = 0
         incorrect_answers_total = 0
 
-        # Статистика по модулям
         module_stats = {}
 
         for history in test_histories:
-            # Сравниваем правильные и пользовательские ответы
             correct_answers = sum(1 for answer in history.user_answer_ids if answer in history.correct_answer_ids)
-            total_questions = len(history.user_answer_ids)  # Предполагаем, что все ответы были даны
+            total_questions = len(history.user_answer_ids)
 
-            # Обновляем общие счетчики
             correct_answers_total += correct_answers
             incorrect_answers_total += (total_questions - correct_answers)
 
-            # Обновляем статистику по модулям
             module_id = history.test_module.id
             if module_id not in module_stats:
                 module_stats[module_id] = {
@@ -194,11 +257,30 @@ class DashboardView(View):
             module_stats[module_id]['correct_answers'] += correct_answers
             module_stats[module_id]['incorrect_answers'] += (total_questions - correct_answers)
 
+        # 🔥 Получаем общее количество вопросов в курсе (по всем модулям)
+        total_questions_in_course = models.Test.objects.filter(
+            test_module__cours_id=cours_id
+        ).count()
+
+        # 🧮 Подсчет процента
+        if total_questions_in_course > 0:
+            correct_percentage = (correct_answers_total / total_questions_in_course) * 100
+            correct_percentage = round(correct_percentage, 2)
+        else:
+            correct_percentage = 0.0
+
+        # 🎯 Сколько осталось до 80%
+        remaining_to_cert = max(0, round(80 - correct_percentage, 2))
+
         context = {
             'total_tests': total_tests,
             'correct_answers_total': correct_answers_total,
             'incorrect_answers_total': incorrect_answers_total,
             'module_stats': module_stats,
+            'cours_id': cours_id,
+            'total_questions_in_course': total_questions_in_course,
+            'correct_percentage': correct_percentage,
+            'remaining_to_cert': remaining_to_cert,
         }
 
         return render(request, self.template_name, context)

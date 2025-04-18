@@ -74,7 +74,11 @@
                             <ul>
                                 <li>
                                     <div class="teacher-img">
-                                        <img src="{{ course.teacher.profile_image.url }}" alt="teacher">
+                                        {% if course.teacher.profile_image %}
+                                            <img src="{{ course.teacher.profile_image.url }}" alt="teacher">
+                                        {% else %}
+                                            <img src="{% static 'img/none_image_profile.png' %}" alt="teacher">
+                                        {% endif %}
                                     </div>
 
                                     {% trans 'Teacher' %}: {{ course.teacher.fullname }}
@@ -84,6 +88,12 @@
 
                             <div class="apply-btn">
                                 {% if is_paid %}
+                                    {% if test_exists %}
+                                        <a href="{% url 'test_case_description_detail' course.id %}"
+                                           class="btn btn-secondary">
+                                            {% trans 'Tests' %}
+                                        </a>
+                                    {% endif %}
                                     <p class="btn btn-primary">{% trans 'Purchased' %}</p>
                                 {% else %}
                                     <a href="{% url 'purchase_course' course_id=course.id %}" class="btn btn-primary">

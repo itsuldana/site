@@ -13,13 +13,13 @@ class TestCaseDescriptions(models.Model):
         Course,
         on_delete=models.CASCADE,
         related_name='test_case_descriptions',
-        verbose_name='Тестовый модуль'
+        verbose_name='Курс'
     )
     title = models.CharField(
         max_length=255,
         blank=False,
         verbose_name="Name",
-        default="Default Title"
+        default="Заголовок"
     )
     description = CKEditor5Field(
         'Описание',
@@ -34,6 +34,10 @@ class TestCaseDescriptions(models.Model):
 
     def __str__(self):
         return f'TestModule for {self.title}'
+
+    class Meta:
+        verbose_name = 'Course Tests Description №1'
+        verbose_name_plural = 'Course Tests Description №1'
     
 
 class TestModule(models.Model):
@@ -41,14 +45,14 @@ class TestModule(models.Model):
         Course,
         on_delete=models.CASCADE,
         related_name='test_modules',
-        verbose_name='Тестовый модуль'
+        verbose_name='Курс'
     )
     title = models.CharField(
         max_length=255,
         null=False,
         blank=False,
         verbose_name="Name",
-        default="New titile"
+        default="Заголовок модуля тестов"
     )
     description = CKEditor5Field(
         'Описание',
@@ -63,7 +67,7 @@ class TestModule(models.Model):
     position = models.PositiveIntegerField(default=1) 
     time_limit = models.PositiveIntegerField(
         default=30,  
-        verbose_name='Лимит времени (минуты)'
+        verbose_name='Лимит времени прохождения (минуты)'
     )
     def __str__(self):
         return f'{self.title} module for {self.cours.title}'
@@ -76,7 +80,7 @@ class Test(models.Model):
         TestModule,
         on_delete=models.CASCADE,
         related_name='tests',
-        verbose_name='Тестовый модуль'
+        verbose_name='Модуль'
     )
     question_text = CKEditor5Field(
         'Вопрос',

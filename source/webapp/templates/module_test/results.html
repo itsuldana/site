@@ -10,30 +10,34 @@
 
 {% block content %}
 
-<style>
-    .result-header {
-        margin-top: 60px;
-    }
-</style>
+    <style>
+        .result-header {
+            margin-top: 100px;
+        }
+    </style>
 
-    <div class="container result-header">
-        <h1>Результаты теста</h1>
+    <div class="container result-header"
+         style="max-width: 800px; margin: 0 auto; padding: 40px 20px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); text-align: center;">
+        <h1 style="font-size: 2.2rem; margin-bottom: 24px; color: #2c3e50;">Результаты теста</h1>
 
-        <div>
-            <p>Вы прошли {{ total_tests }} тестов.</p>
-            <p>Количество правильных ответов: {{ correct_answers }}</p>
-    
-            {% if total_tests > 0 %}
-            {% else %}
-                <p>Вы еще не прошли ни одного теста.</p>
-            {% endif %}
-        </div>
-        <a href="{% url 'test_history' module_id %}" class="btn btn-outline-secondary">Посмотреть результаты</a>
+        {% if total_tests > 0 %}
+            <div style="font-size: 1.1rem; margin-bottom: 20px; color: #34495e;">
+                <p><strong style="color: #27ae60;">{{ total_tests }}</strong> вопроса(ов) пройдено</p>
+                <p>Правильных ответов: <strong style="color: #2980b9;">{{ correct_answers }}</strong></p>
+            </div>
+        {% else %}
+            <p style="color: #c0392b; font-weight: 500;">Вы ещё не прошли ни одного теста.</p>
+        {% endif %}
+
+        <a href="{% url 'test_history' module_id %}"
+           class="btn btn-success">
+            Посмотреть результаты
+        </a>
     </div>
 
-    
 
-    
+
+
 
 {% endblock %}
 

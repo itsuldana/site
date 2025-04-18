@@ -164,7 +164,12 @@
                             <div class="content" id="tab_3_content">
                                 <div class="course-author">
                                     <div class="img">
-                                        <img src="{{ lesson.module.course.teacher.profile_image.url }}" alt="teacher">
+                                        {% if lesson.module.course.teacher.profile_image %}
+                                            <img src="{{ lesson.module.course.teacher.profile_image.url }}"
+                                                 alt="teacher">
+                                        {% else %}
+                                            <img src="{% static 'img/none_image_profile.png' %}" alt="teacher">
+                                        {% endif %}
                                     </div>
 
                                     <div class="author-content">

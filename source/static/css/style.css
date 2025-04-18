@@ -5123,6 +5123,14 @@ label {
     .course-details-tabs #tabs > li {
         width: 100%;
     }
+
+    .hide-mobile {
+        display: none;
+    }
+
+    .hide-desktop {
+        display: block !important;
+    }
 }
 
 .mr-ul {
@@ -5140,3 +5148,8 @@ label {
     -ms-user-select: none !important; /* Для IE */
     user-select: none !important; /* Для современных браузеров */
 }
+
+.hide-desktop {
+    display: none;
+}
+

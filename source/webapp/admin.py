@@ -5,7 +5,7 @@ from .models import *
 
 class AnswerOptionInline(admin.TabularInline):  # Можно использовать StackedInline для другого оформления
     model = AnswerOption
-    extra = 1  # Количество пустых форм для добавления новых вариантов ответов
+    extra = 0  # Количество пустых форм для добавления новых вариантов ответов
 
 
 class TestModuleAdmin(admin.ModelAdmin):

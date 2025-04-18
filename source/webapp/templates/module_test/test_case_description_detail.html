@@ -12,12 +12,15 @@
         <!-- Module Header Section -->
         <div class="row d-flex justify-content-center">
             <div class="row d-flex justify-content-center">
-                <div class="col-12 col-lg-8 card text-bg-light test-description-margins">
-                    <h3>{{ test_case_description.title }}</h3>
+                <div class="col-12 col-lg-8 card text-bg-light test-description-margins" style="padding: 25px;">
+                    <h3 class="mb-24">{{ test_case_description.title }}</h3>
                     <div class="module-description">
                         {{ test_case_description.description|safe }}
-                        <a href="{% url 'test_models' test_case_description.сourse_id %}" class="btn btn-outline-primary">
+                        <a href="{% url 'test_models' test_case_description.сourse_id %}" class="btn btn-success">
                             Перейти к тестам
+                        </a>
+                        <a href="{% url 'dashboard' test_case_description.сourse_id %}" class="btn btn-secondary">
+                            DashBoard
                         </a>
                         <a href="{% url 'course_detail' test_case_description.сourse_id %}" 
                            class="btn btn-outline-secondary back-button-margin">

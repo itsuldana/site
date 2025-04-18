@@ -2,8 +2,6 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 import accounts.views as views
 
-
-
 urlpatterns = [
     # change language url
     path('set_language/', views.set_language, name='set_language'),
@@ -39,6 +37,7 @@ urlpatterns = [
     # Teachers URLS
     path('teachers/', views.TeacherListView.as_view(), name='teacher_list'),
     path('teachers/<int:pk>/', views.TeacherDetailView.as_view(), name='teacher_detail'),
+    path('teachers/<int:pk>/update', views.TeacherUpdateView.as_view(), name='teacher_update'),
     path('teachers/create/', views.become_teacher, name='become_teacher'),
     path('teachers/confirm/', views.TeacherConfirmView.as_view(), name='teacher_confirm'),
     path('teachers/<int:pk>/payment/', views.TeacherPaymentView.as_view(), name='teacher_payment'),

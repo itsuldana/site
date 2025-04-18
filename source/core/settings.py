@@ -100,10 +100,11 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/1',  # Используйте имя сервиса Redis
+        'LOCATION': 'redis://127.0.0.1:6379/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
@@ -156,9 +157,13 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Где Django будет искать статику, когда ты запускаешь команду collectstatic
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Где лежат исходные статики (CSS, JS, картинки), которые ты редактируешь
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(BASE_DIR, 'static'),  # Папка с твоими исходными файлами статики
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')

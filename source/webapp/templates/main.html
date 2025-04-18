@@ -7,20 +7,21 @@
 
     <!-- Главный баннер -->
     <div class="main-banner-image">
+
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-8">
                     <img src="{% static 'new_img/Group.png' %}" alt="иконка на баннере" class="banner-icon">
-                    <p class="font-20 semibold green-text mt-120">
+                    <p class="font-20 semibold green-text mt-250 font-14-mobile">
                         {% trans 'Learn online and conquer heights.' %}
                     </p>
-                    <h1 class="font-50 medium white-text mt-32">
+                    <h1 class="font-50 medium white-text mt-32 font-24-mobile">
                         {% trans 'Opening the doors to your Future by making learning Accessible and inspiring' %}
                     </h1>
-                    <p class="font-20 medium white-text mt-32 mb-50">
+                    <p class="font-20 medium white-text mt-32 mb-50 font-14-mobile">
                         {% trans 'Affordable online courses to develop skills, improve your qualifications and achieve your goals. Learn when and where it suits you.' %}
                     </p>
-                    <a class="font-20 medium white-text green-button text-decoration-none"
+                    <a class="font-20 medium white-text green-button text-decoration-none font-14-mobile"
                        href="{% url 'course_list' %}">
                         {% trans 'Go to courses' %}
                     </a>
@@ -50,7 +51,7 @@
     </div>
 
     <!-- Slider категорий -->
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleControls" class="carousel slide display-none-mobile" data-bs-ride="carousel">
         <div class="carousel-inner">
 
             <!-- Добавляем "All" (Все) и разбиваем теги на группы по 3 -->
@@ -105,13 +106,13 @@
     <!-- Преимущества -->
     <div class="advantages-block mt-60 diagonal-gradient">
         <div class="container pt-60">
-            <h3 class="font-32 text-align-center">
+            <h3 class="font-32 text-align-center font-20-mobile">
                 {% trans 'Benefits of Taking Courses on SkillSpring' %}
             </h3>
 
             <div class="row mt-60">
 
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 mb-40">
                     <img src="{% static 'new_img/Group2.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
                         {% trans 'Expert authors' %}
@@ -121,7 +122,7 @@
                     </p>
                 </div>
 
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 mb-40">
                     <img src="{% static 'new_img/book.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
                         {% trans 'Current materials' %}
@@ -131,7 +132,7 @@
                     </p>
                 </div>
 
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 mb-40">
                     <img src="{% static 'new_img/tree.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
                         {% trans 'Practical tasks' %}
@@ -142,8 +143,8 @@
                 </div>
             </div>
 
-            <div class="row mt-60">
-                <div class="col-12 col-lg-4">
+            <div class="row mt-60 mt-0">
+                <div class="col-12 col-lg-4 mb-40">
                     <img src="{% static 'new_img/lamp.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
                         {% trans 'Flexibility of learning' %}
@@ -153,7 +154,7 @@
                     </p>
                 </div>
 
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 mb-40">
                     <img src="{% static 'new_img/files.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
                         {% trans 'Access to unique content' %}
@@ -163,7 +164,7 @@
                     </p>
                 </div>
 
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 mb-40">
                     <img src="{% static 'new_img/certificate.png' %}" alt="Авторы">
                     <h5 class="font-20 medium mt-8">
                         {% trans 'Certificates and Portfolio' %}
@@ -179,7 +180,8 @@
 
     <!-- Блок с виджетами -->
     <div class="vidgets-block-1 mt-100">
-        <div class="container">
+
+        <div class="container hide-mobile">
             <div class="banner-container">
                 <img src="{% static 'new_img/banner1.png' %}" alt="люди за компьютерами" class="banner-image">
                 <div class="banner-block"></div>
@@ -196,15 +198,13 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="vidgets-block-2 mt-32">
-        <div class="container">
+        <div class="container hide-desktop">
             <div class="banner-container">
-                <img src="{% static 'new_img/banner2.png' %}" alt="люди за совещанием" class="banner-image">
-                <div class="banner-block-2"></div>
-                <div class="text-banner-block-2 d-flex flex-column justify-content-between">
-                    <p class="font-24 semibold white-text text-align-left">
+                <img src="{% static 'new_img/Rectangle_23.png' %}" alt="люди за компьютерами" class="banner-image">
+                <div class="banner-block"></div>
+                <div class="text-banner-block d-flex flex-column justify-content-between">
+                    <p class="font-24 semibold white-text text-align-left font-16-mobile">
                         {% trans 'Join our courses and develop with confidence!' %}
                     </p>
                     <div class="text-align-left">
@@ -216,12 +216,59 @@
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <div class="vidgets-block-2 mt-32">
+
+        <div class="container hide-mobile">
+            <div class="banner-container">
+                <img src="{% static 'new_img/banner2.png' %}" alt="люди за совещанием" class="banner-image">
+                <div class="banner-block-2"></div>
+                <div class="text-banner-block-2 d-flex flex-column justify-content-between">
+                    <p class="font-24 semibold white-text text-align-left font-16-mobile">
+                        {% trans 'Join our courses and develop with confidence!' %}
+                    </p>
+                    <div class="text-align-left">
+                        <img src="{% static 'new_img/arrow-right.png' %}" alt="стрелка вправо">
+                        <p class="font-14 regular white-text inline-block ml-6">
+                            {% trans 'Connect' %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container hide-desktop">
+            <div class="banner-container">
+                <img src="{% static 'new_img/Rectangle_24.png' %}" alt="люди за совещанием" class="banner-image">
+                <div class="banner-block-2"></div>
+                <div class="text-banner-block-2 d-flex flex-column justify-content-between">
+                    <p class="font-24 semibold white-text text-align-left font-16-mobile">
+                        {% trans 'Join our courses and develop with confidence!' %}
+                    </p>
+                    <div class="text-align-left">
+                        <img src="{% static 'new_img/arrow-right.png' %}" alt="стрелка вправо">
+                        <p class="font-14 regular white-text inline-block ml-6">
+                            {% trans 'Connect' %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="review-block mt-100">
-        <div class="container">
+
+        <div class="container hide-mobile">
             <img src="{% static 'new_img/frame.png' %}" alt="Student reviews" class="review-image">
         </div>
+
+        <div class="container hide-desktop">
+            <img src="{% static 'new_img/Frame_36.png' %}" alt="Student reviews" class="review-image">
+        </div>
+
     </div>
 
     <!-- JavaScript -->

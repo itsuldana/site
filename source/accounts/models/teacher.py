@@ -125,10 +125,19 @@ class Teacher(models.Model):
 
     def save(self, *args, **kwargs):
         self.full_clean()  # Ensure validations are run on save
+
+        # Сохраняем модель в первый раз, чтобы получить путь к файлу (если новая)
         super().save(*args, **kwargs)
+
         if self.profile_image:
-            self.image = self.generate_image_version(self.profile_image, 1, 'news_detail_image.jpg')  # 560:583
-            super().save(*args, **kwargs)
+            # Обрезаем и создаем новое изображение
+            cropped_image = self.generate_image_version(self.profile_image, 1, 'cropped_profile_image.jpg')
+
+            # Перезаписываем поле изображения
+            self.profile_image.save('cropped_profile_image.jpg', cropped_image, save=False)
+
+            # Сохраняем второй раз с новым изображением
+            super().save(update_fields=['profile_image'])
 
     def crop_center(self, img, aspect_ratio):
         # Получаем текущие размеры изображения

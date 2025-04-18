@@ -132,6 +132,10 @@ body {
     margin-top: 120px;
 }
 
+.mt-250 {
+    margin-top: 250px;
+}
+
 .mb-24 {
     margin-bottom: 24px !important;
 }
@@ -268,7 +272,7 @@ body {
 }
 
 .green-text {
-    color: #30BC83;
+    color: #30BC83 !important;
 }
 
 .white-text {
@@ -289,6 +293,10 @@ body {
 
 .text-align-center {
     text-align: center;
+}
+
+.ptс-5 {
+    padding-top: 5px;
 }
 
 .text-align-right {
@@ -667,3 +675,72 @@ body {
     }
 }
 
+.mb-40 {
+    margin-bottom: 40px;
+}
+
+@media only screen and (max-width: 767px) {
+    .main-banner-image {
+        background-image: url('/static/new_img/main_image_mobile.png'); /* Укажите путь к изображению */
+        background-size: cover; /* Заставляет изображение покрывать весь элемент */
+        height: 823px;
+    }
+
+    .banner-icon {
+        display: none;
+    }
+
+    .font-14-mobile {
+        font-size: 14px !important;
+    }
+
+    .font-16-mobile {
+        font-size: 16px !important;
+    }
+
+    .font-20-mobile {
+        font-size: 20px !important;
+    }
+
+    .font-24-mobile {
+        font-size: 24px !important;
+    }
+
+    .search-button {
+        padding: 15px 15px;
+    }
+
+    .search-input {
+        max-width: 300px !important;
+        font-size: 14px;
+    }
+
+    .advantages-block {
+        height: auto;
+    }
+
+    .banner-block {
+        width: 291px;
+        height: 235px;
+    }
+
+    .text-banner-block {
+        height: 222px;
+        width: 278px;
+    }
+
+    .banner-block-2 {
+        width: 291px;
+        height: 235px;
+    }
+
+    .text-banner-block-2 {
+        height: 222px;
+        width: 278px;
+        right: 17%;
+    }
+
+    .display-none-mobile {
+        display: none;
+    }
+}

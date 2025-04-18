@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 import random
-from django.views.generic import ListView, DetailView, TemplateView
+
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, UpdateView
 from rest_framework.reverse import reverse
 
-from accounts.forms import TeacherApplicationForm
+from accounts.forms import TeacherApplicationForm, TeacherUpdateForm
 from accounts.models import Teacher
 from webapp.models import Course
 
@@ -70,3 +72,12 @@ class TeacherPaymentView(DetailView):
         context = super().get_context_data(**kwargs)
 
         return context
+
+
+class TeacherUpdateView(UpdateView):
+    model = Teacher
+    form_class = TeacherUpdateForm
+    template_name = 'teachers/teacher_update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('teacher_detail', kwargs={'pk': self.object.pk})

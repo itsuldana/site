@@ -12,8 +12,13 @@
 
                         <div class="row mt-24">
                             <div class="col-2">
-                                <img src="{{ course.teacher.profile_image.url }}" alt="{{ course.title }}"
-                                     class="teacher-course-image">
+                                {% if course.teacher.profile_image %}
+                                    <img src="{{ course.teacher.profile_image.url }}" alt="{{ course.title }}"
+                                         class="teacher-course-image">
+                                {% else %}
+                                    <img src="{% static 'img/none_image_profile.png' %}" alt="{{ course.title }}"
+                                         class="teacher-course-image">
+                                {% endif %}
                             </div>
                             <div class="col-6">
                                 <p class="font-18 regular black-text mt-15">

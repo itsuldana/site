@@ -222,3 +222,58 @@ class TeacherApplicationForm(forms.ModelForm):
                 'class': 'form-control'
             }),
         }
+
+class TeacherUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = [
+            'fullname', 'position', 'instagram', 'facebook', 'linkedin', 'twitter',
+            'phone_number', 'geolocation', 'about_ru', 'about_en', 'profile_image'
+        ]
+        widgets = {
+            'fullname': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Full Name'
+            }),
+            'position': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Specialization'
+            }),
+            'instagram': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Instagram Profile URL'
+            }),
+            'facebook': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Facebook Profile URL'
+            }),
+            'linkedin': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'LinkedIn Profile URL'
+            }),
+            'twitter': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Twitter Profile URL'
+            }),
+            'phone_number': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Phone Number'
+            }),
+            'geolocation': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Location (e.g. Kazakhstan, Almaty)'
+            }),
+            'about_ru': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'About (Russian)',
+                'rows': 4
+            }),
+            'about_en': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'About (English)',
+                'rows': 4
+            }),
+            'profile_image': forms.ClearableFileInput(attrs={
+                'class': 'form-control'
+            }),
+        }

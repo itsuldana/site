@@ -43,6 +43,9 @@ class Purchase(models.Model):
         null=False,
         verbose_name="Сумма оплаты",
     )
+    has_certificate = models.BooleanField(
+        default=False,
+    )
 
     def __str__(self):
         return f'{self.user.username} - {self.course.title}'
