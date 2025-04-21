@@ -31,6 +31,7 @@ services:
     command: /bin/bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:9400"
     volumes:
       - .:/usr/src/app
+      - ./staticfiles:/usr/src/app/staticfiles  # 👈 добавляем явный том для collected static
     ports:
       - "9400:9400"
     environment:
