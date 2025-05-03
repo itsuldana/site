@@ -302,7 +302,7 @@
                 <img src="{% static 'new_img/bxs_book.png' %}" alt="Лого" class="footer-logo mt-38">
                 <img src="{% static 'new_img/SkillSpring.png' %}" alt="Лого" class="footer-name mt-38 ml-25">
                 <p class="font-20 regular white-text mt-15">
-                    {% trans 'Найди идеальный курс у нас' %}
+                    {% trans 'Find your perfect course with us' %}
                 </p>
                 <div class="row mt-24">
                     <div class="col-12">
@@ -316,20 +316,17 @@
                     <div class="col-12">
                         <img src="{% static 'new_img/phone.png' %}" alt="Телефон" class="footer-name">
                         <p class="font-20 regular white-text inline-block ml-6">
-                            +7 (777) 123-45-67
+                            +7 (706) 630-06-09
                         </p>
                     </div>
                 </div>
                 <div class="row pb-35 mt-15">
                     <div class="col-12">
-                        <a href="#" class="text-decoration-none">
-                            <img src="{% static 'new_img/facebook.png' %}" alt="Facebook">
+                        <a href="https://www.instagram.com/skillspring_course?igsh=MTcyb2E1ZmU1N3BtYQ%3D%3D&utm_source=qr" class="text-decoration-none">
+                            <img src="{% static 'new_img/insta.png' %}" alt="Instagram" class="">
                         </a>
-                        <a href="#" class="text-decoration-none">
-                            <img src="{% static 'new_img/insta.png' %}" alt="Instagram" class="ml-25">
-                        </a>
-                        <a href="#" class="text-decoration-none">
-                            <img src="{% static 'new_img/linkedin.png' %}" alt="LinkedIn" class="ml-25">
+                        <a href="https://www.tiktok.com/@skillspring_course?_t=ZM-8w34KAzONin&_r=1" class="text-decoration-none">
+                            <img src="{% static 'icons/ic_baseline-tiktok.svg' %}" alt="tiktok" class="ml-25">
                         </a>
                     </div>
                 </div>
@@ -339,43 +336,40 @@
 
                 <div class="pt-45 pb-25">
                     <p class="font-28 semibold white-text inline-block ml-25">
-                        {% trans 'Основные ссылки' %}
+                        {% trans 'Basic links' %}
                     </p>
                     <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
-                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
-                        {% trans 'Курсы' %}
+                    <a href="{% url 'course_list' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Course List' %}
                     </a>
-                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
-                        {% trans 'О нас' %}
+                    <a href="{% url 'index' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Index Page' %}
                     </a>
-                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
-                        {% trans 'Тарифы' %}
-                    </a>
-                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
-                        {% trans 'Контакты' %}
+                    <a href="{% url 'contact_us' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Contact Us' %}
                     </a>
                 </div>
 
                 <div class="pt-45 pb-25">
                     <p class="font-28 semibold white-text inline-block ml-25">
-                        {% trans 'Обзор сайта' %}
+                        {% trans 'Site Review' %}
                     </p>
                     <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
-                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
-                        {% trans 'Вход/Регистрация' %}
+                    <a href="{% url 'login' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Login' %}
                     </a>
-                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
-                        {% trans 'Помощь и поддержка' %}
+                    <a href="{% url 'register' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Register' %}
                     </a>
                 </div>
 
                 <div class="pt-45 pb-25">
                     <p class="font-28 semibold white-text inline-block ml-25">
-                        {% trans 'Подпишитесь на рассылку' %}
+                        {% trans 'Contact Support' %}
                     </p>
                     <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
-                    <a href="#" class="text-decoration-none font-20 regular white-text inline-block ml-25">
-                        {% trans 'Курсы' %}
+                    <a href="{% url 'contact_us' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                        {% trans 'Support Page' %}
                     </a>
                 </div>
 

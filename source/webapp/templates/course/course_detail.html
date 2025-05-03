@@ -166,10 +166,17 @@
                                                                     {% trans 'Lesson' %}
                                                                     {{ module.position }}.{{ forloop.counter }}
 
-                                                                    <span><a
-                                                                            href="{% url 'lesson_detail' pk=lesson.id %}">
-
-                                                                        {{ lesson.title }}</a></span>
+                                                                    <span>
+                                                                        {% if not is_paid %}
+                                                                            <p>
+                                                                                {{ lesson.title }}
+                                                                            </p>
+                                                                        {% else %}
+                                                                            <a href="{% url 'lesson_detail' pk=lesson.id %}">
+                                                                                {{ lesson.title }}
+                                                                            </a>
+                                                                        {% endif %}
+                                                                    </span>
 
                                                                     <span class="duration"><i
                                                                             class="icofont-clock-time"></i> {{ lesson.formatted_duration }} min</span>
@@ -205,6 +212,7 @@
                                     <div class="author-content">
                                         <h4>{{ course.teacher.fullname }}</h4>
                                         <span>{{ course.teacher.position }}</span>
+                                        <a href="mailto:{{ course.teacher.user.email }}">{{ course.teacher.user.email }}</a>
                                         <ul class="">
                                             {% if teacher.facebook %}
                                                 <li><a href="{{ course.teacher.facebook }}"><i
