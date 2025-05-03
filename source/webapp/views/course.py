@@ -1,3 +1,4 @@
+import random
 from decimal import Decimal, ROUND_HALF_UP
 
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
@@ -108,7 +109,19 @@ class CourseCreateView(CreateView):
     def form_valid(self, form):
         teacher = Teacher.objects.get(user_id=self.request.user.id)
         form.instance.teacher = teacher
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        # Создаем покупку для преподавателя (user)
+        Purchase.objects.create(
+            user=teacher.user,
+            course=form.instance,
+            payment_status='DONE',
+            payment_code=f'{random.randint(0, 0xFFFFFF):06X}',  # Пример генерации уникального 6-символьного кода
+            purchase_amount=int(form.instance.price),  # Приведение к int, если DecimalField
+            has_certificate=False,
+        )
+
+        return response
 
     def get_success_url(self):
         return reverse('teacher_detail', kwargs={'pk': self.request.user.user_teacher.first().pk})

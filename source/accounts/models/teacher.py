@@ -3,7 +3,6 @@ from io import BytesIO
 from django.core.files.base import ContentFile
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.core.exceptions import ValidationError
 from PIL import Image
 
 from accounts.models import CustomUser
