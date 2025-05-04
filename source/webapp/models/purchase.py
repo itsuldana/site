@@ -46,6 +46,12 @@ class Purchase(models.Model):
     has_certificate = models.BooleanField(
         default=False,
     )
+    certificate_file = models.FileField(
+        upload_to='certificates/',
+        null=True,
+        blank=True,
+        verbose_name='Файл сертификата',
+    )
 
     def __str__(self):
         return f'{self.user.username} - {self.course.title}'

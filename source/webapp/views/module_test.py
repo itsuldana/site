@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.cache import cache
 from collections import defaultdict
+from webapp.utils import generate_certificate
 
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
@@ -152,8 +153,13 @@ class NextTestView(View):
 
                 if purchase and not purchase.has_certificate:
                     purchase.has_certificate = True
+
+                    # Сгенерировать сертификат
+                    certificate_path = generate_certificate(purchase)
+                    purchase.certificate_file.name = certificate_path
+
                     purchase.save()
-                    # ✅ Добавляем сообщение
+
                     messages.success(request,
                                      "Поздравляем! Вы набрали более 80% по курсу — сертификат доступен в профиле.")
 
