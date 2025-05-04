@@ -45,7 +45,7 @@ def generate_certificate(purchase):
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
     # QR-код
-    qr_url = f"https://skillspring.oyustudio.kz//certificate/verify?id={purchase.payment_code}"
+    qr_url = f"https://skillspring.oyustudio.kz/certificate/verify?id={purchase.payment_code}"
     qr_path = os.path.join(settings.MEDIA_ROOT, 'certificates', f"qr_{purchase.id}.png")
     qrcode.make(qr_url).save(qr_path)
 
