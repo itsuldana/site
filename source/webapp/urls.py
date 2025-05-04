@@ -12,7 +12,7 @@ sitemaps = {
 urlpatterns = [
     # Главная
     path('', views.MainView.as_view(), name='index'),
-    path('filter_courses/', views.filter_courses, name='filter_courses'),
+    path('filter_courses/', views.filter_courses_main_page, name='filter_courses'),
 
     # Robots.txt
     path('robots.txt', views.robots_txt, name='robots_txt'),
@@ -32,6 +32,7 @@ urlpatterns = [
     path('courses/<int:pk>/edit/', views.CourseUpdateView.as_view(), name='course_edit'),
     path('courses/list', views.CourseListView.as_view(), name='course_list'),
     path('courses/paid_list/', views.CoursePaidListView.as_view(), name='course_paid_list'),
+    path('filter_courses_course_list/', views.filter_courses, name='filter_courses_course_list'),
 
     # urls для модулей
     path('courses/<int:pk>/modules/create/', views.ModuleCreateView.as_view(), name='module_create'),

@@ -1,0 +1,48 @@
+{% load percent_filter %}
+{% load i18n %}
+
+<div class="container">
+    <div class="row">
+        {% if courses %}
+            {% for course in courses %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="courses-item">
+                        <div class="courses-img">
+                            <img src="{{ course.image.url }}" alt="course">
+                        </div>
+
+                        <div class="courses-content">
+                            <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                            <p>
+                                {{ course.preview_description }}
+                            </p>
+                        </div>
+
+                        <div class="courses-content-bottom">
+                            {% if price_with_discount_exists == 'Yes' %}
+                                <h4 class="price">
+                                            <span>
+                                                {{ course.price|floatformat:0 }}
+                                            </span>
+                                    {{ course.price_with_discount }} тг.
+                                </h4>
+                            {% else %}
+                                <h4 class="price">
+                                    {{ course.price|floatformat:0 }} тг.
+                                </h4>
+                            {% endif %}
+                            <h4>
+                                <a href="{% url 'course_detail' course.pk %}"
+                                   class="btn btn-primary">{% trans 'Read More' %}</a>
+                            </h4>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        {% include 'partial/pagination.html' %}
+    </div>
+</div>

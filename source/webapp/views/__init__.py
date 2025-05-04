@@ -1,5 +1,5 @@
 from .index import (
-    MainView, filter_courses,
+    MainView, filter_courses_main_page,
 )
 
 from .contact_us import (
@@ -37,4 +37,5 @@ from .course import (
     CourseCreateView, CourseDetailView,
     CourseUpdateView, CourseListView,
     CoursesView, CoursePaidListView,
+    filter_courses,
 )

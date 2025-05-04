@@ -78,7 +78,7 @@ class MainView(ListView):
         return context
 
 
-def filter_courses(request):
+def filter_courses_main_page(request):
     tag_code = request.GET.get('tag_code', 'all')
     search_query = request.GET.get('search_query', '').strip()
 
@@ -113,7 +113,6 @@ def filter_courses(request):
         minutes, seconds = divmod(remainder, 60)
         course.total_duration = f"{hours:02}:{minutes:02}:{seconds:02}" if hours else f"{minutes:02}:{seconds:02} min"
 
-
         if request.user.is_authenticated:
             user_discount = request.user.get_user_discount()  # Например, 20 для 20%
             discounted_price = course.price * (Decimal(100 - user_discount) / Decimal(100))
@@ -125,7 +124,7 @@ def filter_courses(request):
 
             price_with_discount_exists = 'Yes'
 
-    html = render_to_string('course/course_list_main_page.html', {
+    html = render_to_string('partial/course_list_main_page.html', {
         'courses': courses,
         'price_with_discount_exists': price_with_discount_exists,
     })
