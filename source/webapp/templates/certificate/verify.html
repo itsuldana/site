@@ -8,15 +8,15 @@
     <div class="container">
         <div class="ctr-text-content">
             {% if found %}
-                <h1>{% trans "Сертификат подтверждён ✅" %}</h1>
-                <p>{% trans "Имя:" %} <strong>{{ purchase.user.get_full_name|default:purchase.user.username }}</strong></p>
-                <p>{% trans "Курс:" %} <strong>{{ purchase.course.title }}</strong></p>
-                <p>{% trans "Дата прохождения:" %} <strong>{{ purchase.purchase_date|date:"d.m.Y" }}</strong></p>
+                <h1>{% trans 'Certificate verified' %} ✅</h1>
+                <p>{% trans 'Name:' %} <strong>{{ purchase.user.get_full_name|default:purchase.user.username }}</strong></p>
+                <p>{% trans 'Course:' %} <strong>{{ purchase.course.title }}</strong></p>
+                <p>{% trans 'Completion date:' %} <strong>{{ purchase.purchase_date|date:"d.m.Y" }}</strong></p>
             {% else %}
-                <h1>{% trans "Сертификат не найден ❌" %}</h1>
-                <p>{% trans "Указанный код недействителен или сертификат не подтверждён." %}</p>
+                <h1>{% trans 'Certificate not found' %} ❌</h1>
+                <p>{% trans 'The provided code is invalid or the certificate has not been confirmed.' %}</p>
             {% endif %}
-            <a href="{% url 'index' %}" class="btn btn-primary mt-3">{% trans 'На главную' %}</a>
+            <a href="{% url 'index' %}" class="btn btn-primary mt-3">{% trans 'Back to Home' %}</a>
         </div>
     </div>
 </div>

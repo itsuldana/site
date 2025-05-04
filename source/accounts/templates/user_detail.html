@@ -167,7 +167,41 @@
                     </div>
                 </div>
 
+                {% if certificates %}
+                    <div class="row mt-24">
+                        <div class="col-12">
+                            <h2>{% trans 'My Certificates' %}</h2>
+                        </div>
+                    </div>
+                    <div class="row mt-24">
+                        {% for purchase in certificates %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="courses-item">
+                                    <div class="courses-img">
+                                        <img src="{{ purchase.course.image.url }}" alt="course">
+                                    </div>
 
+                                    <div class="courses-content">
+                                        <h3><a href="{% url 'course_detail' purchase.course.pk %}">
+                                            {{ purchase.course.title }}
+                                        </a></h3>
+                                        <p>{{ purchase.course.preview_description }}</p>
+                                    </div>
+
+                                    <div class="courses-content-bottom d-flex justify-content-left align-items-left">
+                                        <a href="{{ purchase.certificate_file.url }}" target="_blank"
+                                           class="btn btn-secondary">
+                                            {% trans "View Certificate" %}
+                                        </a>
+                                        <a href="{{ purchase.certificate_file.url }}" download class="btn btn-primary ml-15">
+                                            {% trans "Download" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>

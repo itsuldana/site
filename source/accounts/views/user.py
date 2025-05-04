@@ -20,6 +20,7 @@ from accounts.forms import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from accounts.models import Teacher
+from webapp.models import Purchase
 
 
 class LoginView(TemplateView):
@@ -122,12 +123,19 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
         discount = user.get_user_discount()
 
+        certificates = Purchase.objects.filter(
+            user=user,
+            has_certificate=True,
+            payment_status='DONE'
+        ).select_related('course')
+
         context.update({
             'discount': discount,
             'user_xp': user.xp,
             'xp': xp_needed,
             'next_level_xp': next_level_xp,
             'progress_percentage': progress_percentage,
+            "certificates": certificates,
         })
 
         return context

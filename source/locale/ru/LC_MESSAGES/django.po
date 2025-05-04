@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-03 19:35+0500\n"
+"POT-Creation-Date: 2025-05-04 20:11+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: accounts/templates/email_confirm.html:14 accounts/templates/login.html:4
 #: accounts/templates/login.html:12 accounts/templates/login.html:26
-#: accounts/templates/login.html:57 templates/base.html:359
+#: accounts/templates/login.html:57 templates/base.html:362
 msgid "Login"
 msgstr "Вход"
 
@@ -213,7 +213,7 @@ msgid "Return to Login"
 msgstr "Вернуться к входу"
 
 #: accounts/templates/registration.html:10
-#: accounts/templates/registration.html:23 templates/base.html:362
+#: accounts/templates/registration.html:23 templates/base.html:365
 msgid "Register"
 msgstr "Регистрация"
 
@@ -230,8 +230,6 @@ msgid "Login Now!"
 msgstr "Войти Сейчас!"
 
 #: accounts/templates/teachers/teacher_confirm.html:11
-#, fuzzy
-#| msgid "Your message has been successfully sent."
 msgid "Your request has been successfully sent."
 msgstr "Ваше письмо успешно отправлено."
 
@@ -243,8 +241,6 @@ msgstr ""
 
 #: accounts/templates/teachers/teacher_confirm.html:16
 #: accounts/templates/teachers/teacher_payment.html:83
-#, fuzzy
-#| msgid "Profile"
 msgid "Your Profile"
 msgstr "Профиль"
 
@@ -269,26 +265,18 @@ msgid "Go back"
 msgstr "Назад"
 
 #: accounts/templates/teachers/teacher_payment.html:5
-#, fuzzy
-#| msgid "Payment for the course"
 msgid "Payment for the request"
 msgstr "Оплата курса"
 
 #: accounts/templates/teachers/teacher_payment.html:51
-#, fuzzy
-#| msgid "Thanks for your order!"
 msgid "Thanks for your request!"
 msgstr "Спасибо за ваш заказ!"
 
 #: accounts/templates/teachers/teacher_payment.html:54
-#, fuzzy
-#| msgid "Your order"
 msgid "Your request"
 msgstr "Ваш заказ"
 
 #: accounts/templates/teachers/teacher_payment.html:56
-#, fuzzy
-#| msgid "Your message has been successfully sent."
 msgid "has been successfully delivered."
 msgstr "Ваше письмо успешно отправлено."
 
@@ -303,22 +291,16 @@ msgid "Scan the QR code."
 msgstr "Отсканируйте QR-код."
 
 #: accounts/templates/teachers/teacher_payment.html:68
-#, fuzzy
-#| msgid "Enter the order amount: "
 msgid "Enter the request amount: "
 msgstr "Введите сумму заказа: "
 
 #: accounts/templates/teachers/teacher_payment.html:72
-#, fuzzy
-#| msgid "Please indicate your order code in the message when paying:"
 msgid "Please indicate your request code in the message when paying:"
 msgstr "При оплате укажите, пожалуйста, код вашего заказа в сообщении:"
 
 #: accounts/templates/teachers/teacher_update.html:4
 #: accounts/templates/teachers/teacher_update.html:12
 #: accounts/templates/teachers/teacher_update.html:41
-#, fuzzy
-#| msgid "Update Profile"
 msgid "Update Your Teacher Profile"
 msgstr "Редактировать профиль"
 
@@ -361,8 +343,6 @@ msgid "Involved in courses"
 msgstr "Участвует в курсах"
 
 #: accounts/templates/teachers/teachers_detail.html:143
-#, fuzzy
-#| msgid "Create Module"
 msgid "Create Course"
 msgstr "Создать Курс"
 
@@ -393,7 +373,6 @@ msgid "Profile"
 msgstr "Профиль"
 
 #: accounts/templates/user_detail.html:48
-#, fuzzy
 msgid "Account Level"
 msgstr "Уровень Аккаунта"
 
@@ -439,14 +418,24 @@ msgid "Request under consideration"
 msgstr "Заявка на рассмотрении"
 
 #: accounts/templates/user_detail.html:151
-#, fuzzy
-#| msgid "Teacher"
 msgid "Teacher admin"
 msgstr "Админ панель преподавателя"
 
 #: accounts/templates/user_detail.html:165
 msgid "Log Out"
 msgstr "Выйти"
+
+#: accounts/templates/user_detail.html:173
+msgid "My Certificates"
+msgstr "Мои сертификаты"
+
+#: accounts/templates/user_detail.html:194
+msgid "View Certificate"
+msgstr "Посмотреть"
+
+#: accounts/templates/user_detail.html:197
+msgid "Download"
+msgstr "Скачать"
 
 #: accounts/templates/user_update.html:4 accounts/templates/user_update.html:13
 #: accounts/templates/user_update.html:28
@@ -465,11 +454,11 @@ msgstr "Фамилия"
 msgid "Avatar"
 msgstr "Аватар"
 
-#: accounts/views/user.py:43
+#: accounts/views/user.py:44
 msgid "Please confirm your email before logging in."
 msgstr "Пожалуйста, подтвердите ваш email перед входом в систему."
 
-#: accounts/views/user.py:49
+#: accounts/views/user.py:50
 msgid "Invalid username or password"
 msgstr "Неправильный username или пароль"
 
@@ -506,14 +495,13 @@ msgid "Blog"
 msgstr "Блог"
 
 #: blog/templates/post_list.html:15
-#, fuzzy
 msgid "PDGA Blog"
 msgstr "PDGA Блог"
 
 #: blog/templates/post_list.html:52
 #: webapp/templates/course/course_detail.html:399
-#: webapp/templates/course/course_list.html:65
 #: webapp/templates/course/course_paid_list.html:64
+#: webapp/templates/partial/course_list_list_page.html:36
 msgid "Read More"
 msgstr "Узнать больше"
 
@@ -533,30 +521,30 @@ msgstr "Английский"
 msgid "Russian"
 msgstr "Русский"
 
-#: templates/base.html:61 templates/base.html:222
+#: templates/base.html:64 templates/base.html:225
 #: webapp/templates/success.html:14
 msgid "Home"
 msgstr "На главную"
 
-#: templates/base.html:64 templates/base.html:226 templates/new_base.html:103
+#: templates/base.html:67 templates/base.html:229 templates/new_base.html:103
 #: templates/new_base.html:201 webapp/templates/courses.html:7
 #: webapp/templates/module_test/results.html:7
 msgid "Courses"
 msgstr "Курсы"
 
-#: templates/base.html:69 templates/base.html:230 templates/new_base.html:107
+#: templates/base.html:72 templates/base.html:233 templates/new_base.html:107
 #: webapp/templates/course/course_paid_list.html:5
 #: webapp/templates/course/course_paid_list.html:14
 msgid "Paid Courses"
 msgstr "Оплаченные Курсы"
 
-#: templates/base.html:73 templates/base.html:237 templates/base.html:242
-#: templates/base.html:349 templates/new_base.html:121
+#: templates/base.html:76 templates/base.html:240 templates/base.html:245
+#: templates/base.html:352 templates/new_base.html:121
 #: templates/new_base.html:226 webapp/templates/contact_us.html:14
 msgid "Contact Us"
 msgstr "Контакты"
 
-#: templates/base.html:228 templates/new_base.html:105
+#: templates/base.html:231 templates/new_base.html:105
 #: templates/new_base.html:204 webapp/templates/course/course_detail.html:322
 #: webapp/templates/course/course_list.html:5
 #: webapp/templates/course/course_list.html:14
@@ -564,41 +552,41 @@ msgstr "Контакты"
 msgid "All Courses"
 msgstr "Все Курсы"
 
-#: templates/base.html:248 templates/new_base.html:127
+#: templates/base.html:251 templates/new_base.html:127
 #: templates/new_base.html:229
 msgid "Account"
 msgstr "Аккаунт"
 
-#: templates/base.html:252 templates/new_base.html:131
+#: templates/base.html:255 templates/new_base.html:131
 #: templates/new_base.html:233
 msgid "Log in"
 msgstr "Войти"
 
-#: templates/base.html:305
+#: templates/base.html:308
 msgid "Find your perfect course with us"
 msgstr "Найди идеальный курс у нас"
 
-#: templates/base.html:339
+#: templates/base.html:342
 msgid "Basic links"
 msgstr "Основные ссылки"
 
-#: templates/base.html:343
+#: templates/base.html:346
 msgid "Course List"
 msgstr "Курсы"
 
-#: templates/base.html:346
+#: templates/base.html:349
 msgid "Index Page"
 msgstr "Главная"
 
-#: templates/base.html:355
+#: templates/base.html:358
 msgid "Site Review"
 msgstr "Аутентификация"
 
-#: templates/base.html:368
+#: templates/base.html:371
 msgid "Contact Support"
 msgstr "Связаться с поддержкой"
 
-#: templates/base.html:372
+#: templates/base.html:375
 msgid "Support Page"
 msgstr "Страница поддержки"
 
@@ -607,8 +595,6 @@ msgid "Teachers"
 msgstr "Преподаватели"
 
 #: templates/new_base.html:180
-#, fuzzy
-#| msgid "About"
 msgid "About PDGA"
 msgstr "Про PDGA"
 
@@ -631,6 +617,34 @@ msgstr "Поддержка"
 #: templates/new_base.html:246
 msgid "All rights reserved"
 msgstr "Все права защищены"
+
+#: webapp/templates/certificate/verify.html:11
+msgid "Certificate verified"
+msgstr "Сертификат подтверждён"
+
+#: webapp/templates/certificate/verify.html:12
+msgid "Name:"
+msgstr "Имя:"
+
+#: webapp/templates/certificate/verify.html:13
+msgid "Course:"
+msgstr "Курсы:"
+
+#: webapp/templates/certificate/verify.html:14
+msgid "Completion date:"
+msgstr "Дата прохождения:"
+
+#: webapp/templates/certificate/verify.html:16
+msgid "Certificate not found"
+msgstr "Сертификат не найден"
+
+#: webapp/templates/certificate/verify.html:17
+msgid "The provided code is invalid or the certificate has not been confirmed."
+msgstr "Указанный код недействителен или сертификат не подтверждён."
+
+#: webapp/templates/certificate/verify.html:19
+msgid "Back to Home"
+msgstr "На главную"
 
 #: webapp/templates/contact_us.html:5
 msgid "Contact PDGA"
@@ -665,39 +679,35 @@ msgstr ""
 "форму ниже. Мы стараемся отвечать на все запросы и комментарии в течение 24 "
 "часов."
 
-#: webapp/templates/contact_us.html:82
-msgid "Stay Connected"
-msgstr "Оставайтесь с нами"
-
-#: webapp/templates/contact_us.html:126
+#: webapp/templates/contact_us.html:89
 msgid "Name*"
 msgstr "Имя*"
 
-#: webapp/templates/contact_us.html:128
+#: webapp/templates/contact_us.html:91
 msgid "Please enter your name"
 msgstr "Введите Ваше имя"
 
-#: webapp/templates/contact_us.html:137
+#: webapp/templates/contact_us.html:100
 msgid "Please enter your email\""
 msgstr "Введите Ваш email"
 
-#: webapp/templates/contact_us.html:144
+#: webapp/templates/contact_us.html:107
 msgid "Phone Number*"
 msgstr "Введите Ваш номер телефона*"
 
-#: webapp/templates/contact_us.html:146
+#: webapp/templates/contact_us.html:109
 msgid "Please enter your number"
 msgstr "Введите Ваш номер телефона"
 
-#: webapp/templates/contact_us.html:153
+#: webapp/templates/contact_us.html:116
 msgid "Message*"
 msgstr "Сообщение*"
 
-#: webapp/templates/contact_us.html:155
+#: webapp/templates/contact_us.html:118
 msgid "Write your message"
 msgstr "Оставьте ваше сообщение"
 
-#: webapp/templates/contact_us.html:163
+#: webapp/templates/contact_us.html:126
 msgid "Send Message"
 msgstr "Отправить письмо"
 
@@ -924,10 +934,8 @@ msgstr ""
 "достижения ваших целей. Учитесь в удобное время и в любом месте."
 
 #: webapp/templates/main.html:26
-#, fuzzy
-#| msgid "No courses!"
 msgid "Go to courses"
-msgstr "Курсы отсутствуют!"
+msgstr "Перейти к курсу"
 
 #: webapp/templates/main.html:39
 msgid "Find the course that suits you"
@@ -1073,8 +1081,13 @@ msgstr ""
 "предоставит необходимую поддержку. Мы здесь, чтобы помочь, и благодарим вас "
 "за терпение."
 
-#~ msgid "Курсы"
+#, fuzzy
+#~| msgid "Курсы"
+#~ msgid "Курс:"
 #~ msgstr "Курсы"
+
+#~ msgid "Stay Connected"
+#~ msgstr "Оставайтесь с нами"
 
 #~ msgid "Specialization"
 #~ msgstr "Спецификация"
@@ -1161,9 +1174,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Учитесь напрямую у Динары Еренкызы, эксперта с успешным опытом, которая "
 #~ "стремится помочь каждому студенту достичь успеха."
-
-#~ msgid "My Certificates"
-#~ msgstr "Мои сертификаты"
 
 #~ msgid "Hours of Practice"
 #~ msgstr "Часов практики"
