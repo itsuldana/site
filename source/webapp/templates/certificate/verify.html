@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="ctr-area ptb-100 success-margin">
+    <div class="top-divider"></div>
+    <div class="bottom-divider"></div>
+    <div class="container">
+        <div class="ctr-text-content">
+            {% if found %}
+                <h1>{% trans "Сертификат подтверждён ✅" %}</h1>
+                <p>{% trans "Имя:" %} <strong>{{ purchase.user.get_full_name|default:purchase.user.username }}</strong></p>
+                <p>{% trans "Курс:" %} <strong>{{ purchase.course.title }}</strong></p>
+                <p>{% trans "Дата прохождения:" %} <strong>{{ purchase.purchase_date|date:"d.m.Y" }}</strong></p>
+            {% else %}
+                <h1>{% trans "Сертификат не найден ❌" %}</h1>
+                <p>{% trans "Указанный код недействителен или сертификат не подтверждён." %}</p>
+            {% endif %}
+            <a href="{% url 'index' %}" class="btn btn-primary mt-3">{% trans 'На главную' %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

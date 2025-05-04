@@ -61,5 +61,8 @@ urlpatterns = [
     path('test_modules/<int:cours>/cours/', views.TestModulesList.as_view(), name='test_models'),
     path('pricces-test/<int:test_id>/', views.TestDetailView.as_view(), name='test_detail'),
 
+    # Certificate
+    path("certificate/verify/", views.verify_certificate, name="verify_certificate"),
+
     path('dashboard/<int:cours_id>/', views.DashboardView.as_view(), name='dashboard'),
 ]

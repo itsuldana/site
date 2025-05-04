@@ -39,3 +39,7 @@ from .course import (
     CoursesView, CoursePaidListView,
     filter_courses,
 )
+
+from .certificate import (
+    verify_certificate,
+)
