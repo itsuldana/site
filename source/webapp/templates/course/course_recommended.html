@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load percent_filter %}
+{% load i18n %}
+
+{% block title %}{% trans 'Recommended Courses' %}{% endblock %}
+
+{% block content %}
+
+    <!-- Start Page Title Area -->
+    <div class="page-title course-list-image">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <h3>{% trans 'Recommended Courses' %}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+
+
+    <!-- Start Courses Area -->
+    <section class="courses-area pt-60 pb-100" id="course-list">
+
+        <div class="container">
+            <div class="row">
+                {% if courses %}
+                    {% for course in courses %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="courses-item">
+                                <div class="courses-img">
+                                    <img src="{{ course.image.url }}" alt="course">
+                                </div>
+
+                                <div class="courses-content">
+                                    <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                                    <p>
+                                        {{ course.preview_description }}
+                                    </p>
+                                </div>
+
+                                <div class="courses-content-bottom">
+                                    {% if price_with_discount_exists == 'Yes' %}
+                                        <h4 class="price">
+                                            <span>
+                                                {{ course.price|floatformat:0 }}
+                                            </span>
+                                            {{ course.price_with_discount }} тг.
+                                        </h4>
+                                    {% else %}
+                                        <h4 class="price">
+                                            {{ course.price|floatformat:0 }} тг.
+                                        </h4>
+                                    {% endif %}
+                                    <h4>
+                                        <a href="{% url 'course_detail' course.pk %}"
+                                           class="btn btn-primary">{% trans 'Read More' %}</a>
+                                    </h4>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+
+                {% include 'partial/pagination.html' %}
+            </div>
+        </div>
+    </section>
+    <!-- End Courses Area -->
+    
+{% endblock %}

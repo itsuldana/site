@@ -4,7 +4,7 @@ from django.db.models import Q, Count, Sum
 from django.utils import translation
 from django.views.generic import ListView
 
-from accounts.models import Teacher
+from accounts.models import Teacher, QuizQuestion
 from blog.models import Post
 from webapp.models import Course, Tag
 from django.http import HttpResponse
@@ -74,6 +74,9 @@ class MainView(ListView):
         context['tags'] = chunked_tags
 
         context['price_with_discount_exists'] = self.price_with_discount_exists
+
+        if getattr(self.request, "show_quiz_modal", False):
+            context["questions"] = QuizQuestion.objects.prefetch_related("options").all()
 
         return context
 

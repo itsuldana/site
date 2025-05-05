@@ -325,11 +325,14 @@
                 </div>
                 <div class="row pb-35 mt-15">
                     <div class="col-12">
-                        <a href="https://www.instagram.com/skillspring_course?igsh=MTcyb2E1ZmU1N3BtYQ%3D%3D&utm_source=qr" class="text-decoration-none">
+                        <a href="https://www.instagram.com/skillspring_course?igsh=MTcyb2E1ZmU1N3BtYQ%3D%3D&utm_source=qr"
+                           class="text-decoration-none">
                             <img src="{% static 'new_img/insta.png' %}" alt="Instagram" class="">
                         </a>
-                        <a href="https://www.tiktok.com/@skillspring_course?_t=ZM-8w34KAzONin&_r=1" class="text-decoration-none">
-                            <img src="{% static 'icons/ic_baseline-tiktok.png' %}" alt="tiktok" class="ml-25" width="34px" height="34px">
+                        <a href="https://www.tiktok.com/@skillspring_course?_t=ZM-8w34KAzONin&_r=1"
+                           class="text-decoration-none">
+                            <img src="{% static 'icons/ic_baseline-tiktok.png' %}" alt="tiktok" class="ml-25"
+                                 width="34px" height="34px">
                         </a>
                     </div>
                 </div>
@@ -342,13 +345,16 @@
                         {% trans 'Basic links' %}
                     </p>
                     <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
-                    <a href="{% url 'course_list' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                    <a href="{% url 'course_list' %}"
+                       class="text-decoration-none font-20 regular white-text inline-block ml-25">
                         {% trans 'Course List' %}
                     </a>
-                    <a href="{% url 'index' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                    <a href="{% url 'index' %}"
+                       class="text-decoration-none font-20 regular white-text inline-block ml-25">
                         {% trans 'Index Page' %}
                     </a>
-                    <a href="{% url 'contact_us' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                    <a href="{% url 'contact_us' %}"
+                       class="text-decoration-none font-20 regular white-text inline-block ml-25">
                         {% trans 'Contact Us' %}
                     </a>
                 </div>
@@ -358,10 +364,12 @@
                         {% trans 'Site Review' %}
                     </p>
                     <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
-                    <a href="{% url 'login' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                    <a href="{% url 'login' %}"
+                       class="text-decoration-none font-20 regular white-text inline-block ml-25">
                         {% trans 'Login' %}
                     </a>
-                    <a href="{% url 'register' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                    <a href="{% url 'register' %}"
+                       class="text-decoration-none font-20 regular white-text inline-block ml-25">
                         {% trans 'Register' %}
                     </a>
                 </div>
@@ -371,7 +379,8 @@
                         {% trans 'Contact Support' %}
                     </p>
                     <img src="{% static 'new_img/arrow.png' %}" alt="arrow" class="ml-25 arrow inline-block">
-                    <a href="{% url 'contact_us' %}" class="text-decoration-none font-20 regular white-text inline-block ml-25">
+                    <a href="{% url 'contact_us' %}"
+                       class="text-decoration-none font-20 regular white-text inline-block ml-25">
                         {% trans 'Support Page' %}
                     </a>
                 </div>
@@ -383,6 +392,84 @@
     </div>
     <div class="border-top pb-80"></div>
 </footer>
+
+
+<div class="modal fade" id="quizModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <form method="post" action="{% url 'quiz_submit' %}" id="quizForm">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Quick Quiz</h5>
+                </div>
+                <div class="modal-body">
+
+                    {% for question in questions %}
+                        <div class="quiz-step" data-step="{{ forloop.counter }}"
+                             style="{% if not forloop.first %}display:none;{% endif %}">
+                            <p><strong>{{ question.text }}</strong></p>
+                            {% for option in question.options.all %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                           name="question_{{ question.id }}"
+                                           value="{{ option.tag.id }}"
+                                           id="option_{{ option.id }}"
+                                           required>
+                                    <label class="form-check-label" for="option_{{ option.id }}">
+                                        {{ option.text }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="prevBtn">Previous</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                    <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if request.show_quiz_modal %}
+    <script>
+        window.addEventListener("DOMContentLoaded", function () {
+            $('#quizModal').modal('show');
+        });
+    </script>
+{% endif %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        const updateStep = () => {
+            document.querySelectorAll(".quiz-step").forEach(step => {
+                step.style.display = step.dataset.step == currentStep ? "block" : "none";
+            });
+
+            document.getElementById("prevBtn").style.display = currentStep > 1 ? "inline-block" : "none";
+            document.getElementById("nextBtn").style.display = currentStep < totalSteps ? "inline-block" : "none";
+            document.getElementById("submitBtn").style.display = currentStep === totalSteps ? "inline-block" : "none";
+        };
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            if (currentStep < totalSteps) currentStep++;
+            updateStep();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            if (currentStep > 1) currentStep--;
+            updateStep();
+        });
+
+        updateStep();
+    });
+</script>
 
 
 <!-- Bootstrap Min JS -->

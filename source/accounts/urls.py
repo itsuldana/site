@@ -1,8 +1,11 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 import accounts.views as views
+from accounts.views.quiz import QuizSubmitView
 
 urlpatterns = [
+    path('quiz/submit/', QuizSubmitView.as_view(), name='quiz_submit'),
+
     # change language url
     path('set_language/', views.set_language, name='set_language'),
 

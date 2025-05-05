@@ -33,6 +33,7 @@ urlpatterns = [
     path('courses/list', views.CourseListView.as_view(), name='course_list'),
     path('courses/paid_list/', views.CoursePaidListView.as_view(), name='course_paid_list'),
     path('filter_courses_course_list/', views.filter_courses, name='filter_courses_course_list'),
+    path('courses/recommendations/', views.RecommendedCoursesView.as_view(), name='recommendation_courses'),
 
     # urls для модулей
     path('courses/<int:pk>/modules/create/', views.ModuleCreateView.as_view(), name='module_create'),

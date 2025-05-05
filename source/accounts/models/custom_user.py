@@ -13,6 +13,9 @@ class CustomUser(AbstractUser):
     xp = models.PositiveIntegerField(default=0, verbose_name="Опыт")
     level = models.PositiveIntegerField(default=1, verbose_name="Уровень")
 
+    quiz_completed = models.BooleanField(default=False)
+    recommended_tags = models.ManyToManyField('webapp.Tag', blank=True, related_name='recommended_users')
+
     def save(self, *args, **kwargs):
         try:
             old_user = CustomUser.objects.get(pk=self.pk)

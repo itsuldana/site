@@ -37,7 +37,7 @@ from .course import (
     CourseCreateView, CourseDetailView,
     CourseUpdateView, CourseListView,
     CoursesView, CoursePaidListView,
-    filter_courses,
+    filter_courses, RecommendedCoursesView,
 )
 
 from .certificate import (
