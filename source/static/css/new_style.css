@@ -752,3 +752,26 @@ body {
         display: none;
     }
 }
+
+.modal-image {
+    background-image: url('/static/new_img/quiz.jpg');
+    background-size: cover;           /* Растягивает фон на весь блок */
+    background-repeat: no-repeat;     /* Не повторять */
+    background-position: center;      /* Центрирует изображение */
+    /*background-blend-mode: lighten;   !* (необязательно) смешивает, чтобы текст читался *!*/
+    /*color: #fff;                      !* Белый текст поверх *!*/
+    position: relative;
+}
+
+/*.modal-image::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    inset: 0;*/
+/*    background-color: rgba(0, 0, 0, 0.4); !* затемнение *!*/
+/*    z-index: 0;*/
+/*    border-radius: inherit;*/
+/*}*/
+/*.modal-image > * {*/
+/*    position: relative;*/
+/*    z-index: 1;*/
+/*}*/

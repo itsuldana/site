@@ -395,44 +395,76 @@
 
 
 <div class="modal fade" id="quizModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <form method="post" action="{% url 'quiz_submit' %}" id="quizForm">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <form method="post" action="{% url 'quiz_submit' %}" id="quizForm" class="w-100">
             {% csrf_token %}
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Quick Quiz</h5>
+            <div class="modal-content rounded-4 p-3 modal-image">
+                <div class="modal-header border-0">
+                    <h2 class="modal-title w-100 text-center fw-bold text-primary" style="font-size: 2rem;">QUIZ</h2>
                 </div>
                 <div class="modal-body">
 
                     {% for question in questions %}
-                        <div class="quiz-step" data-step="{{ forloop.counter }}"
+                        <div class="quiz-step text-center" data-step="{{ forloop.counter }}"
                              style="{% if not forloop.first %}display:none;{% endif %}">
-                            <p><strong>{{ question.text }}</strong></p>
-                            {% for option in question.options.all %}
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"
-                                           name="question_{{ question.id }}"
-                                           value="{{ option.tag.id }}"
-                                           id="option_{{ option.id }}"
-                                           required>
-                                    <label class="form-check-label" for="option_{{ option.id }}">
-                                        {{ option.text }}
-                                    </label>
-                                </div>
-                            {% endfor %}
+                            <p class="fw-bold mb-4" style="font-size: 1.25rem;">{{ question.text }}</p>
+                            <div class="row justify-content-center gy-3">
+                                {% for option in question.options.all %}
+                                    {% with letter=forloop.counter0|add:"a"|slice:":1" %}
+                                        <div class="col-md-6">
+                                            <label class="option-block d-flex align-items-center border rounded-pill px-4 py-2 shadow-sm bg-white"
+                                                   for="option_{{ option.id }}"
+                                                   style="cursor: pointer;">
+                                                <input class="form-check-input me-3 visually-hidden"
+                                                       type="radio"
+                                                       name="question_{{ question.question.id }}"
+                                                       value="{{ option.tag.id }}"
+                                                       id="option_{{ option.id }}"
+                                                       required>
+                                                <span class="badge bg-primary me-3 px-3 py-2 rounded-circle text-uppercase"
+                                                      style="min-width: 40px;">
+                                                {{ letter }}.
+                                            </span>
+                                                <span class="text-start w-100">{{ option.text }}</span>
+                                            </label>
+                                        </div>
+                                    {% endwith %}
+                                {% endfor %}
+                            </div>
                         </div>
                     {% endfor %}
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="prevBtn">Previous</button>
-                    <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                <div class="modal-footer justify-content-between border-0">
+                    <button type="button" class="btn btn-outline-secondary" id="prevBtn">← Previous</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">Next →</button>
                     <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<style>
+    .option-block {
+        transition: all 0.2s ease;
+    }
+
+    .option-block:hover {
+        background-color: #eafaff;
+        transform: scale(1.01);
+    }
+
+    input[type="radio"]:checked + span {
+        background-color: #0d6efd !important;
+        color: #fff;
+    }
+
+    input[type="radio"]:checked ~ span.text-start {
+        font-weight: 600;
+        color: #0d6efd;
+    }
+</style>
 
 {% if request.show_quiz_modal %}
     <script>
