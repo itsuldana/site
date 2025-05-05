@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% load django_bootstrap5 %}
+{% load letters %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% bootstrap_messages %}
@@ -410,25 +411,23 @@
                             <p class="fw-bold mb-4" style="font-size: 1.25rem;">{{ question.text }}</p>
                             <div class="row justify-content-center gy-3">
                                 {% for option in question.options.all %}
-                                    {% with letter=forloop.counter0|add:"a"|slice:":1" %}
-                                        <div class="col-md-6">
-                                            <label class="option-block d-flex align-items-center border rounded-pill px-4 py-2 shadow-sm bg-white"
-                                                   for="option_{{ option.id }}"
-                                                   style="cursor: pointer;">
-                                                <input class="form-check-input me-3 visually-hidden"
-                                                       type="radio"
-                                                       name="question_{{ question.question.id }}"
-                                                       value="{{ option.tag.id }}"
-                                                       id="option_{{ option.id }}"
-                                                       required>
-                                                <span class="badge bg-primary me-3 px-3 py-2 rounded-circle text-uppercase"
-                                                      style="min-width: 40px;">
-                                                {{ letter }}.
+                                    <div class="col-md-6">
+                                        <label class="option-block d-flex align-items-center border rounded-pill px-4 py-2 shadow-sm bg-white"
+                                               for="option_{{ option.id }}"
+                                               style="cursor: pointer;">
+                                            <input class="form-check-input me-3 visually-hidden"
+                                                   type="radio"
+                                                   name="question_{{ question.id }}"
+                                                   value="{{ option.tag.id }}"
+                                                   id="option_{{ option.id }}"
+                                                   required>
+                                            <span class="badge bg-primary me-3 px-3 py-2 rounded-circle text-uppercase d-flex align-items-center justify-content-center"
+                                                  style="min-width: 40px; height: 40px; font-size: 20px;">
+                                                {{ quiz_option_letters|index:forloop.counter0 }}
                                             </span>
-                                                <span class="text-start w-100">{{ option.text }}</span>
-                                            </label>
-                                        </div>
-                                    {% endwith %}
+                                            <span class="text-start w-100">{{ option.text }}</span>
+                                        </label>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>

@@ -78,6 +78,8 @@ class MainView(ListView):
         if getattr(self.request, "show_quiz_modal", False):
             context["questions"] = QuizQuestion.objects.prefetch_related("options").all()
 
+        context["quiz_option_letters"] = ["a", "b", "c", "d"]
+
         return context
 
 
