@@ -2,7 +2,13 @@
 {% load percent_filter %}
 {% load i18n %}
 
-{% block title %}{% trans 'Recommended Courses' %}{% endblock %}
+{% block title %}
+    {% if request.LANGUAGE_CODE == 'en' %}
+        Recommended Courses
+    {% else %}
+        Рекомендованные курсы
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -11,7 +17,13 @@
         <div class="d-table">
             <div class="d-table-cell">
                 <div class="container">
-                    <h3>{% trans 'Recommended Courses' %}</h3>
+                    <h3>
+                        {% if request.LANGUAGE_CODE == 'en' %}
+                            Recommended Courses
+                        {% else %}
+                            Рекомендованные курсы
+                        {% endif %}
+                    </h3>
                 </div>
             </div>
         </div>
@@ -70,5 +82,5 @@
         </div>
     </section>
     <!-- End Courses Area -->
-    
+
 {% endblock %}
