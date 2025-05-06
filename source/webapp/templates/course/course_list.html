@@ -65,10 +65,29 @@
     </div>
 
     <!-- Start Courses Area -->
-    <section class="courses-area pt-60 pb-100" id="course-list">
+    <section class="courses-area pt-60 pb-60" id="course-list">
         {% include 'partial/course_list_list_page.html' %}
     </section>
     <!-- End Courses Area -->
+
+    {% if request.user.is_authenticated and request.user.quiz_completed %}
+        <div class="text-center mt-5">
+            <h4 class="fw-bold mb-24">
+                {% if request.LANGUAGE_CODE == 'en' %}
+                    Check out courses recommended for you
+                {% else %}
+                    Посмотрите курсы, рекомендованные именно вам
+                {% endif %}
+            </h4>
+            <a href="{% url 'recommendation_courses' %}" class="btn btn-success mt-3 px-4 py-2">
+                {% if request.LANGUAGE_CODE == 'en' %}
+                    View Recommendations →
+                {% else %}
+                    Перейти к рекомендациям →
+                {% endif %}
+            </a>
+        </div>
+    {% endif %}
 
 
     <!-- JavaScript -->
