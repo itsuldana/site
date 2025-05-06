@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-04 20:11+0500\n"
+"POT-Creation-Date: 2025-05-06 14:01+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: accounts/templates/email_confirm.html:14 accounts/templates/login.html:4
 #: accounts/templates/login.html:12 accounts/templates/login.html:26
-#: accounts/templates/login.html:57 templates/base.html:362
+#: accounts/templates/login.html:57 templates/base.html:370
 msgid "Login"
 msgstr "Вход"
 
@@ -213,7 +213,7 @@ msgid "Return to Login"
 msgstr "Вернуться к входу"
 
 #: accounts/templates/registration.html:10
-#: accounts/templates/registration.html:23 templates/base.html:365
+#: accounts/templates/registration.html:23 templates/base.html:374
 msgid "Register"
 msgstr "Регистрация"
 
@@ -501,6 +501,7 @@ msgstr "PDGA Блог"
 #: blog/templates/post_list.html:52
 #: webapp/templates/course/course_detail.html:399
 #: webapp/templates/course/course_paid_list.html:64
+#: webapp/templates/course/course_recommended.html:58
 #: webapp/templates/partial/course_list_list_page.html:36
 msgid "Read More"
 msgstr "Узнать больше"
@@ -513,38 +514,38 @@ msgstr "Результатов по вашему запросу не найде�
 msgid "Popular Tags"
 msgstr "Популярные теги"
 
-#: core/settings.py:576
+#: core/settings.py:577
 msgid "English"
 msgstr "Английский"
 
-#: core/settings.py:577
+#: core/settings.py:578
 msgid "Russian"
 msgstr "Русский"
 
-#: templates/base.html:64 templates/base.html:225
+#: templates/base.html:65 templates/base.html:226
 #: webapp/templates/success.html:14
 msgid "Home"
 msgstr "На главную"
 
-#: templates/base.html:67 templates/base.html:229 templates/new_base.html:103
+#: templates/base.html:68 templates/base.html:230 templates/new_base.html:103
 #: templates/new_base.html:201 webapp/templates/courses.html:7
 #: webapp/templates/module_test/results.html:7
 msgid "Courses"
 msgstr "Курсы"
 
-#: templates/base.html:72 templates/base.html:233 templates/new_base.html:107
+#: templates/base.html:73 templates/base.html:234 templates/new_base.html:107
 #: webapp/templates/course/course_paid_list.html:5
 #: webapp/templates/course/course_paid_list.html:14
 msgid "Paid Courses"
 msgstr "Оплаченные Курсы"
 
-#: templates/base.html:76 templates/base.html:240 templates/base.html:245
-#: templates/base.html:352 templates/new_base.html:121
+#: templates/base.html:77 templates/base.html:241 templates/base.html:246
+#: templates/base.html:359 templates/new_base.html:121
 #: templates/new_base.html:226 webapp/templates/contact_us.html:14
 msgid "Contact Us"
 msgstr "Контакты"
 
-#: templates/base.html:231 templates/new_base.html:105
+#: templates/base.html:232 templates/new_base.html:105
 #: templates/new_base.html:204 webapp/templates/course/course_detail.html:322
 #: webapp/templates/course/course_list.html:5
 #: webapp/templates/course/course_list.html:14
@@ -552,43 +553,55 @@ msgstr "Контакты"
 msgid "All Courses"
 msgstr "Все Курсы"
 
-#: templates/base.html:251 templates/new_base.html:127
+#: templates/base.html:252 templates/new_base.html:127
 #: templates/new_base.html:229
 msgid "Account"
 msgstr "Аккаунт"
 
-#: templates/base.html:255 templates/new_base.html:131
+#: templates/base.html:256 templates/new_base.html:131
 #: templates/new_base.html:233
 msgid "Log in"
 msgstr "Войти"
 
-#: templates/base.html:308
+#: templates/base.html:309
 msgid "Find your perfect course with us"
 msgstr "Найди идеальный курс у нас"
 
-#: templates/base.html:342
+#: templates/base.html:346
 msgid "Basic links"
 msgstr "Основные ссылки"
 
-#: templates/base.html:346
+#: templates/base.html:351
 msgid "Course List"
 msgstr "Курсы"
 
-#: templates/base.html:349
+#: templates/base.html:355
 msgid "Index Page"
 msgstr "Главная"
 
-#: templates/base.html:358
+#: templates/base.html:365
 msgid "Site Review"
 msgstr "Аутентификация"
 
-#: templates/base.html:371
+#: templates/base.html:380
 msgid "Contact Support"
 msgstr "Связаться с поддержкой"
 
-#: templates/base.html:375
+#: templates/base.html:385
 msgid "Support Page"
 msgstr "Страница поддержки"
+
+#: templates/base.html:450
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: templates/base.html:451
+msgid "Next"
+msgstr "Следующий"
+
+#: templates/base.html:452
+msgid "Submit"
+msgstr "Посмотреть результаты"
 
 #: templates/new_base.html:113 templates/new_base.html:205
 msgid "Teachers"
@@ -743,7 +756,7 @@ msgid "Curriculum"
 msgstr "Учебный план"
 
 #: webapp/templates/course/course_detail.html:110
-#: webapp/templates/lesson/lesson_detail.html:142
+#: webapp/templates/lesson/lesson_detail.html:143
 msgid "Instructors"
 msgstr "Преподаватели"
 
@@ -808,6 +821,13 @@ msgstr "Вы еще не купили ни единого курса."
 msgid "View Courses"
 msgstr "Оплаченные Курсы"
 
+#: webapp/templates/course/course_recommended.html:5
+#: webapp/templates/course/course_recommended.html:14
+#, fuzzy
+#| msgid "Return To Courses"
+msgid "Recommended Courses"
+msgstr "Вернуться к курсам"
+
 #: webapp/templates/courses.html:14
 msgid "Filters"
 msgstr "Фильтры"
@@ -841,43 +861,43 @@ msgstr "Вы уверены, что хотите удалить урок?"
 msgid "Lesson Creation"
 msgstr "Создание урока"
 
-#: webapp/templates/lesson/lesson_detail.html:140
+#: webapp/templates/lesson/lesson_detail.html:141
 msgid "Key takeaway"
 msgstr "Выводы"
 
-#: webapp/templates/lesson/lesson_detail.html:141
+#: webapp/templates/lesson/lesson_detail.html:142
 msgid "Transcript"
 msgstr "Транскрипт"
 
-#: webapp/templates/lesson/lesson_detail.html:143
+#: webapp/templates/lesson/lesson_detail.html:144
 msgid "FeedBack"
 msgstr "Обратная связь"
 
-#: webapp/templates/lesson/lesson_detail.html:147
+#: webapp/templates/lesson/lesson_detail.html:148
 msgid "Lesson Key Takeaway"
 msgstr "Ключевые выводы урока"
 
-#: webapp/templates/lesson/lesson_detail.html:156
+#: webapp/templates/lesson/lesson_detail.html:157
 msgid "Lesson Transcript"
 msgstr "Транскрипт урока"
 
-#: webapp/templates/lesson/lesson_detail.html:210
+#: webapp/templates/lesson/lesson_detail.html:211
 msgid "Lesson Feedback: Did you like this lesson?"
 msgstr "Обратная связь: Вам понравился данный урок?"
 
-#: webapp/templates/lesson/lesson_detail.html:214
+#: webapp/templates/lesson/lesson_detail.html:215
 msgid "Yes, I liked It"
 msgstr "Да, мне понравилось!"
 
-#: webapp/templates/lesson/lesson_detail.html:218
+#: webapp/templates/lesson/lesson_detail.html:219
 msgid "No, I don't like it"
 msgstr "Нет, мне не понравилось!"
 
-#: webapp/templates/lesson/lesson_detail.html:235
+#: webapp/templates/lesson/lesson_detail.html:236
 msgid "Finish Lesson"
 msgstr "Закончить урок"
 
-#: webapp/templates/lesson/lesson_detail.html:240
+#: webapp/templates/lesson/lesson_detail.html:241
 msgid "Next Lesson"
 msgstr "Следующий урок"
 

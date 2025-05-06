@@ -408,7 +408,13 @@
                     {% for question in questions %}
                         <div class="quiz-step text-center" data-step="{{ forloop.counter }}"
                              style="{% if not forloop.first %}display:none;{% endif %}">
-                            <p class="fw-bold mb-4" style="font-size: 1.25rem;">{{ question.text }}</p>
+                            <p class="fw-bold mb-4" style="font-size: 1.25rem;">
+                                {% if request.LANGUAGE_CODE == 'en' %}
+                                    {{ question.text }}
+                                {% else %}
+                                    {{ question.text_ru }}
+                                {% endif %}
+                            </p>
                             <div class="row justify-content-center gy-3">
                                 {% for option in question.options.all %}
                                     <div class="col-md-6">
@@ -425,7 +431,13 @@
                                                   style="min-width: 40px; height: 40px; font-size: 20px;">
                                                 {{ quiz_option_letters|index:forloop.counter0 }}
                                             </span>
-                                            <span class="text-start w-100">{{ option.text }}</span>
+                                            <span class="text-start w-100">
+                                                {% if request.LANGUAGE_CODE == 'en' %}
+                                                    {{ option.text }}
+                                                {% else %}
+                                                    {{ option.text_ru }}
+                                                {% endif %}
+                                            </span>
                                         </label>
                                     </div>
                                 {% endfor %}
@@ -435,9 +447,9 @@
 
                 </div>
                 <div class="modal-footer justify-content-between border-0">
-                    <button type="button" class="btn btn-outline-secondary" id="prevBtn">← Previous</button>
-                    <button type="button" class="btn btn-primary" id="nextBtn">Next →</button>
-                    <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
+                    <button type="button" class="btn btn-outline-secondary" id="prevBtn">← {% trans 'Previous' %}</button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">{% trans 'Next' %} →</button>
+                    <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">{% trans 'Submit' %}</button>
                 </div>
             </div>
         </form>
