@@ -4,18 +4,45 @@ from django.contrib.auth.admin import UserAdmin
 from accounts.models import CustomUser, Teacher, LevelSetting
 
 
+@admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
+
     list_display = ['email', 'username', 'is_staff', 'is_active', 'email_confirmed']
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('email_confirmed', 'avatar')}),
-    )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('email_confirmed', 'avatar')}),
+    list_filter = ['is_staff', 'is_active', 'email_confirmed']
+
+    fieldsets = (
+        *UserAdmin.fieldsets,
+        (
+            'Дополнительные поля',
+            {
+                'fields': (
+                    'email_confirmed',
+                    'avatar',
+                    'social_network_link',
+                    'xp',
+                    'level',
+                    'quiz_completed',
+                    'recommended_tags',
+                )
+            },
+        ),
     )
 
-
-admin.site.register(CustomUser, CustomUserAdmin)
+    add_fieldsets = (
+        *UserAdmin.add_fieldsets,
+        (
+            'Дополнительные поля',
+            {
+                'classes': ('wide',),
+                'fields': (
+                    'email_confirmed',
+                    'avatar',
+                    'social_network_link',
+                ),
+            },
+        ),
+    )
 
 
 @admin.register(Teacher)

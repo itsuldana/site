@@ -62,7 +62,6 @@ class RegisterView(CreateView):
         form = self.form_class(request.POST)
         if form.is_valid():
             user = form.save()
-            user.email_confirmed = True
             self.send_confirmation_email(request, user)
             return redirect(self.success_url)
         context = {'form': form}
